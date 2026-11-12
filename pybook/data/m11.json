@@ -1,0 +1,1144 @@
+{
+ "id": "m11",
+ "title": {
+  "en": "The Standard Library Toolbox",
+  "hi": "स्टैंडर्ड लाइब्रेरी का औज़ार-डिब्बा",
+  "hinglish": "Standard Library ka Auzar-Dibba"
+ },
+ "goal": {
+  "en": "math, random and statistics for numbers; datetime for time; collections for counting and grouping; itertools and functools for pipelines.",
+  "hi": "संख्याओं के लिए math, random, statistics; समय के लिए datetime; गिनती और समूह के लिए collections; पाइपलाइन के लिए itertools और functools।",
+  "hinglish": "Numbers ke liye math, random, statistics; samay ke liye datetime; ginti aur group ke liye collections; pipeline ke liye itertools aur functools."
+ },
+ "chapters": [
+  {
+   "id": "m11c01",
+   "title": {
+    "en": "Numbers and time",
+    "hi": "संख्याएँ और समय",
+    "hinglish": "Numbers aur time"
+   },
+   "lessons": [
+    {
+     "id": "m11c01l01",
+     "title": {
+      "en": "math, random and statistics",
+      "hi": "math, random और statistics",
+      "hinglish": "math, random aur statistics"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Three small modules cover most number work: `math` for exact maths functions, `random` for shuffling and sampling (seed it for reproducible results), and `statistics` for mean, median and spread.",
+      "hi": "तीन छोटे मॉड्यूल ज़्यादातर गणित का काम कर देते हैं: `math` सटीक गणितीय फ़ंक्शन के लिए, `random` फेंटने और नमूने के लिए (दोहराने योग्य परिणाम के लिए seed दें), और `statistics` औसत, माध्यिका और फैलाव के लिए।",
+      "hinglish": "Teen chhote modules zyadatar ganit ka kaam kar dete hain: `math` sateek ganitiya functions ke liye, `random` phentne aur sample ke liye (dohrane yogya parinaam ke liye seed do), aur `statistics` average, median aur failav ke liye."
+     },
+     "real_life": {
+      "en": "A cricket scoreboard. math rounds the run rate, random decides who bats first, statistics tells you the average score of the last ten matches.",
+      "hi": "क्रिकेट का स्कोरबोर्ड। math रन रेट गोल करता है, random तय करता है कौन पहले बल्लेबाज़ी करे, statistics पिछले दस मैचों का औसत बताता है।",
+      "hinglish": "Cricket ka scoreboard. math run rate round karta hai, random tay karta hai kaun pehle batting kare, statistics pichhle das match ka average batata hai."
+     },
+     "docs": "https://docs.python.org/3/library/math.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "rounding and averages",
+        "hi": "राउंडिंग और औसत",
+        "hinglish": "rounding aur average"
+       },
+       "code": "import math\nimport statistics\n\nprint(math.floor(3.9), math.ceil(3.1))\nprint(round(math.sqrt(2), 3))\nprint(statistics.mean([2, 4, 6]), statistics.median([1, 9, 5]))",
+       "output": "3 4\n1.414\n4 5",
+       "note": {
+        "en": "`round(x, 3)` keeps three decimals. `math.floor` always goes down and `math.ceil` always goes up, even for negative numbers.",
+        "hi": "`round(x, 3)` तीन दशमलव रखता है। `math.floor` हमेशा नीचे और `math.ceil` हमेशा ऊपर जाता है, ऋणात्मक संख्याओं पर भी।",
+        "hinglish": "`round(x, 3)` teen decimal rakhta hai. `math.floor` hamesha neeche aur `math.ceil` hamesha upar jata hai, negative numbers par bhi."
+       }
+      },
+      {
+       "title": {
+        "en": "seeded randomness is repeatable",
+        "hi": "seed वाली रैंडमनेस दोहराई जा सकती है",
+        "hinglish": "seed wali randomness dohrai ja sakti hai"
+       },
+       "code": "import random\n\nrandom.seed(42)\ncards = [\"A\", \"K\", \"Q\", \"J\"]\nrandom.shuffle(cards)\nprint(sorted(cards))\nprint(len(set(cards)))\nprint(random.choice([\"rock\", \"paper\", \"scissors\"]) in [\"rock\", \"paper\", \"scissors\"])",
+       "output": "['A', 'J', 'K', 'Q']\n4\nTrue",
+       "note": {
+        "en": "`seed(42)` makes the sequence reproducible, which is exactly what you want in tests. Without a seed every run differs.",
+        "hi": "`seed(42)` श्रृंखला दोहराने योग्य बनाता है, टेस्ट में यही चाहिए। बिना seed हर बार अलग परिणाम आता है।",
+        "hinglish": "`seed(42)` sequence dohrane yogya banata hai, test me yahi chahiye. Bina seed har baar alag result aata hai."
+       }
+      },
+      {
+       "title": {
+        "en": "mean, median, mode and spread",
+        "hi": "माध्य, माध्यिका, बहुलक और फैलाव",
+        "hinglish": "mean, median, mode aur failav"
+       },
+       "code": "import statistics\n\nscores = [7, 8, 8, 9, 10, 3]\nprint(statistics.mean(scores))\nprint(statistics.median(scores))\nprint(statistics.mode(scores))\nprint(statistics.pstdev([2, 4, 4, 4, 5, 5, 7, 9]))",
+       "output": "7.5\n8.0\n8\n2.0",
+       "note": {
+        "en": "The median ignores the one low score, the mean does not. That is why salaries and house prices are usually reported as medians.",
+        "hi": "माध्यिका एक कम स्कोर को नज़रअंदाज़ करती है, माध्य नहीं। इसीलिए वेतन और मकानों के दाम आमतौर पर माध्यिका में बताए जाते हैं।",
+        "hinglish": "Median ek kam score ko nazarandaz karti hai, mean nahi. Isliye salary aur ghar ke daam aam taur par median me bataye jate hain."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m11c01l01e1",
+       "prompt": {
+        "en": "Using `statistics`, put the mean of `[4, 8, 6]` in `avg` and the median in `mid`, then print both.",
+        "hi": "`statistics` से `[4, 8, 6]` का माध्य `avg` में और माध्यिका `mid` में रखें, फिर दोनों प्रिंट करें।",
+        "hinglish": "`statistics` se `[4, 8, 6]` ka mean `avg` me aur median `mid` me rakho, phir dono print karo."
+       },
+       "starter": "import statistics\n\nvalues = [4, 8, 6]\n# avg = ...",
+       "solution": "import statistics\n\nvalues = [4, 8, 6]\navg = statistics.mean(values)\nmid = statistics.median(values)\n\nprint(avg, mid)",
+       "checks": [
+        "avg == 6",
+        "mid == 6",
+        "printed.strip() == '6 6'"
+       ],
+       "hint": {
+        "en": "statistics.mean(values) and statistics.median(values).",
+        "hi": "statistics.mean(values) और statistics.median(values)।",
+        "hinglish": "statistics.mean(values) aur statistics.median(values)."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m11c01l01q1",
+       "question": {
+        "en": "Which call always rounds down?",
+        "hi": "कौन सी कॉल हमेशा नीचे राउंड करती है?",
+        "hinglish": "Kaun si call hamesha neeche round karti hai?"
+       },
+       "options": [
+        "round(x)",
+        "math.floor(x)",
+        "math.ceil(x)",
+        "int(x)"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "floor goes to the lower integer; int() truncates toward zero, which differs for negatives.",
+        "hi": "floor निचली पूर्ण संख्या पर जाता है; int() शून्य की ओर काटता है, जो ऋणात्मक में अलग है।",
+        "hinglish": "floor nichli pooran sankhya par jata hai; int() zero ki or kaatta hai, jo negative me alag hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c01l01q2",
+       "question": {
+        "en": "Why call random.seed() in a test?",
+        "hi": "टेस्ट में random.seed() क्यों बुलाएँ?",
+        "hinglish": "Test me random.seed() kyun bulayein?"
+       },
+       "options": [
+        "to make random numbers truly secure",
+        "to make the sequence reproducible",
+        "to speed up the test",
+        "it is required before randint"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A fixed seed gives the same sequence every run. Never use it for passwords or tokens.",
+        "hi": "तय seed हर बार वही श्रृंखला देता है। पासवर्ड या टोकन के लिए इसे कभी इस्तेमाल न करें।",
+        "hinglish": "Tay seed har baar wahi sequence deta hai. Password ya token ke liye ise kabhi use na karo."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c01l01q3",
+       "question": {
+        "en": "Salaries [10, 10, 10, 10, 100]. Which is more representative?",
+        "hi": "वेतन [10, 10, 10, 10, 100]। कौन ज़्यादा प्रतिनिधि है?",
+        "hinglish": "Salary [10, 10, 10, 10, 100]. Kaun zyada representative hai?"
+       },
+       "options": [
+        "the mean, 28",
+        "the median, 10",
+        "the mode is wrong",
+        "they are equal"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "One outlier pulls the mean far away; the median stays where most people are.",
+        "hi": "एक बाहरी मान माध्य को दूर खींच लेता है; माध्यिका वहीं रहती है जहाँ ज़्यादातर लोग हैं।",
+        "hinglish": "Ek outlier mean ko door khinch leta hai; median wahin rehti hai jahan zyadatar log hain."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "math for exact operations, statistics for summaries, random with a seed when you need repeatability.",
+      "hi": "सटीक संक्रियाओं के लिए math, सारांश के लिए statistics, दोहराव चाहिए तो seed वाला random।",
+      "hinglish": "Sateek operations ke liye math, summary ke liye statistics, dohrav chahiye to seed wala random."
+     }
+    },
+    {
+     "id": "m11c01l02",
+     "title": {
+      "en": "Dates and times",
+      "hi": "तारीख़ और समय",
+      "hinglish": "Dates aur times"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "`date` is a day, `datetime` is a day plus a clock time, and `timedelta` is a duration you can add or subtract. `strftime` formats for humans, `strptime` parses text back into a datetime.",
+      "hi": "`date` एक दिन है, `datetime` दिन के साथ घड़ी का समय, और `timedelta` अवधि है जिसे जोड़ या घटा सकते हैं। `strftime` इंसानों के लिए रूप बनाता है, `strptime` टेक्स्ट को वापस datetime में बदलता है।",
+      "hinglish": "`date` ek din hai, `datetime` din ke saath ghadi ka samay, aur `timedelta` avadhi hai jise jod ya ghata sakte ho. `strftime` insaanon ke liye roop banata hai, `strptime` text ko wapas datetime me badalta hai."
+     },
+     "real_life": {
+      "en": "A train ticket. The date is printed, the departure time is printed, and the journey length lets you work out when you arrive.",
+      "hi": "ट्रेन का टिकट। तारीख़ छपी है, प्रस्थान समय छपा है, और यात्रा की अवधि से आप पहुँचने का समय निकाल सकते हैं।",
+      "hinglish": "Train ka ticket. Tareekh chhapi hai, departure time chhapa hai, aur yatra ki avadhi se aap pahunchne ka samay nikaal sakte ho."
+     },
+     "docs": "https://docs.python.org/3/library/datetime.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "date arithmetic",
+        "hi": "तारीख़ का गणित",
+        "hinglish": "tareekh ka ganit"
+       },
+       "code": "from datetime import date, timedelta\n\nstart = date(2026, 11, 10)\nprint(start)\nprint(start + timedelta(days=30))\nprint((date(2026, 12, 25) - start).days)",
+       "output": "2026-11-10\n2026-12-10\n45",
+       "note": {
+        "en": "Adding a timedelta returns a new date. Subtracting two dates returns a timedelta, and `.days` gives the count.",
+        "hi": "timedelta जोड़ने से नई तारीख़ मिलती है। दो तारीख़ें घटाने से timedelta मिलता है, और `.days` गिनती देता है।",
+        "hinglish": "timedelta jodne se nayi tareekh milti hai. Do tareekh ghataane se timedelta milta hai, aur `.days` ginti deta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "format out, parse in",
+        "hi": "रूप बनाना, वापस पढ़ना",
+        "hinglish": "roop banana, wapas padhna"
+       },
+       "code": "from datetime import datetime\n\nmoment = datetime(2026, 11, 10, 9, 30)\nprint(moment.strftime(\"%d %b %Y, %H:%M\"))\nprint(datetime.strptime(\"10/11/2026\", \"%d/%m/%Y\").date())",
+       "output": "10 Nov 2026, 09:30\n2026-11-10",
+       "note": {
+        "en": "%d is day, %m month, %Y four-digit year, %H hour, %M minute. The same codes are used by strftime and strptime.",
+        "hi": "%d दिन, %m महीना, %Y चार अंकों का साल, %H घंटा, %M मिनट। वही कोड strftime और strptime दोनों में चलते हैं।",
+        "hinglish": "%d din, %m mahina, %Y chaar ank ka saal, %H ghanta, %M minute. Wahi code strftime aur strptime dono me chalte hain."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m11c01l02e1",
+       "prompt": {
+        "en": "From `date(2026, 1, 1)`, compute the date 100 days later into `later` and print it.",
+        "hi": "`date(2026, 1, 1)` से 100 दिन बाद की तारीख़ `later` में निकालें और प्रिंट करें।",
+        "hinglish": "`date(2026, 1, 1)` se 100 din baad ki tareekh `later` me nikaalo aur print karo."
+       },
+       "starter": "from datetime import date, timedelta\n\nstart = date(2026, 1, 1)\n# later = ...",
+       "solution": "from datetime import date, timedelta\n\nstart = date(2026, 1, 1)\nlater = start + timedelta(days=100)\n\nprint(later)",
+       "checks": [
+        "later == date(2026, 4, 11)",
+        "printed.strip() == '2026-04-11'"
+       ],
+       "hint": {
+        "en": "start + timedelta(days=100)",
+        "hi": "start + timedelta(days=100)",
+        "hinglish": "start + timedelta(days=100)"
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m11c01l02q1",
+       "question": {
+        "en": "Which object represents a duration?",
+        "hi": "अवधि कौन सा ऑब्जेक्ट दिखाता है?",
+        "hinglish": "Avadhi kaun sa object dikhata hai?"
+       },
+       "options": [
+        "date",
+        "datetime",
+        "timedelta",
+        "timezone"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "timedelta is the difference between two moments.",
+        "hi": "timedelta दो क्षणों का अंतर है।",
+        "hinglish": "timedelta do kshanon ka antar hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c01l02q2",
+       "question": {
+        "en": "What does `strptime` do?",
+        "hi": "`strptime` क्या करता है?",
+        "hinglish": "`strptime` kya karta hai?"
+       },
+       "options": [
+        "turns a datetime into text",
+        "parses text into a datetime",
+        "returns the current time",
+        "adds days"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "strftime = format to string; strptime = parse from string.",
+        "hi": "strftime = स्ट्रिंग में रूप; strptime = स्ट्रिंग से पढ़ना।",
+        "hinglish": "strftime = string me roop; strptime = string se padhna."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c01l02q3",
+       "question": {
+        "en": "Why is a naive datetime risky for global apps?",
+        "hi": "वैश्विक ऐप के लिए naive datetime जोखिम भरा क्यों?",
+        "hinglish": "Global app ke liye naive datetime risky kyun?"
+       },
+       "options": [
+        "it cannot be printed",
+        "it carries no timezone, so the same value means different moments",
+        "it is slower",
+        "it cannot be compared"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Store UTC with a timezone, and convert for display only.",
+        "hi": "UTC को टाइमज़ोन के साथ रखें, और सिर्फ़ दिखाने के लिए बदलें।",
+        "hinglish": "UTC ko timezone ke saath rakho, aur sirf dikhane ke liye badlo."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Use date for days, datetime for moments, timedelta for durations; store UTC and format at the edge.",
+      "hi": "दिन के लिए date, क्षण के लिए datetime, अवधि के लिए timedelta; UTC रखें और दिखाते समय रूप बदलें।",
+      "hinglish": "Din ke liye date, kshan ke liye datetime, avadhi ke liye timedelta; UTC rakho aur dikhate samay roop badlo."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m11c02",
+   "title": {
+    "en": "Containers and pipelines",
+    "hi": "कंटेनर और पाइपलाइन",
+    "hinglish": "Containers aur pipelines"
+   },
+   "lessons": [
+    {
+     "id": "m11c02l03",
+     "title": {
+      "en": "collections: Counter, defaultdict, deque",
+      "hi": "collections: Counter, defaultdict, deque",
+      "hinglish": "collections: Counter, defaultdict, deque"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "`collections` has containers for jobs that come up constantly: Counter counts items, defaultdict creates a missing value instead of raising KeyError, and deque is a fast queue at both ends.",
+      "hi": "`collections` में बार-बार आने वाले कामों के कंटेनर हैं: Counter चीज़ें गिनता है, defaultdict गायब मान बना देता है KeyError की जगह, और deque दोनों सिरों पर तेज़ कतार है।",
+      "hinglish": "`collections` me baar-baar aane wale kaamon ke containers hain: Counter cheezein ginta hai, defaultdict ghayab value bana deta hai KeyError ki jagah, aur deque dono siro par tez kataar hai."
+     },
+     "real_life": {
+      "en": "A wedding hall. Counter is the person counting how many guests chose veg or non-veg. defaultdict is a new table opened automatically when a guest arrives. deque is the queue at the door.",
+      "hi": "शादी का हॉल। Counter वह व्यक्ति है जो गिनता है कितने मेहमानों ने वेज या नॉन-वेज चुना। defaultdict अपने आप नई मेज़ खोलता है जब मेहमान आए। deque दरवाज़े की कतार है।",
+      "hinglish": "Shaadi ka hall. Counter woh vyakti hai jo ginta hai kitne mehmaan ne veg ya non-veg chuna. defaultdict apne aap nayi table kholta hai jab mehmaan aaye. deque darwaze ki kataar hai."
+     },
+     "docs": "https://docs.python.org/3/library/collections.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "counting without a loop",
+        "hi": "लूप के बिना गिनना",
+        "hinglish": "loop ke bina ginna"
+       },
+       "code": "from collections import Counter\n\nvotes = [\"tea\", \"coffee\", \"tea\", \"tea\", \"juice\"]\ncounts = Counter(votes)\nprint(counts)\nprint(counts.most_common(1))\nprint(counts[\"cola\"])",
+       "output": "Counter({'tea': 3, 'coffee': 1, 'juice': 1})\n[('tea', 3)]\n0",
+       "note": {
+        "en": "Counter is a dict subclass, so a missing key gives 0 instead of KeyError. most_common returns (item, count) pairs.",
+        "hi": "Counter dict का सबक्लास है, इसलिए गायब कुंजी KeyError की जगह 0 देती है। most_common (आइटम, गिनती) जोड़े लौटाता है।",
+        "hinglish": "Counter dict ka subclass hai, isliye missing key KeyError ki jagah 0 deti hai. most_common (item, count) pairs return karta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "grouping in one pass",
+        "hi": "एक ही पास में समूह बनाना",
+        "hinglish": "ek hi pass me group banana"
+       },
+       "code": "from collections import defaultdict\n\ngroups = defaultdict(list)\nfor name, team in [(\"Asha\", \"blue\"), (\"Ravi\", \"red\"), (\"Mili\", \"blue\")]:\n    groups[team].append(name)\nprint(dict(groups))",
+       "output": "{'blue': ['Asha', 'Mili'], 'red': ['Ravi']}",
+       "note": {
+        "en": "`groups[team]` creates an empty list the first time that team appears. With a plain dict you would need an if-check first.",
+        "hi": "`groups[team]` उस टीम के पहली बार आने पर खाली सूची बना देता है। सादे dict में पहले if जाँच लिखनी पड़ती।",
+        "hinglish": "`groups[team]` us team ke pehli baar aane par khaali list bana deta hai. Saade dict me pehle if jaanch likhni padti."
+       }
+      },
+      {
+       "title": {
+        "en": "a queue at both ends",
+        "hi": "दोनों सिरों पर कतार",
+        "hinglish": "dono siro par kataar"
+       },
+       "code": "from collections import deque\n\nqueue = deque([\"a\", \"b\"])\nqueue.append(\"c\")\nqueue.appendleft(\"z\")\nprint(list(queue))\nprint(queue.popleft())\nprint(list(queue))",
+       "output": "['z', 'a', 'b', 'c']\nz\n['a', 'b', 'c']",
+       "note": {
+        "en": "popleft() is O(1); list.pop(0) has to shift every element.",
+        "hi": "popleft() O(1) है; list.pop(0) को हर तत्व खिसकाना पड़ता है।",
+        "hinglish": "popleft() O(1) hai; list.pop(0) ko har element khiskana padta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m11c02l03e1",
+       "prompt": {
+        "en": "Count the letters of `'banana'` with Counter into `counts` and print `counts['a']`.",
+        "hi": "Counter से `'banana'` के अक्षर गिनकर `counts` में रखें और `counts['a']` प्रिंट करें।",
+        "hinglish": "Counter se `'banana'` ke letters gin kar `counts` me rakho aur `counts['a']` print karo."
+       },
+       "starter": "from collections import Counter\n\n# counts = ...",
+       "solution": "from collections import Counter\n\ncounts = Counter('banana')\n\nprint(counts['a'])",
+       "checks": [
+        "counts['a'] == 3",
+        "counts['n'] == 2",
+        "counts['z'] == 0",
+        "printed.strip() == '3'"
+       ],
+       "hint": {
+        "en": "Counter accepts any iterable, including a string.",
+        "hi": "Counter कोई भी इटरेबल लेता है, स्ट्रिंग भी।",
+        "hinglish": "Counter koi bhi iterable leta hai, string bhi."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m11c02l03q1",
+       "question": {
+        "en": "What does Counter return for a missing key?",
+        "hi": "Counter गायब कुंजी के लिए क्या देता है?",
+        "hinglish": "Counter missing key ke liye kya deta hai?"
+       },
+       "options": [
+        "KeyError",
+        "None",
+        "0",
+        "an empty list"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "That zero default is why counting needs no if-check.",
+        "hi": "यही शून्य डिफ़ॉल्ट है जिससे गिनती में if जाँच नहीं चाहिए।",
+        "hinglish": "Yahi zero default hai jisse ginti me if jaanch nahi chahiye."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c02l03q2",
+       "question": {
+        "en": "What does defaultdict(list) do on a missing key?",
+        "hi": "defaultdict(list) गायब कुंजी पर क्या करता है?",
+        "hinglish": "defaultdict(list) missing key par kya karta hai?"
+       },
+       "options": [
+        "raises KeyError",
+        "creates an empty list for that key",
+        "returns None",
+        "deletes the key"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "It calls list() to make the default, then stores it.",
+        "hi": "यह डिफ़ॉल्ट बनाने के लिए list() बुलाता है, फिर उसे रख देता है।",
+        "hinglish": "Ye default banane ke liye list() bulata hai, phir use rakh deta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c02l03q3",
+       "question": {
+        "en": "Why is deque better than list for a queue?",
+        "hi": "कतार के लिए deque list से बेहतर क्यों?",
+        "hinglish": "Kataar ke liye deque list se behtar kyun?"
+       },
+       "options": [
+        "it stores less memory per item",
+        "removing from the front is O(1) instead of O(n)",
+        "it sorts automatically",
+        "it allows duplicate keys"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "list.pop(0) shifts everything; deque.popleft() does not.",
+        "hi": "list.pop(0) सब खिसकाता है; deque.popleft() नहीं।",
+        "hinglish": "list.pop(0) sab khiskata hai; deque.popleft() nahi."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Reach for Counter to count, defaultdict to group, deque for queues - before writing the loop by hand.",
+      "hi": "गिनने के लिए Counter, समूह के लिए defaultdict, कतार के लिए deque - हाथ से लूप लिखने से पहले।",
+      "hinglish": "Ginne ke liye Counter, group ke liye defaultdict, kataar ke liye deque - haath se loop likhne se pehle."
+     }
+    },
+    {
+     "id": "m11c02l04",
+     "title": {
+      "en": "itertools and functools",
+      "hi": "itertools और functools",
+      "hinglish": "itertools aur functools"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "`itertools` builds fast lazy pipelines (chain, groupby, product, islice) and `functools` works on functions (lru_cache for memoising, partial for fixing an argument, reduce for folding a sequence).",
+      "hi": "`itertools` तेज़ आलसी पाइपलाइन बनाता है (chain, groupby, product, islice) और `functools` फ़ंक्शन पर काम करता है (memoise के लिए lru_cache, आर्ग्युमेंट तय करने के लिए partial, श्रृंखला मोड़ने के लिए reduce)।",
+      "hinglish": "`itertools` tez lazy pipelines banata hai (chain, groupby, product, islice) aur `functools` function par kaam karta hai (memoise ke liye lru_cache, argument tay karne ke liye partial, sequence modne ke liye reduce)."
+     },
+     "real_life": {
+      "en": "A kitchen assembly line. itertools joins two conveyor belts into one, and functools remembers the answer so the cook does not repeat the same dish.",
+      "hi": "रसोई की असेंबली लाइन। itertools दो कन्वेयर बेल्ट को एक करता है, और functools जवाब याद रखता है ताकि रसोइया वही व्यंजन दोबारा न बनाए।",
+      "hinglish": "Rasoi ki assembly line. itertools do conveyor belt ko ek karta hai, aur functools jawab yaad rakhta hai taaki rasoiya wahi dish dobara na banaye."
+     },
+     "docs": "https://docs.python.org/3/library/itertools.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "chain and groupby",
+        "hi": "chain और groupby",
+        "hinglish": "chain aur groupby"
+       },
+       "code": "from itertools import chain, groupby\n\nprint(list(chain([1, 2], [3], [4, 5])))\n\nrows = [(\"fruit\", \"apple\"), (\"fruit\", \"mango\"), (\"veg\", \"pea\")]\nfor key, group in groupby(rows, key=lambda row: row[0]):\n    print(key, [row[1] for row in group])",
+       "output": "[1, 2, 3, 4, 5]\nfruit ['apple', 'mango']\nveg ['pea']",
+       "note": {
+        "en": "groupby only groups adjacent items, so sort by the key first if equal keys are scattered.",
+        "hi": "groupby सिर्फ़ पास-पास वाले आइटम समूह बनाता है, इसलिए अगर एक जैसी कुंजियाँ बिखरी हों तो पहले उस कुंजी से क्रमबद्ध करें।",
+        "hinglish": "groupby sirf paas-paas wale items group banata hai, isliye agar same keys bikhri hon to pehle us key se sort karo."
+       }
+      },
+      {
+       "title": {
+        "en": "caching and partial application",
+        "hi": "कैशिंग और आंशिक आर्ग्युमेंट",
+        "hinglish": "caching aur partial argument"
+       },
+       "code": "from functools import lru_cache, partial\n\n@lru_cache(maxsize=None)\ndef slow_square(n):\n    print(\"computing\", n)\n    return n * n\n\nprint(slow_square(4))\nprint(slow_square(4))\n\nadd_five = partial(lambda a, b: a + b, 5)\nprint(add_five(10))",
+       "output": "computing 4\n16\n16\n15",
+       "note": {
+        "en": "\"computing 4\" appears once because the second call is served from the cache. partial fixes 5 as the first argument.",
+        "hi": "\"computing 4\" एक बार आता है क्योंकि दूसरी कॉल कैश से आती है। partial 5 को पहला आर्ग्युमेंट बना देता है।",
+        "hinglish": "\"computing 4\" ek baar aata hai kyunki doosri call cache se aati hai. partial 5 ko pehla argument bana deta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m11c02l04e1",
+       "prompt": {
+        "en": "Use `chain` to join `[1, 2]` and `[3, 4]` into `joined` (a list) and print it.",
+        "hi": "`chain` से `[1, 2]` और `[3, 4]` को `joined` में जोड़ें (सूची) और प्रिंट करें।",
+        "hinglish": "`chain` se `[1, 2]` aur `[3, 4]` ko `joined` me jodo (list) aur print karo."
+       },
+       "starter": "from itertools import chain\n\n# joined = ...",
+       "solution": "from itertools import chain\n\njoined = list(chain([1, 2], [3, 4]))\n\nprint(joined)",
+       "checks": [
+        "joined == [1, 2, 3, 4]",
+        "isinstance(joined, list)",
+        "printed.strip() == '[1, 2, 3, 4]'"
+       ],
+       "hint": {
+        "en": "chain returns an iterator, so wrap it in list() to see the items.",
+        "hi": "chain इटरेटर लौटाता है, इसलिए आइटम देखने के लिए list() में लपेटें।",
+        "hinglish": "chain iterator return karta hai, isliye items dekhne ke liye list() me lapeto."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m11c02l04q1",
+       "question": {
+        "en": "What does `chain([1], [2])` return?",
+        "hi": "`chain([1], [2])` क्या लौटाता है?",
+        "hinglish": "`chain([1], [2])` kya return karta hai?"
+       },
+       "options": [
+        "a list [1, 2]",
+        "an iterator over 1, 2",
+        "a tuple",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "itertools functions are lazy; materialise with list() when needed.",
+        "hi": "itertools फ़ंक्शन आलसी हैं; ज़रूरत हो तो list() से बना लें।",
+        "hinglish": "itertools functions lazy hain; zaroorat ho to list() se bana lo."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c02l04q2",
+       "question": {
+        "en": "What does lru_cache do?",
+        "hi": "lru_cache क्या करता है?",
+        "hinglish": "lru_cache kya karta hai?"
+       },
+       "options": [
+        "slows the function down",
+        "remembers results for repeated arguments",
+        "limits the arguments",
+        "runs the function in a thread"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Memoisation: the same input returns the stored output without rerunning the body. Only use it on pure functions.",
+        "hi": "Memoisation: वही इनपुट बिना शरीर दोबारा चलाए जमा आउटपुट देता है। सिर्फ़ शुद्ध फ़ंक्शन पर इस्तेमाल करें।",
+        "hinglish": "Memoisation: wahi input bina body dobara chalaye jama output deta hai. Sirf pure functions par use karo."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m11c02l04q3",
+       "question": {
+        "en": "What does partial(f, 5) create?",
+        "hi": "partial(f, 5) क्या बनाता है?",
+        "hinglish": "partial(f, 5) kya banata hai?"
+       },
+       "options": [
+        "a copy of f",
+        "a new callable with 5 already filled as the first argument",
+        "a generator",
+        "a cached f"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "It is handy for callbacks where the signature is fixed by someone else.",
+        "hi": "यह उन कॉलबैक के लिए उपयोगी है जहाँ हस्ताक्षर किसी और ने तय किया है।",
+        "hinglish": "Ye un callbacks ke liye useful hai jahan signature kisi aur ne tay kiya hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "itertools for lazy pipelines, functools for caching and pre-filled arguments.",
+      "hi": "आलसी पाइपलाइन के लिए itertools, कैशिंग और पहले से भरे आर्ग्युमेंट के लिए functools।",
+      "hinglish": "Lazy pipelines ke liye itertools, caching aur pehle se bhare arguments ke liye functools."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m11x01",
+   "question": {
+    "en": "Which module has mean and median?",
+    "hi": "mean और median किस मॉड्यूल में?",
+    "hinglish": "mean aur median kis module me?"
+   },
+   "options": [
+    "math",
+    "statistics",
+    "random",
+    "numbers"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "statistics.mean / statistics.median.",
+    "hi": "statistics.mean / statistics.median।",
+    "hinglish": "statistics.mean / statistics.median."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11x02",
+   "question": {
+    "en": "Which object adds a duration to a date?",
+    "hi": "तारीख़ में अवधि कौन जोड़ता है?",
+    "hinglish": "Tareekh me avadhi kaun jodta hai?"
+   },
+   "options": [
+    "timedelta",
+    "timespan",
+    "duration",
+    "period"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "date + timedelta gives a new date.",
+    "hi": "date + timedelta नई तारीख़ देता है।",
+    "hinglish": "date + timedelta nayi tareekh deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11x03",
+   "question": {
+    "en": "Which container counts items?",
+    "hi": "कौन कंटेनर चीज़ें गिनता है?",
+    "hinglish": "Kaun container cheezein ginta hai?"
+   },
+   "options": [
+    "deque",
+    "Counter",
+    "defaultdict",
+    "OrderedDict"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Counter is built for frequency counting.",
+    "hi": "Counter आवृत्ति गिनने के लिए बना है।",
+    "hinglish": "Counter aavritti ginne ke liye bana hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11x04",
+   "question": {
+    "en": "Which function groups adjacent equal keys?",
+    "hi": "पास-पास की समान कुंजियाँ कौन समूह बनाता है?",
+    "hinglish": "Paas-paas ki same keys kaun group banata hai?"
+   },
+   "options": [
+    "chain",
+    "groupby",
+    "partial",
+    "islice"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "groupby needs sorted input to group everything together.",
+    "hi": "सब कुछ एक साथ समूह बनाने के लिए groupby को क्रमबद्ध इनपुट चाहिए।",
+    "hinglish": "Sab kuch ek saath group banane ke liye groupby ko sorted input chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11x05",
+   "question": {
+    "en": "Which decorator caches function results?",
+    "hi": "कौन डेकोरेटर परिणाम कैश करता है?",
+    "hinglish": "Kaun decorator parinaam cache karta hai?"
+   },
+   "options": [
+    "@property",
+    "@lru_cache",
+    "@staticmethod",
+    "@total_ordering"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "@lru_cache from functools.",
+    "hi": "functools से @lru_cache।",
+    "hinglish": "functools se @lru_cache."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11x06",
+   "question": {
+    "en": "Why seed a random generator in tests?",
+    "hi": "टेस्ट में रैंडम जनरेटर seed क्यों करें?",
+    "hinglish": "Test me random generator seed kyun karein?"
+   },
+   "options": [
+    "for security",
+    "for repeatable results",
+    "for speed",
+    "to avoid imports"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Same seed, same sequence, so failures reproduce.",
+    "hi": "वही seed, वही श्रृंखला, इसलिए विफलता दोहराई जा सकती है।",
+    "hinglish": "Wahi seed, wahi sequence, isliye failure dohrai ja sakti hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m11s01",
+   "question": {
+    "en": "Which call always rounds down?",
+    "hi": "कौन सी कॉल हमेशा नीचे राउंड करती है?",
+    "hinglish": "Kaun si call hamesha neeche round karti hai?"
+   },
+   "options": [
+    "round(x)",
+    "math.floor(x)",
+    "math.ceil(x)",
+    "int(x)"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "floor goes to the lower integer; int() truncates toward zero, which differs for negatives.",
+    "hi": "floor निचली पूर्ण संख्या पर जाता है; int() शून्य की ओर काटता है, जो ऋणात्मक में अलग है।",
+    "hinglish": "floor nichli pooran sankhya par jata hai; int() zero ki or kaatta hai, jo negative me alag hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s02",
+   "question": {
+    "en": "Why call random.seed() in a test?",
+    "hi": "टेस्ट में random.seed() क्यों बुलाएँ?",
+    "hinglish": "Test me random.seed() kyun bulayein?"
+   },
+   "options": [
+    "to make random numbers truly secure",
+    "to make the sequence reproducible",
+    "to speed up the test",
+    "it is required before randint"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A fixed seed gives the same sequence every run. Never use it for passwords or tokens.",
+    "hi": "तय seed हर बार वही श्रृंखला देता है। पासवर्ड या टोकन के लिए इसे कभी इस्तेमाल न करें।",
+    "hinglish": "Tay seed har baar wahi sequence deta hai. Password ya token ke liye ise kabhi use na karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s03",
+   "question": {
+    "en": "Salaries [10, 10, 10, 10, 100]. Which is more representative?",
+    "hi": "वेतन [10, 10, 10, 10, 100]। कौन ज़्यादा प्रतिनिधि है?",
+    "hinglish": "Salary [10, 10, 10, 10, 100]. Kaun zyada representative hai?"
+   },
+   "options": [
+    "the mean, 28",
+    "the median, 10",
+    "the mode is wrong",
+    "they are equal"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "One outlier pulls the mean far away; the median stays where most people are.",
+    "hi": "एक बाहरी मान माध्य को दूर खींच लेता है; माध्यिका वहीं रहती है जहाँ ज़्यादातर लोग हैं।",
+    "hinglish": "Ek outlier mean ko door khinch leta hai; median wahin rehti hai jahan zyadatar log hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s04",
+   "question": {
+    "en": "Which object represents a duration?",
+    "hi": "अवधि कौन सा ऑब्जेक्ट दिखाता है?",
+    "hinglish": "Avadhi kaun sa object dikhata hai?"
+   },
+   "options": [
+    "date",
+    "datetime",
+    "timedelta",
+    "timezone"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "timedelta is the difference between two moments.",
+    "hi": "timedelta दो क्षणों का अंतर है।",
+    "hinglish": "timedelta do kshanon ka antar hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s05",
+   "question": {
+    "en": "What does `strptime` do?",
+    "hi": "`strptime` क्या करता है?",
+    "hinglish": "`strptime` kya karta hai?"
+   },
+   "options": [
+    "turns a datetime into text",
+    "parses text into a datetime",
+    "returns the current time",
+    "adds days"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "strftime = format to string; strptime = parse from string.",
+    "hi": "strftime = स्ट्रिंग में रूप; strptime = स्ट्रिंग से पढ़ना।",
+    "hinglish": "strftime = string me roop; strptime = string se padhna."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s06",
+   "question": {
+    "en": "Why is a naive datetime risky for global apps?",
+    "hi": "वैश्विक ऐप के लिए naive datetime जोखिम भरा क्यों?",
+    "hinglish": "Global app ke liye naive datetime risky kyun?"
+   },
+   "options": [
+    "it cannot be printed",
+    "it carries no timezone, so the same value means different moments",
+    "it is slower",
+    "it cannot be compared"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Store UTC with a timezone, and convert for display only.",
+    "hi": "UTC को टाइमज़ोन के साथ रखें, और सिर्फ़ दिखाने के लिए बदलें।",
+    "hinglish": "UTC ko timezone ke saath rakho, aur sirf dikhane ke liye badlo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s07",
+   "question": {
+    "en": "What does Counter return for a missing key?",
+    "hi": "Counter गायब कुंजी के लिए क्या देता है?",
+    "hinglish": "Counter missing key ke liye kya deta hai?"
+   },
+   "options": [
+    "KeyError",
+    "None",
+    "0",
+    "an empty list"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "That zero default is why counting needs no if-check.",
+    "hi": "यही शून्य डिफ़ॉल्ट है जिससे गिनती में if जाँच नहीं चाहिए।",
+    "hinglish": "Yahi zero default hai jisse ginti me if jaanch nahi chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s08",
+   "question": {
+    "en": "What does defaultdict(list) do on a missing key?",
+    "hi": "defaultdict(list) गायब कुंजी पर क्या करता है?",
+    "hinglish": "defaultdict(list) missing key par kya karta hai?"
+   },
+   "options": [
+    "raises KeyError",
+    "creates an empty list for that key",
+    "returns None",
+    "deletes the key"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It calls list() to make the default, then stores it.",
+    "hi": "यह डिफ़ॉल्ट बनाने के लिए list() बुलाता है, फिर उसे रख देता है।",
+    "hinglish": "Ye default banane ke liye list() bulata hai, phir use rakh deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s09",
+   "question": {
+    "en": "Why is deque better than list for a queue?",
+    "hi": "कतार के लिए deque list से बेहतर क्यों?",
+    "hinglish": "Kataar ke liye deque list se behtar kyun?"
+   },
+   "options": [
+    "it stores less memory per item",
+    "removing from the front is O(1) instead of O(n)",
+    "it sorts automatically",
+    "it allows duplicate keys"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "list.pop(0) shifts everything; deque.popleft() does not.",
+    "hi": "list.pop(0) सब खिसकाता है; deque.popleft() नहीं।",
+    "hinglish": "list.pop(0) sab khiskata hai; deque.popleft() nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s10",
+   "question": {
+    "en": "What does `chain([1], [2])` return?",
+    "hi": "`chain([1], [2])` क्या लौटाता है?",
+    "hinglish": "`chain([1], [2])` kya return karta hai?"
+   },
+   "options": [
+    "a list [1, 2]",
+    "an iterator over 1, 2",
+    "a tuple",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "itertools functions are lazy; materialise with list() when needed.",
+    "hi": "itertools फ़ंक्शन आलसी हैं; ज़रूरत हो तो list() से बना लें।",
+    "hinglish": "itertools functions lazy hain; zaroorat ho to list() se bana lo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s11",
+   "question": {
+    "en": "What does lru_cache do?",
+    "hi": "lru_cache क्या करता है?",
+    "hinglish": "lru_cache kya karta hai?"
+   },
+   "options": [
+    "slows the function down",
+    "remembers results for repeated arguments",
+    "limits the arguments",
+    "runs the function in a thread"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Memoisation: the same input returns the stored output without rerunning the body. Only use it on pure functions.",
+    "hi": "Memoisation: वही इनपुट बिना शरीर दोबारा चलाए जमा आउटपुट देता है। सिर्फ़ शुद्ध फ़ंक्शन पर इस्तेमाल करें।",
+    "hinglish": "Memoisation: wahi input bina body dobara chalaye jama output deta hai. Sirf pure functions par use karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s12",
+   "question": {
+    "en": "What does partial(f, 5) create?",
+    "hi": "partial(f, 5) क्या बनाता है?",
+    "hinglish": "partial(f, 5) kya banata hai?"
+   },
+   "options": [
+    "a copy of f",
+    "a new callable with 5 already filled as the first argument",
+    "a generator",
+    "a cached f"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It is handy for callbacks where the signature is fixed by someone else.",
+    "hi": "यह उन कॉलबैक के लिए उपयोगी है जहाँ हस्ताक्षर किसी और ने तय किया है।",
+    "hinglish": "Ye un callbacks ke liye useful hai jahan signature kisi aur ne tay kiya hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s13",
+   "question": {
+    "en": "Which module has mean and median?",
+    "hi": "mean और median किस मॉड्यूल में?",
+    "hinglish": "mean aur median kis module me?"
+   },
+   "options": [
+    "math",
+    "statistics",
+    "random",
+    "numbers"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "statistics.mean / statistics.median.",
+    "hi": "statistics.mean / statistics.median।",
+    "hinglish": "statistics.mean / statistics.median."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s14",
+   "question": {
+    "en": "Which object adds a duration to a date?",
+    "hi": "तारीख़ में अवधि कौन जोड़ता है?",
+    "hinglish": "Tareekh me avadhi kaun jodta hai?"
+   },
+   "options": [
+    "timedelta",
+    "timespan",
+    "duration",
+    "period"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "date + timedelta gives a new date.",
+    "hi": "date + timedelta नई तारीख़ देता है।",
+    "hinglish": "date + timedelta nayi tareekh deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s15",
+   "question": {
+    "en": "Which container counts items?",
+    "hi": "कौन कंटेनर चीज़ें गिनता है?",
+    "hinglish": "Kaun container cheezein ginta hai?"
+   },
+   "options": [
+    "deque",
+    "Counter",
+    "defaultdict",
+    "OrderedDict"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Counter is built for frequency counting.",
+    "hi": "Counter आवृत्ति गिनने के लिए बना है।",
+    "hinglish": "Counter aavritti ginne ke liye bana hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s16",
+   "question": {
+    "en": "Which function groups adjacent equal keys?",
+    "hi": "पास-पास की समान कुंजियाँ कौन समूह बनाता है?",
+    "hinglish": "Paas-paas ki same keys kaun group banata hai?"
+   },
+   "options": [
+    "chain",
+    "groupby",
+    "partial",
+    "islice"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "groupby needs sorted input to group everything together.",
+    "hi": "सब कुछ एक साथ समूह बनाने के लिए groupby को क्रमबद्ध इनपुट चाहिए।",
+    "hinglish": "Sab kuch ek saath group banane ke liye groupby ko sorted input chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s17",
+   "question": {
+    "en": "Which decorator caches function results?",
+    "hi": "कौन डेकोरेटर परिणाम कैश करता है?",
+    "hinglish": "Kaun decorator parinaam cache karta hai?"
+   },
+   "options": [
+    "@property",
+    "@lru_cache",
+    "@staticmethod",
+    "@total_ordering"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "@lru_cache from functools.",
+    "hi": "functools से @lru_cache।",
+    "hinglish": "functools se @lru_cache."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m11s18",
+   "question": {
+    "en": "Why seed a random generator in tests?",
+    "hi": "टेस्ट में रैंडम जनरेटर seed क्यों करें?",
+    "hinglish": "Test me random generator seed kyun karein?"
+   },
+   "options": [
+    "for security",
+    "for repeatable results",
+    "for speed",
+    "to avoid imports"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Same seed, same sequence, so failures reproduce.",
+    "hi": "वही seed, वही श्रृंखला, इसलिए विफलता दोहराई जा सकती है।",
+    "hinglish": "Wahi seed, wahi sequence, isliye failure dohrai ja sakti hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "🧰"
+}

@@ -1,0 +1,980 @@
+{
+ "id": "pybook",
+ "title": {
+  "en": "PyBook — Python, From Zero to Confident",
+  "hi": "PyBook — पायथन, शून्य से आत्मविश्वास तक",
+  "hinglish": "PyBook — Python, Zero se Confident tak"
+ },
+ "subtitle": {
+  "en": "A notebook course: every core keyword and concept, each lesson with an introduction, a real-life example, runnable code and a quiz gate.",
+  "hi": "एक नोटबुक कोर्स: हर मुख्य कीवर्ड और कॉन्सेप्ट, हर लेसन में परिचय, रोज़मर्रा का उदाहरण, चलने वाला कोड और क्विज़ गेट।",
+  "hinglish": "Ek notebook course: har core keyword aur concept, har lesson me intro, real-life example, chalne wala code aur quiz gate."
+ },
+ "modules": [
+  {
+   "id": "m01",
+   "title": {
+    "en": "Starting Out",
+    "hi": "शुरुआत",
+    "hinglish": "Shuruaat"
+   },
+   "goal": {
+    "en": "Run your first lines, store values in names, meet the number, text and true/false types, and learn to read an error message.",
+    "hi": "अपनी पहली लाइनें चलाएँ, नामों में वैल्यू रखें, नंबर, टेक्स्ट और सही/गलत टाइप से मिलें, और एरर मैसेज पढ़ना सीखें।",
+    "hinglish": "Apni pehli lines chalao, naamon me value rakho, number, text aur sahi/galat types se milo, aur error message padhna seekho."
+   },
+   "icon": "🚀",
+   "lesson_count": 6,
+   "exam_count": 6,
+   "skip_count": 24,
+   "chapters": [
+    {
+     "id": "m01c01",
+     "title": {
+      "en": "First Steps",
+      "hi": "पहले कदम",
+      "hinglish": "Pehle Kadam"
+     },
+     "lessons": [
+      {
+       "id": "m01c01l01",
+       "title": {
+        "en": "Your first program",
+        "hi": "आपका पहला प्रोग्राम",
+        "hinglish": "Aapka pehla program"
+       },
+       "visual": "variables"
+      },
+      {
+       "id": "m01c01l02",
+       "title": {
+        "en": "Expressions and your first error",
+        "hi": "एक्सप्रेशन और पहली एरर",
+        "hinglish": "Expression aur pehli error"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m01c02",
+     "title": {
+      "en": "Variables and Types",
+      "hi": "वेरिएबल और टाइप",
+      "hinglish": "Variable aur Types"
+     },
+     "lessons": [
+      {
+       "id": "m01c02l03",
+       "title": {
+        "en": "Variables and assignment",
+        "hi": "वेरिएबल और असाइनमेंट",
+        "hinglish": "Variable aur assignment"
+       },
+       "visual": "variables"
+      },
+      {
+       "id": "m01c02l04",
+       "title": {
+        "en": "Numbers: int and float",
+        "hi": "नंबर: int और float",
+        "hinglish": "Numbers: int aur float"
+       },
+       "visual": "types"
+      },
+      {
+       "id": "m01c02l05",
+       "title": {
+        "en": "Strings: text values",
+        "hi": "स्ट्रिंग: टेक्स्ट वैल्यू",
+        "hinglish": "Strings: text values"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m01c02l06",
+       "title": {
+        "en": "True, False and None",
+        "hi": "True, False और None",
+        "hinglish": "True, False aur None"
+       },
+       "visual": "types"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m02",
+   "title": {
+    "en": "Working with Data",
+    "hi": "डेटा के साथ काम",
+    "hinglish": "Data ke saath kaam"
+   },
+   "goal": {
+    "en": "Cut text and lists into pieces, clean text up, combine conditions, tell identity apart from equality, and handle division correctly.",
+    "hi": "टेक्स्ट और लिस्ट के टुकड़े करें, टेक्स्ट साफ़ करें, शर्तें जोड़ें, पहचान और बराबरी में फ़र्क करें, और भाग सही संभालें।",
+    "hinglish": "Text aur lists ke tukde karo, text saaf karo, conditions jodo, identity aur equality me farq karo, aur division sahi sambhalo."
+   },
+   "icon": "🧩",
+   "lesson_count": 5,
+   "exam_count": 6,
+   "skip_count": 21,
+   "chapters": [
+    {
+     "id": "m02c01",
+     "title": {
+      "en": "Text in depth",
+      "hi": "टेक्स्ट विस्तार से",
+      "hinglish": "Text vistar se"
+     },
+     "lessons": [
+      {
+       "id": "m02c01l01",
+       "title": {
+        "en": "Indexing and slicing",
+        "hi": "इंडेक्सिंग और स्लाइसिंग",
+        "hinglish": "Indexing aur slicing"
+       },
+       "visual": "list_index"
+      },
+      {
+       "id": "m02c01l02",
+       "title": {
+        "en": "String methods and f-strings",
+        "hi": "स्ट्रिंग मेथड और f-string",
+        "hinglish": "String methods aur f-strings"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m02c02",
+     "title": {
+      "en": "Operators and identity",
+      "hi": "ऑपरेटर और पहचान",
+      "hinglish": "Operators aur identity"
+     },
+     "lessons": [
+      {
+       "id": "m02c02l03",
+       "title": {
+        "en": "Comparison and logical operators",
+        "hi": "तुलना और लॉजिकल ऑपरेटर",
+        "hinglish": "Comparison aur logical operators"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m02c02l04",
+       "title": {
+        "en": "is, == and del",
+        "hi": "is, == और del",
+        "hinglish": "is, == aur del"
+       },
+       "visual": "alias_copy"
+      }
+     ]
+    },
+    {
+     "id": "m02c03",
+     "title": {
+      "en": "Numbers in practice",
+      "hi": "नंबर व्यवहार में",
+      "hinglish": "Numbers practice me"
+     },
+     "lessons": [
+      {
+       "id": "m02c03l05",
+       "title": {
+        "en": "Division, modulo and precision",
+        "hi": "भाग, मॉड्यूलो और परिशुद्धता",
+        "hinglish": "Division, modulo aur precision"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m03",
+   "title": {
+    "en": "Decisions and Loops",
+    "hi": "फ़ैसले और लूप",
+    "hinglish": "Decisions aur Loops"
+   },
+   "goal": {
+    "en": "Make the program choose with if/elif/else and match, then repeat work with while and for — including the three statements that change how a loop ends.",
+    "hi": "if/elif/else और match से प्रोग्राम को चुनने दें, फिर while और for से काम दोहराएँ — उन तीन स्टेटमेंट के साथ जो लूप का अंत बदलते हैं।",
+    "hinglish": "if/elif/else aur match se program ko choose karne do, phir while aur for se kaam dohrao - un teen statements ke saath jo loop ka end badalte hain."
+   },
+   "icon": "🔀",
+   "lesson_count": 5,
+   "exam_count": 6,
+   "skip_count": 21,
+   "chapters": [
+    {
+     "id": "m03c01",
+     "title": {
+      "en": "Branching",
+      "hi": "शाखाएँ",
+      "hinglish": "Branching"
+     },
+     "lessons": [
+      {
+       "id": "m03c01l01",
+       "title": {
+        "en": "if, elif, else",
+        "hi": "if, elif, else",
+        "hinglish": "if, elif, else"
+       },
+       "visual": "if_flow"
+      },
+      {
+       "id": "m03c01l02",
+       "title": {
+        "en": "match and case",
+        "hi": "match और case",
+        "hinglish": "match aur case"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m03c02",
+     "title": {
+      "en": "Loops",
+      "hi": "लूप",
+      "hinglish": "Loops"
+     },
+     "lessons": [
+      {
+       "id": "m03c02l03",
+       "title": {
+        "en": "while, break, continue, pass",
+        "hi": "while, break, continue, pass",
+        "hinglish": "while, break, continue, pass"
+       },
+       "visual": "loop_flow"
+      },
+      {
+       "id": "m03c02l04",
+       "title": {
+        "en": "for, range, enumerate, zip",
+        "hi": "for, range, enumerate, zip",
+        "hinglish": "for, range, enumerate, zip"
+       },
+       "visual": "loop_flow"
+      },
+      {
+       "id": "m03c02l05",
+       "title": {
+        "en": "Nested loops and loop else",
+        "hi": "नेस्टेड लूप और loop else",
+        "hinglish": "Nested loops aur loop else"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m04",
+   "title": {
+    "en": "Collections",
+    "hi": "संग्रह",
+    "hinglish": "Collections"
+   },
+   "goal": {
+    "en": "Hold many values well: lists when order and change matter, tuples when the group is fixed, dicts for named fields, sets for uniqueness and membership.",
+    "hi": "कई वैल्यू अच्छे से रखें: क्रम और बदलाव के लिए लिस्ट, तय समूह के लिए ट्यूपल, नाम वाले फ़ील्ड के लिए dict, विशिष्टता के लिए सेट।",
+    "hinglish": "Kai values achhe se rakho: order aur change ke liye list, fixed group ke liye tuple, named fields ke liye dict, uniqueness ke liye set."
+   },
+   "icon": "📦",
+   "lesson_count": 6,
+   "exam_count": 6,
+   "skip_count": 24,
+   "chapters": [
+    {
+     "id": "m04c01",
+     "title": {
+      "en": "Lists",
+      "hi": "लिस्ट",
+      "hinglish": "Lists"
+     },
+     "lessons": [
+      {
+       "id": "m04c01l01",
+       "title": {
+        "en": "Lists and mutability",
+        "hi": "लिस्ट और परिवर्तनशीलता",
+        "hinglish": "Lists aur mutability"
+       },
+       "visual": "alias_copy"
+      },
+      {
+       "id": "m04c01l02",
+       "title": {
+        "en": "List methods and sorting",
+        "hi": "लिस्ट मेथड और सॉर्टिंग",
+        "hinglish": "List methods aur sorting"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m04c02",
+     "title": {
+      "en": "Tuples",
+      "hi": "ट्यूपल",
+      "hinglish": "Tuples"
+     },
+     "lessons": [
+      {
+       "id": "m04c02l03",
+       "title": {
+        "en": "Tuples and unpacking",
+        "hi": "ट्यूपल और अनपैकिंग",
+        "hinglish": "Tuples aur unpacking"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m04c03",
+     "title": {
+      "en": "Dictionaries",
+      "hi": "डिक्शनरी",
+      "hinglish": "Dictionaries"
+     },
+     "lessons": [
+      {
+       "id": "m04c03l04",
+       "title": {
+        "en": "Dictionaries",
+        "hi": "डिक्शनरी",
+        "hinglish": "Dictionaries"
+       },
+       "visual": "dict_map"
+      },
+      {
+       "id": "m04c03l05",
+       "title": {
+        "en": "Nested data",
+        "hi": "नेस्टेड डेटा",
+        "hinglish": "Nested data"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m04c04",
+     "title": {
+      "en": "Sets",
+      "hi": "सेट",
+      "hinglish": "Sets"
+     },
+     "lessons": [
+      {
+       "id": "m04c04l06",
+       "title": {
+        "en": "Sets",
+        "hi": "सेट",
+        "hinglish": "Sets"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m05",
+   "title": {
+    "en": "Functions",
+    "hi": "फ़ंक्शन",
+    "hinglish": "Functions"
+   },
+   "goal": {
+    "en": "Name a block of work once and reuse it: return values, defaults, *args, scope, lambda and recursion.",
+    "hi": "काम के ब्लॉक को एक बार नाम दें और दोबारा इस्तेमाल करें: return वैल्यू, डिफ़ॉल्ट, *args, स्कोप, lambda और रिकर्शन।",
+    "hinglish": "Kaam ke block ko ek baar naam do aur dobara use karo: return values, defaults, *args, scope, lambda aur recursion."
+   },
+   "icon": "🧰",
+   "lesson_count": 5,
+   "exam_count": 6,
+   "skip_count": 21,
+   "chapters": [
+    {
+     "id": "m05c01",
+     "title": {
+      "en": "Writing functions",
+      "hi": "फ़ंक्शन लिखना",
+      "hinglish": "Functions likhna"
+     },
+     "lessons": [
+      {
+       "id": "m05c01l01",
+       "title": {
+        "en": "def and return",
+        "hi": "def और return",
+        "hinglish": "def aur return"
+       },
+       "visual": "function_call"
+      },
+      {
+       "id": "m05c01l02",
+       "title": {
+        "en": "Defaults, *args and **kwargs",
+        "hi": "डिफ़ॉल्ट, *args और **kwargs",
+        "hinglish": "Defaults, *args aur **kwargs"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m05c02",
+     "title": {
+      "en": "Scope and small functions",
+      "hi": "स्कोप और छोटे फ़ंक्शन",
+      "hinglish": "Scope aur chhote functions"
+     },
+     "lessons": [
+      {
+       "id": "m05c02l03",
+       "title": {
+        "en": "Scope: global and nonlocal",
+        "hi": "स्कोप: global और nonlocal",
+        "hinglish": "Scope: global aur nonlocal"
+       },
+       "visual": "scope_legb"
+      },
+      {
+       "id": "m05c02l04",
+       "title": {
+        "en": "lambda: small anonymous functions",
+        "hi": "lambda: छोटे बिना-नाम फ़ंक्शन",
+        "hinglish": "lambda: chhote bina-naam functions"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m05c02l05",
+       "title": {
+        "en": "Recursion",
+        "hi": "रिकर्शन",
+        "hinglish": "Recursion"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m06",
+   "title": {
+    "en": "Errors and Exceptions",
+    "hi": "एरर और एक्सेप्शन",
+    "hinglish": "Errors aur Exceptions"
+   },
+   "goal": {
+    "en": "Handle failure deliberately: try/except/else/finally, raise, assert, the common exception names, and your own exception classes.",
+    "hi": "गड़बड़ी को समझदारी से संभालें: try/except/else/finally, raise, assert, आम एक्सेप्शन नाम, और अपने एक्सेप्शन क्लास।",
+    "hinglish": "Gadbad ko samajhdari se sambhalo: try/except/else/finally, raise, assert, common exception naam, aur apne exception classes."
+   },
+   "icon": "🛟",
+   "lesson_count": 3,
+   "exam_count": 5,
+   "skip_count": 14,
+   "chapters": [
+    {
+     "id": "m06c01",
+     "title": {
+      "en": "Handling and raising",
+      "hi": "संभालना और उठाना",
+      "hinglish": "Handle aur raise"
+     },
+     "lessons": [
+      {
+       "id": "m06c01l01",
+       "title": {
+        "en": "try, except, else, finally",
+        "hi": "try, except, else, finally",
+        "hinglish": "try, except, else, finally"
+       },
+       "visual": "exception_flow"
+      },
+      {
+       "id": "m06c01l02",
+       "title": {
+        "en": "raise, assert and common exceptions",
+        "hi": "raise, assert और आम एक्सेप्शन",
+        "hinglish": "raise, assert aur common exceptions"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m06c01l03",
+       "title": {
+        "en": "Custom exceptions and chaining",
+        "hi": "कस्टम एक्सेप्शन और चेनिंग",
+        "hinglish": "Custom exceptions aur chaining"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m07",
+   "title": {
+    "en": "Modules, Imports and Files",
+    "hi": "मॉड्यूल, इम्पोर्ट और फ़ाइलें",
+    "hinglish": "Modules, Imports aur Files"
+   },
+   "goal": {
+    "en": "Reuse code with import/from/as, release resources with with, and keep data on disk as text, JSON and paths.",
+    "hi": "import/from/as से कोड दोबारा इस्तेमाल करें, with से संसाधन छोड़ें, और डेटा डिस्क पर टेक्स्ट, JSON और पाथ के रूप में रखें।",
+    "hinglish": "import/from/as se code dobara use karo, with se resources chhodo, aur data disk par text, JSON aur path ke roop me rakho."
+   },
+   "icon": "📦",
+   "lesson_count": 4,
+   "exam_count": 6,
+   "skip_count": 18,
+   "chapters": [
+    {
+     "id": "m07c01",
+     "title": {
+      "en": "Modules and cleanup",
+      "hi": "मॉड्यूल और सफ़ाई",
+      "hinglish": "Modules aur cleanup"
+     },
+     "lessons": [
+      {
+       "id": "m07c01l01",
+       "title": {
+        "en": "import, from and as",
+        "hi": "import, from और as",
+        "hinglish": "import, from aur as"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m07c01l02",
+       "title": {
+        "en": "with: closing things safely",
+        "hi": "with: चीज़ें सुरक्षित बंद करना",
+        "hinglish": "with: cheezein safe band karna"
+       },
+       "visual": "files_with"
+      }
+     ]
+    },
+    {
+     "id": "m07c02",
+     "title": {
+      "en": "Data on disk",
+      "hi": "डिस्क पर डेटा",
+      "hinglish": "Disk par data"
+     },
+     "lessons": [
+      {
+       "id": "m07c02l03",
+       "title": {
+        "en": "Reading and writing text files",
+        "hi": "टेक्स्ट फ़ाइलें पढ़ना और लिखना",
+        "hinglish": "Text files padhna aur likhna"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m07c02l04",
+       "title": {
+        "en": "JSON and paths",
+        "hi": "JSON और पाथ",
+        "hinglish": "JSON aur paths"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m08",
+   "title": {
+    "en": "Classes and Objects",
+    "hi": "क्लास और ऑब्जेक्ट",
+    "hinglish": "Classes aur Objects"
+   },
+   "goal": {
+    "en": "Build your own types: __init__ and self, attributes vs class attributes, inheritance with super(), and dataclasses for data-heavy classes.",
+    "hi": "अपने टाइप बनाएँ: __init__ और self, एट्रिब्यूट बनाम क्लास एट्रिब्यूट, super() के साथ इनहेरिटेंस, और डेटा-भारी क्लास के लिए डेटाक्लास।",
+    "hinglish": "Apne types banao: __init__ aur self, attributes vs class attributes, super() ke saath inheritance, aur data-heavy class ke liye dataclasses."
+   },
+   "icon": "🏗️",
+   "lesson_count": 4,
+   "exam_count": 6,
+   "skip_count": 18,
+   "chapters": [
+    {
+     "id": "m08c01",
+     "title": {
+      "en": "Objects and state",
+      "hi": "ऑब्जेक्ट और स्थिति",
+      "hinglish": "Objects aur state"
+     },
+     "lessons": [
+      {
+       "id": "m08c01l01",
+       "title": {
+        "en": "class, __init__ and self",
+        "hi": "class, __init__ और self",
+        "hinglish": "class, __init__ aur self"
+       },
+       "visual": "class_object"
+      },
+      {
+       "id": "m08c01l02",
+       "title": {
+        "en": "Attributes and methods",
+        "hi": "एट्रिब्यूट और मेथड",
+        "hinglish": "Attributes aur methods"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m08c02",
+     "title": {
+      "en": "Reuse and behaviour",
+      "hi": "दोबारा इस्तेमाल और व्यवहार",
+      "hinglish": "Reuse aur behaviour"
+     },
+     "lessons": [
+      {
+       "id": "m08c02l03",
+       "title": {
+        "en": "Inheritance and super()",
+        "hi": "इनहेरिटेंस और super()",
+        "hinglish": "Inheritance aur super()"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m08c02l04",
+       "title": {
+        "en": "Dunder methods and dataclasses",
+        "hi": "डंडर मेथड और डेटाक्लास",
+        "hinglish": "Dunder methods aur dataclasses"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m09",
+   "title": {
+    "en": "Comprehensions and Generators",
+    "hi": "कॉम्प्रिहेंशन और जनरेटर",
+    "hinglish": "Comprehensions aur Generators"
+   },
+   "goal": {
+    "en": "Build sequences in one line, understand the iterator protocol under every for loop, and produce values lazily with yield.",
+    "hi": "एक पंक्ति में श्रृंखलाएँ बनाएँ, हर for लूप के नीचे इटरेटर प्रोटोकॉल समझें, और yield से मान आलसी रूप में बनाएँ।",
+    "hinglish": "Ek line me sequences banao, har for loop ke neeche iterator protocol samjho, aur yield se values lazy roop me banao."
+   },
+   "icon": "🔁",
+   "lesson_count": 3,
+   "exam_count": 6,
+   "skip_count": 15,
+   "chapters": [
+    {
+     "id": "m09c01",
+     "title": {
+      "en": "One-line sequences",
+      "hi": "एक-पंक्ति श्रृंखलाएँ",
+      "hinglish": "Ek-line sequences"
+     },
+     "lessons": [
+      {
+       "id": "m09c01l01",
+       "title": {
+        "en": "Comprehensions",
+        "hi": "कॉम्प्रिहेंशन",
+        "hinglish": "Comprehensions"
+       },
+       "visual": "comprehension"
+      },
+      {
+       "id": "m09c01l02",
+       "title": {
+        "en": "Iterators: iter and next",
+        "hi": "इटरेटर: iter और next",
+        "hinglish": "Iterators: iter aur next"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m09c02",
+     "title": {
+      "en": "Lazy values",
+      "hi": "आलसी मान",
+      "hinglish": "Lazy values"
+     },
+     "lessons": [
+      {
+       "id": "m09c02l03",
+       "title": {
+        "en": "yield and generators",
+        "hi": "yield और जनरेटर",
+        "hinglish": "yield aur generators"
+       },
+       "visual": "generator_lazy"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m10",
+   "title": {
+    "en": "Modern Python",
+    "hi": "आधुनिक पायथन",
+    "hinglish": "Modern Python"
+   },
+   "goal": {
+    "en": "Type hints and type aliases, functions as values, closures, decorators, and structural pattern matching.",
+    "hi": "टाइप हिंट और टाइप उपनाम, फ़ंक्शन मान के रूप में, क्लोज़र, डेकोरेटर, और संरचनात्मक पैटर्न मिलान।",
+    "hinglish": "Type hints aur type aliases, functions values ke roop me, closures, decorators, aur structural pattern matching."
+   },
+   "icon": "✨",
+   "lesson_count": 4,
+   "exam_count": 6,
+   "skip_count": 18,
+   "chapters": [
+    {
+     "id": "m10c01",
+     "title": {
+      "en": "Hints and higher-order functions",
+      "hi": "हिंट और उच्च-क्रम फ़ंक्शन",
+      "hinglish": "Hints aur higher-order functions"
+     },
+     "lessons": [
+      {
+       "id": "m10c01l01",
+       "title": {
+        "en": "Type hints and type aliases",
+        "hi": "टाइप हिंट और टाइप उपनाम",
+        "hinglish": "Type hints aur type aliases"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m10c01l02",
+       "title": {
+        "en": "Functions as objects and closures",
+        "hi": "फ़ंक्शन ऑब्जेक्ट की तरह और क्लोज़र",
+        "hinglish": "Functions objects ki tarah aur closures"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m10c02",
+     "title": {
+      "en": "Wrapping and matching",
+      "hi": "लपेटना और मिलान",
+      "hinglish": "Lapetna aur matching"
+     },
+     "lessons": [
+      {
+       "id": "m10c02l03",
+       "title": {
+        "en": "Decorators",
+        "hi": "डेकोरेटर",
+        "hinglish": "Decorators"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m10c02l04",
+       "title": {
+        "en": "match and case: structural patterns",
+        "hi": "match और case: संरचनात्मक पैटर्न",
+        "hinglish": "match aur case: structural patterns"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m11",
+   "title": {
+    "en": "The Standard Library Toolbox",
+    "hi": "स्टैंडर्ड लाइब्रेरी का औज़ार-डिब्बा",
+    "hinglish": "Standard Library ka Auzar-Dibba"
+   },
+   "goal": {
+    "en": "math, random and statistics for numbers; datetime for time; collections for counting and grouping; itertools and functools for pipelines.",
+    "hi": "संख्याओं के लिए math, random, statistics; समय के लिए datetime; गिनती और समूह के लिए collections; पाइपलाइन के लिए itertools और functools।",
+    "hinglish": "Numbers ke liye math, random, statistics; samay ke liye datetime; ginti aur group ke liye collections; pipeline ke liye itertools aur functools."
+   },
+   "icon": "🧰",
+   "lesson_count": 4,
+   "exam_count": 6,
+   "skip_count": 18,
+   "chapters": [
+    {
+     "id": "m11c01",
+     "title": {
+      "en": "Numbers and time",
+      "hi": "संख्याएँ और समय",
+      "hinglish": "Numbers aur time"
+     },
+     "lessons": [
+      {
+       "id": "m11c01l01",
+       "title": {
+        "en": "math, random and statistics",
+        "hi": "math, random और statistics",
+        "hinglish": "math, random aur statistics"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m11c01l02",
+       "title": {
+        "en": "Dates and times",
+        "hi": "तारीख़ और समय",
+        "hinglish": "Dates aur times"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m11c02",
+     "title": {
+      "en": "Containers and pipelines",
+      "hi": "कंटेनर और पाइपलाइन",
+      "hinglish": "Containers aur pipelines"
+     },
+     "lessons": [
+      {
+       "id": "m11c02l03",
+       "title": {
+        "en": "collections: Counter, defaultdict, deque",
+        "hi": "collections: Counter, defaultdict, deque",
+        "hinglish": "collections: Counter, defaultdict, deque"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m11c02l04",
+       "title": {
+        "en": "itertools and functools",
+        "hi": "itertools और functools",
+        "hinglish": "itertools aur functools"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m12",
+   "title": {
+    "en": "Real Projects",
+    "hi": "असली प्रोजेक्ट",
+    "hinglish": "Asli Projects"
+   },
+   "goal": {
+    "en": "Concurrency with async/await, reading and writing CSV, testing with unittest, and one complete expense tracker that uses everything.",
+    "hi": "async/await से समवर्ती काम, CSV पढ़ना-लिखना, unittest से जाँच, और सब कुछ इस्तेमाल करने वाला एक पूरा खर्च ट्रैकर।",
+    "hinglish": "async/await se concurrent kaam, CSV padhna-likhna, unittest se jaanch, aur sab kuch use karne wala ek poora expense tracker."
+   },
+   "icon": "🚀",
+   "lesson_count": 4,
+   "exam_count": 6,
+   "skip_count": 18,
+   "chapters": [
+    {
+     "id": "m12c01",
+     "title": {
+      "en": "Waiting and data files",
+      "hi": "इंतज़ार और डेटा फ़ाइलें",
+      "hinglish": "Intezaar aur data files"
+     },
+     "lessons": [
+      {
+       "id": "m12c01l01",
+       "title": {
+        "en": "async and await",
+        "hi": "async और await",
+        "hinglish": "async aur await"
+       },
+       "visual": "async_tasks"
+      },
+      {
+       "id": "m12c01l02",
+       "title": {
+        "en": "CSV files",
+        "hi": "CSV फ़ाइलें",
+        "hinglish": "CSV files"
+       },
+       "visual": ""
+      }
+     ]
+    },
+    {
+     "id": "m12c02",
+     "title": {
+      "en": "Quality and a real program",
+      "hi": "गुणवत्ता और असली प्रोग्राम",
+      "hinglish": "Quality aur asli program"
+     },
+     "lessons": [
+      {
+       "id": "m12c02l03",
+       "title": {
+        "en": "Testing your code",
+        "hi": "अपने कोड की जाँच",
+        "hinglish": "Apne code ki jaanch"
+       },
+       "visual": ""
+      },
+      {
+       "id": "m12c02l04",
+       "title": {
+        "en": "Final project: an expense tracker",
+        "hi": "अंतिम प्रोजेक्ट: खर्च ट्रैकर",
+        "hinglish": "Final project: expense tracker"
+       },
+       "visual": ""
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

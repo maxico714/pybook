@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %}Accounts — Admin{% endblock %}
+{% block crumbs %}<span>Admin</span><span>Accounts</span>{% endblock %}
+
+{% block body %}
+<section class="page-head">
+  <div>
+    <h1>Accounts</h1>
+    <p class="muted">
+      {{ counts.total }} in total · {{ counts.approved }} approved · {{ counts.pending }} waiting ·
+      {{ counts.rejected }} rejected
+    </p>
+  </div>
+  <div class="page-head-actions">
+    <a class="btn ghost" href="{{ url_for('admin.requests_page') }}">Requests queue</a>
+  </div>
+</section>
+
+{% include "admin/_nav.html" %}
+
+<form class="toolbar" method="get" action="{{ url_for('admin.users_page') }}" role="search">
+  <label class="search-field">
+    <span class="sr-only">Search accounts</span>
+    <span aria-hidden="true">⌕</span>
+    <input type="search" name="q" value="{{ query }}" maxlength="80"
+           placeholder="Search by name or email…" autocomplete="off">
+  </label>
+  <label class="toolbar-select">
+    <span class="sr-only">Status</span>
+    <select name="status" aria-label="Filter by status">
+      <option value="">Every status</option>
+      <option value="pending" {{ 'selected' if status == 'pending' }}>Waiting</option>
+      <option value="approved" {{ 'selected' if status == 'approved' }}>Approved</option>
+      <option value="rejected" {{ 'selected' if status == 'rejected' }}>Rejected</option>
+    </select>
+  </label>
+  <label class="toolbar-select">
+    <span class="sr-only">Role</span>
+    <select name="role" aria-label="Filter by role">
+      <option value="">Every role</option>
+      <option value="learner" {{ 'selected' if role == 'learner' }}>Learners</option>
+      <option value="admin" {{ 'selected' if role == 'admin' }}>Admins</option>
+    </select>
+  </label>
+  <button type="submit" class="btn primary">Filter</button>
+  {% if query or status or role %}
+    <a class="btn ghost" href="{{ url_for('admin.users_page') }}">Clear</a>
+  {% endif %}
+</form>
+
+{% if users %}
+  <div class="accounts-wrap card">
+    <table class="accounts-table">
+      <thead>
+        <tr>
+          <th scope="col">Account</th>
+          <th scope="col">Status</th>
+          <th scope="col">Role</th>
+          <th scope="col">Course</th>
+          <th scope="col">Progress</th>
+          <th scope="col">Last seen</th>
+          <th scope="col"><span class="sr-only">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for account in users %}
+          <tr class="{{ 'is-pending' if account.status == 'pending' }}">
+            <td>
+              <a class="accounts-name" href="{{ url_for('admin.user_detail', user_id=account.id) }}">
+                <span class="avatar sm">{{ account.name[:1]|upper }}</span>
+                <span>
+                  {{ account.name }}
+                  {% if account.id == learner.id %}<span class="badge soft">you</span>{% endif %}
+                  <em class="tiny muted block">{{ account.email or 'no email yet' }}</em>
+                </span>
+              </a>
+            </td>
+            <td>
+              <span class="badge {{ 'ok' if account.status == 'approved' else ('lock' if account.status == 'pending' else 'bad') }}">
+                {{ account.status }}
+              </span>
+            </td>
+            <td class="tiny">{{ account.role }}</td>
+            <td class="tiny">{{ account.course }}</td>
+            <td class="tiny nowrap">
+              {{ account.lessons_passed }} lessons · {{ account.modules_passed }} modules
+            </td>
+            <td class="tiny nowrap">{{ account.last_seen[:16] if account.last_seen else '—' }}</td>
+            <td class="accounts-actions">
+              <a class="btn ghost tiny" href="{{ url_for('admin.user_detail', user_id=account.id) }}">Open</a>
+              {% if account.id != learner.id %}
+                <form method="post" action="{{ url_for('admin.set_status', user_id=account.id) }}" class="inline-form">
+                  <input type="hidden" name="csrf" value="{{ csrf }}">
+                  <input type="hidden" name="filter" value="{{ status }}">
+                  {% if account.status != 'approved' %}
+                    <input type="hidden" name="status" value="approved">
+                    <button type="submit" class="btn primary tiny">Approve</button>
+                  {% else %}
+                    <input type="hidden" name="status" value="rejected">
+                    <button type="submit" class="btn danger tiny">Revoke</button>
+                  {% endif %}
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="tiny muted">{{ users|length }} account{{ '' if users|length == 1 else 's' }} shown.</p>
+{% else %}
+  <section class="card empty-state">
+    <span class="lock-icon big" aria-hidden="true">👤</span>
+    <h2>Nothing matches</h2>
+    <p class="muted">
+      {% if query %}No account matches “{{ query }}”.
+      {% elif status %}Nobody is {{ status }} right now.
+      {% else %}Nobody has signed up yet.{% endif %}
+    </p>
+    <a class="btn ghost" href="{{ url_for('admin.users_page') }}">Show every account</a>
+  </section>
+{% endif %}
+{% endblock %}

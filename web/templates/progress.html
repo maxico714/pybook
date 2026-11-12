@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}Progress — PyBook{% endblock %}
+{% block crumbs %}<span>Progress</span>{% endblock %}
+
+{% block body %}
+<header class="page-head">
+  <div>
+    <p class="eyebrow">Dashboard</p>
+    <h1>Progress &amp; scores</h1>
+    <p class="muted">{{ stats.lessons_done }}/{{ stats.lessons_total }} lessons · {{ stats.percent }}% of the course attempted</p>
+  </div>
+  <div class="row">
+    <a class="btn ghost" href="{{ url_for('api_export') }}" download="pybook-progress.json">Export JSON</a>
+    <button class="btn danger" type="button" data-act="reset">Reset everything</button>
+  </div>
+</header>
+
+<section class="kpis">
+  <article class="kpi">
+    <span class="kpi-label">Lessons passed</span>
+    <span class="kpi-value">{{ stats.lessons_done }}<small>/{{ stats.lessons_total }}</small></span>
+    <span class="kpi-sub">{{ stats.percent }}% of the course</span>
+  </article>
+  <article class="kpi">
+    <span class="kpi-label">Average score</span>
+    <span class="kpi-value">{{ stats.avg_score }}<small>%</small></span>
+    <span class="kpi-sub">best result per lesson</span>
+  </article>
+  <article class="kpi">
+    <span class="kpi-label">Day streak</span>
+    <span class="kpi-value">{{ stats.streak }}<small>d</small></span>
+    <span class="kpi-sub">consecutive days with work</span>
+  </article>
+  <article class="kpi">
+    <span class="kpi-label">Attempts</span>
+    <span class="kpi-value">{{ stats.attempts }}</span>
+    <span class="kpi-sub">{{ stats.questions_missed }} questions to revisit</span>
+  </article>
+  <article class="kpi xp-kpi">
+    <span class="kpi-label">XP earned</span>
+    <span class="kpi-value">{{ stats.xp }}</span>
+    <span class="kpi-sub">{{ stats.exercises_done }} exercises · {{ stats.drills_done }}/{{ stats.drills_total }} drills</span>
+  </article>
+</section>
+
+<section class="dash">
+  <article class="card chart-card">
+    <header class="chart-head">
+      <h2>Course completion</h2>
+      <span class="tiny muted">lessons passed vs remaining</span>
+    </header>
+    <div class="chart-box small"><canvas id="chart-donut"></canvas></div>
+    <p class="chart-note">{{ stats.lessons_done }} passed · {{ stats.lessons_total - stats.lessons_done }} to go</p>
+  </article>
+
+  <article class="card chart-card wide">
+    <header class="chart-head">
+      <h2>Score by module</h2>
+      <span class="tiny muted">average lesson score · hover for detail</span>
+    </header>
+    <div class="chart-box"><canvas id="chart-modules"></canvas></div>
+  </article>
+
+  <article class="card chart-card wide">
+    <header class="chart-head">
+      <h2>Last 14 days</h2>
+      <span class="tiny muted">lessons and exams touched per day</span>
+    </header>
+    <div class="chart-box short"><canvas id="chart-activity"></canvas></div>
+  </article>
+
+  <article class="card insight">
+    <h2>Where you are strong</h2>
+    {% if stats.strongest %}
+      <ul class="insight-list">
+        {% for module in stats.strongest %}
+          <li><span>{{ module.icon }}</span><span class="grow">{{ module.title }}</span><b>{{ module.avg }}%</b></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted small">Pass a lesson and this fills in.</p>
+    {% endif %}
+    <h2 class="mt">Where to focus</h2>
+    {% if stats.weakest %}
+      <ul class="insight-list">
+        {% for module in stats.weakest %}
+          <li><span>{{ module.icon }}</span><span class="grow">{{ module.title }}</span><b class="warn">{{ module.avg }}%</b></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted small">Nothing measured yet.</p>
+    {% endif %}
+  </article>
+</section>
+
+<section class="block">
+  <div class="chart-head">
+    <h2>Every module</h2>
+    <div class="filters" role="group" aria-label="Filter modules">
+      <button class="chip on" type="button" data-filter="all">All</button>
+      <button class="chip" type="button" data-filter="passed">Passed</button>
+      <button class="chip" type="button" data-filter="open">In progress</button>
+      <button class="chip" type="button" data-filter="locked">Locked</button>
+    </div>
+  </div>
+
+  <div class="table" id="module-table">
+    <div class="tr th"><span>Module</span><span>Lessons</span><span>Average</span><span>Exam</span><span>Skip</span></div>
+    {% for module in stats.modules %}
+      <div class="tr" data-state="{{ 'passed' if module.passed else ('open' if module.unlocked else 'locked') }}">
+        <span class="td-name">{{ module.icon }} {{ module.title }}</span>
+        <span>
+          <span class="mini-bar"><i style="width: {{ module.percent }}%"></i></span>
+          <span class="tiny">{{ module.done }}/{{ module.total }}</span>
+        </span>
+        <span class="td-score">{{ module.avg }}%</span>
+        <span>
+          {% if module.passed %}<span class="badge ok">passed</span>
+          {% elif module.exam %}<span class="tiny">{{ module.exam }}%</span>
+          {% else %}<span class="muted tiny">—</span>{% endif %}
+        </span>
+        <span>
+          {% if module.skip %}<span class="tiny">{{ module.skip }}%</span>
+          {% else %}<span class="muted tiny">—</span>{% endif %}
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="block">
+  <h2>Questions to revisit</h2>
+  {% if missed %}
+    <ul class="missed">
+      {% for item in missed %}
+        <li><span class="times">×{{ item.times }}</span> {{ item.question }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="muted">Nothing missed yet. That changes the first time a quiz goes wrong — which is fine.</p>
+  {% endif %}
+</section>
+
+<script type="application/json" id="stats-data">{{ stats|tojson }}</script>
+{% endblock %}
+
+{% block vendor %}<script src="{{ url_for('static', filename='vendor/chart.umd.js') }}" defer></script>{% endblock %}

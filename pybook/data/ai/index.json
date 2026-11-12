@@ -1,0 +1,627 @@
+{
+ "id": "ai",
+ "title": {
+  "hinglish": "AI Engineering — Zero se Production tak",
+  "en": "AI Engineering — From Zero to Production"
+ },
+ "subtitle": {
+  "hinglish": "23 chapters, 5 parts: setup se RAG, agents, evaluation aur capstone tak — har lesson me intro, real-life example, chalne wala code, mandatory practice aur quiz.",
+  "en": "23 chapters in 5 parts, from setup to RAG, agents, evaluation and capstones. Every lesson has an introduction, a real-life example, runnable code, mandatory practice and a quiz."
+ },
+ "modules": [
+  {
+   "id": "ai-m01",
+   "title": {
+    "hinglish": "Foundations",
+    "en": "Foundations"
+   },
+   "goal": {
+    "hinglish": "Setup, Python, math, data aur databases — woh base jis par poora AI engineering khada hai.",
+    "en": "Setup, Python, math, data and databases: the base every AI system stands on."
+   },
+   "icon": "🧱",
+   "lesson_count": 5,
+   "exam_count": 6,
+   "skip_count": 21,
+   "chapters": [
+    {
+     "id": "ai-m01c01",
+     "title": {
+      "hinglish": "Setup, Tooling & AI-Assisted Engineering",
+      "en": "Setup, Tooling & AI-Assisted Engineering"
+     },
+     "lessons": [
+      {
+       "id": "ai-m01c01l01",
+       "title": {
+        "hinglish": "Setup, tooling aur AI-assisted engineering",
+        "en": "Setup, tooling and AI-assisted engineering"
+       },
+       "keywords": [
+        "uv",
+        "git",
+        "Docker",
+        "env",
+        "AGENTS.md"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m01c02",
+     "title": {
+      "hinglish": "Python for AI Engineering",
+      "en": "Python for AI Engineering"
+     },
+     "lessons": [
+      {
+       "id": "ai-m01c02l01",
+       "title": {
+        "hinglish": "Python for AI engineering",
+        "en": "Python for AI engineering"
+       },
+       "keywords": [
+        "dataclass",
+        "typing",
+        "pydantic",
+        "asyncio",
+        "pytest"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m01c03",
+     "title": {
+      "hinglish": "Math & Statistics for AI Engineers",
+      "en": "Math & Statistics for AI Engineers"
+     },
+     "lessons": [
+      {
+       "id": "ai-m01c03l01",
+       "title": {
+        "hinglish": "Math aur statistics ka intuition",
+        "en": "Math and statistics intuition"
+       },
+       "keywords": [
+        "vector",
+        "cosine",
+        "gradient",
+        "softmax",
+        "Bayes"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m01c04",
+     "title": {
+      "hinglish": "Data Skills for AI Engineers",
+      "en": "Data Skills for AI Engineers"
+     },
+     "lessons": [
+      {
+       "id": "ai-m01c04l01",
+       "title": {
+        "hinglish": "Data skills: cleaning, groupby, leakage",
+        "en": "Data skills: cleaning, groupby, leakage"
+       },
+       "keywords": [
+        "groupby",
+        "merge",
+        "leakage",
+        "outlier",
+        "Parquet"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m01c05",
+     "title": {
+      "hinglish": "Databases",
+      "en": "Databases"
+     },
+     "lessons": [
+      {
+       "id": "ai-m01c05l01",
+       "title": {
+        "hinglish": "Databases, SQL aur vector search",
+        "en": "Databases, SQL and vector search"
+       },
+       "keywords": [
+        "JOIN",
+        "GROUP BY",
+        "index",
+        "ANN",
+        "pgvector"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m02",
+   "title": {
+    "hinglish": "ML aur deep learning",
+    "en": "ML and deep learning"
+   },
+   "goal": {
+    "hinglish": "Classical ML se PyTorch tak, aur attention tak — model ke andar kya hota hai.",
+    "en": "From classical ML through PyTorch to attention: what happens inside a model."
+   },
+   "icon": "🧠",
+   "lesson_count": 3,
+   "exam_count": 6,
+   "skip_count": 15,
+   "chapters": [
+    {
+     "id": "ai-m02c06",
+     "title": {
+      "hinglish": "Classical ML with scikit-learn",
+      "en": "Classical ML with scikit-learn"
+     },
+     "lessons": [
+      {
+       "id": "ai-m02c06l01",
+       "title": {
+        "hinglish": "Classical ML aur metrics",
+        "en": "Classical ML and metrics"
+       },
+       "keywords": [
+        "baseline",
+        "overfit",
+        "precision",
+        "recall",
+        "Gini"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m02c07",
+     "title": {
+      "hinglish": "Deep Learning with PyTorch",
+      "en": "Deep Learning with PyTorch"
+     },
+     "lessons": [
+      {
+       "id": "ai-m02c07l01",
+       "title": {
+        "hinglish": "Deep learning: ek neuron se training loop tak",
+        "en": "Deep learning: from one neuron to a training loop"
+       },
+       "keywords": [
+        "tensor",
+        "autograd",
+        "learning rate",
+        "dropout",
+        "epoch"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m02c08",
+     "title": {
+      "hinglish": "Transformers, NLP & Embeddings",
+      "en": "Transformers, NLP & Embeddings"
+     },
+     "lessons": [
+      {
+       "id": "ai-m02c08l01",
+       "title": {
+        "hinglish": "Transformers, attention aur embeddings",
+        "en": "Transformers, attention and embeddings"
+       },
+       "keywords": [
+        "token",
+        "embedding",
+        "attention",
+        "softmax",
+        "BPE"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03",
+   "title": {
+    "hinglish": "LLM engineering",
+    "en": "LLM engineering"
+   },
+   "goal": {
+    "hinglish": "LLM behaviour, APIs, prompts, RAG, agents aur evaluation — roz ka LLM kaam.",
+    "en": "LLM behaviour, APIs, prompts, RAG, agents and evaluation: the daily LLM work."
+   },
+   "icon": "🤖",
+   "lesson_count": 6,
+   "exam_count": 6,
+   "skip_count": 24,
+   "chapters": [
+    {
+     "id": "ai-m03c09",
+     "title": {
+      "hinglish": "LLM Fundamentals",
+      "en": "LLM Fundamentals"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c09l01",
+       "title": {
+        "hinglish": "LLM fundamentals: next token aur sampling",
+        "en": "LLM fundamentals: next token and sampling"
+       },
+       "keywords": [
+        "token",
+        "softmax",
+        "temperature",
+        "hallucination",
+        "context"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m03c10",
+     "title": {
+      "hinglish": "LLM API Engineering",
+      "en": "LLM API Engineering"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c10l01",
+       "title": {
+        "hinglish": "LLM API engineering",
+        "en": "LLM API engineering"
+       },
+       "keywords": [
+        "streaming",
+        "retry",
+        "schema",
+        "timeout",
+        "idempotency"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m03c11",
+     "title": {
+      "hinglish": "Prompt & Context Engineering",
+      "en": "Prompt & Context Engineering"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c11l01",
+       "title": {
+        "hinglish": "Prompt aur context engineering",
+        "en": "Prompt and context engineering"
+       },
+       "keywords": [
+        "few-shot",
+        "context budget",
+        "memory",
+        "injection",
+        "versioning"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m03c12",
+     "title": {
+      "hinglish": "RAG (Retrieval-Augmented Generation)",
+      "en": "RAG (Retrieval-Augmented Generation)"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c12l01",
+       "title": {
+        "hinglish": "RAG: retrieval se grounded answer tak",
+        "en": "RAG: from retrieval to a grounded answer"
+       },
+       "keywords": [
+        "chunk",
+        "embedding",
+        "hybrid",
+        "rerank",
+        "citation"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m03c13",
+     "title": {
+      "hinglish": "Agentic AI",
+      "en": "Agentic AI"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c13l01",
+       "title": {
+        "hinglish": "Agentic AI: tool loop aur guardrails",
+        "en": "Agentic AI: tool loop and guardrails"
+       },
+       "keywords": [
+        "tool",
+        "ReAct",
+        "state",
+        "guardrail",
+        "MCP"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m03c14",
+     "title": {
+      "hinglish": "Evaluation & Observability",
+      "en": "Evaluation & Observability"
+     },
+     "lessons": [
+      {
+       "id": "ai-m03c14l01",
+       "title": {
+        "hinglish": "Evaluation aur observability",
+        "en": "Evaluation and observability"
+       },
+       "keywords": [
+        "golden set",
+        "LLM judge",
+        "F1",
+        "trace",
+        "regression"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m04",
+   "title": {
+    "hinglish": "Specialisation aur production",
+    "en": "Specialisation and production"
+   },
+   "goal": {
+    "hinglish": "Fine-tuning, multimodal, data quality, serving, MLOps, safety aur system design.",
+    "en": "Fine-tuning, multimodal, data quality, serving, MLOps, safety and system design."
+   },
+   "icon": "🚀",
+   "lesson_count": 7,
+   "exam_count": 6,
+   "skip_count": 27,
+   "chapters": [
+    {
+     "id": "ai-m04c15",
+     "title": {
+      "hinglish": "Fine-Tuning & Model Optimisation",
+      "en": "Fine-Tuning & Model Optimisation"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c15l01",
+       "title": {
+        "hinglish": "Fine-tuning, LoRA aur quantisation",
+        "en": "Fine-tuning, LoRA and quantisation"
+       },
+       "keywords": [
+        "LoRA",
+        "QLoRA",
+        "SFT",
+        "DPO",
+        "quantisation"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c16",
+     "title": {
+      "hinglish": "Multimodal AI",
+      "en": "Multimodal AI"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c16l01",
+       "title": {
+        "hinglish": "Multimodal AI: image, audio aur documents",
+        "en": "Multimodal AI: image, audio and documents"
+       },
+       "keywords": [
+        "VLM",
+        "OCR",
+        "CLIP",
+        "ASR",
+        "pooling"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c17",
+     "title": {
+      "hinglish": "Data Work for AI",
+      "en": "Data Work for AI"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c17l01",
+       "title": {
+        "hinglish": "AI ke liye data work: annotation aur quality",
+        "en": "Data work for AI: annotation and quality"
+       },
+       "keywords": [
+        "annotation",
+        "kappa",
+        "dedup",
+        "synthetic",
+        "licence"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c18",
+     "title": {
+      "hinglish": "Serving & Deployment",
+      "en": "Serving & Deployment"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c18l01",
+       "title": {
+        "hinglish": "Serving aur deployment",
+        "en": "Serving and deployment"
+       },
+       "keywords": [
+        "FastAPI",
+        "Docker",
+        "queue",
+        "rate limit",
+        "Ollama"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c19",
+     "title": {
+      "hinglish": "MLOps / LLMOps",
+      "en": "MLOps / LLMOps"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c19l01",
+       "title": {
+        "hinglish": "MLOps aur LLMOps",
+        "en": "MLOps and LLMOps"
+       },
+       "keywords": [
+        "registry",
+        "drift",
+        "canary",
+        "rollback",
+        "experiment"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c20",
+     "title": {
+      "hinglish": "Safety, Security & Responsible AI",
+      "en": "Safety, Security & Responsible AI"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c20l01",
+       "title": {
+        "hinglish": "Safety, security aur responsible AI",
+        "en": "Safety, security and responsible AI"
+       },
+       "keywords": [
+        "injection",
+        "PII",
+        "least privilege",
+        "guardrail",
+        "licence"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m04c21",
+     "title": {
+      "hinglish": "AI System Design",
+      "en": "AI System Design"
+     },
+     "lessons": [
+      {
+       "id": "ai-m04c21l01",
+       "title": {
+        "hinglish": "AI system design",
+        "en": "AI system design"
+       },
+       "keywords": [
+        "requirements",
+        "architecture",
+        "routing",
+        "fallback",
+        "cost"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m05",
+   "title": {
+    "hinglish": "Career aur capstones",
+    "en": "Career and capstones"
+   },
+   "goal": {
+    "hinglish": "Interview, portfolio, freelancing aur paanch capstones jo proof dikhate hain.",
+    "en": "Interviews, portfolio, freelancing and five capstones that show proof."
+   },
+   "icon": "🎯",
+   "lesson_count": 2,
+   "exam_count": 6,
+   "skip_count": 12,
+   "chapters": [
+    {
+     "id": "ai-m05c22",
+     "title": {
+      "hinglish": "Career: Interviews, Portfolio & Freelancing",
+      "en": "Career: Interviews, Portfolio & Freelancing"
+     },
+     "lessons": [
+      {
+       "id": "ai-m05c22l01",
+       "title": {
+        "hinglish": "Career: interview, portfolio aur freelancing",
+        "en": "Career: interviews, portfolio and freelancing"
+       },
+       "keywords": [
+        "STAR",
+        "ATS",
+        "portfolio",
+        "take-home",
+        "pricing"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "ai-m05c23",
+     "title": {
+      "hinglish": "Capstone Projects",
+      "en": "Capstone Projects"
+     },
+     "lessons": [
+      {
+       "id": "ai-m05c23l01",
+       "title": {
+        "hinglish": "Capstone: chhota RAG pipeline",
+        "en": "Capstone: a small RAG pipeline"
+       },
+       "keywords": [
+        "retrieval",
+        "citation",
+        "eval",
+        "pipeline",
+        "cost"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

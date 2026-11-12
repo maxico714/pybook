@@ -1,0 +1,288 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — PyBook{% endblock %}
+{% block crumbs %}
+  <a href="{{ url_for('learn') }}">Your path</a><span class="sep">/</span>
+  <span>{{ t(module.title) }}</span><span class="sep">/</span>
+  <span class="now">{{ title }}</span>
+{% endblock %}
+
+{% block body %}
+<header class="lesson-head">
+  <div class="lesson-head-main">
+    <p class="eyebrow">{{ t(chapter.title) }}</p>
+    <h1>{{ title }}</h1>
+    {% if body.keywords %}
+      <p class="keywords">{% for word in body.keywords %}<code>{{ word }}</code>{% endfor %}</p>
+    {% endif %}
+  </div>
+  <div class="lesson-head-side">
+    {% if passed %}
+      <span class="badge ok lg">passed · {{ (best * 100)|round|int }}%</span>
+    {% else %}
+      <span class="badge soft lg">{{ (lesson_pass * 100)|int }}% to unlock the next</span>
+    {% endif %}
+  </div>
+</header>
+
+<nav class="step-nav" id="step-nav" aria-label="Lesson sections">
+  <a href="#idea" class="on"><b>1</b> Idea</a>
+  <a href="#real"><b>2</b> Real life</a>
+  <a href="#run"><b>3</b> Run it</a>
+  {% if exercises %}<a href="#practice"><b>4</b> Practise</a>{% endif %}
+  <a href="#quiz"><b>{{ 5 if exercises else 4 }}</b> Quiz</a>
+</nav>
+
+<section class="block" id="idea">
+  <h2 class="step-h"><span class="step-n">1</span> The idea</h2>
+  <p class="prose">{{ t(body.intro) }}</p>
+  {% if visual %}
+    <figure class="visual">
+      <div class="visual-canvas">{{ visual[0]|safe }}</div>
+      <figcaption>{{ visual[1] }}</figcaption>
+    </figure>
+  {% endif %}
+  {% if body.takeaway %}
+    <p class="takeaway"><span aria-hidden="true">💡</span> {{ t(body.takeaway) }}</p>
+  {% endif %}
+</section>
+
+<section class="block" id="real">
+  <h2 class="step-h"><span class="step-n">2</span> In real life</h2>
+  <p class="reallife">{{ t(body.real_life) }}</p>
+</section>
+
+<section class="block" id="run">
+  <h2 class="step-h"><span class="step-n">3</span> Watch it run</h2>
+  <p class="muted small">
+    <b>Run</b> executes it. <b>Step through</b> walks the program one line at a time and shows
+    the variables after each line — that is the part a video cannot show you.
+  </p>
+
+  {% for example in examples %}
+    <article class="example" data-lesson="{{ lesson_id }}" data-example="{{ example.index }}"
+             x-data="stepper" x-init='init({{ example.index }}, {{ example.code|tojson }})'>
+      <header class="example-head">
+        <h3>{{ example.title }}</h3>
+        <div class="example-actions">
+          <button class="btn tiny primary" type="button" @click="run()" :disabled="busy">
+            <span x-show="!busy">▶ Run</span><span x-show="busy">…</span>
+          </button>
+          <button class="btn tiny ghost" type="button" @click="trace()" :disabled="busy">⏭ Step through</button>
+        </div>
+      </header>
+
+      <div class="code-wrap">
+        <pre class="code language-python"><code>{{ example.code }}</code></pre>
+      </div>
+
+      {% if example.output %}
+        <div class="expected"><span class="tag">expected output</span><pre>{{ example.output }}</pre></div>
+      {% endif %}
+      {% if example.note %}<p class="small muted">{{ example.note }}</p>{% endif %}
+
+      {% if example.flow %}
+        <details class="flow-wrap">
+          <summary>Code flow</summary>
+          <div class="flow-canvas">{{ example.flow|safe }}</div>
+        </details>
+      {% endif %}
+
+      <div class="console" x-show="ran" x-cloak>
+        <div class="console-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="console-title" x-text="ok ? 'output' : 'error'"></span></div>
+        <pre x-text="display"></pre>
+      </div>
+
+      <div class="stepper" x-show="steps.length" x-cloak>
+        {% include "_stepper.html" %}
+      </div>
+    </article>
+  {% endfor %}
+</section>
+
+{% if exercises %}
+<section class="block" id="practice">
+  <header class="block-head">
+    <h2 class="step-h"><span class="step-n">4</span> Required practice</h2>
+    <span class="pill-score {{ 'strong' if ready }}" id="practice-pill">{{ practice_done }}/{{ exercises|length }} solved</span>
+  </header>
+  <p class="muted small">
+    These are <b>mandatory</b>: the quiz opens only after every one passes. The checker runs your
+    code and names the check that failed — it never shows the answer.
+  </p>
+
+  {% for exercise in exercises %}
+    <article class="exercise {{ 'is-done' if exercise.passed }}" data-exercise="{{ exercise.id }}">
+      <header class="exercise-head">
+        <span class="req-badge">Required</span>
+        <span class="exercise-n">Task {{ loop.index }}</span>
+        <span class="exercise-state" data-state>{{ 'solved ✓' if exercise.passed else 'not solved yet' }}</span>
+      </header>
+      <p class="prompt">{{ exercise.prompt|inline|safe }}</p>
+      <textarea class="editor" spellcheck="false" rows="6" aria-label="Your code">{{ exercise.starter }}</textarea>
+      <div class="row">
+        <button class="btn primary" type="button" data-act="check">Check my code</button>
+        <button class="btn ghost" type="button" data-act="hint">Hint</button>
+        <span class="tiny muted">{{ exercise.checks }} checks must pass</span>
+      </div>
+      <p class="hint-text small" hidden>{{ exercise.hint }}</p>
+      <div class="result" hidden></div>
+    </article>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if drills %}
+<section class="block" id="optional" data-lesson="{{ lesson_id }}">
+  <header class="block-head">
+    <h2 class="step-h"><span class="step-n">+</span> Optional drills</h2>
+    <span class="pill-score">{{ drills|length }} extra · +{{ drills[0].xp }} XP each</span>
+  </header>
+  <p class="muted small">
+    Not required, never locked. Small interactive reps that make the idea stick — predict, order,
+    fill the blank. Answers are checked against the course's own verified examples.
+  </p>
+
+  <div class="drill-grid">
+    {% for drill in drills %}
+      <article class="drill drill-{{ drill.kind }}" x-data="drill" x-init='init({{ drill|tojson }})'
+               :class="{ 'is-done': passed }">
+        <header class="drill-head">
+          <span class="drill-icon" aria-hidden="true">
+            {{ {'predict': '🔮', 'order': '🧩', 'blanks': '✏️'}[drill.kind] }}
+          </span>
+          <div class="drill-title">
+            <h3>{{ drill.title }}</h3>
+            <p class="tiny muted">{{ drill.prompt }}</p>
+          </div>
+          <span class="xp-pill">+{{ drill.xp }} XP</span>
+        </header>
+
+        <template x-if="kind === 'predict'">
+          <div>
+            <pre class="code language-python"><code x-text="code"></code></pre>
+            <label class="field full">
+              <span>What does it print?</span>
+              <textarea class="editor" rows="3" spellcheck="false" x-model="typed"
+                        placeholder="Type the output, line by line"></textarea>
+            </label>
+          </div>
+        </template>
+
+        <template x-if="kind === 'order'">
+          <div class="order-wrap">
+            <div class="order-col">
+              <p class="tiny">Tap a line to add it</p>
+              <template x-for="line in pool" :key="line.id">
+                <button class="order-line" type="button" @click="add(line)"
+                        :disabled="used.includes(line.id)" :class="{ used: used.includes(line.id) }"
+                        x-text="line.text || ' '"></button>
+              </template>
+            </div>
+            <div class="order-col">
+              <p class="tiny">Your order</p>
+              <template x-for="(line, i) in sequence" :key="line.id">
+                <button class="order-line picked" type="button" @click="removeAt(i)">
+                  <span class="order-n" x-text="i + 1"></span>
+                  <span x-text="line.text || ' '"></span>
+                </button>
+              </template>
+              <p class="empty tiny" x-show="!sequence.length">nothing yet</p>
+            </div>
+          </div>
+        </template>
+
+        <template x-if="kind === 'blanks'">
+          <div>
+            <pre class="code language-python"><code x-text="code"></code></pre>
+            <div class="chips">
+              <template x-for="option in options" :key="option">
+                <button class="chip" type="button" :class="{ on: typed === option }"
+                        @click="typed = option" x-text="option"></button>
+              </template>
+            </div>
+          </div>
+        </template>
+
+        <div class="row drill-actions">
+          <button class="btn primary tiny" type="button" @click="check()" :disabled="busy || passed">
+            <span x-show="!passed">Check</span><span x-show="passed">Solved ✓</span>
+          </button>
+          <button class="btn ghost tiny" type="button" @click="showHint = !showHint">Hint</button>
+          <span class="drill-msg" :class="{ ok: passed, bad: message && !passed }" x-text="message"></span>
+        </div>
+        <p class="hint-text small" x-show="showHint" x-cloak x-text="hint"></p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="block" id="quiz"
+         x-data="quiz({ lesson: '{{ lesson_id }}', ready: {{ 1 if ready else 0 }} })">
+  <h2 class="step-h"><span class="step-n">{{ 5 if exercises else 4 }}</span> Check yourself</h2>
+  <p class="muted small">{{ (lesson_pass * 100)|int }}% passes this lesson and opens the next one.</p>
+
+  <div class="gate" {% if ready %}hidden{% endif %} x-show="!ready">
+    <span class="gate-icon" aria-hidden="true">🔒</span>
+    <div>
+      <b>Quiz locked</b>
+      <p class="small muted">
+        Solve the required practice above first. The quiz is the proof, not the lesson.
+      </p>
+    </div>
+  </div>
+
+  {% set letters = "abcdef" %}
+  <form class="quiz" @submit.prevent="submit()" {% if not ready %}hidden{% endif %} x-show="ready">
+    {% for item in quiz %}
+      <fieldset class="q">
+        <legend><span class="qnum">{{ item.number }}</span> {{ item.question }}</legend>
+        {% for option in item.options %}
+          <label class="opt" :class="optionClass('q{{ item.number }}', '{{ letters[loop.index0] }}')">
+            <input type="radio" name="q{{ item.number }}" value="{{ letters[loop.index0] }}"
+                   x-model="answers.q{{ item.number }}">
+            <span class="letter">{{ letters[loop.index0]|upper }}</span>
+            <span class="opt-text">{{ option }}</span>
+          </label>
+        {% endfor %}
+      </fieldset>
+    {% endfor %}
+    <button class="btn primary lg" type="submit" :disabled="busy">
+      <span x-show="!busy">Submit answers</span><span x-show="busy">Checking…</span>
+    </button>
+  </form>
+
+  <div class="result" x-show="result" x-cloak :class="result && result.ok && result.passed ? 'ok' : (result && result.ok ? 'bad' : '')">
+    <h4 x-text="!result ? '' : (!result.ok ? 'Could not submit' : (result.passed ? 'Passed 🎉' : 'Not yet'))"></h4>
+    <p class="small" x-show="result && !result.ok" x-text="result && (result.message || result.error)"></p>
+    <p class="score-line" x-show="result && result.ok" x-text="result && (result.correct + ' / ' + result.total + ' correct · ' + result.percent + '% · ' + Math.round(result.needed * 100) + '% needed')"></p>
+    <template x-for="miss in (result && result.detail) || []" :key="miss.id">
+      <div class="miss">
+        <p class="q-text" x-text="'Q' + miss.number + '. ' + miss.question"></p>
+        <p class="picked">Your answer: <b x-text="miss.given || '—'"></b> · correct: <b x-text="miss.answer"></b></p>
+        <p class="why" x-text="miss.why"></p>
+      </div>
+    </template>
+    <p x-show="result && result.passed && result.next">
+      <a class="btn primary" :href="'/lesson/' + (result && result.next)">Next lesson →</a>
+    </p>
+    <p x-show="result && result.passed && !(result && result.next)">
+      <a class="btn primary" href="{{ url_for('learn') }}">Module exams →</a>
+    </p>
+  </div>
+</section>
+
+<nav class="pager">
+  {% if next_lesson and passed %}
+    <a class="btn primary" href="{{ url_for('lesson', lesson_id=next_lesson) }}">Next lesson →</a>
+  {% elif next_lesson %}
+    <a class="btn ghost" href="{{ url_for('learn') }}">Back to your path</a>
+  {% else %}
+    <a class="btn primary" href="{{ url_for('learn') }}">Module exams →</a>
+  {% endif %}
+  {% if body.docs %}
+    <a class="docs-link" href="{{ body.docs }}" target="_blank" rel="noopener noreferrer">Official docs ↗</a>
+  {% endif %}
+</nav>
+{% endblock %}

@@ -1,0 +1,1326 @@
+{
+ "id": "m02",
+ "title": {
+  "en": "Working with Data",
+  "hi": "डेटा के साथ काम",
+  "hinglish": "Data ke saath kaam"
+ },
+ "goal": {
+  "en": "Cut text and lists into pieces, clean text up, combine conditions, tell identity apart from equality, and handle division correctly.",
+  "hi": "टेक्स्ट और लिस्ट के टुकड़े करें, टेक्स्ट साफ़ करें, शर्तें जोड़ें, पहचान और बराबरी में फ़र्क करें, और भाग सही संभालें।",
+  "hinglish": "Text aur lists ke tukde karo, text saaf karo, conditions jodo, identity aur equality me farq karo, aur division sahi sambhalo."
+ },
+ "chapters": [
+  {
+   "id": "m02c01",
+   "title": {
+    "en": "Text in depth",
+    "hi": "टेक्स्ट विस्तार से",
+    "hinglish": "Text vistar se"
+   },
+   "lessons": [
+    {
+     "id": "m02c01l01",
+     "title": {
+      "en": "Indexing and slicing",
+      "hi": "इंडेक्सिंग और स्लाइसिंग",
+      "hinglish": "Indexing aur slicing"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Every sequence (string, list, tuple) is numbered from 0. square brackets pick one item by number, and a slice with a colon picks a range.",
+      "hi": "हर सीक्वेंस (स्ट्रिंग, लिस्ट, ट्यूपल) 0 से गिना जाता है। स्क्वायर ब्रैकेट नंबर से एक आइटम चुनते हैं, और कोलन वाला स्लाइस एक रेंज चुनता है।",
+      "hinglish": "Har sequence (string, list, tuple) 0 se gina jata hai. Square bracket number se ek item chunte hain, aur colon wala slice ek range chunta hai."
+     },
+     "real_life": {
+      "en": "A train has numbered coaches and you have a seat 3C. `train[3]` is coach 3. A reservation for coaches 3 to 5 is a slice: `train[3:6]` — note that the stop number is the one *after* the last coach you want.",
+      "hi": "ट्रेन में डिब्बे नंबर पर होते हैं और आपकी सीट 3C है। `train[3]` डिब्बा 3 है। डिब्बा 3 से 5 तक की बुकिंग स्लाइस है: `train[3:6]` — ध्यान दें कि रुकने वाला नंबर आख़िरी डिब्बे के *बाद* वाला है।",
+      "hinglish": "Train me coaches number par hote hain aur aapki seat 3C hai. `train[3]` coach 3 hai. Coach 3 se 5 tak ki booking slice hai: `train[3:6]` - dhyan do ki rukne wala number aakhri coach ke *baad* wala hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/introduction.html#strings",
+     "visual": "list_index",
+     "examples": [
+      {
+       "title": {
+        "en": "one item versus a slice",
+        "hi": "एक आइटम बनाम स्लाइस",
+        "hinglish": "ek item versus slice"
+       },
+       "code": "word = \"Python\"\nprint(word[0], word[-1])\nprint(word[1:4])\nprint(word[:3], word[3:])\nprint(word[::2])",
+       "output": "P n\nyth\nPyt hon\nPto",
+       "note": {
+        "en": "-1 is the last item; a negative step walks backwards.",
+        "hi": "-1 आख़िरी आइटम है; नेगेटिव स्टेप पीछे की ओर चलता है।",
+        "hinglish": "-1 aakhri item hai; negative step peeche ki taraf chalta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "slicing a list",
+        "hi": "लिस्ट स्लाइस करना",
+        "hinglish": "list slice karna"
+       },
+       "code": "nums = [10, 20, 30, 40, 50]\nprint(nums[1:3])\nprint(nums[::-1])\nprint(len(nums))",
+       "output": "[20, 30]\n[50, 40, 30, 20, 10]\n5",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m02c01l01e1",
+       "prompt": {
+        "en": "From `text = 'programming'`, print the first 7 characters, then the last 3.",
+        "hi": "`text = 'programming'` से पहले 7 अक्षर प्रिंट करें, फिर आख़िरी 3।",
+        "hinglish": "`text = 'programming'` se pehle 7 characters print karo, phir aakhri 3."
+       },
+       "starter": "text = 'programming'\n# print(...)\n# print(...)",
+       "solution": "text = 'programming'\nprint(text[:7])\nprint(text[-3:])",
+       "checks": [
+        "\"program\" in printed",
+        "\"ing\" in printed"
+       ],
+       "hint": {
+        "en": "[:7] means from the start up to 7.",
+        "hi": "[:7] का मतलब शुरू से 7 तक।",
+        "hinglish": "[:7] matlab shuru se 7 tak."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m02c01l01q1",
+       "question": {
+        "en": "What is 'Python'[1:3]?",
+        "hi": "'Python'[1:3] क्या है?",
+        "hinglish": "'Python'[1:3] kya hai?"
+       },
+       "options": [
+        "'yt'",
+        "'yth'",
+        "'y'",
+        "'Pyt'"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "Start at index 1 ('y') and stop before index 3, so only 1 and 2 are included.",
+        "hi": "इंडेक्स 1 ('y') से शुरू और 3 से पहले रुको, इसलिए सिर्फ़ 1 और 2 शामिल हैं।",
+        "hinglish": "Index 1 ('y') se shuru aur 3 se pehle ruk, isliye sirf 1 aur 2 include hain."
+       },
+       "misconception": "slice-exclusive-end"
+      },
+      {
+       "id": "m02c01l01q2",
+       "question": {
+        "en": "What is [1, 2, 3][-1]?",
+        "hi": "[1, 2, 3][-1] क्या है?",
+        "hinglish": "[1, 2, 3][-1] kya hai?"
+       },
+       "options": [
+        "1",
+        "3",
+        "an error",
+        "[3]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Negative indexes count from the end, so -1 is the last item. An IndexError only happens when the number is too large in either direction.",
+        "hi": "नेगेटिव इंडेक्स अंत से गिनते हैं, इसलिए -1 आख़िरी आइटम है। IndexError तभी आता है जब नंबर दोनों दिशाओं में बहुत बड़ा हो।",
+        "hinglish": "Negative index end se ginte hain, isliye -1 aakhri item hai. IndexError tabhi aata hai jab number dono directions me bahut bada ho."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m02c01l01q3",
+       "question": {
+        "en": "Why does 'abc'[0:10] not raise an error?",
+        "hi": "'abc'[0:10] एरर क्यों नहीं देता?",
+        "hinglish": "'abc'[0:10] error kyun nahi deta?"
+       },
+       "options": [
+        "because slicing clamps to the length",
+        "because 10 is a float",
+        "because strings are immutable",
+        "it does raise an error"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "A slice never fails for an out-of-range number: it just stops at the end. Indexing with [10] would raise IndexError.",
+        "hi": "स्लाइस रेंज से बाहर के नंबर पर कभी फेल नहीं होता: वह अंत पर रुक जाता है। [10] से इंडेक्स करने पर IndexError आता।",
+        "hinglish": "Slice range se bahar ke number par kabhi fail nahi hota: woh end par ruk jata hai. [10] se index karne par IndexError aata."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Indexes start at 0; slices stop before the end number; -1 is the last item.",
+      "hi": "इंडेक्स 0 से शुरू; स्लाइस अंत वाले नंबर से पहले रुकता है; -1 आख़िरी आइटम।",
+      "hinglish": "Index 0 se shuru; slice end number se pehle rukta hai; -1 aakhri item."
+     }
+    },
+    {
+     "id": "m02c01l02",
+     "title": {
+      "en": "String methods and f-strings",
+      "hi": "स्ट्रिंग मेथड और f-string",
+      "hinglish": "String methods aur f-strings"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Strings come with ready-made methods: strip, lower, replace, split, join, startswith and many more. f-strings are the modern way to put values inside text.",
+      "hi": "स्ट्रिंग के साथ तैयार मेथड आते हैं: strip, lower, replace, split, join, startswith और भी। f-string वैल्यू को टेक्स्ट के अंदर डालने का आधुनिक तरीका है।",
+      "hinglish": "Strings ke saath ready-made methods aate hain: strip, lower, replace, split, join, startswith aur bhi. f-string value ko text ke andar daalne ka modern tarika hai."
+     },
+     "real_life": {
+      "en": "Cleaning up a form: people type \"  ASHA  \" or \"asha\". One strip() and one lower() turn both into a single consistent \"asha\" you can compare.",
+      "hi": "फ़ॉर्म साफ़ करना: लोग \"  ASHA  \" या \"asha\" टाइप करते हैं। एक strip() और एक lower() दोनों को एक जैसा \"asha\" बना देते हैं जिसकी तुलना हो सके।",
+      "hinglish": "Form saaf karna: log \"  ASHA  \" ya \"asha\" type karte hain. Ek strip() aur ek lower() dono ko ek jaisa \"asha\" bana dete hain jiski compare ho sake."
+     },
+     "docs": "https://docs.python.org/3/library/stdtypes.html#string-methods",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "the five you will use daily",
+        "hi": "रोज़ काम आने वाले पाँच",
+        "hinglish": "roz kaam aane wale paanch"
+       },
+       "code": "text = \"  Hello World  \"\nprint(text.strip())\nprint(text.strip().lower())\nprint(text.strip().replace(\"World\", \"Python\"))\nprint(\"a,b,c\".split(\",\"))\nprint(\"-\".join([\"a\", \"b\", \"c\"]))",
+       "output": "Hello World\nhello world\nHello Python\n['a', 'b', 'c']\na-b-c",
+       "note": {
+        "en": "Methods chain left to right: strip() first, then lower() on its result.",
+        "hi": "मेथड बाएँ से दाएँ जुड़ते हैं: पहले strip(), फिर उसके परिणाम पर lower()।",
+        "hinglish": "Methods left se right judte hain: pehle strip(), phir uske result par lower()."
+       }
+      },
+      {
+       "title": {
+        "en": "f-string formatting",
+        "hi": "f-string फ़ॉर्मेटिंग",
+        "hinglish": "f-string formatting"
+       },
+       "code": "name = \"Asha\"\nscore = 91.5\nprint(f\"{name} scored {score}\")\nprint(f\"{score:.1f}\")\nprint(f\"{name!r}\")",
+       "output": "Asha scored 91.5\n91.5\n'Asha'",
+       "note": {
+        "en": ":.1f means one decimal place; !r means show the repr, which adds quotes.",
+        "hi": ":.1f का मतलब एक दशमलव; !r का मतलब repr दिखाओ, जिससे कोटेशन जुड़ते हैं।",
+        "hinglish": ":.1f matlab ek decimal; !r matlab repr dikhao, jisse quotes judte hain."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m02c01l02e1",
+       "prompt": {
+        "en": "Given `raw = '  Ravi KUMAR  '`, produce `clean` = 'Ravi Kumar' (no spaces at the ends, first letters capitalised) and print it.",
+        "hi": "`raw = '  Ravi KUMAR  '` से `clean` = 'Ravi Kumar' बनाएँ (किनारों पर स्पेस नहीं, पहले अक्षर बड़े) और प्रिंट करें।",
+        "hinglish": "`raw = '  Ravi KUMAR  '` se `clean` = 'Ravi Kumar' banao (kinaaron par space nahi, pehle letters bade) aur print karo."
+       },
+       "starter": "raw = '  Ravi KUMAR  '\n# clean = ...\n# print(clean)",
+       "solution": "raw = '  Ravi KUMAR  '\nclean = raw.strip().title()\nprint(clean)",
+       "checks": [
+        "clean == \"Ravi Kumar\"",
+        "clean in printed"
+       ],
+       "hint": {
+        "en": "strip() then title().",
+        "hi": "पहले strip() फिर title()।",
+        "hinglish": "Pehle strip() phir title()."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m02c01l02q1",
+       "question": {
+        "en": "What is 'a-b-c'.split('-')?",
+        "hi": "'a-b-c'.split('-') क्या है?",
+        "hinglish": "'a-b-c'.split('-') kya hai?"
+       },
+       "options": [
+        "['a', 'b', 'c']",
+        "'abc'",
+        "['a-b-c']",
+        "('a', 'b', 'c')"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "split returns a list of the pieces between the separator. join is the opposite operation.",
+        "hi": "split सेपरेटर के बीच के टुकड़ों की लिस्ट देता है। join उल्टा काम करता है।",
+        "hinglish": "split separator ke beech ke tukdon ki list deta hai. join ulta kaam karta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m02c01l02q2",
+       "question": {
+        "en": "s = '  hi  '; s.strip(); print(s). What prints?",
+        "hi": "s = '  hi  '; s.strip(); print(s)। क्या प्रिंट होगा?",
+        "hinglish": "s = '  hi  '; s.strip(); print(s). Kya print hoga?"
+       },
+       "options": [
+        "hi",
+        "'  hi  '",
+        "an error",
+        "None"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "strip() returned a new string that was never stored. Write s = s.strip() to keep it.",
+        "hi": "strip() ने नई स्ट्रिंग दी जो कहीं रखी नहीं गई। रखने के लिए s = s.strip() लिखें।",
+        "hinglish": "strip() ne nayi string di jo kahin rakhi nahi gayi. Rakhne ke liye s = s.strip() likho."
+       },
+       "misconception": "immutability"
+      },
+      {
+       "id": "m02c01l02q3",
+       "question": {
+        "en": "What does f\"{3 * 4}\" produce?",
+        "hi": "f\"{3 * 4}\" क्या देता है?",
+        "hinglish": "f\"{3 * 4}\" kya deta hai?"
+       },
+       "options": [
+        "'3 * 4'",
+        "'12'",
+        "12",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The result of an f-string is always a string, so the answer has quotes in it. Without the f it would be the literal text 3 * 4.",
+        "hi": "f-string का परिणाम हमेशा स्ट्रिंग होता है, इसलिए जवाब में कोटेशन हैं। f के बिना वह 3 * 4 टेक्स्ट ही रहता।",
+        "hinglish": "f-string ka result hamesha string hota hai, isliye answer me quotes hain. f ke bina woh 3 * 4 text hi rehta."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Methods return new strings; chain them; f-strings build text with values.",
+      "hi": "मेथड नई स्ट्रिंग देते हैं; उन्हें जोड़ें; f-string वैल्यू से टेक्स्ट बनाता है।",
+      "hinglish": "Methods nayi string dete hain; unhe chain karo; f-string value se text banata hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m02c02",
+   "title": {
+    "en": "Operators and identity",
+    "hi": "ऑपरेटर और पहचान",
+    "hinglish": "Operators aur identity"
+   },
+   "lessons": [
+    {
+     "id": "m02c02l03",
+     "title": {
+      "en": "Comparison and logical operators",
+      "hi": "तुलना और लॉजिकल ऑपरेटर",
+      "hinglish": "Comparison aur logical operators"
+     },
+     "keywords": [
+      "and",
+      "or",
+      "not",
+      "in"
+     ],
+     "intro": {
+      "en": "Comparison operators (==, !=, <, <=, >, >=) answer with True or False. and, or and not combine those answers into one. Python also allows chained comparisons like 1 < x < 10.",
+      "hi": "तुलना ऑपरेटर (==, !=, <, <=, >, >=) True या False देते हैं। and, or और not उन जवाबों को एक में जोड़ते हैं। पायथन 1 < x < 10 जैसी चेन तुलना भी देता है।",
+      "hinglish": "Comparison operators (==, !=, <, <=, >, >=) True ya False dete hain. and, or aur not un jawabon ko ek me jodte hain. Python 1 < x < 10 jaisi chained comparison bhi deta hai."
+     },
+     "real_life": {
+      "en": "A ticket counter rule: \"age at least 18 AND a valid ID\". Both must be true. A discount rule: \"student OR senior citizen\". Either one is enough.",
+      "hi": "टिकट काउंटर का नियम: \"उम्र कम से कम 18 और वैध आईडी\"। दोनों सही होने चाहिए। छूट का नियम: \"छात्र या वरिष्ठ नागरिक\"। एक भी काफ़ी है।",
+      "hinglish": "Ticket counter ka rule: \"age kam se kam 18 AND valid ID\". Dono sahi hone chahiye. Discount ka rule: \"student OR senior citizen\". Ek bhi kaafi hai."
+     },
+     "docs": "https://docs.python.org/3/reference/expressions.html#comparisons",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "combining conditions",
+        "hi": "शर्तें जोड़ना",
+        "hinglish": "conditions jodna"
+       },
+       "code": "age = 20\nprint(age >= 18 and age < 60)\nprint(not age == 20)\nprint(1 < age < 100)\nprint(\"a\" in \"cat\", 3 in [1, 2, 3])",
+       "output": "True\nFalse\nTrue\nTrue True",
+       "note": {}
+      },
+      {
+       "title": {
+        "en": "and/or return a value, not just True/False",
+        "hi": "and/or वैल्यू देते हैं, सिर्फ़ True/False नहीं",
+        "hinglish": "and/or value dete hain, sirf True/False nahi"
+       },
+       "code": "print(True and \"yes\")\nprint(False and \"yes\")\nprint(False or \"backup\")\nprint(0 or 5)",
+       "output": "yes\nFalse\nbackup\n5",
+       "note": {
+        "en": "and stops at the first falsy value; or stops at the first truthy one. That is why `name or \"guest\"` is a common default.",
+        "hi": "and पहली falsy वैल्यू पर रुकता है; or पहली truthy पर। इसीलिए `name or \"guest\"` आम डिफ़ॉल्ट है।",
+        "hinglish": "and pehli falsy value par rukta hai; or pehli truthy par. Isliye `name or \"guest\"` aam default hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m02c02l03e1",
+       "prompt": {
+        "en": "Set `can_vote` to the result of: age is at least 18 AND country is 'India'. Print it. Use age = 21, country = 'India'.",
+        "hi": "`can_vote` में यह परिणाम रखें: उम्र कम से कम 18 AND देश 'India'। प्रिंट करें। age = 21, country = 'India' लें।",
+        "hinglish": "`can_vote` me ye result rakho: age kam se kam 18 AND country 'India'. Print karo. age = 21, country = 'India' lo."
+       },
+       "starter": "age = 21\ncountry = 'India'\n# can_vote = ...\n# print(can_vote)",
+       "solution": "age = 21\ncountry = 'India'\ncan_vote = age >= 18 and country == 'India'\nprint(can_vote)",
+       "checks": [
+        "can_vote is True",
+        "\"True\" in printed"
+       ],
+       "hint": {
+        "en": "Use == to compare text, not =.",
+        "hi": "टेक्स्ट तुलना के लिए ==, = नहीं।",
+        "hinglish": "Text compare ke liye ==, = nahi."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m02c02l03q1",
+       "question": {
+        "en": "What is 1 < 5 < 3?",
+        "hi": "1 < 5 < 3 क्या है?",
+        "hinglish": "1 < 5 < 3 kya hai?"
+       },
+       "options": [
+        "True",
+        "False",
+        "an error",
+        "5"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "It means (1 < 5) and (5 < 3). The first is true, the second is false, so the whole chain is False.",
+        "hi": "इसका मतलब (1 < 5) and (5 < 3)। पहला सही, दूसरा गलत, इसलिए पूरी चेन False है।",
+        "hinglish": "Iska matlab (1 < 5) and (5 < 3). Pehla true, doosra false, isliye poori chain False hai."
+       },
+       "misconception": "chained-comparison"
+      },
+      {
+       "id": "m02c02l03q2",
+       "question": {
+        "en": "What is bool('0' == 0)?",
+        "hi": "bool('0' == 0) क्या है?",
+        "hinglish": "bool('0' == 0) kya hai?"
+       },
+       "options": [
+        "True",
+        "False",
+        "an error",
+        "0"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The text '0' and the number 0 are different values, so == is False. Python does not convert between str and int for you.",
+        "hi": "टेक्स्ट '0' और नंबर 0 अलग वैल्यू हैं, इसलिए == False है। पायथन str और int को अपने आप नहीं बदलता।",
+        "hinglish": "Text '0' aur number 0 alag values hain, isliye == False hai. Python str aur int ko apne aap nahi badalta."
+       },
+       "misconception": "str-vs-int"
+      },
+      {
+       "id": "m02c02l03q3",
+       "question": {
+        "en": "What is 0 or 'fallback'?",
+        "hi": "0 or 'fallback' क्या है?",
+        "hinglish": "0 or 'fallback' kya hai?"
+       },
+       "options": [
+        "0",
+        "'fallback'",
+        "True",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "0 is falsy, so `or` moves on and returns the second operand. `or` returns a value, not a bool.",
+        "hi": "0 falsy है, इसलिए `or` आगे बढ़कर दूसरा ऑपरेंड देता है। `or` वैल्यू देता है, bool नहीं।",
+        "hinglish": "0 falsy hai, isliye `or` aage badhkar doosra operand deta hai. `or` value deta hai, bool nahi."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "and/or return an operand, not only True/False; chained comparisons work.",
+      "hi": "and/or ऑपरेंड देते हैं, सिर्फ़ True/False नहीं; चेन तुलना चलती है।",
+      "hinglish": "and/or operand dete hain, sirf True/False nahi; chained comparison chalti hai."
+     }
+    },
+    {
+     "id": "m02c02l04",
+     "title": {
+      "en": "is, == and del",
+      "hi": "is, == और del",
+      "hinglish": "is, == aur del"
+     },
+     "keywords": [
+      "is",
+      "del"
+     ],
+     "intro": {
+      "en": "== asks \"are these two values equal?\". is asks \"are these the same object in memory?\". del removes a name or an item; it does not destroy the value while another name still points at it.",
+      "hi": "== पूछता है \"क्या ये दो वैल्यू बराबर हैं?\"। is पूछता है \"क्या ये मेमोरी में एक ही ऑब्जेक्ट हैं?\"। del नाम या आइटम हटाता है; जब तक दूसरा नाम उस वैल्यू को दिखा रहा है, वह वैल्यू ख़त्म नहीं होती।",
+      "hinglish": "== poochhta hai \"kya ye do values barabar hain?\". is poochhta hai \"kya ye memory me ek hi object hain?\". del naam ya item hataata hai; jab tak doosra naam us value ko point kar raha hai, woh value khatam nahi hoti."
+     },
+     "real_life": {
+      "en": "Two people can have identical ID copies (==) but they are still two different people (is). And deleting a contact from your phone does not delete the person — that is del on a name.",
+      "hi": "दो लोगों के पास एक जैसी आईडी कॉपी हो सकती है (==) पर वे दो अलग लोग हैं (is)। और फ़ोन से कॉन्टैक्ट हटाने से व्यक्ति नहीं मिटता — वही नाम पर del है।",
+      "hinglish": "Do logon ke paas ek jaisi ID copy ho sakti hai (==) par woh do alag log hain (is). Aur phone se contact hatane se insaan nahi mitta - wahi naam par del hai."
+     },
+     "docs": "https://docs.python.org/3/reference/expressions.html#is",
+     "visual": "alias_copy",
+     "examples": [
+      {
+       "title": {
+        "en": "equal values, different objects",
+        "hi": "बराबर वैल्यू, अलग ऑब्जेक्ट",
+        "hinglish": "barabar values, alag objects"
+       },
+       "code": "a = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b)\nprint(a is c)\nprint(id(a) == id(c))",
+       "output": "True False\nTrue\nTrue",
+       "note": {
+        "en": "id() prints the memory address. Two separate lists get two addresses.",
+        "hi": "id() मेमोरी पता दिखाता है। दो अलग लिस्ट को दो पते मिलते हैं।",
+        "hinglish": "id() memory address dikhata hai. Do alag lists ko do addresses milte hain."
+       }
+      },
+      {
+       "title": {
+        "en": "del removes an item or a name",
+        "hi": "del आइटम या नाम हटाता है",
+        "hinglish": "del item ya naam hataata hai"
+       },
+       "code": "nums = [1, 2, 3, 4]\ndel nums[0]\nprint(nums)\nperson = {\"a\": 1, \"b\": 2}\ndel person[\"a\"]\nprint(person)\ntemp = 99\ndel temp",
+       "output": "[2, 3, 4]\n{'b': 2}",
+       "note": {
+        "en": "del nums[0] removes by index; del person[\"a\"] removes by key. del temp removes the name itself.",
+        "hi": "del nums[0] इंडेक्स से हटाता है; del person[\"a\"] की से हटाता है। del temp नाम ही हटा देता है।",
+        "hinglish": "del nums[0] index se hataata hai; del person[\"a\"] key se hataata hai. del temp naam hi hata deta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m02c02l04e1",
+       "prompt": {
+        "en": "Make `same` True only when x and y are the same object. Use x = [1]; y = x.",
+        "hi": "`same` तभी True हो जब x और y एक ही ऑब्जेक्ट हों। x = [1]; y = x लें।",
+        "hinglish": "`same` tabhi True ho jab x aur y ek hi object hon. x = [1]; y = x lo."
+       },
+       "starter": "x = [1]\ny = x\n# same = ...\n# print(same)",
+       "solution": "x = [1]\ny = x\nsame = x is y\nprint(same)",
+       "checks": [
+        "same is True",
+        "\"True\" in printed"
+       ],
+       "hint": {
+        "en": "Identity uses the `is` keyword.",
+        "hi": "पहचान के लिए `is` कीवर्ड।",
+        "hinglish": "Identity ke liye `is` keyword."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m02c02l04q1",
+       "question": {
+        "en": "a = [1]; b = [1]. What is a is b?",
+        "hi": "a = [1]; b = [1]. a is b क्या है?",
+        "hinglish": "a = [1]; b = [1]. a is b kya hai?"
+       },
+       "options": [
+        "True",
+        "False",
+        "an error",
+        "1"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Two list literals create two objects. They are == (equal) but not `is` (identical).",
+        "hi": "दो लिस्ट लिटरल दो ऑब्जेक्ट बनाते हैं। वे == हैं (बराबर) पर `is` नहीं (एक जैसे नहीं)।",
+        "hinglish": "Do list literals do objects banate hain. Woh == hain (barabar) par `is` nahi (identical nahi)."
+       },
+       "misconception": "is-vs-eq"
+      },
+      {
+       "id": "m02c02l04q2",
+       "question": {
+        "en": "Which is the recommended None check?",
+        "hi": "None की सही जाँच कौन सी है?",
+        "hinglish": "None ki sahi check kaun si hai?"
+       },
+       "options": [
+        "x is None",
+        "x == None",
+        "x is not 0",
+        "x == 'None'"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "None is a single object, so identity is both correct and faster. The linter warning 'comparison to None should be is' points at this.",
+        "hi": "None एक ही ऑब्जेक्ट है, इसलिए identity सही भी है और तेज़ भी। लिंटर की चेतावनी 'comparison to None should be is' यही कहती है।",
+        "hinglish": "None ek hi object hai, isliye identity sahi bhi hai aur fast bhi. Linter ki warning 'comparison to None should be is' yahi kehti hai."
+       },
+       "misconception": "is-vs-eq"
+      },
+      {
+       "id": "m02c02l04q3",
+       "question": {
+        "en": "After a = [1, 2]; b = a; del a, what is b?",
+        "hi": "a = [1, 2]; b = a; del a के बाद b क्या है?",
+        "hinglish": "a = [1, 2]; b = a; del a ke baad b kya hai?"
+       },
+       "options": [
+        "[1, 2]",
+        "an error, because the list was deleted",
+        "None",
+        "[]"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "del removes the name a. The list still has b pointing at it, so it stays alive.",
+        "hi": "del नाम a हटाता है। लिस्ट को b दिखा रहा है, इसलिए वह ज़िंदा रहती है।",
+        "hinglish": "del naam a hataata hai. List ko b point kar raha hai, isliye woh zinda rehti hai."
+       },
+       "misconception": "del-vs-destroy"
+      }
+     ],
+     "takeaway": {
+      "en": "== compares values, is compares identity; del drops a name or an item.",
+      "hi": "== वैल्यू तुलना करता है, is पहचान; del नाम या आइटम हटाता है।",
+      "hinglish": "== value compare karta hai, is identity; del naam ya item hataata hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m02c03",
+   "title": {
+    "en": "Numbers in practice",
+    "hi": "नंबर व्यवहार में",
+    "hinglish": "Numbers practice me"
+   },
+   "lessons": [
+    {
+     "id": "m02c03l05",
+     "title": {
+      "en": "Division, modulo and precision",
+      "hi": "भाग, मॉड्यूलो और परिशुद्धता",
+      "hinglish": "Division, modulo aur precision"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Python has three division tools: / gives a float, // gives the floor (rounded down), and % gives the remainder. Floats are binary approximations, so 0.1 + 0.2 is not exactly 0.3.",
+      "hi": "पायथन में भाग के तीन औज़ार हैं: / float देता है, // फ़्लोर (नीचे की ओर) देता है, और % शेष देता है। float बाइनरी अनुमान हैं, इसलिए 0.1 + 0.2 ठीक 0.3 नहीं है।",
+      "hinglish": "Python me division ke teen tools hain: / float deta hai, // floor (neeche ki taraf) deta hai, aur % remainder deta hai. Floats binary approximation hain, isliye 0.1 + 0.2 exactly 0.3 nahi hai."
+     },
+     "real_life": {
+      "en": "Splitting a bill of ₹100 among 3 people: // tells you each pays ₹33 and % tells you ₹1 is left over. That leftover rupee is exactly what the modulo operator is for.",
+      "hi": "₹100 का बिल 3 लोगों में बाँटना: // बताता है हर कोई ₹33 देगा और % बताता है ₹1 बचता है। वही बचा रुपया मॉड्यूलो ऑपरेटर का काम है।",
+      "hinglish": "₹100 ka bill 3 logon me baantna: // batata hai har koi ₹33 dega aur % batata hai ₹1 bachta hai. Wahi bacha rupaya modulo operator ka kaam hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/introduction.html#numbers",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "the four arithmetic tools",
+        "hi": "चार अंकगणितीय औज़ार",
+        "hinglish": "chaar arithmetic tools"
+       },
+       "code": "print(7 / 2, 7 // 2, 7 % 2)\nprint(-7 // 2, -7 % 2)\nprint(2 ** 10, 2 ** 0.5)\nprint(divmod(17, 5))",
+       "output": "3.5 3 1\n-4 1\n1024 1.4142135623730951\n(3, 2)",
+       "note": {
+        "en": "// rounds towards minus infinity, so -7 // 2 is -4, not -3. divmod returns (quotient, remainder) in one call.",
+        "hi": "// ऋणात्मक अनंत की ओर राउंड करता है, इसलिए -7 // 2 = -4, -3 नहीं। divmod एक कॉल में (भागफल, शेष) देता है।",
+        "hinglish": "// minus infinity ki taraf round karta hai, isliye -7 // 2 = -4, -3 nahi. divmod ek call me (quotient, remainder) deta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "living with float precision",
+        "hi": "float परिशुद्धता के साथ",
+        "hinglish": "float precision ke saath"
+       },
+       "code": "print(0.1 + 0.2)\nprint(round(0.1 + 0.2, 2))\nprint(f\"{1 / 3:.3f}\")\nimport math\nprint(math.isclose(0.1 + 0.2, 0.3))",
+       "output": "0.30000000000000004\n0.3\n0.333\nTrue",
+       "note": {
+        "en": "Never compare money with ==. Use round() for display and math.isclose() for checks, or store paise as int.",
+        "hi": "पैसे की == से तुलना कभी न करें। दिखाने के लिए round() और जाँच के लिए math.isclose(), या पैसे int में रखें।",
+        "hinglish": "Paise ki == se compare kabhi na karo. Dikhane ke liye round() aur check ke liye math.isclose(), ya paise int me rakho."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m02c03l05e1",
+       "prompt": {
+        "en": "100 rupees split among 3: print the share per person (//) and the leftover (%).",
+        "hi": "100 रुपये 3 लोगों में: प्रति व्यक्ति हिस्सा (//) और बचा हुआ (%) प्रिंट करें।",
+        "hinglish": "100 rupees 3 logon me: per person share (//) aur bacha hua (%) print karo."
+       },
+       "starter": "# print(100 // 3, 100 % 3)",
+       "solution": "print(100 // 3, 100 % 3)",
+       "checks": [
+        "printed.strip() == \"33 1\""
+       ],
+       "hint": {
+        "en": "Both operators on the same numbers.",
+        "hi": "एक ही नंबरों पर दोनों ऑपरेटर।",
+        "hinglish": "Ek hi numbers par dono operators."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m02c03l05q1",
+       "question": {
+        "en": "What is -7 // 2?",
+        "hi": "-7 // 2 क्या है?",
+        "hinglish": "-7 // 2 kya hai?"
+       },
+       "options": [
+        "-3",
+        "-4",
+        "-3.5",
+        "3"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Floor division always rounds down, and -3.5 rounds down to -4. This is the single most surprising result in beginner arithmetic.",
+        "hi": "फ़्लोर डिवीज़न हमेशा नीचे राउंड करता है, और -3.5 नीचे -4 बनता है। शुरुआती अंकगणित में यह सबसे चौंकाने वाला परिणाम है।",
+        "hinglish": "Floor division hamesha neeche round karta hai, aur -3.5 neeche -4 banta hai. Beginner arithmetic me ye sabse chaukaane wala result hai."
+       },
+       "misconception": "floor-division-negative"
+      },
+      {
+       "id": "m02c03l05q2",
+       "question": {
+        "en": "What is 17 % 5?",
+        "hi": "17 % 5 क्या है?",
+        "hinglish": "17 % 5 kya hai?"
+       },
+       "options": [
+        "3",
+        "2",
+        "3.4",
+        "12"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "17 = 5*3 + 2, so the remainder is 2. % is often used to test even/odd (n % 2 == 0) or to wrap around a range.",
+        "hi": "17 = 5*3 + 2, इसलिए शेष 2 है। % अक्सर सम/विषम जाँचने (n % 2 == 0) या रेंज में घुमाने के लिए इस्तेमाल होता है।",
+        "hinglish": "17 = 5*3 + 2, isliye remainder 2 hai. % aksar even/odd check karne (n % 2 == 0) ya range me ghumane ke liye use hota hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m02c03l05q3",
+       "question": {
+        "en": "Why is 0.1 + 0.2 != 0.3?",
+        "hi": "0.1 + 0.2 != 0.3 क्यों है?",
+        "hinglish": "0.1 + 0.2 != 0.3 kyun hai?"
+       },
+       "options": [
+        "float stores a binary approximation of 0.1",
+        "Python adds a hidden 0.00000000000000004",
+        "== is unreliable for all numbers",
+        "0.2 is stored as a string"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "There is no bug and no hidden number: 0.1 has no exact binary representation, so the sum lands one bit away from 0.3.",
+        "hi": "कोई बग नहीं और कोई छिपा नंबर नहीं: 0.1 का ठीक बाइनरी रूप नहीं है, इसलिए जोड़ 0.3 से एक बिट दूर पड़ता है।",
+        "hinglish": "Koi bug nahi aur koi chhupa number nahi: 0.1 ka exact binary roop nahi hai, isliye sum 0.3 se ek bit door padta hai."
+       },
+       "misconception": "float-precision"
+      }
+     ],
+     "takeaway": {
+      "en": "/ float, // floor, % remainder; never compare money with ==.",
+      "hi": "/ float, // floor, % शेष; पैसे की == से तुलना कभी नहीं।",
+      "hinglish": "/ float, // floor, % remainder; paise ki == se compare kabhi nahi."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m02x01",
+   "question": {
+    "en": "What is 'hello'[1:3]?",
+    "hi": "'hello'[1:3] क्या है?",
+    "hinglish": "'hello'[1:3] kya hai?"
+   },
+   "options": [
+    "'el'",
+    "'ell'",
+    "'e'",
+    "'he'"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Index 1 is 'e', index 2 is 'l', and index 3 is excluded.",
+    "hi": "इंडेक्स 1 'e', इंडेक्स 2 'l', और इंडेक्स 3 शामिल नहीं।",
+    "hinglish": "Index 1 'e', index 2 'l', aur index 3 include nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02x02",
+   "question": {
+    "en": "What is len([1, 2, 3][1:])?",
+    "hi": "len([1, 2, 3][1:]) क्या है?",
+    "hinglish": "len([1, 2, 3][1:]) kya hai?"
+   },
+   "options": [
+    "1",
+    "2",
+    "3",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The slice drops index 0, leaving [2, 3], which has two items.",
+    "hi": "स्लाइस इंडेक्स 0 हटाता है, [2, 3] बचता है, जिसमें दो आइटम हैं।",
+    "hinglish": "Slice index 0 hataata hai, [2, 3] bachta hai, jisme do items hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02x03",
+   "question": {
+    "en": "What does ' x '.strip() return?",
+    "hi": "' x '.strip() क्या लौटाता है?",
+    "hinglish": "' x '.strip() kya return karta hai?"
+   },
+   "options": [
+    "' x '",
+    "'x'",
+    "'x '",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "strip() removes whitespace from both ends, including spaces and newlines.",
+    "hi": "strip() दोनों किनारों से व्हाइटस्पेस हटाता है, स्पेस और न्यूलाइन दोनों।",
+    "hinglish": "strip() dono kinaaron se whitespace hataata hai, space aur newline dono."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02x04",
+   "question": {
+    "en": "What is bool([])?",
+    "hi": "bool([]) क्या है?",
+    "hinglish": "bool([]) kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "None",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "An empty list is falsy. So are {}, '', 0 and None.",
+    "hi": "खाली लिस्ट falsy है। {}, '', 0 और None भी।",
+    "hinglish": "Khaali list falsy hai. {}, '', 0 aur None bhi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02x05",
+   "question": {
+    "en": "a = (1, 2); b = (1, 2). What is a is b?",
+    "hi": "a = (1, 2); b = (1, 2). a is b क्या है?",
+    "hinglish": "a = (1, 2); b = (1, 2). a is b kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "an error",
+    "depends on the Python version"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Two tuple literals are two objects; equality is True but identity is False. Small ints are the special case where `is` can be True by caching.",
+    "hi": "दो ट्यूपल लिटरल दो ऑब्जेक्ट हैं; बराबरी True पर पहचान False। छोटे int ख़ास केस हैं जहाँ कैशिंग से `is` True हो सकता है।",
+    "hinglish": "Do tuple literals do objects hain; equality True par identity False. Chhote int special case hain jahan caching se `is` True ho sakta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02x06",
+   "question": {
+    "en": "What is divmod(9, 4)?",
+    "hi": "divmod(9, 4) क्या है?",
+    "hinglish": "divmod(9, 4) kya hai?"
+   },
+   "options": [
+    "(2, 1)",
+    "(1, 2)",
+    "2.25",
+    "(2.25, 0)"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "divmod returns (quotient, remainder) as a tuple: 9 // 4 = 2 and 9 % 4 = 1.",
+    "hi": "divmod (भागफल, शेष) ट्यूपल देता है: 9 // 4 = 2 और 9 % 4 = 1।",
+    "hinglish": "divmod (quotient, remainder) tuple deta hai: 9 // 4 = 2 aur 9 % 4 = 1."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m02s01",
+   "question": {
+    "en": "What is 'Python'[1:3]?",
+    "hi": "'Python'[1:3] क्या है?",
+    "hinglish": "'Python'[1:3] kya hai?"
+   },
+   "options": [
+    "'yt'",
+    "'yth'",
+    "'y'",
+    "'Pyt'"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Start at index 1 ('y') and stop before index 3, so only 1 and 2 are included.",
+    "hi": "इंडेक्स 1 ('y') से शुरू और 3 से पहले रुको, इसलिए सिर्फ़ 1 और 2 शामिल हैं।",
+    "hinglish": "Index 1 ('y') se shuru aur 3 se pehle ruk, isliye sirf 1 aur 2 include hain."
+   },
+   "misconception": "slice-exclusive-end"
+  },
+  {
+   "id": "m02s02",
+   "question": {
+    "en": "What is [1, 2, 3][-1]?",
+    "hi": "[1, 2, 3][-1] क्या है?",
+    "hinglish": "[1, 2, 3][-1] kya hai?"
+   },
+   "options": [
+    "1",
+    "3",
+    "an error",
+    "[3]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Negative indexes count from the end, so -1 is the last item. An IndexError only happens when the number is too large in either direction.",
+    "hi": "नेगेटिव इंडेक्स अंत से गिनते हैं, इसलिए -1 आख़िरी आइटम है। IndexError तभी आता है जब नंबर दोनों दिशाओं में बहुत बड़ा हो।",
+    "hinglish": "Negative index end se ginte hain, isliye -1 aakhri item hai. IndexError tabhi aata hai jab number dono directions me bahut bada ho."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s03",
+   "question": {
+    "en": "Why does 'abc'[0:10] not raise an error?",
+    "hi": "'abc'[0:10] एरर क्यों नहीं देता?",
+    "hinglish": "'abc'[0:10] error kyun nahi deta?"
+   },
+   "options": [
+    "because slicing clamps to the length",
+    "because 10 is a float",
+    "because strings are immutable",
+    "it does raise an error"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "A slice never fails for an out-of-range number: it just stops at the end. Indexing with [10] would raise IndexError.",
+    "hi": "स्लाइस रेंज से बाहर के नंबर पर कभी फेल नहीं होता: वह अंत पर रुक जाता है। [10] से इंडेक्स करने पर IndexError आता।",
+    "hinglish": "Slice range se bahar ke number par kabhi fail nahi hota: woh end par ruk jata hai. [10] se index karne par IndexError aata."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s04",
+   "question": {
+    "en": "What is 'a-b-c'.split('-')?",
+    "hi": "'a-b-c'.split('-') क्या है?",
+    "hinglish": "'a-b-c'.split('-') kya hai?"
+   },
+   "options": [
+    "['a', 'b', 'c']",
+    "'abc'",
+    "['a-b-c']",
+    "('a', 'b', 'c')"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "split returns a list of the pieces between the separator. join is the opposite operation.",
+    "hi": "split सेपरेटर के बीच के टुकड़ों की लिस्ट देता है। join उल्टा काम करता है।",
+    "hinglish": "split separator ke beech ke tukdon ki list deta hai. join ulta kaam karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s05",
+   "question": {
+    "en": "s = '  hi  '; s.strip(); print(s). What prints?",
+    "hi": "s = '  hi  '; s.strip(); print(s)। क्या प्रिंट होगा?",
+    "hinglish": "s = '  hi  '; s.strip(); print(s). Kya print hoga?"
+   },
+   "options": [
+    "hi",
+    "'  hi  '",
+    "an error",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "strip() returned a new string that was never stored. Write s = s.strip() to keep it.",
+    "hi": "strip() ने नई स्ट्रिंग दी जो कहीं रखी नहीं गई। रखने के लिए s = s.strip() लिखें।",
+    "hinglish": "strip() ne nayi string di jo kahin rakhi nahi gayi. Rakhne ke liye s = s.strip() likho."
+   },
+   "misconception": "immutability"
+  },
+  {
+   "id": "m02s06",
+   "question": {
+    "en": "What does f\"{3 * 4}\" produce?",
+    "hi": "f\"{3 * 4}\" क्या देता है?",
+    "hinglish": "f\"{3 * 4}\" kya deta hai?"
+   },
+   "options": [
+    "'3 * 4'",
+    "'12'",
+    "12",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The result of an f-string is always a string, so the answer has quotes in it. Without the f it would be the literal text 3 * 4.",
+    "hi": "f-string का परिणाम हमेशा स्ट्रिंग होता है, इसलिए जवाब में कोटेशन हैं। f के बिना वह 3 * 4 टेक्स्ट ही रहता।",
+    "hinglish": "f-string ka result hamesha string hota hai, isliye answer me quotes hain. f ke bina woh 3 * 4 text hi rehta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s07",
+   "question": {
+    "en": "What is 1 < 5 < 3?",
+    "hi": "1 < 5 < 3 क्या है?",
+    "hinglish": "1 < 5 < 3 kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "an error",
+    "5"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It means (1 < 5) and (5 < 3). The first is true, the second is false, so the whole chain is False.",
+    "hi": "इसका मतलब (1 < 5) and (5 < 3)। पहला सही, दूसरा गलत, इसलिए पूरी चेन False है।",
+    "hinglish": "Iska matlab (1 < 5) and (5 < 3). Pehla true, doosra false, isliye poori chain False hai."
+   },
+   "misconception": "chained-comparison"
+  },
+  {
+   "id": "m02s08",
+   "question": {
+    "en": "What is bool('0' == 0)?",
+    "hi": "bool('0' == 0) क्या है?",
+    "hinglish": "bool('0' == 0) kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "an error",
+    "0"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The text '0' and the number 0 are different values, so == is False. Python does not convert between str and int for you.",
+    "hi": "टेक्स्ट '0' और नंबर 0 अलग वैल्यू हैं, इसलिए == False है। पायथन str और int को अपने आप नहीं बदलता।",
+    "hinglish": "Text '0' aur number 0 alag values hain, isliye == False hai. Python str aur int ko apne aap nahi badalta."
+   },
+   "misconception": "str-vs-int"
+  },
+  {
+   "id": "m02s09",
+   "question": {
+    "en": "What is 0 or 'fallback'?",
+    "hi": "0 or 'fallback' क्या है?",
+    "hinglish": "0 or 'fallback' kya hai?"
+   },
+   "options": [
+    "0",
+    "'fallback'",
+    "True",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "0 is falsy, so `or` moves on and returns the second operand. `or` returns a value, not a bool.",
+    "hi": "0 falsy है, इसलिए `or` आगे बढ़कर दूसरा ऑपरेंड देता है। `or` वैल्यू देता है, bool नहीं।",
+    "hinglish": "0 falsy hai, isliye `or` aage badhkar doosra operand deta hai. `or` value deta hai, bool nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s10",
+   "question": {
+    "en": "a = [1]; b = [1]. What is a is b?",
+    "hi": "a = [1]; b = [1]. a is b क्या है?",
+    "hinglish": "a = [1]; b = [1]. a is b kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "an error",
+    "1"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Two list literals create two objects. They are == (equal) but not `is` (identical).",
+    "hi": "दो लिस्ट लिटरल दो ऑब्जेक्ट बनाते हैं। वे == हैं (बराबर) पर `is` नहीं (एक जैसे नहीं)।",
+    "hinglish": "Do list literals do objects banate hain. Woh == hain (barabar) par `is` nahi (identical nahi)."
+   },
+   "misconception": "is-vs-eq"
+  },
+  {
+   "id": "m02s11",
+   "question": {
+    "en": "Which is the recommended None check?",
+    "hi": "None की सही जाँच कौन सी है?",
+    "hinglish": "None ki sahi check kaun si hai?"
+   },
+   "options": [
+    "x is None",
+    "x == None",
+    "x is not 0",
+    "x == 'None'"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "None is a single object, so identity is both correct and faster. The linter warning 'comparison to None should be is' points at this.",
+    "hi": "None एक ही ऑब्जेक्ट है, इसलिए identity सही भी है और तेज़ भी। लिंटर की चेतावनी 'comparison to None should be is' यही कहती है।",
+    "hinglish": "None ek hi object hai, isliye identity sahi bhi hai aur fast bhi. Linter ki warning 'comparison to None should be is' yahi kehti hai."
+   },
+   "misconception": "is-vs-eq"
+  },
+  {
+   "id": "m02s12",
+   "question": {
+    "en": "After a = [1, 2]; b = a; del a, what is b?",
+    "hi": "a = [1, 2]; b = a; del a के बाद b क्या है?",
+    "hinglish": "a = [1, 2]; b = a; del a ke baad b kya hai?"
+   },
+   "options": [
+    "[1, 2]",
+    "an error, because the list was deleted",
+    "None",
+    "[]"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "del removes the name a. The list still has b pointing at it, so it stays alive.",
+    "hi": "del नाम a हटाता है। लिस्ट को b दिखा रहा है, इसलिए वह ज़िंदा रहती है।",
+    "hinglish": "del naam a hataata hai. List ko b point kar raha hai, isliye woh zinda rehti hai."
+   },
+   "misconception": "del-vs-destroy"
+  },
+  {
+   "id": "m02s13",
+   "question": {
+    "en": "What is -7 // 2?",
+    "hi": "-7 // 2 क्या है?",
+    "hinglish": "-7 // 2 kya hai?"
+   },
+   "options": [
+    "-3",
+    "-4",
+    "-3.5",
+    "3"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Floor division always rounds down, and -3.5 rounds down to -4. This is the single most surprising result in beginner arithmetic.",
+    "hi": "फ़्लोर डिवीज़न हमेशा नीचे राउंड करता है, और -3.5 नीचे -4 बनता है। शुरुआती अंकगणित में यह सबसे चौंकाने वाला परिणाम है।",
+    "hinglish": "Floor division hamesha neeche round karta hai, aur -3.5 neeche -4 banta hai. Beginner arithmetic me ye sabse chaukaane wala result hai."
+   },
+   "misconception": "floor-division-negative"
+  },
+  {
+   "id": "m02s14",
+   "question": {
+    "en": "What is 17 % 5?",
+    "hi": "17 % 5 क्या है?",
+    "hinglish": "17 % 5 kya hai?"
+   },
+   "options": [
+    "3",
+    "2",
+    "3.4",
+    "12"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "17 = 5*3 + 2, so the remainder is 2. % is often used to test even/odd (n % 2 == 0) or to wrap around a range.",
+    "hi": "17 = 5*3 + 2, इसलिए शेष 2 है। % अक्सर सम/विषम जाँचने (n % 2 == 0) या रेंज में घुमाने के लिए इस्तेमाल होता है।",
+    "hinglish": "17 = 5*3 + 2, isliye remainder 2 hai. % aksar even/odd check karne (n % 2 == 0) ya range me ghumane ke liye use hota hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s15",
+   "question": {
+    "en": "Why is 0.1 + 0.2 != 0.3?",
+    "hi": "0.1 + 0.2 != 0.3 क्यों है?",
+    "hinglish": "0.1 + 0.2 != 0.3 kyun hai?"
+   },
+   "options": [
+    "float stores a binary approximation of 0.1",
+    "Python adds a hidden 0.00000000000000004",
+    "== is unreliable for all numbers",
+    "0.2 is stored as a string"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "There is no bug and no hidden number: 0.1 has no exact binary representation, so the sum lands one bit away from 0.3.",
+    "hi": "कोई बग नहीं और कोई छिपा नंबर नहीं: 0.1 का ठीक बाइनरी रूप नहीं है, इसलिए जोड़ 0.3 से एक बिट दूर पड़ता है।",
+    "hinglish": "Koi bug nahi aur koi chhupa number nahi: 0.1 ka exact binary roop nahi hai, isliye sum 0.3 se ek bit door padta hai."
+   },
+   "misconception": "float-precision"
+  },
+  {
+   "id": "m02s16",
+   "question": {
+    "en": "What is 'hello'[1:3]?",
+    "hi": "'hello'[1:3] क्या है?",
+    "hinglish": "'hello'[1:3] kya hai?"
+   },
+   "options": [
+    "'el'",
+    "'ell'",
+    "'e'",
+    "'he'"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Index 1 is 'e', index 2 is 'l', and index 3 is excluded.",
+    "hi": "इंडेक्स 1 'e', इंडेक्स 2 'l', और इंडेक्स 3 शामिल नहीं।",
+    "hinglish": "Index 1 'e', index 2 'l', aur index 3 include nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s17",
+   "question": {
+    "en": "What is len([1, 2, 3][1:])?",
+    "hi": "len([1, 2, 3][1:]) क्या है?",
+    "hinglish": "len([1, 2, 3][1:]) kya hai?"
+   },
+   "options": [
+    "1",
+    "2",
+    "3",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The slice drops index 0, leaving [2, 3], which has two items.",
+    "hi": "स्लाइस इंडेक्स 0 हटाता है, [2, 3] बचता है, जिसमें दो आइटम हैं।",
+    "hinglish": "Slice index 0 hataata hai, [2, 3] bachta hai, jisme do items hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s18",
+   "question": {
+    "en": "What does ' x '.strip() return?",
+    "hi": "' x '.strip() क्या लौटाता है?",
+    "hinglish": "' x '.strip() kya return karta hai?"
+   },
+   "options": [
+    "' x '",
+    "'x'",
+    "'x '",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "strip() removes whitespace from both ends, including spaces and newlines.",
+    "hi": "strip() दोनों किनारों से व्हाइटस्पेस हटाता है, स्पेस और न्यूलाइन दोनों।",
+    "hinglish": "strip() dono kinaaron se whitespace hataata hai, space aur newline dono."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s19",
+   "question": {
+    "en": "What is bool([])?",
+    "hi": "bool([]) क्या है?",
+    "hinglish": "bool([]) kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "None",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "An empty list is falsy. So are {}, '', 0 and None.",
+    "hi": "खाली लिस्ट falsy है। {}, '', 0 और None भी।",
+    "hinglish": "Khaali list falsy hai. {}, '', 0 aur None bhi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s20",
+   "question": {
+    "en": "a = (1, 2); b = (1, 2). What is a is b?",
+    "hi": "a = (1, 2); b = (1, 2). a is b क्या है?",
+    "hinglish": "a = (1, 2); b = (1, 2). a is b kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "an error",
+    "depends on the Python version"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Two tuple literals are two objects; equality is True but identity is False. Small ints are the special case where `is` can be True by caching.",
+    "hi": "दो ट्यूपल लिटरल दो ऑब्जेक्ट हैं; बराबरी True पर पहचान False। छोटे int ख़ास केस हैं जहाँ कैशिंग से `is` True हो सकता है।",
+    "hinglish": "Do tuple literals do objects hain; equality True par identity False. Chhote int special case hain jahan caching se `is` True ho sakta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m02s21",
+   "question": {
+    "en": "What is divmod(9, 4)?",
+    "hi": "divmod(9, 4) क्या है?",
+    "hinglish": "divmod(9, 4) kya hai?"
+   },
+   "options": [
+    "(2, 1)",
+    "(1, 2)",
+    "2.25",
+    "(2.25, 0)"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "divmod returns (quotient, remainder) as a tuple: 9 // 4 = 2 and 9 % 4 = 1.",
+    "hi": "divmod (भागफल, शेष) ट्यूपल देता है: 9 // 4 = 2 और 9 % 4 = 1।",
+    "hinglish": "divmod (quotient, remainder) tuple deta hai: 9 // 4 = 2 aur 9 % 4 = 1."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "🧩"
+}

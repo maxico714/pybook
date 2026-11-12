@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Admin — PyBook{% endblock %}
+{% block crumbs %}<span>Admin</span><span>Dashboard</span>{% endblock %}
+
+{% block body %}
+<section class="admin-hero">
+  <div>
+    <p class="kicker">Admin panel</p>
+    <h1>Everything in one place.</h1>
+    <p class="muted">
+      Approve who gets in, watch who is learning, and read every decision the
+      platform has recorded. Nothing leaves this machine.
+    </p>
+  </div>
+  <div class="admin-hero-actions">
+    {% if counts.pending %}
+      <a class="btn primary" href="{{ url_for('admin.requests_page') }}">
+        Review {{ counts.pending }} request{{ '' if counts.pending == 1 else 's' }}
+      </a>
+    {% else %}
+      <span class="badge ok lg">Queue empty</span>
+    {% endif %}
+    <a class="btn ghost" href="{{ url_for('admin.users_page') }}">All accounts</a>
+  </div>
+</section>
+
+{% include "admin/_nav.html" %}
+
+<div class="stat-grid">
+  <article class="card stat {{ 'is-hot' if counts.pending }}">
+    <b>{{ counts.pending }}</b>
+    <span>waiting for approval</span>
+  </article>
+  <article class="card stat">
+    <b>{{ counts.approved }}</b>
+    <span>approved accounts</span>
+  </article>
+  <article class="card stat">
+    <b>{{ counts.active_7d }}</b>
+    <span>active in 7 days</span>
+  </article>
+  <article class="card stat">
+    <b>{{ counts.total }}</b>
+    <span>accounts in total</span>
+  </article>
+</div>
+
+<div class="admin-cols">
+  <section class="card">
+    <header class="card-head">
+      <h2>New account requests</h2>
+      <a class="tiny" href="{{ url_for('admin.requests_page') }}">See all →</a>
+    </header>
+
+    {% if pending %}
+      <ul class="request-list">
+        {% for account in pending %}
+          <li class="request-row">
+            <span class="avatar sm">{{ account.name[:1]|upper }}</span>
+            <div class="request-body">
+              <p class="request-name">
+                <a href="{{ url_for('admin.user_detail', user_id=account.id) }}">{{ account.name }}</a>
+              </p>
+              <p class="tiny">{{ account.email }} · wants {{ account.course }} · {{ account.language }}</p>
+              {% if account.goal %}<p class="tiny">Goal: {{ account.goal }}</p>{% endif %}
+            </div>
+            <div class="request-actions">
+              <form method="post" action="{{ url_for('admin.approve', user_id=account.id) }}">
+                <input type="hidden" name="csrf" value="{{ csrf }}">
+                <button type="submit" class="btn primary tiny">Approve</button>
+              </form>
+              <form method="post" action="{{ url_for('admin.reject', user_id=account.id) }}">
+                <input type="hidden" name="csrf" value="{{ csrf }}">
+                <button type="submit" class="btn danger tiny">Reject</button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state soft">
+        <span class="lock-icon big" aria-hidden="true">✓</span>
+        <h3>No requests waiting</h3>
+        <p class="muted tiny">New sign-ups land here the moment they are submitted.</p>
+      </div>
+    {% endif %}
+  </section>
+
+  <div class="admin-side">
+    <section class="card">
+      <header class="card-head">
+        <h2>New accounts, last 14 days</h2>
+        <span class="badge soft">{{ series|sum(attribute='n') }} total</span>
+      </header>
+      <div class="chart-box">
+        <canvas id="signup-chart" height="150" aria-label="New accounts per day" role="img"></canvas>
+      </div>
+    </section>
+
+    <section class="card">
+      <header class="card-head">
+        <h2>Recent activity</h2>
+        <a class="tiny" href="{{ url_for('admin.audit_page') }}">Audit trail →</a>
+      </header>
+      {% if audit %}
+        <ul class="audit-list">
+          {% for row in audit %}
+            <li>
+              <span class="audit-action">{{ row.action }}</span>
+              <span class="tiny">{{ row.subject or '—' }}</span>
+              <span class="tiny audit-at">{{ row.at[:10] }} {{ row.at[11:16] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted tiny">Nothing recorded yet.</p>
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block vendor %}
+<script src="{{ url_for('static', filename='vendor/chart.umd.js') }}" defer></script>
+{% endblock %}
+
+{% block script %}
+<script>
+window.addEventListener('load', function () {
+  var series = {{ series|tojson }};
+  var canvas = document.getElementById('signup-chart');
+  if (!canvas || typeof Chart === 'undefined') return;
+  new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: series.map(function (d) { return d.day.slice(5); }),
+      datasets: [{
+        data: series.map(function (d) { return d.n; }),
+        backgroundColor: 'rgba(79, 70, 229, .55)',
+        hoverBackgroundColor: 'rgba(79, 70, 229, .85)',
+        borderRadius: 6,
+        borderSkipped: false,
+        maxBarThickness: 26
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#6b7280', font: { size: 10 } } },
+        y: { beginAtZero: true, ticks: { precision: 0, color: '#6b7280' }, grid: { color: 'rgba(15, 23, 42, .07)' } }
+      },
+      maintainAspectRatio: false
+    }
+  });
+});
+</script>
+{% endblock %}

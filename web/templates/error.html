@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — PyBook{% endblock %}
+{% block crumbs %}<span>{{ code }}</span>{% endblock %}
+
+{% block body %}
+<section class="lock-card">
+  <span class="lock-icon big">{{ code }}</span>
+  <h1>{{ message }}</h1>
+  <a class="btn primary lg" href="{{ url_for('index') }}">Home →</a>
+</section>
+{% endblock %}

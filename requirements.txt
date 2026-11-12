@@ -1,0 +1,4 @@
+Flask>=3.0,<4
+# Production WSGI server. `python run.py` uses it automatically when present and
+# says plainly when it has to fall back to Flask's development server.
+waitress>=3.0,<4

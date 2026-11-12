@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Your path — PyBook{% endblock %}
+{% block crumbs %}<span>Your path</span>{% endblock %}
+
+{% block body %}
+<section class="page-head">
+  <div>
+    <h1>Your path</h1>
+    <p class="muted">
+      {{ state.lessons_done }} of {{ state.lessons_total }} lessons passed ·
+      {{ state.modules_done }} of {{ state.modules_total }} modules finished
+    </p>
+  </div>
+  {% if state.next_lesson %}
+    <a class="btn primary" href="{{ url_for('lesson', lesson_id=state.next_lesson) }}">
+      {% if state.lessons_done %}Continue{% else %}Start{% endif %}: {{ state.next_title }}
+      <span aria-hidden="true">→</span>
+    </a>
+  {% elif state.finished %}
+    <span class="badge ok lg">Course complete 🎉</span>
+  {% endif %}
+</section>
+
+<div class="spine">
+  {% for module in board %}
+    <section class="spine-item {{ 'is-locked' if not module.unlocked }} {{ 'is-done' if module.passed }}" id="{{ module.id }}">
+      <span class="spine-node" aria-hidden="true">
+        {% if module.passed %}✓{% elif module.unlocked %}{{ module.icon }}{% else %}🔒{% endif %}
+      </span>
+
+      <header class="module-bar">
+        <h2>{{ module.title }}</h2>
+        <div class="module-stat">
+          <span class="mini-bar"><i style="width: {{ (100 * module.done / module.total)|round|int }}%"></i></span>
+          <span class="tiny">{{ module.done }}/{{ module.total }}</span>
+          {% if module.passed %}<span class="badge ok">passed</span>{% endif %}
+        </div>
+      </header>
+
+      {% if not module.unlocked %}
+        <p class="lockline">🔒 Pass the previous module's exam to open this one.</p>
+      {% else %}
+        {% for chapter in module.chapters %}
+          <div class="chapter">
+            <h3 class="chapter-title">
+              {{ chapter.title }}
+              {% if not chapter.unlocked %}<span class="badge lock">locked</span>{% endif %}
+            </h3>
+            <ol class="lessons">
+              {% for lesson in chapter.lessons %}
+                <li class="lesson-row {{ 'done' if lesson.passed }} {{ 'open' if lesson.unlocked and not lesson.passed }} {{ 'locked' if not lesson.unlocked }}">
+                  {% if lesson.unlocked %}
+                    <a href="{{ url_for('lesson', lesson_id=lesson.id) }}">
+                      <span class="dot"></span>
+                      <span class="lesson-name">{{ lesson.title }}</span>
+                      {% if lesson.passed %}
+                        <span class="pill-score {{ 'strong' if lesson.score >= 0.9 else 'ok' }}">{{ (lesson.score * 100)|round|int }}%</span>
+                      {% else %}
+                        <span class="go">open →</span>
+                      {% endif %}
+                    </a>
+                  {% else %}
+                    <span class="row-static">
+                      <span class="dot"></span>
+                      <span class="lesson-name">{{ lesson.title }}</span>
+                      <span class="lock-mini">🔒</span>
+                    </span>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          </div>
+        {% endfor %}
+
+        <div class="module-actions">
+          {% if module.exam_unlocked %}
+            <a class="btn primary" href="{{ url_for('exam', module_id=module.id) }}">Module exam <span aria-hidden="true">→</span></a>
+          {% else %}
+            <span class="muted small">Exam opens when every lesson above is passed.</span>
+          {% endif %}
+          <a class="btn ghost" href="{{ url_for('skip', module_id=module.id) }}">Skip exam ({{ (skip_pass * 100)|int }}%)</a>
+        </div>
+      {% endif %}
+    </section>
+  {% endfor %}
+</div>
+{% endblock %}

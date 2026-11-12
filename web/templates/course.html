@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ t(detail.index.title) }} — PyBook{% endblock %}
+{% block crumbs %}<span><a href="{{ url_for('index') }}">Home</a></span><span>{{ t(detail.index.title) }}</span>{% endblock %}
+
+{% block body %}
+<section class="page-head">
+  <div>
+    <p class="kicker">{{ 'Python' if detail_id == 'pybook' else 'AI engineering' }}</p>
+    <h1>{{ t(detail.index.title) }}</h1>
+    <p class="muted">{{ t(detail.index.subtitle) }}</p>
+  </div>
+  <div class="page-head-actions">
+    {% if learner %}
+      <a class="btn ghost" href="{{ url_for('learn') }}">Go to my lessons</a>
+    {% else %}
+      <a class="btn primary" href="{{ url_for('signup', course=detail_id) }}">Enquire &amp; join</a>
+    {% endif %}
+  </div>
+</section>
+
+<ul class="hero-stats course-stats">
+  <li><b>{{ detail.modules|length }}</b><span>modules</span></li>
+  <li><b>{{ detail.chapters|length }}</b><span>chapters</span></li>
+  <li><b>{{ detail.lessons|length }}</b><span>lessons</span></li>
+  <li><b>{{ detail.modules|sum(attribute='exam_count') }}</b><span>exam questions</span></li>
+</ul>
+
+<div class="syllabus">
+  {% for module in detail.modules %}
+    <section class="card syllabus-module">
+      <header class="syllabus-head">
+        <span class="course-icon" aria-hidden="true">{{ module.icon }}</span>
+        <div>
+          <h2>{{ t(module.title) }}</h2>
+          <p class="muted">{{ t(module.goal) }}</p>
+        </div>
+        <span class="badge soft">{{ module.lesson_count }} lessons</span>
+      </header>
+
+      {% for chapter in module.chapters %}
+        <div class="syllabus-chapter">
+          <h3 class="syllabus-chapter-title">{{ t(chapter.title) }}</h3>
+          <ol class="syllabus-lessons">
+            {% for lesson in chapter.lessons %}
+              <li>
+                <span class="syllabus-dot" aria-hidden="true"></span>
+                <span>{{ t(lesson.title) }}</span>
+              </li>
+            {% endfor %}
+          </ol>
+        </div>
+      {% endfor %}
+
+      <p class="tiny">
+        Module exam: {{ module.exam_count }} questions · skip exam: {{ module.skip_count }} questions
+      </p>
+    </section>
+  {% endfor %}
+</div>
+
+<section class="cta-band">
+  <div>
+    <h2>Want this path?</h2>
+    <p class="muted">
+      Create an account, get approved by the admin, then lessons unlock one at a time —
+      practice first, quiz after.
+    </p>
+  </div>
+  {% if learner %}
+    <a class="btn primary lg" href="{{ url_for('learn') }}">Continue learning</a>
+  {% else %}
+    <a class="btn primary lg" href="{{ url_for('signup', course=detail_id) }}">Create account</a>
+  {% endif %}
+</section>
+{% endblock %}

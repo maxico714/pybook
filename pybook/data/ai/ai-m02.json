@@ -1,0 +1,818 @@
+{
+ "id": "ai-m02",
+ "title": {
+  "hinglish": "ML aur deep learning",
+  "en": "ML and deep learning"
+ },
+ "goal": {
+  "hinglish": "Classical ML se PyTorch tak, aur attention tak — model ke andar kya hota hai.",
+  "en": "From classical ML through PyTorch to attention: what happens inside a model."
+ },
+ "icon": "🧠",
+ "chapters": [
+  {
+   "id": "ai-m02c06",
+   "title": {
+    "hinglish": "Classical ML with scikit-learn",
+    "en": "Classical ML with scikit-learn"
+   },
+   "lessons": [
+    {
+     "id": "ai-m02c06l01",
+     "title": {
+      "hinglish": "Classical ML aur metrics",
+      "en": "Classical ML and metrics"
+     },
+     "keywords": [
+      "baseline",
+      "overfit",
+      "precision",
+      "recall",
+      "Gini"
+     ],
+     "intro": {
+      "hinglish": "Sabse pehle simple baseline banao. Linear/logistic regression, trees aur forests tabhi try karo jab baseline ka gap samajh aa jaye. Model se pehle train vs test gap dekho — wahi overfit aur underfit batata hai.",
+      "en": "Build the simplest baseline first. Try linear/logistic regression, trees and forests only once you understand the gap to the baseline. Look at the train-vs-test gap before the model family; it tells you overfit from underfit."
+     },
+     "real_life": {
+      "hinglish": "Doctor ka pehla check temperature aur BP hota hai, MRI baad me. Baseline model wahi pehla check hai; bina uske complex model ka score samajh nahi aata.",
+      "en": "A doctor checks temperature and BP before ordering an MRI. The baseline model is that first check; without it a complex score means nothing."
+     },
+     "takeaway": {
+      "hinglish": "Metric business cost se chuno: cancer screening me recall, spam filter me precision.",
+      "en": "Choose the metric from business cost: recall for screening, precision for spam."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Gini impurity of a node",
+        "en": "Node ki Gini impurity"
+       },
+       "code": "def gini(labels):\n    p = sum(labels) / len(labels)\n    return 1 - p * p - (1 - p) * (1 - p)\n\nprint(round(gini([1, 1, 1, 1]), 3), round(gini([1, 1, 0, 0]), 3))",
+       "output": "0.0 0.5",
+       "note": {
+        "hinglish": "Pure node ki impurity 0, 50/50 mix ki 0.5 — tree isi ko kam karta hai.",
+        "en": "A pure node has impurity 0, a 50/50 mix has 0.5; a tree minimises this."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m02c06l01e1",
+       "prompt": {
+        "hinglish": "`best_split(rows)` likho jo 1-D data par woh threshold dhoonde jo weighted Gini impurity sabse kam kare. `cut` aur `score` print karo.",
+        "en": "Write `best_split(rows)` that finds the threshold minimising weighted Gini impurity on 1-D data. Print `cut` and `score`."
+       },
+       "starter": "def gini(labels):\n    p = sum(labels) / len(labels)\n    return 1 - p * p - (1 - p) * (1 - p)\n\ndef best_split(rows):\n    ...\n\nrows = [(1, 0), (2, 0), (3, 0), (8, 1), (9, 1), (10, 1)]\ncut, score = best_split(rows)\nprint(cut, round(score, 3))\n",
+       "solution": "def gini(labels):\n    p = sum(labels) / len(labels)\n    return 1 - p * p - (1 - p) * (1 - p)\n\ndef best_split(rows):\n    best = None\n    for cut in sorted({row[0] for row in rows})[:-1]:\n        left = [label for x, label in rows if x <= cut]\n        right = [label for x, label in rows if x > cut]\n        score = (len(left) * gini(left) + len(right) * gini(right)) / len(rows)\n        if best is None or score < best[1]:\n            best = (cut, score)\n    return best\n\nrows = [(1, 0), (2, 0), (3, 0), (8, 1), (9, 1), (10, 1)]\ncut, score = best_split(rows)\nprint(cut, round(score, 3))\n",
+       "checks": [
+        "cut == 3",
+        "abs(score) < 1e-9"
+       ],
+       "hint": {
+        "hinglish": "Har unique value ke baad split try karo; weighted average = (n_left*gini_left + n_right*gini_right)/n.",
+        "en": "Try a split after every unique value; weighted average = (n_left*gini_left + n_right*gini_right)/n."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m02c06l01q1",
+       "question": {
+        "hinglish": "Train accuracy 1.0 aur test 0.72 hai. Kya problem hai?",
+        "en": "Train accuracy is 1.0 and test is 0.72. What is the problem?"
+       },
+       "options": [
+        "Overfitting — variance zyada hai",
+        "Underfitting — bias zyada hai",
+        "Data leakage",
+        "Learning rate bahut chhota hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Bada train-test gap variance ki nishani hai; regularize karo ya data badhao.",
+        "en": "A large train-test gap signals variance; regularise or add data."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c06l01q2",
+       "question": {
+        "hinglish": "Cancer screening ke liye kaunsa metric pehle dekho?",
+        "en": "Which metric matters first for cancer screening?"
+       },
+       "options": [
+        "Recall — koi positive miss na ho",
+        "Precision — har positive sach ho",
+        "Accuracy",
+        "Training time"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Miss kiya case jaan ka risk hai; false alarm baad me test se clear hota hai.",
+        "en": "A missed case is a health risk; a false alarm is cleared by a later test."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c06l01q3",
+       "question": {
+        "hinglish": "kNN se pehle scaling kyun zaroori hai?",
+        "en": "Why scale features before kNN?"
+       },
+       "options": [
+        "Distance par bade unit wala feature dominate kar jata hai",
+        "kNN sirf scaled data par chalta hai",
+        "Scaling se model train hota hai",
+        "Scaling se accuracy hamesha 100% hoti hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Income lakhs me aur age years me ho to distance sirf income se banti hai.",
+        "en": "If income is in lakhs and age in years, distance is driven by income alone."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m02c07",
+   "title": {
+    "hinglish": "Deep Learning with PyTorch",
+    "en": "Deep Learning with PyTorch"
+   },
+   "lessons": [
+    {
+     "id": "ai-m02c07l01",
+     "title": {
+      "hinglish": "Deep learning: ek neuron se training loop tak",
+      "en": "Deep learning: from one neuron to a training loop"
+     },
+     "keywords": [
+      "tensor",
+      "autograd",
+      "learning rate",
+      "dropout",
+      "epoch"
+     ],
+     "intro": {
+      "hinglish": "Deep learning ka core chhota hai: input × weight + bias, activation, loss, gradient, step. PyTorch autograd yahi karta hai, bas GPU par aur lakhs parameters ke saath. Pehle ek neuron ko khud train karo, phir framework ka magic samajh aayega.",
+      "en": "The core of deep learning is small: input × weight + bias, activation, loss, gradient, step. PyTorch autograd does exactly this, on a GPU and with millions of parameters. Train one neuron by hand first; then the framework magic makes sense."
+     },
+     "real_life": {
+      "hinglish": "AC ka thermostat: target aur current ka difference (loss) dekho, phir dial thoda ghumaao (gradient step). Learning rate = ek baar me kitna ghumana.",
+      "en": "An AC thermostat: look at the gap between target and current (loss), then turn the dial a little (gradient step). Learning rate = how far you turn per step."
+     },
+     "takeaway": {
+      "hinglish": "Learning rate bahut bada = oscillate, bahut chhota = kabhi converge nahi.",
+      "en": "Too large a learning rate oscillates; too small never converges."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Training one neuron",
+        "en": "Ek neuron train karna"
+       },
+       "code": "w, b, lr = 0.0, 0.0, 0.05\nxs, ys = [1, 2, 3], [3, 5, 7]\nfor _ in range(50):\n    preds = [w * x + b for x in xs]\n    dw = sum(2 * (p - y) * x for p, x, y in zip(preds, xs, ys)) / len(xs)\n    db = sum(2 * (p - y) for p, y in zip(preds, ys)) / len(xs)\n    w, b = w - lr * dw, b - lr * db\nprint(round(w, 2), round(b, 2))",
+       "output": "2.02 0.94",
+       "note": {
+        "hinglish": "Sirf 50 steps me weight 2 aur bias 1 ke kareeb pahunch jata hai.",
+        "en": "In 50 steps the weight and bias get close to 2 and 1."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Model: y_hat = w * x, loss = (y_hat - y)^2. Ek hi data point, haath se gradient.\nx, y, lr = 2.0, 10.0, 0.05\n\n\ndef grad_w(w):\n    # dL/dw = 2 * (w*x - y) * x  (chain rule)\n    return 2 * (w * x - y) * x\n\n\nprint(\"target w = y / x =\", y / x)\nprint(\"\\n1) Sahi tarika: har step naya gradient (zero_grad jaisa)\")\nw = 0.0\nfor step in range(1, 9):\n    g = grad_w(w)\n    w -= lr * g\n    print(f\"  step {step}: w={w:.4f} loss={(w * x - y) ** 2:.4f}\")\n\nprint(\"\\n2) zero_grad() bhool gaye: gradient jama hota rehta hai\")\nw_ok, w_bad = 0.0, 0.0\ng_ok, g_bad = 0.0, 0.0\nfor step in range(1, 4):\n    g_ok = grad_w(w_ok)\n    g_bad += grad_w(w_bad)      # purana gradient clear nahi hua\n    w_ok -= lr * g_ok\n    w_bad -= lr * g_bad\n    print(f\"  step {step}: clear_w={w_ok:.2f}  accumulated_w={w_bad:.2f}  g_bad={g_bad:.2f}\")\nprint(\"\\naccumulated_w target se aage nikal gaya - yahi wo bug hai jo loss ko explode karta hai.\")",
+       "output": "target w = y / x = 5.0\n\n1) Sahi tarika: har step naya gradient (zero_grad jaisa)\n  step 1: w=2.0000 loss=36.0000\n  step 2: w=3.2000 loss=12.9600\n  step 3: w=3.9200 loss=4.6656\n  step 4: w=4.3520 loss=1.6796\n  step 5: w=4.6112 loss=0.6047\n  step 6: w=4.7667 loss=0.2177\n  step 7: w=4.8600 loss=0.0784\n  step 8: w=4.9160 loss=0.0282\n\n2) zero_grad() bhool gaye: gradient jama hota rehta hai\n  step 1: clear_w=2.00  accumulated_w=2.00  g_bad=-40.00\n  step 2: clear_w=3.20  accumulated_w=5.20  g_bad=-64.00\n  step 3: clear_w=3.92  accumulated_w=8.32  g_bad=-62.40\n\naccumulated_w target se aage nikal gaya - yahi wo bug hai jo loss ko explode karta hai.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m02c07l01e1",
+       "prompt": {
+        "hinglish": "Same data par `w` aur `b` ko 400 steps train karo (`lr=0.01`), phir `w`, `b` aur final MSE `loss` print karo.",
+        "en": "Train `w` and `b` on the same data for 400 steps (`lr=0.01`), then print `w`, `b` and the final MSE `loss`."
+       },
+       "starter": "w, b, lr = 0.0, 0.0, 0.01\nxs, ys = [1, 2, 3], [3, 5, 7]\nfor _ in range(400):\n    # forward, gradients, update\n    ...\nloss = sum((w * x + b - y) ** 2 for x, y in zip(xs, ys)) / len(xs)\nprint(round(w, 2), round(b, 2), round(loss, 4))\n",
+       "solution": "w, b, lr = 0.0, 0.0, 0.01\nxs, ys = [1, 2, 3], [3, 5, 7]\nfor _ in range(400):\n    preds = [w * x + b for x in xs]\n    dw = sum(2 * (p - y) * x for p, x, y in zip(preds, xs, ys)) / len(xs)\n    db = sum(2 * (p - y) for p, y in zip(preds, ys)) / len(xs)\n    w, b = w - lr * dw, b - lr * db\nloss = sum((w * x + b - y) ** 2 for x, y in zip(xs, ys)) / len(xs)\nprint(round(w, 2), round(b, 2), round(loss, 4))\n",
+       "checks": [
+        "abs(w - 2) < 0.05",
+        "abs(b - 1) < 0.15",
+        "loss < 0.01"
+       ],
+       "hint": {
+        "hinglish": "Gradient: `2*(pred-y)*x` weight ke liye, `2*(pred-y)` bias ke liye, phir average.",
+        "en": "Gradient: `2*(pred-y)*x` for the weight, `2*(pred-y)` for the bias, then average."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m02c07l01q1",
+       "question": {
+        "hinglish": "Autograd kya karta hai?",
+        "en": "What does autograd do?"
+       },
+       "options": [
+        "Operations ka graph bana kar gradients automatically nikalta hai",
+        "Data clean karta hai",
+        "GPU memory free karta hai",
+        "Model ko deploy karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Forward pass record hota hai, backward pass chain rule se gradients deta hai.",
+        "en": "It records the forward pass and uses the chain rule on the backward pass."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c07l01q2",
+       "question": {
+        "hinglish": "Learning rate bahut bada hone par kya hota hai?",
+        "en": "What happens when the learning rate is too large?"
+       },
+       "options": [
+        "Loss oscillate ya diverge karta hai",
+        "Model instantly converge karta hai",
+        "Gradients zero ho jate hain",
+        "Data leak hota hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Bada step minimum ke aar-paar koodta hai; chhota step slow hota hai.",
+        "en": "A big step jumps across the minimum; a small step is slow."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c07l01q3",
+       "question": {
+        "hinglish": "Dropout kya karta hai?",
+        "en": "What does dropout do?"
+       },
+       "options": [
+        "Training me random neurons off karke overfitting kam karta hai",
+        "Har layer delete kar deta hai",
+        "Learning rate badhata hai",
+        "Dataset ko shuffle karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Network ko ek neuron par depend karne se rokta hai; inference me off rehta hai.",
+        "en": "It stops the network relying on one neuron; it is off at inference."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m02c08",
+   "title": {
+    "hinglish": "Transformers, NLP & Embeddings",
+    "en": "Transformers, NLP & Embeddings"
+   },
+   "lessons": [
+    {
+     "id": "ai-m02c08l01",
+     "title": {
+      "hinglish": "Transformers, attention aur embeddings",
+      "en": "Transformers, attention and embeddings"
+     },
+     "keywords": [
+      "token",
+      "embedding",
+      "attention",
+      "softmax",
+      "BPE"
+     ],
+     "intro": {
+      "hinglish": "Transformer ka dil attention hai: har token dekhta hai kis doosre token se kitna matlab rakhta hai, aur unki values ka weighted mix leta hai. Embeddings text ko aise vector banati hain jahan similar matlab paas aata hai.",
+      "en": "The heart of a transformer is attention: every token looks at how much each other token matters and takes a weighted mix of their values. Embeddings turn text into vectors where similar meaning sits close together."
+     },
+     "real_life": {
+      "hinglish": "Meeting me sabki baat sunkar apni baat bolna: query aapka sawaal hai, keys logon ke topic hain, values unki detail. Attention wahi weighting karta hai.",
+      "en": "Speaking in a meeting after listening to everyone: your query is the question, keys are people's topics, values their detail. Attention does that weighting."
+     },
+     "takeaway": {
+      "hinglish": "Attention weights ka sum 1 hota hai; isliye `sqrt(d)` se scale karke softmax stable rakhte hain.",
+      "en": "Attention weights sum to 1; scaling by `sqrt(d)` keeps the softmax stable."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Scaled attention scores",
+        "en": "Scaled attention scores"
+       },
+       "code": "import math\n\nq, keys = [1, 0], [[1, 0], [0, 1]]\nscores = [sum(a * b for a, b in zip(q, k)) / math.sqrt(len(q)) for k in keys]\nprint([round(s, 3) for s in scores])",
+       "output": "[0.707, 0.0]",
+       "note": {
+        "hinglish": "Query pehli key se match karta hai, isliye uska score bada hai.",
+        "en": "The query matches the first key, so its score is larger."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Tiny self-attention: 3 tokens, 2 dimensions, plain Python.\nimport math\n\ntokens = [\"dog\", \"bites\", \"man\"]\nQ = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]   # \"main kya dhoondh raha hoon\"\nK = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]   # \"mere paas kya hai\"\nV = [[1.0, 0.0], [0.0, 1.0], [2.0, 2.0]]   # \"mera content\"\n\n\ndef softmax(row):\n    m = max(row)                              # stability: max subtract karo\n    e = [math.exp(v - m) for v in row]\n    s = sum(e)\n    return [v / s for v in e]\n\n\nd_k = 2\nprint(\"token  weights (causal)              sum   context\")\nfor i, q in enumerate(Q):\n    scores = [sum(qj * kj for qj, kj in zip(q, k)) / math.sqrt(d_k) for k in K]\n    scores = [s if j <= i else float(\"-inf\") for j, s in enumerate(scores)]   # mask PEHLE\n    w = softmax(scores)\n    ctx = [sum(w[j] * V[j][d] for j in range(len(V))) for d in range(len(Q[0]))]\n    print(f\"{tokens[i]:6s} {[round(x, 3) for x in w]}  {round(sum(w), 3)}   {[round(x, 3) for x in ctx]}\")\n\nprint(\"\\nHar row ka sum 1.0 hai; 'dog' sirf khud ko dekhta hai; 'man' sabko dekh sakta hai.\")",
+       "output": "token  weights (causal)              sum   context\ndog    [1.0, 0.0, 0.0]  1.0   [1.0, 0.0]\nbites  [0.33, 0.67, 0.0]  1.0   [0.33, 0.67]\nman    [0.248, 0.248, 0.503]  1.0   [1.255, 1.255]\n\nHar row ka sum 1.0 hai; 'dog' sirf khud ko dekhta hai; 'man' sabko dekh sakta hai.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m02c08l01e1",
+       "prompt": {
+        "hinglish": "`attention(query, keys, values)` likho jo scaled dot-product scores se softmax weights aur weighted output return kare. Dono print karo.",
+        "en": "Write `attention(query, keys, values)` returning softmax weights and the weighted output from scaled dot-product scores. Print both."
+       },
+       "starter": "import math\n\ndef attention(query, keys, values):\n    ...\n\nweights, out = attention([1, 0], [[1, 0], [0, 1]], [[10, 0], [0, 10]])\nprint([round(w, 3) for w in weights])\nprint([round(x, 3) for x in out])\n",
+       "solution": "import math\n\ndef attention(query, keys, values):\n    scores = [sum(q * k for q, k in zip(query, key)) / math.sqrt(len(query)) for key in keys]\n    top = max(scores)\n    exps = [math.exp(s - top) for s in scores]\n    total = sum(exps)\n    weights = [e / total for e in exps]\n    out = [sum(w * v[i] for w, v in zip(weights, values)) for i in range(len(values[0]))]\n    return weights, out\n\nweights, out = attention([1, 0], [[1, 0], [0, 1]], [[10, 0], [0, 10]])\nprint([round(w, 3) for w in weights])\nprint([round(x, 3) for x in out])\n",
+       "checks": [
+        "abs(sum(weights) - 1) < 1e-9",
+        "weights[0] > weights[1]",
+        "abs(out[0] - 6.7) < 0.05"
+       ],
+       "hint": {
+        "hinglish": "Scores ko `sqrt(d)` se divide karo, max ghatakar exp lo, sum se divide karo.",
+        "en": "Divide scores by `sqrt(d)`, subtract the max before exp, then divide by the sum."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m02c08l01q1",
+       "question": {
+        "hinglish": "Embedding kya hai?",
+        "en": "What is an embedding?"
+       },
+       "options": [
+        "Text ka dense vector jahan similar matlab paas hota hai",
+        "Database ka index",
+        "Model ka password",
+        "Token ka price"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Embedding semantic similarity ko distance me badal deti hai.",
+        "en": "An embedding turns semantic similarity into distance."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c08l01q2",
+       "question": {
+        "hinglish": "Attention scores ko `sqrt(d)` se kyun divide karte hain?",
+        "en": "Why divide attention scores by `sqrt(d)`?"
+       },
+       "options": [
+        "Bade dimension par dot product bahut bada ho jata hai aur softmax saturate hota hai",
+        "Isse model chhota hota hai",
+        "Isse tokens kam ho jate hain",
+        "Ye GPU ke liye zaroori hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Scaling ke bina softmax ek token par chipak jata hai aur gradients mar jate hain.",
+        "en": "Without scaling the softmax saturates on one token and gradients die."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m02c08l01q3",
+       "question": {
+        "hinglish": "BPE tokenisation kya karti hai?",
+        "en": "What does BPE tokenisation do?"
+       },
+       "options": [
+        "Common subwords ko tokens banati hai, rare words ko todti hai",
+        "Har word ko ek token banati hai",
+        "Text ko delete karti hai",
+        "Embeddings ko train karti hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Subword units se vocabulary chhota rehta hai aur rare words bhi handle hote hain.",
+        "en": "Subword units keep the vocabulary small and still handle rare words."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "ai-m02x01",
+   "question": {
+    "hinglish": "Overfit ka signal?",
+    "en": "The signal of overfitting?"
+   },
+   "options": [
+    "Train score bahut high, test low",
+    "Train aur test dono low",
+    "Loss zero se start",
+    "Learning rate chhota"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bada gap variance ki nishani hai.",
+    "en": "A large gap signals variance."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02x02",
+   "question": {
+    "hinglish": "Screening ke liye pehla metric?",
+    "en": "The first metric for screening?"
+   },
+   "options": [
+    "Recall",
+    "Precision",
+    "Accuracy",
+    "AUC sirf"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Positive miss karna sabse mehnga hai.",
+    "en": "Missing a positive is the costliest error."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02x03",
+   "question": {
+    "hinglish": "Gradient descent kis direction me jata hai?",
+    "en": "Which direction does gradient descent go?"
+   },
+   "options": [
+    "Gradient ke opposite",
+    "Gradient ke saath",
+    "Random",
+    "Sirf bias update"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Opposite direction loss kam karta hai.",
+    "en": "The opposite direction lowers the loss."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02x04",
+   "question": {
+    "hinglish": "Autograd kya deta hai?",
+    "en": "What does autograd provide?"
+   },
+   "options": [
+    "Automatic gradients",
+    "Automatic data cleaning",
+    "Automatic deployment",
+    "Automatic tokenisation"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Chain rule se backward pass gradients deta hai.",
+    "en": "It computes gradients on the backward pass via the chain rule."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02x05",
+   "question": {
+    "hinglish": "Attention me `sqrt(d)` scaling kyun?",
+    "en": "Why scale attention by `sqrt(d)`?"
+   },
+   "options": [
+    "Softmax saturation rokne ke liye",
+    "Model chhota karne ke liye",
+    "Tokens kam karne ke liye",
+    "GPU ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bade dot products softmax ko ek token par chipka dete hain.",
+    "en": "Large dot products saturate the softmax on one token."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02x06",
+   "question": {
+    "hinglish": "BPE kya karta hai?",
+    "en": "What does BPE do?"
+   },
+   "options": [
+    "Subword tokens banata hai",
+    "Har word ek token",
+    "Text delete karta hai",
+    "Embeddings train karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Subwords se vocabulary chhota aur rare words handle hote hain.",
+    "en": "Subwords keep the vocabulary small and handle rare words."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "ai-m02s01",
+   "question": {
+    "hinglish": "Train accuracy 1.0 aur test 0.72 hai. Kya problem hai?",
+    "en": "Train accuracy is 1.0 and test is 0.72. What is the problem?"
+   },
+   "options": [
+    "Overfitting — variance zyada hai",
+    "Underfitting — bias zyada hai",
+    "Data leakage",
+    "Learning rate bahut chhota hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bada train-test gap variance ki nishani hai; regularize karo ya data badhao.",
+    "en": "A large train-test gap signals variance; regularise or add data."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s02",
+   "question": {
+    "hinglish": "Cancer screening ke liye kaunsa metric pehle dekho?",
+    "en": "Which metric matters first for cancer screening?"
+   },
+   "options": [
+    "Recall — koi positive miss na ho",
+    "Precision — har positive sach ho",
+    "Accuracy",
+    "Training time"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Miss kiya case jaan ka risk hai; false alarm baad me test se clear hota hai.",
+    "en": "A missed case is a health risk; a false alarm is cleared by a later test."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s03",
+   "question": {
+    "hinglish": "kNN se pehle scaling kyun zaroori hai?",
+    "en": "Why scale features before kNN?"
+   },
+   "options": [
+    "Distance par bade unit wala feature dominate kar jata hai",
+    "kNN sirf scaled data par chalta hai",
+    "Scaling se model train hota hai",
+    "Scaling se accuracy hamesha 100% hoti hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Income lakhs me aur age years me ho to distance sirf income se banti hai.",
+    "en": "If income is in lakhs and age in years, distance is driven by income alone."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s04",
+   "question": {
+    "hinglish": "Autograd kya karta hai?",
+    "en": "What does autograd do?"
+   },
+   "options": [
+    "Operations ka graph bana kar gradients automatically nikalta hai",
+    "Data clean karta hai",
+    "GPU memory free karta hai",
+    "Model ko deploy karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Forward pass record hota hai, backward pass chain rule se gradients deta hai.",
+    "en": "It records the forward pass and uses the chain rule on the backward pass."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s05",
+   "question": {
+    "hinglish": "Learning rate bahut bada hone par kya hota hai?",
+    "en": "What happens when the learning rate is too large?"
+   },
+   "options": [
+    "Loss oscillate ya diverge karta hai",
+    "Model instantly converge karta hai",
+    "Gradients zero ho jate hain",
+    "Data leak hota hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bada step minimum ke aar-paar koodta hai; chhota step slow hota hai.",
+    "en": "A big step jumps across the minimum; a small step is slow."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s06",
+   "question": {
+    "hinglish": "Dropout kya karta hai?",
+    "en": "What does dropout do?"
+   },
+   "options": [
+    "Training me random neurons off karke overfitting kam karta hai",
+    "Har layer delete kar deta hai",
+    "Learning rate badhata hai",
+    "Dataset ko shuffle karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Network ko ek neuron par depend karne se rokta hai; inference me off rehta hai.",
+    "en": "It stops the network relying on one neuron; it is off at inference."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s07",
+   "question": {
+    "hinglish": "Embedding kya hai?",
+    "en": "What is an embedding?"
+   },
+   "options": [
+    "Text ka dense vector jahan similar matlab paas hota hai",
+    "Database ka index",
+    "Model ka password",
+    "Token ka price"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Embedding semantic similarity ko distance me badal deti hai.",
+    "en": "An embedding turns semantic similarity into distance."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s08",
+   "question": {
+    "hinglish": "Attention scores ko `sqrt(d)` se kyun divide karte hain?",
+    "en": "Why divide attention scores by `sqrt(d)`?"
+   },
+   "options": [
+    "Bade dimension par dot product bahut bada ho jata hai aur softmax saturate hota hai",
+    "Isse model chhota hota hai",
+    "Isse tokens kam ho jate hain",
+    "Ye GPU ke liye zaroori hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Scaling ke bina softmax ek token par chipak jata hai aur gradients mar jate hain.",
+    "en": "Without scaling the softmax saturates on one token and gradients die."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s09",
+   "question": {
+    "hinglish": "BPE tokenisation kya karti hai?",
+    "en": "What does BPE tokenisation do?"
+   },
+   "options": [
+    "Common subwords ko tokens banati hai, rare words ko todti hai",
+    "Har word ko ek token banati hai",
+    "Text ko delete karti hai",
+    "Embeddings ko train karti hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Subword units se vocabulary chhota rehta hai aur rare words bhi handle hote hain.",
+    "en": "Subword units keep the vocabulary small and still handle rare words."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s10",
+   "question": {
+    "hinglish": "Overfit ka signal?",
+    "en": "The signal of overfitting?"
+   },
+   "options": [
+    "Train score bahut high, test low",
+    "Train aur test dono low",
+    "Loss zero se start",
+    "Learning rate chhota"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bada gap variance ki nishani hai.",
+    "en": "A large gap signals variance."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s11",
+   "question": {
+    "hinglish": "Screening ke liye pehla metric?",
+    "en": "The first metric for screening?"
+   },
+   "options": [
+    "Recall",
+    "Precision",
+    "Accuracy",
+    "AUC sirf"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Positive miss karna sabse mehnga hai.",
+    "en": "Missing a positive is the costliest error."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s12",
+   "question": {
+    "hinglish": "Gradient descent kis direction me jata hai?",
+    "en": "Which direction does gradient descent go?"
+   },
+   "options": [
+    "Gradient ke opposite",
+    "Gradient ke saath",
+    "Random",
+    "Sirf bias update"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Opposite direction loss kam karta hai.",
+    "en": "The opposite direction lowers the loss."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s13",
+   "question": {
+    "hinglish": "Autograd kya deta hai?",
+    "en": "What does autograd provide?"
+   },
+   "options": [
+    "Automatic gradients",
+    "Automatic data cleaning",
+    "Automatic deployment",
+    "Automatic tokenisation"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Chain rule se backward pass gradients deta hai.",
+    "en": "It computes gradients on the backward pass via the chain rule."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s14",
+   "question": {
+    "hinglish": "Attention me `sqrt(d)` scaling kyun?",
+    "en": "Why scale attention by `sqrt(d)`?"
+   },
+   "options": [
+    "Softmax saturation rokne ke liye",
+    "Model chhota karne ke liye",
+    "Tokens kam karne ke liye",
+    "GPU ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Bade dot products softmax ko ek token par chipka dete hain.",
+    "en": "Large dot products saturate the softmax on one token."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m02s15",
+   "question": {
+    "hinglish": "BPE kya karta hai?",
+    "en": "What does BPE do?"
+   },
+   "options": [
+    "Subword tokens banata hai",
+    "Har word ek token",
+    "Text delete karta hai",
+    "Embeddings train karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Subwords se vocabulary chhota aur rare words handle hote hain.",
+    "en": "Subwords keep the vocabulary small and handle rare words."
+   },
+   "misconception": ""
+  }
+ ]
+}

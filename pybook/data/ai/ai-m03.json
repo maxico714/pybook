@@ -1,0 +1,1407 @@
+{
+ "id": "ai-m03",
+ "title": {
+  "hinglish": "LLM engineering",
+  "en": "LLM engineering"
+ },
+ "goal": {
+  "hinglish": "LLM behaviour, APIs, prompts, RAG, agents aur evaluation — roz ka LLM kaam.",
+  "en": "LLM behaviour, APIs, prompts, RAG, agents and evaluation: the daily LLM work."
+ },
+ "icon": "🤖",
+ "chapters": [
+  {
+   "id": "ai-m03c09",
+   "title": {
+    "hinglish": "LLM Fundamentals",
+    "en": "LLM Fundamentals"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c09l01",
+     "title": {
+      "hinglish": "LLM fundamentals: next token aur sampling",
+      "en": "LLM fundamentals: next token and sampling"
+     },
+     "keywords": [
+      "token",
+      "softmax",
+      "temperature",
+      "hallucination",
+      "context"
+     ],
+     "intro": {
+      "hinglish": "LLM ek hi kaam karta hai: diye gaye text ke baad next token ki probability nikalna. Chat, code aur translation sab isi loop ka side effect hain. Model sach nahi dhoondhta, plausible next token dhoondhta hai — isliye confident galat jawab aata hai.",
+      "en": "An LLM does one thing: produce a probability for the next token after the given text. Chat, code and translation are side effects of that loop. The model does not look up truth, it looks for a plausible next token, which is why confident wrong answers happen."
+     },
+     "real_life": {
+      "hinglish": "Phone ka autocomplete, bas crores examples se trained: 'Chai ke saath' ke baad 'biscuit' plausible lagta hai, isliye suggest hota hai. Poora paragraph bhi isi tarah banta hai.",
+      "en": "Phone autocomplete, trained on crores of examples: after 'tea with' the word 'biscuit' looks plausible, so it is suggested. A whole paragraph is built the same way."
+     },
+     "takeaway": {
+      "hinglish": "Temperature 0 = sabse likely token, high temperature = creative par zyada galat.",
+      "en": "Temperature 0 = the most likely token, high temperature = creative but more wrong."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Temperature changes the odds",
+        "en": "Temperature odds badalta hai"
+       },
+       "code": "import math\n\ndef softmax(logits, temperature=1.0):\n    scaled = [x / temperature for x in logits]\n    top = max(scaled)\n    exps = [math.exp(x - top) for x in scaled]\n    return [e / sum(exps) for e in exps]\n\nprint([round(p, 3) for p in softmax([2, 1, 0])])",
+       "output": "[0.665, 0.245, 0.09]",
+       "note": {
+        "hinglish": "Logits probability ban jate hain; sabse bada logit sabse zyada probability leta hai.",
+        "en": "Logits become probabilities; the largest logit gets the most probability."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# KV cache size: 2 (K and V) * layers * kv_heads * head_dim * seq_len * batch * bytes\n\ndef kv_cache_mb(n_layers, n_kv_heads, head_dim, seq_len, batch=1, bytes_per_element=2):\n    elements = 2 * n_layers * n_kv_heads * head_dim * seq_len * batch\n    return elements * bytes_per_element / (1024 ** 2)\n\n\nconfigs = [\n    # label, layers, kv_heads, head_dim  (illustrative shapes, not a specific model)\n    (\"MHA-style (many kv heads)\", 32, 32, 128),\n    (\"GQA-style (few kv heads)\",  32, 8, 128),\n]\n\nprint(f\"{'config':28s} {'4k':>8s} {'32k':>9s} {'128k':>9s}   (MB, batch=1, fp16)\")\nfor label, layers, heads, dim in configs:\n    row = [kv_cache_mb(layers, heads, dim, s) for s in (4096, 32768, 131072)]\n    print(f\"{label:28s} {row[0]:8.1f} {row[1]:9.1f} {row[2]:9.1f}\")\n\nprint()\nprint(\"Takeaway: cache size grows linearly with context length.\")\nprint(\"Fewer KV heads (GQA) = much smaller cache = more concurrent users per GPU.\")",
+       "output": "config                             4k       32k      128k   (MB, batch=1, fp16)\nMHA-style (many kv heads)      2048.0   16384.0   65536.0\nGQA-style (few kv heads)        512.0    4096.0   16384.0\n\nTakeaway: cache size grows linearly with context length.\nFewer KV heads (GQA) = much smaller cache = more concurrent users per GPU.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c09l01e1",
+       "prompt": {
+        "hinglish": "`softmax(logits, temperature)` likho aur `cold` (0.5) vs `warm` (2.0) ke pehle token ki probability print karo.",
+        "en": "Write `softmax(logits, temperature)` and print the first token's probability for `cold` (0.5) versus `warm` (2.0)."
+       },
+       "starter": "import math\n\ndef softmax(logits, temperature=1.0):\n    ...\n\ncold = softmax([2.0, 1.0, 0.0], temperature=0.5)\nwarm = softmax([2.0, 1.0, 0.0], temperature=2.0)\nprint(round(cold[0], 3), round(warm[0], 3))\n",
+       "solution": "import math\n\ndef softmax(logits, temperature=1.0):\n    scaled = [logit / temperature for logit in logits]\n    top = max(scaled)\n    exps = [math.exp(x - top) for x in scaled]\n    total = sum(exps)\n    return [e / total for e in exps]\n\ncold = softmax([2.0, 1.0, 0.0], temperature=0.5)\nwarm = softmax([2.0, 1.0, 0.0], temperature=2.0)\nprint(round(cold[0], 3), round(warm[0], 3))\n",
+       "checks": [
+        "cold[0] > warm[0]",
+        "abs(sum(cold) - 1) < 1e-9",
+        "cold[0] > 0.8"
+       ],
+       "hint": {
+        "hinglish": "Temperature chhota = distribution sharp; bada = flat.",
+        "en": "A small temperature sharpens the distribution; a large one flattens it."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c09l01q1",
+       "question": {
+        "hinglish": "Temperature 0 ka behaviour?",
+        "en": "What does temperature 0 do?"
+       },
+       "options": [
+        "Har step par sabse likely token chunta hai (greedy)",
+        "Random token chunta hai",
+        "Model ko off kar deta hai",
+        "Output ko translate karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Zero temperature deterministic greedy decoding hai; same prompt, same answer.",
+        "en": "Zero temperature is deterministic greedy decoding: same prompt, same answer."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c09l01q2",
+       "question": {
+        "hinglish": "Hallucination ka main reason?",
+        "en": "The main cause of hallucination?"
+       },
+       "options": [
+        "Model plausibility optimise karta hai, truth verify nahi karta",
+        "Model ka internet band ho jata hai",
+        "Temperature hamesha 0 hota hai",
+        "Context window chhota hota hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Training objective next-token prediction hai; grounding retrieval ya tools se aati hai.",
+        "en": "The objective is next-token prediction; grounding comes from retrieval or tools."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c09l01q3",
+       "question": {
+        "hinglish": "Context window badhane ka trade-off?",
+        "en": "The trade-off of a bigger context window?"
+       },
+       "options": [
+        "Cost aur latency badhte hain, aur lamba context degrade bhi ho sakta hai",
+        "Model free ho jata hai",
+        "Accuracy hamesha 100% ho jati hai",
+        "Tokens ki zaroorat nahi rehti"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Zyada tokens = zyada paisa aur time; beech ka content ignore bhi ho sakta hai.",
+        "en": "More tokens cost more money and time; middle content can be ignored."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03c10",
+   "title": {
+    "hinglish": "LLM API Engineering",
+    "en": "LLM API Engineering"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c10l01",
+     "title": {
+      "hinglish": "LLM API engineering",
+      "en": "LLM API engineering"
+     },
+     "keywords": [
+      "streaming",
+      "retry",
+      "schema",
+      "timeout",
+      "idempotency"
+     ],
+     "intro": {
+      "hinglish": "Production LLM code me retry, timeout, structured output aur cost tracking lazmi hai. Ek OpenAI-compatible client se `base_url` badal kar kai providers chalti hain, aur streaming se user ko pehla token jaldi milta hai.",
+      "en": "Production LLM code needs retries, timeouts, structured output and cost tracking. One OpenAI-compatible client can talk to many providers by changing `base_url`, and streaming gets the first token to the user sooner."
+     },
+     "real_life": {
+      "hinglish": "Courier service: parcel na pahunche to dobara try karo, par har baar thoda wait badhao (backoff). Bina limit retry karna server par dhamaka hai.",
+      "en": "A courier: retry a failed delivery, but wait a little longer each time (backoff). Unlimited retries are a denial-of-service on yourself."
+     },
+     "takeaway": {
+      "hinglish": "429 par backoff + jitter; 400 par retry mat karo, request theek karo.",
+      "en": "On 429 back off with jitter; on 400 do not retry, fix the request."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Retry until the call works",
+        "en": "Retry jab tak call kaam kare"
+       },
+       "code": "def flaky(state):\n    state['calls'] += 1\n    if state['calls'] < 3:\n        raise RuntimeError('429')\n    return 'ok'\n\nstate = {'calls': 0}\nfor _ in range(4):\n    try:\n        print(flaky(state)); break\n    except RuntimeError:\n        print('retry')",
+       "output": "retry\nretry\nok",
+       "note": {
+        "hinglish": "Teesri call par kaam ho jata hai; real code me sleep/backoff add hota hai.",
+        "en": "The third call succeeds; real code adds sleep/backoff."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Batch planning: chunking + discount arithmetic (example prices).\ndef plan_batches(items, batch_size=8):\n    return [items[i : i + batch_size] for i in range(0, len(items), batch_size)]\n\n\ndef batch_vs_sync(n_items, tokens_in=800, tokens_out=200, price_in=0.5, price_out=1.5,\n                  batch_discount=0.5, sync_concurrency=5, latency_s=1.5):\n    sync_cost = n_items * (tokens_in / 1e6 * price_in + tokens_out / 1e6 * price_out)\n    batch_cost = sync_cost * (1 - batch_discount)\n    sync_wall = (n_items / sync_concurrency) * latency_s\n    return {\n        \"items\": n_items,\n        \"sync_cost_usd\": round(sync_cost, 4),\n        \"batch_cost_usd\": round(batch_cost, 4),\n        \"saving_usd\": round(sync_cost - batch_cost, 4),\n        \"sync_wall_s\": round(sync_wall, 1),\n        \"batch_wall\": \"minutes to hours (provider SLA)\",\n    }\n\n\nfor n in (100, 1000, 10000):\n    print(batch_vs_sync(n))\nprint()\nprint(\"Batching is not free: you trade latency for money. Use it offline, not in a chat request.\")",
+       "output": "{'items': 100, 'sync_cost_usd': 0.07, 'batch_cost_usd': 0.035, 'saving_usd': 0.035, 'sync_wall_s': 30.0, 'batch_wall': 'minutes to hours (provider SLA)'}\n{'items': 1000, 'sync_cost_usd': 0.7, 'batch_cost_usd': 0.35, 'saving_usd': 0.35, 'sync_wall_s': 300.0, 'batch_wall': 'minutes to hours (provider SLA)'}\n{'items': 10000, 'sync_cost_usd': 7.0, 'batch_cost_usd': 3.5, 'saving_usd': 3.5, 'sync_wall_s': 3000.0, 'batch_wall': 'minutes to hours (provider SLA)'}\n\nBatching is not free: you trade latency for money. Use it offline, not in a chat request.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c10l01e1",
+       "prompt": {
+        "hinglish": "`call_with_retry(fn, state, attempts=4)` likho jo fail hone par dobara try kare aur success par result de. `result` aur `state['calls']` print karo.",
+        "en": "Write `call_with_retry(fn, state, attempts=4)` that retries on failure and returns the result. Print `result` and `state['calls']`."
+       },
+       "starter": "def flaky(state):\n    state['calls'] += 1\n    if state['calls'] < 3:\n        raise RuntimeError('429 rate limited')\n    return 'ok'\n\ndef call_with_retry(fn, state, attempts=4):\n    ...\n\nstate = {'calls': 0}\nresult = call_with_retry(flaky, state)\nprint(result, state['calls'])\n",
+       "solution": "def flaky(state):\n    state['calls'] += 1\n    if state['calls'] < 3:\n        raise RuntimeError('429 rate limited')\n    return 'ok'\n\ndef call_with_retry(fn, state, attempts=4):\n    last = None\n    for _ in range(attempts):\n        try:\n            return fn(state)\n        except RuntimeError as exc:\n            last = exc\n    raise last\n\nstate = {'calls': 0}\nresult = call_with_retry(flaky, state)\nprint(result, state['calls'])\n",
+       "checks": [
+        "result == 'ok'",
+        "state['calls'] == 3"
+       ],
+       "hint": {
+        "hinglish": "Loop ke andar try/except; last exception yaad rakho aur attempts ke baad raise karo.",
+        "en": "try/except inside a loop; remember the last exception and raise it after the attempts."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c10l01q1",
+       "question": {
+        "hinglish": "HTTP 429 ka matlab?",
+        "en": "What does HTTP 429 mean?"
+       },
+       "options": [
+        "Rate limit — thoda ruk kar backoff ke saath retry karo",
+        "API key galat hai",
+        "Server down hai hamesha ke liye",
+        "Request bahut chhoti thi"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "429 throttle hai; backoff aur jitter se retry karo, warna aur block hoge.",
+        "en": "429 is throttling; retry with backoff and jitter or you get blocked further."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c10l01q2",
+       "question": {
+        "hinglish": "Structured output ke liye sabse safe approach?",
+        "en": "The safest approach to structured output?"
+       },
+       "options": [
+        "JSON schema ya pydantic se validate karo, fail par retry/repair",
+        "Model par poora bharosa karo",
+        "Output ko eval karo",
+        "JSON ko string ki tarah store karo"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Model schema tod sakta hai; validation boundary par hi pakad me aata hai.",
+        "en": "A model can break the schema; validation at the boundary catches it."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c10l01q3",
+       "question": {
+        "hinglish": "Streaming ka fayda?",
+        "en": "The benefit of streaming?"
+       },
+       "options": [
+        "Pehla token jaldi dikhta hai, perceived latency kam hoti hai",
+        "Model sasta ho jata hai",
+        "Accuracy badh jati hai",
+        "Retry ki zaroorat nahi rehti"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Total time same rehta hai, par user ko turant response dikhta hai.",
+        "en": "Total time is the same, but the user sees a response immediately."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03c11",
+   "title": {
+    "hinglish": "Prompt & Context Engineering",
+    "en": "Prompt & Context Engineering"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c11l01",
+     "title": {
+      "hinglish": "Prompt aur context engineering",
+      "en": "Prompt and context engineering"
+     },
+     "keywords": [
+      "few-shot",
+      "context budget",
+      "memory",
+      "injection",
+      "versioning"
+     ],
+     "intro": {
+      "hinglish": "Magic prompt tricks low value hain. Asli kaam hai poora context design karna: instructions, examples, tools, memory, retrieval aur eval. Context ek budget hai — har token ki jagah aur keemat hai.",
+      "en": "Magic prompt tricks are low value. The real job is designing the whole context: instructions, examples, tools, memory, retrieval and evaluation. Context is a budget; every token has a place and a price."
+     },
+     "real_life": {
+      "hinglish": "Interview ke liye ek page ka brief: zaroori baat pehle, examples saath me, aur irrelevant purani file mat lagao. Context window bhi wahi brief hai.",
+      "en": "A one-page brief for an interview: the important point first, examples beside it, and no irrelevant old file. A context window is that brief."
+     },
+     "takeaway": {
+      "hinglish": "Context me jo cheez nahi honi chahiye wo bhi utni hi important hai jitni honi chahiye.",
+      "en": "What you keep out of the context matters as much as what you put in."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Estimating tokens",
+        "en": "Tokens ka estimate"
+       },
+       "code": "def size(text):\n    return len(text) // 4\n\nsystem = 'You are a careful tutor.'\nexamples = ['Example one.', 'Example two.', 'Example three.']\nprint(size(system), [size(e) for e in examples])",
+       "output": "6 [3, 3, 3]",
+       "note": {
+        "hinglish": "Tokens ka quick estimate: 4 characters ≈ 1 token (English ka rule of thumb).",
+        "en": "Quick token estimate: 4 characters ≈ 1 token for English."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Setup cell - run this first.\nimport hashlib\nimport json\nimport math\nimport re\nimport statistics\nimport time\nfrom collections import Counter, deque\nfrom dataclasses import dataclass, field\nfrom typing import Any\n\nprint(\"stdlib only: no API keys, no network. Deterministic by construction.\")",
+       "output": "stdlib only: no API keys, no network. Deterministic by construction.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c11l01e1",
+       "prompt": {
+        "hinglish": "`build_prompt(system, examples, question, budget_tokens)` likho jo examples ko end se drop kare jab tak prompt budget me na aa jaye, aur `(prompt, used)` return kare. Kitne examples bache, print karo.",
+        "en": "Write `build_prompt(system, examples, question, budget_tokens)` that drops examples from the end until the prompt fits, returning `(prompt, used)`. Print how many examples survived."
+       },
+       "starter": "def build_prompt(system, examples, question, budget_tokens):\n    def size(text):\n        return len(text) // 4\n    chosen = list(examples)\n    ...\n    return prompt, chosen\n\nsystem = 'You are a careful tutor.'\nexamples = ['Example one is long enough.', 'Example two is also here.', 'Example three.']\nprompt, used = build_prompt(system, examples, 'Explain RAG.', 20)\nprint(len(used), 'examples kept')\n",
+       "solution": "def build_prompt(system, examples, question, budget_tokens):\n    def size(text):\n        return len(text) // 4\n    chosen = list(examples)\n    while chosen and size(system) + sum(size(e) for e in chosen) + size(question) > budget_tokens:\n        chosen.pop()\n    prompt = '\\n'.join([system] + chosen + [question])\n    return prompt, chosen\n\nsystem = 'You are a careful tutor.'\nexamples = ['Example one is long enough.', 'Example two is also here.', 'Example three.']\nprompt, used = build_prompt(system, examples, 'Explain RAG.', 20)\nprint(len(used), 'examples kept')\n",
+       "checks": [
+        "len(used) < 3",
+        "'Explain RAG.' in prompt",
+        "used == examples[:len(used)]"
+       ],
+       "hint": {
+        "hinglish": "Jab tak budget se bada ho, `chosen.pop()` karo; order preserve rehta hai.",
+        "en": "While it is over budget, `chosen.pop()`; the order is preserved."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c11l01q1",
+       "question": {
+        "hinglish": "Few-shot examples kab madad karte hain?",
+        "en": "When do few-shot examples help?"
+       },
+       "options": [
+        "Jab output ka format ya style dikhana ho",
+        "Jab context window unlimited ho",
+        "Jab model bahut bada ho",
+        "Jab API key na ho"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Examples format aur edge cases sikhate hain; saare rules likhne se sasta bhi ho sakta hai.",
+        "en": "Examples teach format and edge cases, sometimes cheaper than writing every rule."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c11l01q2",
+       "question": {
+        "hinglish": "Prompt injection ka sabse aam rasta?",
+        "en": "The most common prompt injection path?"
+       },
+       "options": [
+        "Retrieved ya user content me instructions chhupi hoti hain",
+        "Model ka temperature 0 hota hai",
+        "API key expire ho jati hai",
+        "JSON schema galat hota hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Untrusted content ko instruction ki tarah padhna injection hai; use data hi rakho.",
+        "en": "Reading untrusted content as instructions is the injection; keep it as data."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c11l01q3",
+       "question": {
+        "hinglish": "Prompt versioning kyun zaroori hai?",
+        "en": "Why version prompts?"
+       },
+       "options": [
+        "Badlav ka asar eval se compare kar sakein aur rollback ho sake",
+        "Prompt ko chhota rakhne ke liye",
+        "Model ko fine-tune karne ke liye",
+        "Token count badhane ke liye"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Prompt bhi code hai: version, test aur rollback ke bina regression pata nahi chalta.",
+        "en": "A prompt is code: without versioning, tests and rollback you cannot see regressions."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03c12",
+   "title": {
+    "hinglish": "RAG (Retrieval-Augmented Generation)",
+    "en": "RAG (Retrieval-Augmented Generation)"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c12l01",
+     "title": {
+      "hinglish": "RAG: retrieval se grounded answer tak",
+      "en": "RAG: from retrieval to a grounded answer"
+     },
+     "keywords": [
+      "chunk",
+      "embedding",
+      "hybrid",
+      "rerank",
+      "citation"
+     ],
+     "intro": {
+      "hinglish": "RAG model ko naya knowledge nahi sikhata; sahi waqt par sahi text context me deta hai. Chunking, hybrid search, reranking aur citation chaar cheezein hain jo demo ko product banati hain. Sirf top-3 vector search final design nahi hai.",
+      "en": "RAG does not teach the model new knowledge; it puts the right text in the context at the right time. Chunking, hybrid search, reranking and citations are the four things that turn a demo into a product. Top-3 vector search alone is not a final design."
+     },
+     "real_life": {
+      "hinglish": "Exam me open-book: pehle sahi page dhoondho (retrieval), phir us page se answer likho (generation), aur page number likho (citation). Galat page = confident galat answer.",
+      "en": "An open-book exam: find the right page (retrieval), answer from that page (generation), and write the page number (citation). Wrong page = confident wrong answer."
+     },
+     "takeaway": {
+      "hinglish": "Retrieval recall pehle theek karo; generation ka quality uske baad hi matter karta hai.",
+      "en": "Fix retrieval recall first; generation quality only matters after that."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Chunking with overlap",
+        "en": "Overlap ke saath chunking"
+       },
+       "code": "text = ' '.join(['rag'] * 12 + ['agent'] * 12)\nwords = text.split()\nchunks = [' '.join(words[i:i + 8]) for i in range(0, len(words), 6)]\nprint(len(chunks), chunks[1])",
+       "output": "4 rag rag rag rag rag rag agent agent",
+       "note": {
+        "hinglish": "Overlap se boundary par kata hua sentence doosre chunk me bhi milta hai.",
+        "en": "Overlap keeps a sentence cut at a boundary visible in the next chunk too."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Level 1 - predictions first.\nprint(\"1: assertion error / infinite loop guard (overlap must be < size)\")\nprint(\"2: longer chunks win (dot product magnitude)\")\nprint(\"3: top-3 overall may contain no chunk from the filtered subset\")\nprint(\"4: 1/61 ~= 0.0164\")\nprint(\"5: no - it can only reorder what retrieval already returned\")\nprint(\"6: no - it is a retrieval probe, not an answer\")\nprint(\"7: reject the answer / regenerate; citation is invalid\")\nprint(\"8: one query, one retrieval -> usually one document; the question needs two\")\nprint(\"9: relevant docs are found but ranked low (ranking problem, not recall)\")",
+       "output": "1: assertion error / infinite loop guard (overlap must be < size)\n2: longer chunks win (dot product magnitude)\n3: top-3 overall may contain no chunk from the filtered subset\n4: 1/61 ~= 0.0164\n5: no - it can only reorder what retrieval already returned\n6: no - it is a retrieval probe, not an answer\n7: reject the answer / regenerate; citation is invalid\n8: one query, one retrieval -> usually one document; the question needs two\n9: relevant docs are found but ranked low (ranking problem, not recall)",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c12l01e1",
+       "prompt": {
+        "hinglish": "`chunk(text, size=40, overlap=10)` aur `best_chunk(question, chunks)` likho; 90 words par `len(chunks)` aur best `index` print karo.",
+        "en": "Write `chunk(text, size=40, overlap=10)` and `best_chunk(question, chunks)`; print `len(chunks)` and the best `index` for 90 words."
+       },
+       "starter": "def chunk(text, size=40, overlap=10):\n    ...\n\ndef best_chunk(question, chunks):\n    ...\n\ntext = ' '.join(['rag'] * 30 + ['agent'] * 30 + ['eval'] * 30)\nchunks = chunk(text)\nindex = best_chunk('how does agent memory work', chunks)\nprint(len(chunks), index)\n",
+       "solution": "def chunk(text, size=40, overlap=10):\n    words = text.split()\n    chunks = []\n    start = 0\n    while start < len(words):\n        chunks.append(' '.join(words[start:start + size]))\n        start += size - overlap\n    return chunks\n\ndef best_chunk(question, chunks):\n    words = set(question.lower().split())\n    scored = [(len(words & set(c.lower().split())), i) for i, c in enumerate(chunks)]\n    return max(scored)[1]\n\ntext = ' '.join(['rag'] * 30 + ['agent'] * 30 + ['eval'] * 30)\nchunks = chunk(text)\nindex = best_chunk('how does agent memory work', chunks)\nprint(len(chunks), index)\n",
+       "checks": [
+        "len(chunks) == 3",
+        "index == 1",
+        "'agent' in chunks[index]"
+       ],
+       "hint": {
+        "hinglish": "Step `size - overlap` hai; question ke words ka set intersection score hai.",
+        "en": "The step is `size - overlap`; score chunks by set intersection with the question."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c12l01q1",
+       "question": {
+        "hinglish": "RAG me recall@k kya naapta hai?",
+        "en": "What does recall@k measure in RAG?"
+       },
+       "options": [
+        "Top-k retrieved chunks me sahi evidence aaya ya nahi",
+        "Generated answer ki length",
+        "Model ki speed",
+        "Embedding ka dimension"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Agar evidence top-k me nahi hai, generator kuch bhi kare, answer grounded nahi ho sakta.",
+        "en": "If the evidence is not in the top-k, no generator can ground the answer."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c12l01q2",
+       "question": {
+        "hinglish": "Hybrid search kya milata hai?",
+        "en": "What does hybrid search combine?"
+       },
+       "options": [
+        "Keyword (BM25) aur dense vector search",
+        "Do LLM providers",
+        "Do databases ke passwords",
+        "Training aur inference"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Exact terms BM25 pakadta hai, meaning dense; dono mil kar recall badhate hain.",
+        "en": "BM25 catches exact terms, dense catches meaning; together they raise recall."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c12l01q3",
+       "question": {
+        "hinglish": "Reranker kab lagana chahiye?",
+        "en": "When should a reranker be added?"
+       },
+       "options": [
+        "Retrieval ke baad, top candidates ko precise order dene ke liye",
+        "Sabse pehle, retrieval se bhi pehle",
+        "Sirf training ke waqt",
+        "Jab API key na ho"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Reranker cross-encoder hai: slow par accurate, isliye chhote candidate set par chalta hai.",
+        "en": "A reranker is a cross-encoder: slow but accurate, so it runs on a small candidate set."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03c13",
+   "title": {
+    "hinglish": "Agentic AI",
+    "en": "Agentic AI"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c13l01",
+     "title": {
+      "hinglish": "Agentic AI: tool loop aur guardrails",
+      "en": "Agentic AI: tool loop and guardrails"
+     },
+     "keywords": [
+      "tool",
+      "ReAct",
+      "state",
+      "guardrail",
+      "MCP"
+     ],
+     "intro": {
+      "hinglish": "Agent ek loop hai: model soche, tool chune, result dekhe, phir soche. Workflow pehle try karo; agent tabhi jab rasta pehle se pata na ho. Har loop me max steps, cost cap aur human approval rakho.",
+      "en": "An agent is a loop: the model thinks, picks a tool, reads the result, and thinks again. Try a workflow first; use an agent when the path is not known in advance. Every loop needs a max-step cap, a cost cap and human approval."
+     },
+     "real_life": {
+      "hinglish": "Delivery boy ko address diya, par route khud chunna hai: map dekho, galat mod par wapas aao, aur petrol khatam hone se pehle ruk jao. Max steps wahi petrol ki limit hai.",
+      "en": "A delivery rider is given an address but chooses the route: check the map, turn back on a wrong turn, and stop before fuel runs out. Max steps is that fuel limit."
+     },
+     "takeaway": {
+      "hinglish": "Har tool least privilege par do; model ka output hamesha untrusted input hai.",
+      "en": "Give every tool least privilege; model output is always untrusted input."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "A tool registry",
+        "en": "Tool registry"
+       },
+       "code": "tools = {'add': lambda a, b: a + b, 'search': lambda q: 'doc: ' + q}\ntask = 'add 2 and 3'\nname = next((tool for tool in tools if tool in task), None)\nprint(name, '->', tools[name](2, 3) if name == 'add' else '')",
+       "output": "add -> 5",
+       "note": {
+        "hinglish": "Tool registry ek dict hai; agent ka kaam sahi tool aur sahi argument chunna hai. Har tool ek fixed function hai, kabhi `eval` nahi.",
+        "en": "A tool registry is a dict; the agent's job is picking the right tool and argument. Every tool is a fixed function, never `eval`."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# M.0 - teen gates, ek hi loop: allowlist -> budget -> approval\nTOOLS = {\n    \"status\": lambda oid: {\"order_id\": oid, \"state\": \"delivered\"},\n    \"refund\": lambda oid: {\"refund_id\": \"R-\" + oid[-3:], \"order_id\": oid},\n}\n\ndef run(plan, tools=TOOLS, max_steps=3, approve=None):\n    trace, used = [], 0\n    for name, args in plan:\n        if used >= max_steps:                      # gate 1: budget\n            return {\"status\": \"stopped\", \"why\": \"max_steps\", \"trace\": trace}\n        used += 1\n        if name not in tools:                      # gate 2: allowlist\n            trace.append((\"blocked\", name, \"not_in_allowlist\"))\n            continue\n        if name == \"refund\" and not (approve and approve(args)):\n            trace.append((\"paused\", name, \"needs_approval\"))   # gate 3: HITL\n            continue\n        trace.append((name, tools[name](**args)))\n    return {\"status\": \"done\", \"trace\": trace}\n\nplan = [(\"status\", {\"oid\": \"A-100\"}), (\"refund\", {\"oid\": \"A-100\"})]\nprint(\"no approval :\", run(plan))\nprint(\"approved    :\", run(plan, approve=lambda args: args[\"oid\"] == \"A-100\"))\nprint(\"unknown tool:\", run([(\"delete_all\", {})] * 5))",
+       "output": "no approval : {'status': 'done', 'trace': [('status', {'order_id': 'A-100', 'state': 'delivered'}), ('paused', 'refund', 'needs_approval')]}\napproved    : {'status': 'done', 'trace': [('status', {'order_id': 'A-100', 'state': 'delivered'}), ('refund', {'refund_id': 'R-100', 'order_id': 'A-100'})]}\nunknown tool: {'status': 'stopped', 'why': 'max_steps', 'trace': [('blocked', 'delete_all', 'not_in_allowlist'), ('blocked', 'delete_all', 'not_in_allowlist'), ('blocked', 'delete_all', 'not_in_allowlist')]}",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c13l01e1",
+       "prompt": {
+        "hinglish": "`run_agent(task, tools, max_steps=3)` likho jo task me maujood tool ka naam dhoondhe, use trace me add kare aur task se hata de; `trace` print karo.",
+        "en": "Write `run_agent(task, tools, max_steps=3)` that finds a tool name in the task, adds it to the trace and removes it from the task; print `trace`."
+       },
+       "starter": "def run_agent(task, tools, max_steps=3):\n    trace = []\n    ...\n    return trace\n\ntrace = run_agent('calculate 2+2 then search docs', ['calculate', 'search'], max_steps=2)\nprint(trace)\n",
+       "solution": "def run_agent(task, tools, max_steps=3):\n    trace = []\n    for _ in range(max_steps):\n        name = next((tool for tool in tools if tool in task.lower()), None)\n        if not name:\n            break\n        trace.append(name)\n        task = task.replace(name, '', 1)\n    return trace\n\ntrace = run_agent('calculate 2+2 then search docs', ['calculate', 'search'], max_steps=2)\nprint(trace)\n",
+       "checks": [
+        "trace == ['calculate', 'search']",
+        "len(trace) <= 2"
+       ],
+       "hint": {
+        "hinglish": "Har step par pehla matching tool lo, trace me daalo, phir task se hatao.",
+        "en": "Each step: take the first matching tool, append it, then remove it from the task."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c13l01q1",
+       "question": {
+        "hinglish": "Workflow vs agent?",
+        "en": "Workflow versus agent?"
+       },
+       "options": [
+        "Workflow ke steps fix hote hain; agent rasta khud chunta hai",
+        "Workflow zyada mehnga hota hai",
+        "Agent me kabhi tools nahi hote",
+        "Dono bilkul same hain"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Jab rasta pata ho to workflow sasta aur reliable hota hai; agent flexibility ke liye hai.",
+        "en": "When the path is known, a workflow is cheaper and more reliable; an agent buys flexibility."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c13l01q2",
+       "question": {
+        "hinglish": "Max steps guardrail kyun zaroori hai?",
+        "en": "Why is a max-steps guardrail necessary?"
+       },
+       "options": [
+        "Infinite loop aur cost blow-up rokta hai",
+        "Model ko smart banata hai",
+        "Tool ki speed badhata hai",
+        "Prompt ko chhota karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Agent loop ho sakta hai; cap ke bina ek bug poora budget kha jata hai.",
+        "en": "An agent can loop; without a cap one bug eats the whole budget."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c13l01q3",
+       "question": {
+        "hinglish": "MCP kya standard karta hai?",
+        "en": "What does MCP standardise?"
+       },
+       "options": [
+        "Model aur tools/data ke beech connection (tools, resources, prompts)",
+        "Model ke weights",
+        "GPU memory",
+        "Prompt ka language"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "MCP ek protocol hai jisse ek hi tool server kai agents ke saath kaam karta hai.",
+        "en": "MCP is a protocol so one tool server works with many agents."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m03c14",
+   "title": {
+    "hinglish": "Evaluation & Observability",
+    "en": "Evaluation & Observability"
+   },
+   "lessons": [
+    {
+     "id": "ai-m03c14l01",
+     "title": {
+      "hinglish": "Evaluation aur observability",
+      "en": "Evaluation and observability"
+     },
+     "keywords": [
+      "golden set",
+      "LLM judge",
+      "F1",
+      "trace",
+      "regression"
+     ],
+     "intro": {
+      "hinglish": "Demo aur product ka farak eval hai. Golden dataset banao, metric chuno, LLM-as-judge ko human labels se calibrate karo, aur eval ko CI me chalao. Bina eval ke har prompt change ek blind gamble hai.",
+      "en": "The difference between a demo and a product is evaluation. Build a golden dataset, choose metrics, calibrate an LLM judge against human labels, and run evals in CI. Without evals every prompt change is a blind gamble."
+     },
+     "real_life": {
+      "hinglish": "Cricket me scoreboard: har ball ka result likha jata hai, warna agle match ke liye koi seekhne ki cheez nahi hoti. Eval wahi scoreboard hai.",
+      "en": "A cricket scoreboard records every ball; without it there is nothing to learn for the next match. Evaluation is that scoreboard."
+     },
+     "takeaway": {
+      "hinglish": "Metric se pehle failure mode likho; metric us failure ko pakadta ho.",
+      "en": "Write the failure mode before the metric; the metric must catch that failure."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "F1 from precision and recall",
+        "en": "Precision aur recall se F1"
+       },
+       "code": "def f1(tp, fp, fn):\n    precision = tp / (tp + fp) if tp + fp else 0.0\n    recall = tp / (tp + fn) if tp + fn else 0.0\n    return 2 * precision * recall / (precision + recall) if precision + recall else 0.0\n\nprint(round(f1(8, 2, 2), 3))",
+       "output": "0.8",
+       "note": {
+        "hinglish": "Precision aur recall ka harmonic mean; dono me se ek girta hai to F1 bhi girta hai.",
+        "en": "The harmonic mean of precision and recall; if either drops, F1 drops."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# M.0 - judge ki \"achi agreement\" ko chance ke liye correct karo\ndef kappa(human, judge):\n    n = len(human)\n    if n == 0:\n        return None                       # empty eval set: koi claim nahi\n    agree = sum(h == j for h, j in zip(human, judge)) / n\n    labels = set(human) | set(judge)\n    expected = sum((human.count(l) / n) * (judge.count(l) / n) for l in labels)\n    if expected >= 1.0:\n        return 0.0                        # dono hamesha same label: zero information\n    return round((agree - expected) / (1 - expected), 3)\n\nhuman = [5] * 8\njudge = [5] * 7 + [1]                     # ek case par judge ne 1 diya\nprint(\"raw agreement:\", sum(h == j for h, j in zip(human, judge)) / len(human))\nprint(\"kappa        :\", kappa(human, judge))\nprint(\"empty set    :\", kappa([], []))",
+       "output": "raw agreement: 0.875\nkappa        : 0.0\nempty set    : None",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m03c14l01e1",
+       "prompt": {
+        "hinglish": "`f1(tp, fp, fn)` likho aur do classes ke scores ka `macro` average print karo.",
+        "en": "Write `f1(tp, fp, fn)` and print the `macro` average of two class scores."
+       },
+       "starter": "def f1(tp, fp, fn):\n    ...\n\nscores = [f1(8, 2, 2), f1(3, 1, 5)]\nmacro = sum(scores) / len(scores)\nprint(round(scores[0], 3), round(macro, 3))\n",
+       "solution": "def f1(tp, fp, fn):\n    precision = tp / (tp + fp) if tp + fp else 0.0\n    recall = tp / (tp + fn) if tp + fn else 0.0\n    return 2 * precision * recall / (precision + recall) if precision + recall else 0.0\n\nscores = [f1(8, 2, 2), f1(3, 1, 5)]\nmacro = sum(scores) / len(scores)\nprint(round(scores[0], 3), round(macro, 3))\n",
+       "checks": [
+        "abs(scores[0] - 0.8) < 1e-9",
+        "abs(macro - 0.65) < 1e-9"
+       ],
+       "hint": {
+        "hinglish": "Zero division se bacho; precision+recall 0 ho to F1 0 hai.",
+        "en": "Guard zero division; if precision+recall is 0, F1 is 0."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m03c14l01q1",
+       "question": {
+        "hinglish": "95% negative data par accuracy kyun dhoka deti hai?",
+        "en": "Why is accuracy misleading on 95% negative data?"
+       },
+       "options": [
+        "Sab negative bolne se bhi 95% accuracy mil jati hai",
+        "Accuracy calculate nahi hoti",
+        "Accuracy sirf regression me hoti hai",
+        "Data ka size zyada hota hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Imbalance me majority class predict karna hi 'achha' score de deta hai; precision/recall dekho.",
+        "en": "On imbalanced data, predicting the majority class scores well; look at precision/recall."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c14l01q2",
+       "question": {
+        "hinglish": "LLM-as-judge ka risk?",
+        "en": "The risk of LLM-as-judge?"
+       },
+       "options": [
+        "Judge ka bias aur calibration drift",
+        "Judge bahut sasta hota hai",
+        "Judge hamesha human se better hota hai",
+        "Judge ko GPU nahi chahiye"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Judge bhi model hai; human labels par calibrate karo aur periodic spot-check rakho.",
+        "en": "A judge is also a model; calibrate on human labels and spot-check periodically."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m03c14l01q3",
+       "question": {
+        "hinglish": "Eval CI me kyun chalate hain?",
+        "en": "Why run evals in CI?"
+       },
+       "options": [
+        "Prompt/model change se regression merge se pehle pakadne ke liye",
+        "CI ko busy rakhne ke liye",
+        "Model ko train karne ke liye",
+        "GPU free karne ke liye"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Eval regression test hai: bina CI ke quality chupchap gir jati hai.",
+        "en": "Evals are regression tests; without CI quality drops silently."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "ai-m03x01",
+   "question": {
+    "hinglish": "Temperature 0 kya karta hai?",
+    "en": "What does temperature 0 do?"
+   },
+   "options": [
+    "Greedy decoding",
+    "Random sampling",
+    "Model off",
+    "Translation"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Sabse likely token deterministic hota hai.",
+    "en": "The most likely token becomes deterministic."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03x02",
+   "question": {
+    "hinglish": "429 par kya karein?",
+    "en": "What should you do on a 429?"
+   },
+   "options": [
+    "Backoff + jitter ke saath retry",
+    "Turant 100 retry",
+    "Request delete",
+    "Model badal do"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Rate limit ko respect karna zaroori hai.",
+    "en": "You must respect the rate limit."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03x03",
+   "question": {
+    "hinglish": "Context budget ka matlab?",
+    "en": "What is a context budget?"
+   },
+   "options": [
+    "Tokens ki fixed jagah jise manage karna hai",
+    "Paisa",
+    "Model ka size",
+    "Database ki limit"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Har token jagah aur keemat leta hai.",
+    "en": "Every token takes space and cost."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03x04",
+   "question": {
+    "hinglish": "RAG me recall@k kya batata hai?",
+    "en": "What does recall@k show in RAG?"
+   },
+   "options": [
+    "Sahi evidence top-k me aaya",
+    "Answer ki length",
+    "Model ki speed",
+    "Embedding size"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Evidence na mile to answer grounded nahi ho sakta.",
+    "en": "Without evidence the answer cannot be grounded."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03x05",
+   "question": {
+    "hinglish": "Agent me max steps kyun?",
+    "en": "Why max steps in an agent?"
+   },
+   "options": [
+    "Loop aur cost blow-up rokne ke liye",
+    "Model smart karne ke liye",
+    "Tool speed ke liye",
+    "Prompt chhota karne ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Cap ke bina bug poora budget kha sakta hai.",
+    "en": "Without a cap a bug can eat the budget."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03x06",
+   "question": {
+    "hinglish": "Eval CI me kyun?",
+    "en": "Why evals in CI?"
+   },
+   "options": [
+    "Regression merge se pehle pakadne ke liye",
+    "CI busy rakhne ke liye",
+    "Model train karne ke liye",
+    "GPU free karne ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Eval regression test hai.",
+    "en": "Evals are regression tests."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "ai-m03s01",
+   "question": {
+    "hinglish": "Temperature 0 ka behaviour?",
+    "en": "What does temperature 0 do?"
+   },
+   "options": [
+    "Har step par sabse likely token chunta hai (greedy)",
+    "Random token chunta hai",
+    "Model ko off kar deta hai",
+    "Output ko translate karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Zero temperature deterministic greedy decoding hai; same prompt, same answer.",
+    "en": "Zero temperature is deterministic greedy decoding: same prompt, same answer."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s02",
+   "question": {
+    "hinglish": "Hallucination ka main reason?",
+    "en": "The main cause of hallucination?"
+   },
+   "options": [
+    "Model plausibility optimise karta hai, truth verify nahi karta",
+    "Model ka internet band ho jata hai",
+    "Temperature hamesha 0 hota hai",
+    "Context window chhota hota hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Training objective next-token prediction hai; grounding retrieval ya tools se aati hai.",
+    "en": "The objective is next-token prediction; grounding comes from retrieval or tools."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s03",
+   "question": {
+    "hinglish": "Context window badhane ka trade-off?",
+    "en": "The trade-off of a bigger context window?"
+   },
+   "options": [
+    "Cost aur latency badhte hain, aur lamba context degrade bhi ho sakta hai",
+    "Model free ho jata hai",
+    "Accuracy hamesha 100% ho jati hai",
+    "Tokens ki zaroorat nahi rehti"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Zyada tokens = zyada paisa aur time; beech ka content ignore bhi ho sakta hai.",
+    "en": "More tokens cost more money and time; middle content can be ignored."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s04",
+   "question": {
+    "hinglish": "HTTP 429 ka matlab?",
+    "en": "What does HTTP 429 mean?"
+   },
+   "options": [
+    "Rate limit — thoda ruk kar backoff ke saath retry karo",
+    "API key galat hai",
+    "Server down hai hamesha ke liye",
+    "Request bahut chhoti thi"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "429 throttle hai; backoff aur jitter se retry karo, warna aur block hoge.",
+    "en": "429 is throttling; retry with backoff and jitter or you get blocked further."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s05",
+   "question": {
+    "hinglish": "Structured output ke liye sabse safe approach?",
+    "en": "The safest approach to structured output?"
+   },
+   "options": [
+    "JSON schema ya pydantic se validate karo, fail par retry/repair",
+    "Model par poora bharosa karo",
+    "Output ko eval karo",
+    "JSON ko string ki tarah store karo"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Model schema tod sakta hai; validation boundary par hi pakad me aata hai.",
+    "en": "A model can break the schema; validation at the boundary catches it."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s06",
+   "question": {
+    "hinglish": "Streaming ka fayda?",
+    "en": "The benefit of streaming?"
+   },
+   "options": [
+    "Pehla token jaldi dikhta hai, perceived latency kam hoti hai",
+    "Model sasta ho jata hai",
+    "Accuracy badh jati hai",
+    "Retry ki zaroorat nahi rehti"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Total time same rehta hai, par user ko turant response dikhta hai.",
+    "en": "Total time is the same, but the user sees a response immediately."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s07",
+   "question": {
+    "hinglish": "Few-shot examples kab madad karte hain?",
+    "en": "When do few-shot examples help?"
+   },
+   "options": [
+    "Jab output ka format ya style dikhana ho",
+    "Jab context window unlimited ho",
+    "Jab model bahut bada ho",
+    "Jab API key na ho"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Examples format aur edge cases sikhate hain; saare rules likhne se sasta bhi ho sakta hai.",
+    "en": "Examples teach format and edge cases, sometimes cheaper than writing every rule."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s08",
+   "question": {
+    "hinglish": "Prompt injection ka sabse aam rasta?",
+    "en": "The most common prompt injection path?"
+   },
+   "options": [
+    "Retrieved ya user content me instructions chhupi hoti hain",
+    "Model ka temperature 0 hota hai",
+    "API key expire ho jati hai",
+    "JSON schema galat hota hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Untrusted content ko instruction ki tarah padhna injection hai; use data hi rakho.",
+    "en": "Reading untrusted content as instructions is the injection; keep it as data."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s09",
+   "question": {
+    "hinglish": "Prompt versioning kyun zaroori hai?",
+    "en": "Why version prompts?"
+   },
+   "options": [
+    "Badlav ka asar eval se compare kar sakein aur rollback ho sake",
+    "Prompt ko chhota rakhne ke liye",
+    "Model ko fine-tune karne ke liye",
+    "Token count badhane ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Prompt bhi code hai: version, test aur rollback ke bina regression pata nahi chalta.",
+    "en": "A prompt is code: without versioning, tests and rollback you cannot see regressions."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s10",
+   "question": {
+    "hinglish": "RAG me recall@k kya naapta hai?",
+    "en": "What does recall@k measure in RAG?"
+   },
+   "options": [
+    "Top-k retrieved chunks me sahi evidence aaya ya nahi",
+    "Generated answer ki length",
+    "Model ki speed",
+    "Embedding ka dimension"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Agar evidence top-k me nahi hai, generator kuch bhi kare, answer grounded nahi ho sakta.",
+    "en": "If the evidence is not in the top-k, no generator can ground the answer."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s11",
+   "question": {
+    "hinglish": "Hybrid search kya milata hai?",
+    "en": "What does hybrid search combine?"
+   },
+   "options": [
+    "Keyword (BM25) aur dense vector search",
+    "Do LLM providers",
+    "Do databases ke passwords",
+    "Training aur inference"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Exact terms BM25 pakadta hai, meaning dense; dono mil kar recall badhate hain.",
+    "en": "BM25 catches exact terms, dense catches meaning; together they raise recall."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s12",
+   "question": {
+    "hinglish": "Reranker kab lagana chahiye?",
+    "en": "When should a reranker be added?"
+   },
+   "options": [
+    "Retrieval ke baad, top candidates ko precise order dene ke liye",
+    "Sabse pehle, retrieval se bhi pehle",
+    "Sirf training ke waqt",
+    "Jab API key na ho"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Reranker cross-encoder hai: slow par accurate, isliye chhote candidate set par chalta hai.",
+    "en": "A reranker is a cross-encoder: slow but accurate, so it runs on a small candidate set."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s13",
+   "question": {
+    "hinglish": "Workflow vs agent?",
+    "en": "Workflow versus agent?"
+   },
+   "options": [
+    "Workflow ke steps fix hote hain; agent rasta khud chunta hai",
+    "Workflow zyada mehnga hota hai",
+    "Agent me kabhi tools nahi hote",
+    "Dono bilkul same hain"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Jab rasta pata ho to workflow sasta aur reliable hota hai; agent flexibility ke liye hai.",
+    "en": "When the path is known, a workflow is cheaper and more reliable; an agent buys flexibility."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s14",
+   "question": {
+    "hinglish": "Max steps guardrail kyun zaroori hai?",
+    "en": "Why is a max-steps guardrail necessary?"
+   },
+   "options": [
+    "Infinite loop aur cost blow-up rokta hai",
+    "Model ko smart banata hai",
+    "Tool ki speed badhata hai",
+    "Prompt ko chhota karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Agent loop ho sakta hai; cap ke bina ek bug poora budget kha jata hai.",
+    "en": "An agent can loop; without a cap one bug eats the whole budget."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s15",
+   "question": {
+    "hinglish": "MCP kya standard karta hai?",
+    "en": "What does MCP standardise?"
+   },
+   "options": [
+    "Model aur tools/data ke beech connection (tools, resources, prompts)",
+    "Model ke weights",
+    "GPU memory",
+    "Prompt ka language"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "MCP ek protocol hai jisse ek hi tool server kai agents ke saath kaam karta hai.",
+    "en": "MCP is a protocol so one tool server works with many agents."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s16",
+   "question": {
+    "hinglish": "95% negative data par accuracy kyun dhoka deti hai?",
+    "en": "Why is accuracy misleading on 95% negative data?"
+   },
+   "options": [
+    "Sab negative bolne se bhi 95% accuracy mil jati hai",
+    "Accuracy calculate nahi hoti",
+    "Accuracy sirf regression me hoti hai",
+    "Data ka size zyada hota hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Imbalance me majority class predict karna hi 'achha' score de deta hai; precision/recall dekho.",
+    "en": "On imbalanced data, predicting the majority class scores well; look at precision/recall."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s17",
+   "question": {
+    "hinglish": "LLM-as-judge ka risk?",
+    "en": "The risk of LLM-as-judge?"
+   },
+   "options": [
+    "Judge ka bias aur calibration drift",
+    "Judge bahut sasta hota hai",
+    "Judge hamesha human se better hota hai",
+    "Judge ko GPU nahi chahiye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Judge bhi model hai; human labels par calibrate karo aur periodic spot-check rakho.",
+    "en": "A judge is also a model; calibrate on human labels and spot-check periodically."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s18",
+   "question": {
+    "hinglish": "Eval CI me kyun chalate hain?",
+    "en": "Why run evals in CI?"
+   },
+   "options": [
+    "Prompt/model change se regression merge se pehle pakadne ke liye",
+    "CI ko busy rakhne ke liye",
+    "Model ko train karne ke liye",
+    "GPU free karne ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Eval regression test hai: bina CI ke quality chupchap gir jati hai.",
+    "en": "Evals are regression tests; without CI quality drops silently."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s19",
+   "question": {
+    "hinglish": "Temperature 0 kya karta hai?",
+    "en": "What does temperature 0 do?"
+   },
+   "options": [
+    "Greedy decoding",
+    "Random sampling",
+    "Model off",
+    "Translation"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Sabse likely token deterministic hota hai.",
+    "en": "The most likely token becomes deterministic."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s20",
+   "question": {
+    "hinglish": "429 par kya karein?",
+    "en": "What should you do on a 429?"
+   },
+   "options": [
+    "Backoff + jitter ke saath retry",
+    "Turant 100 retry",
+    "Request delete",
+    "Model badal do"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Rate limit ko respect karna zaroori hai.",
+    "en": "You must respect the rate limit."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s21",
+   "question": {
+    "hinglish": "Context budget ka matlab?",
+    "en": "What is a context budget?"
+   },
+   "options": [
+    "Tokens ki fixed jagah jise manage karna hai",
+    "Paisa",
+    "Model ka size",
+    "Database ki limit"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Har token jagah aur keemat leta hai.",
+    "en": "Every token takes space and cost."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s22",
+   "question": {
+    "hinglish": "RAG me recall@k kya batata hai?",
+    "en": "What does recall@k show in RAG?"
+   },
+   "options": [
+    "Sahi evidence top-k me aaya",
+    "Answer ki length",
+    "Model ki speed",
+    "Embedding size"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Evidence na mile to answer grounded nahi ho sakta.",
+    "en": "Without evidence the answer cannot be grounded."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s23",
+   "question": {
+    "hinglish": "Agent me max steps kyun?",
+    "en": "Why max steps in an agent?"
+   },
+   "options": [
+    "Loop aur cost blow-up rokne ke liye",
+    "Model smart karne ke liye",
+    "Tool speed ke liye",
+    "Prompt chhota karne ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Cap ke bina bug poora budget kha sakta hai.",
+    "en": "Without a cap a bug can eat the budget."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m03s24",
+   "question": {
+    "hinglish": "Eval CI me kyun?",
+    "en": "Why evals in CI?"
+   },
+   "options": [
+    "Regression merge se pehle pakadne ke liye",
+    "CI busy rakhne ke liye",
+    "Model train karne ke liye",
+    "GPU free karne ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Eval regression test hai.",
+    "en": "Evals are regression tests."
+   },
+   "misconception": ""
+  }
+ ]
+}

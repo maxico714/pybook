@@ -1,0 +1,1196 @@
+{
+ "id": "ai-m01",
+ "title": {
+  "hinglish": "Foundations",
+  "en": "Foundations"
+ },
+ "goal": {
+  "hinglish": "Setup, Python, math, data aur databases — woh base jis par poora AI engineering khada hai.",
+  "en": "Setup, Python, math, data and databases: the base every AI system stands on."
+ },
+ "icon": "🧱",
+ "chapters": [
+  {
+   "id": "ai-m01c01",
+   "title": {
+    "hinglish": "Setup, Tooling & AI-Assisted Engineering",
+    "en": "Setup, Tooling & AI-Assisted Engineering"
+   },
+   "lessons": [
+    {
+     "id": "ai-m01c01l01",
+     "title": {
+      "hinglish": "Setup, tooling aur AI-assisted engineering",
+      "en": "Setup, tooling and AI-assisted engineering"
+     },
+     "keywords": [
+      "uv",
+      "git",
+      "Docker",
+      "env",
+      "AGENTS.md"
+     ],
+     "intro": {
+      "hinglish": "AI engineering ka pehla din code likhna nahi, environment banana hai: ek virtual environment, git, secrets ke liye `.env`, aur Docker ka basic idea. Reproducible setup har job aur take-home me check hota hai, aur leak hui API key sabse common rejection reason hai.",
+      "en": "Day one of AI engineering is not writing code, it is building an environment: a virtual environment, git, a `.env` for secrets, and the basic Docker idea. Reproducible setup is checked in almost every job and take-home, and a leaked API key is a common rejection reason."
+     },
+     "real_life": {
+      "hinglish": "Jaise ghar ki chaabi bahar mat chhodo, waise API key code me mat likho. `.env` local rehti hai, `.gitignore` usse git se bahar rakhta hai, aur `.env.example` team ko sirf naam batata hai.",
+      "en": "You do not leave your house key outside, and you do not hard-code an API key. `.env` stays local, `.gitignore` keeps it out of git, and `.env.example` tells the team only the key names."
+     },
+     "takeaway": {
+      "hinglish": "Agar naya laptop clone karke README follow karte hi sab chal jaye, setup sahi hai.",
+      "en": "If a fresh clone plus the README just works, the setup is right."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Reading a .env file safely",
+        "en": "`.env` file safely padhna"
+       },
+       "code": "lines = ['# local only', 'MODEL=\"mini\"', 'API_KEY=sk-live-123']\nsettings = {}\nfor line in lines:\n    if line.startswith('#') or '=' not in line:\n        continue\n    key, value = line.split('=', 1)\n    settings[key] = '***' if 'KEY' in key else value.strip('\"')\nprint(settings)",
+       "output": "{'MODEL': 'mini', 'API_KEY': '***'}",
+       "note": {
+        "hinglish": "Comment lines skip hoti hain, aur secret wali key mask ho jati hai.",
+        "en": "Comment lines are skipped and the secret-looking key is masked."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Hidden state demo.\n# Run this cell once, then run it again without restarting the kernel.\n# The output changes from 1 to 2 — that is hidden state.\n\ncounter = 0\ncounter += 1\nprint(\"counter =\", counter)\n\n# Reset for the rest of the notebook.\ncounter = 0\nprint(\"reset counter =\", counter)",
+       "output": "counter = 1\nreset counter = 0",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m01c01l01e1",
+       "prompt": {
+        "hinglish": "`parse_env(text)` likho jo comment/blank lines skip kare, `KEY=VALUE` ko split kare, aur jis key me `KEY`, `TOKEN` ya `SECRET` ho uski value `***` kar de. Phir diye gaye text par chala kar `env` print karo.",
+        "en": "Write `parse_env(text)` that skips comments and blank lines, splits `KEY=VALUE`, and replaces the value with `***` when the key contains `KEY`, `TOKEN` or `SECRET`. Run it on the given text and print `env`."
+       },
+       "starter": "def parse_env(text):\n    env = {}\n    # loop over lines, skip comments, split once on '='\n    return env\n\nenv = parse_env('''\n# local only\nAPI_KEY=sk-live-123\nMODEL=\"gpt-4.1-mini\"\nLOG_LEVEL=info\n''')\nprint(sorted(env))\n",
+       "solution": "def parse_env(text):\n    env = {}\n    for line in text.splitlines():\n        line = line.strip()\n        if not line or line.startswith('#'):\n            continue\n        key, _, value = line.partition('=')\n        key = key.strip()\n        value = value.strip().strip('\"')\n        if 'KEY' in key or 'TOKEN' in key or 'SECRET' in key:\n            value = '***'\n        env[key] = value\n    return env\n\nenv = parse_env('''\n# local only\nAPI_KEY=sk-live-123\nMODEL=\"gpt-4.1-mini\"\nLOG_LEVEL=info\n''')\nprint(sorted(env))\n",
+       "checks": [
+        "env['API_KEY'] == '***'",
+        "env['MODEL'] == 'gpt-4.1-mini'",
+        "len(env) == 3"
+       ],
+       "hint": {
+        "hinglish": "`line.partition('=')` pehle `=` par todta hai, isliye value me `=` ho to bhi safe hai.",
+        "en": "`line.partition('=')` splits on the first `=`, so a value may contain more."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m01c01l01q1",
+       "question": {
+        "hinglish": "API key kahan rakhni chahiye?",
+        "en": "Where should an API key live?"
+       },
+       "options": [
+        "`.env` file me, jo `.gitignore` me ho",
+        "seedha Python file me constant ki tarah",
+        "README me taaki team use kar sake",
+        "git commit message me"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "`.env` local rehti hai aur git se bahar; code me hard-code karna leak ka sabse aasan rasta hai.",
+        "en": "`.env` stays local and out of git; hard-coding is the easiest way to leak a key."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c01l01q2",
+       "question": {
+        "hinglish": "Virtual environment ka kaam kya hai?",
+        "en": "What does a virtual environment do?"
+       },
+       "options": [
+        "Project ke packages ko system Python se alag rakhta hai",
+        "Python ko fast banata hai",
+        "API calls cache karta hai",
+        "Git branches manage karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Isolation se 'mere laptop par chalta tha' wali problem kam hoti hai.",
+        "en": "Isolation removes most 'it worked on my machine' problems."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c01l01q3",
+       "question": {
+        "hinglish": "`AGENTS.md` ka role kya hai?",
+        "en": "What is the role of `AGENTS.md`?"
+       },
+       "options": [
+        "AI coding agent ko project ke rules aur commands batata hai",
+        "Python packages install karta hai",
+        "Database schema banata hai",
+        "API key store karta hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Ye agent ke liye project handbook hai: conventions, commands aur boundaries.",
+        "en": "It is the project handbook for an agent: conventions, commands and boundaries."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m01c02",
+   "title": {
+    "hinglish": "Python for AI Engineering",
+    "en": "Python for AI Engineering"
+   },
+   "lessons": [
+    {
+     "id": "ai-m01c02l01",
+     "title": {
+      "hinglish": "Python for AI engineering",
+      "en": "Python for AI engineering"
+     },
+     "keywords": [
+      "dataclass",
+      "typing",
+      "pydantic",
+      "asyncio",
+      "pytest"
+     ],
+     "intro": {
+      "hinglish": "AI engineer pehle software engineer hota hai. Type hints, dataclasses, validation, async calls, retries aur tests hi daily LLM code ko reliable banate hain. Model badal jayega, ye habits nahi.",
+      "en": "An AI engineer is a software engineer first. Type hints, dataclasses, validation, async calls, retries and tests are what make daily LLM code reliable. Models change; these habits do not."
+     },
+     "real_life": {
+      "hinglish": "Restaurant order ki parchi ki tarah: model, tokens aur price likhe hon to bill galat nahi hota. Bina structure ke har call ek alag dictionary hoti hai.",
+      "en": "Like a restaurant bill: when model, tokens and price are written down, the total is not wrong. Without structure every call is a different dictionary."
+     },
+     "takeaway": {
+      "hinglish": "Boundary par validate karo, andar typed objects use karo.",
+      "en": "Validate at the boundary, use typed objects inside."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "What one API call costs",
+        "en": "Ek API call ka cost"
+       },
+       "code": "from dataclasses import dataclass\n\n@dataclass\nclass Call:\n    model: str\n    tokens_in: int\n    tokens_out: int\n\n    def cost(self, price_in=0.4, price_out=1.6):\n        return (self.tokens_in * price_in + self.tokens_out * price_out) / 1_000_000\n\ncall = Call('mini', 1000, 500)\nprint(call.model, round(call.cost(), 6))",
+       "output": "mini 0.0012",
+       "note": {
+        "hinglish": "Price per million tokens se cost nikalna ek line ka kaam hai.",
+        "en": "Cost from per-million prices is a one-line method."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m01c02l01e1",
+       "prompt": {
+        "hinglish": "`Call` dataclass banao (`model`, `prompt_tokens`, `completion_tokens`) aur `cost()` method jo per-million prices 0.4 aur 1.6 use kare. Do calls ka total cost print karo.",
+        "en": "Build a `Call` dataclass (`model`, `prompt_tokens`, `completion_tokens`) with a `cost()` method using per-million prices 0.4 and 1.6. Print the total cost of two calls."
+       },
+       "starter": "from dataclasses import dataclass\n\n@dataclass\nclass Call:\n    model: str\n    prompt_tokens: int\n    completion_tokens: int\n\n    def cost(self):\n        ...\n\ncalls = [Call('mini', 1000, 500), Call('mini', 2000, 1000)]\ntotal = sum(c.cost() for c in calls)\nprint(round(total, 6))\n",
+       "solution": "from dataclasses import dataclass\n\n@dataclass\nclass Call:\n    model: str\n    prompt_tokens: int\n    completion_tokens: int\n\n    def cost(self, price_in=0.4, price_out=1.6):\n        return (self.prompt_tokens * price_in + self.completion_tokens * price_out) / 1_000_000\n\ncalls = [Call('mini', 1000, 500), Call('mini', 2000, 1000)]\ntotal = sum(c.cost() for c in calls)\nprint(round(total, 6))\n",
+       "checks": [
+        "abs(total - 0.0036) < 1e-9",
+        "abs(calls[0].cost() - 0.0012) < 1e-9"
+       ],
+       "hint": {
+        "hinglish": "1000 input tokens × 0.4 / 1e6 = 0.0004; output 500 × 1.6 / 1e6 = 0.0008.",
+        "en": "1000 input tokens × 0.4 / 1e6 = 0.0004; output 500 × 1.6 / 1e6 = 0.0008."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m01c02l01q1",
+       "question": {
+        "hinglish": "Type hints ka sabse bada fayda?",
+        "en": "The biggest benefit of type hints?"
+       },
+       "options": [
+        "Editor aur tools galtiyan code chalne se pehle pakadte hain",
+        "Python code 2x fast ho jata hai",
+        "API key hide ho jati hai",
+        "Model automatically select ho jata hai"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Types runtime speed nahi badalte; wo galat call shapes jaldi pakadte hain.",
+        "en": "Types do not speed up runtime; they catch wrong call shapes earlier."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c02l01q2",
+       "question": {
+        "hinglish": "Async (`asyncio`) kis kaam me sabse zyada fayda deta hai?",
+        "en": "Where does async (`asyncio`) help most?"
+       },
+       "options": [
+        "Kai network calls ek saath bhejna",
+        "CPU-heavy matrix multiply",
+        "Database schema design",
+        "Git history clean karna"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Waiting wale kaam overlap hote hain; CPU-bound kaam ke liye multiprocessing chahiye.",
+        "en": "Waiting work overlaps; CPU-bound work needs multiprocessing."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c02l01q3",
+       "question": {
+        "hinglish": "Pydantic kis jagah lagana chahiye?",
+        "en": "Where should pydantic be used?"
+       },
+       "options": [
+        "Boundary par: user input aur LLM JSON output validate karne ke liye",
+        "Har loop ke andar performance ke liye",
+        "Sirf tests me",
+        "Git hooks me"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Validation boundary par karo; andar typed objects chalao.",
+        "en": "Validate at boundaries; pass typed objects inside."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m01c03",
+   "title": {
+    "hinglish": "Math & Statistics for AI Engineers",
+    "en": "Math & Statistics for AI Engineers"
+   },
+   "lessons": [
+    {
+     "id": "ai-m01c03l01",
+     "title": {
+      "hinglish": "Math aur statistics ka intuition",
+      "en": "Math and statistics intuition"
+     },
+     "keywords": [
+      "vector",
+      "cosine",
+      "gradient",
+      "softmax",
+      "Bayes"
+     ],
+     "intro": {
+      "hinglish": "Formula yaad karne ki zaroorat nahi, intuition chahiye: vector kya hai, similarity kaise napte hain, gradient kis direction me neeche jata hai, aur probability se decision kaise nikalta hai. Loss, embeddings aur A/B tests sab isi par khade hain.",
+      "en": "You do not need memorised formulas, you need intuition: what a vector is, how similarity is measured, which way a gradient goes down, and how probability turns into a decision. Losses, embeddings and A/B tests all stand on this."
+     },
+     "real_life": {
+      "hinglish": "Do gaano ki similarity: dono ke features (tempo, mood) ka angle jitna chhota, utne zyada similar. Cosine similarity bas wahi angle naapti hai.",
+      "en": "Two songs are similar when their feature arrows point the same way. Cosine similarity measures exactly that angle."
+     },
+     "takeaway": {
+      "hinglish": "Cosine direction dekhta hai, magnitude nahi; isliye text embeddings me popular hai.",
+      "en": "Cosine looks at direction, not magnitude, which is why text embeddings use it."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Cosine similarity by hand",
+        "en": "Cosine similarity haath se"
+       },
+       "code": "import math\n\ndef cosine(a, b):\n    dot = sum(x * y for x, y in zip(a, b))\n    na = math.sqrt(sum(x * x for x in a))\n    nb = math.sqrt(sum(y * y for y in b))\n    return dot / (na * nb)\n\nprint(round(cosine([1, 0], [1, 0]), 3), round(cosine([1, 0], [0, 1]), 3))",
+       "output": "1.0 0.0",
+       "note": {
+        "hinglish": "Same direction = 1, perpendicular = 0, opposite = -1.",
+        "en": "Same direction = 1, perpendicular = 0, opposite = -1."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Sirf plain functions - koi library nahi.\ndef loss(w):\n    return (w - 3.0) ** 2\n\ndef grad(w):\n    return 2.0 * (w - 3.0)\n\ndef descend(lr, w=-4.0, steps=6):\n    path = [round(w, 2)]\n    for _ in range(steps):\n        w = w - lr * grad(w)      # ulti direction mein chhota step\n        path.append(round(w, 2))\n    return path\n\nprint(\"lr=0.1 :\", descend(0.1), \"-> 3 ki taraf badhta hai\")\nprint(\"lr=0.9 :\", descend(0.9), \"-> oscillate karke aata hai\")\nprint(\"lr=1.1 :\", descend(1.1), \"-> diverge, loss badhta hai\")",
+       "output": "lr=0.1 : [-4.0, -2.6, -1.48, -0.58, 0.13, 0.71, 1.16] -> 3 ki taraf badhta hai\nlr=0.9 : [-4.0, 8.6, -1.48, 6.58, 0.13, 5.29, 1.16] -> oscillate karke aata hai\nlr=1.1 : [-4.0, 11.4, -7.08, 15.1, -11.52, 20.42, -17.9] -> diverge, loss badhta hai",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m01c03l01e1",
+       "prompt": {
+        "hinglish": "`cosine(a, b)` implement karo aur do pairs print karo: `[1, 2, 3]` vs `[2, 4, 6]`, aur `[1, 0]` vs `[0, 1]`.",
+        "en": "Implement `cosine(a, b)` and print two pairs: `[1, 2, 3]` vs `[2, 4, 6]`, and `[1, 0]` vs `[0, 1]`."
+       },
+       "starter": "import math\n\ndef cosine(a, b):\n    ...\n\nsim = cosine([1, 2, 3], [2, 4, 6])\northogonal = cosine([1, 0], [0, 1])\nprint(round(sim, 3), round(orthogonal, 3))\n",
+       "solution": "import math\n\ndef cosine(a, b):\n    dot = sum(x * y for x, y in zip(a, b))\n    na = math.sqrt(sum(x * x for x in a))\n    nb = math.sqrt(sum(y * y for y in b))\n    return dot / (na * nb)\n\nsim = cosine([1, 2, 3], [2, 4, 6])\northogonal = cosine([1, 0], [0, 1])\nprint(round(sim, 3), round(orthogonal, 3))\n",
+       "checks": [
+        "abs(sim - 1.0) < 1e-9",
+        "abs(orthogonal) < 1e-9"
+       ],
+       "hint": {
+        "hinglish": "`[2, 4, 6]` `[1, 2, 3]` ka exact double hai, isliye angle 0 hai.",
+        "en": "`[2, 4, 6]` is exactly double `[1, 2, 3]`, so the angle is zero."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m01c03l01q1",
+       "question": {
+        "hinglish": "Cosine similarity 0 ka matlab?",
+        "en": "Cosine similarity of 0 means?"
+       },
+       "options": [
+        "Vectors perpendicular hain",
+        "Vectors bilkul same hain",
+        "Ek vector zero hai",
+        "Dono vectors negative hain"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "0 angle 1 deta hai, 90 degree 0; isliye 0 ka matlab koi shared direction nahi.",
+        "en": "Zero angle gives 1, ninety degrees gives 0, so 0 means no shared direction."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c03l01q2",
+       "question": {
+        "hinglish": "Gradient descent kis direction me step leta hai?",
+        "en": "Which direction does gradient descent step?"
+       },
+       "options": [
+        "Gradient ke opposite, loss kam karne ke liye",
+        "Gradient ke saath, loss badhane ke liye",
+        "Random direction me",
+        "Sirf pehle feature ki taraf"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Gradient sabse tezi se upar jata hai; opposite jane par loss girta hai.",
+        "en": "The gradient points uphill fastest; going opposite lowers the loss."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c03l01q3",
+       "question": {
+        "hinglish": "Entropy kis cheez ko naapti hai?",
+        "en": "What does entropy measure?"
+       },
+       "options": [
+        "Distribution ki uncertainty",
+        "Model ki speed",
+        "Dataset ka size",
+        "API ka cost"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Jitni uncertain distribution, utni zyada entropy; cross-entropy loss isi se aata hai.",
+        "en": "The more uncertain the distribution, the higher the entropy; cross-entropy loss comes from it."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m01c04",
+   "title": {
+    "hinglish": "Data Skills for AI Engineers",
+    "en": "Data Skills for AI Engineers"
+   },
+   "lessons": [
+    {
+     "id": "ai-m01c04l01",
+     "title": {
+      "hinglish": "Data skills: cleaning, groupby, leakage",
+      "en": "Data skills: cleaning, groupby, leakage"
+     },
+     "keywords": [
+      "groupby",
+      "merge",
+      "leakage",
+      "outlier",
+      "Parquet"
+     ],
+     "intro": {
+      "hinglish": "Zyada tar AI kaam data ka kaam hai. Groupby aur merge se sawaal ka jawab nikalta hai, cleaning se answer bharosemand hota hai, aur leakage se result jhootha 'great' lagta hai. Split pehle karo, EDA baad me.",
+      "en": "Most AI work is data work. Groupby and merge answer the question, cleaning makes the answer trustworthy, and leakage makes a result look falsely great. Split first, EDA after."
+     },
+     "real_life": {
+      "hinglish": "Class ke marks ka average nikalna groupby hai; do sheets ko roll number par milana merge hai. Agar answer dekh kar features banao, to exam me cheating ho rahi hai — data me bhi wahi leakage hai.",
+      "en": "A class average is groupby; matching two sheets on roll number is merge. Building features after seeing the answer is cheating in an exam, and the same leakage in data."
+     },
+     "takeaway": {
+      "hinglish": "Har feature ke liye poochho: kya ye value prediction ke waqt really available hogi?",
+      "en": "For every feature ask: would this value really be available at prediction time?"
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "A group mean without pandas",
+        "en": "Pandas ke bina group mean"
+       },
+       "code": "from collections import defaultdict\n\nrows = [('Pune', 200), ('Pune', 400), ('Delhi', 300)]\ntotals, counts = defaultdict(int), defaultdict(int)\nfor city, amount in rows:\n    totals[city] += amount\n    counts[city] += 1\nprint({city: totals[city] / counts[city] for city in totals})",
+       "output": "{'Pune': 300.0, 'Delhi': 300.0}",
+       "note": {
+        "hinglish": "Do dictionaries se group mean nikalta hai; pandas isi ka shortcut hai.",
+        "en": "Two dictionaries give a group mean; pandas is the shortcut for this."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "# Plain lists - koi library nahi. Train aur test ka pattern alag hai.\ntrain = [10.0, 12.0, 11.0]\ntest = [500.0, 520.0]\n\nleaky_fill = sum(train + test) / len(train + test)   # test pehle dekh liya\nhonest_fill = sum(train) / len(train)                # sirf train\n\ndef mae(values, fill):\n    return sum(abs(v - fill) for v in values) / len(values)\n\nprint(\"leaky  fill:\", round(leaky_fill, 1), \"| test MAE:\", round(mae(test, leaky_fill), 1))\nprint(\"honest fill:\", round(honest_fill, 1), \"| test MAE:\", round(mae(test, honest_fill), 1))\nprint(\"\\nLeaky number sundar lagta hai - isliye ye khatarnak hai.\")",
+       "output": "leaky  fill: 210.6 | test MAE: 299.4\nhonest fill: 11.0 | test MAE: 499.0\n\nLeaky number sundar lagta hai - isliye ye khatarnak hai.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m01c04l01e1",
+       "prompt": {
+        "hinglish": "`mean_by_group(rows, key, value)` likho jo har group ka mean return kare, aur diye gaye rows par `means` print karo.",
+        "en": "Write `mean_by_group(rows, key, value)` returning each group's mean, and print `means` for the given rows."
+       },
+       "starter": "rows = [\n    {'city': 'Pune', 'amount': 200},\n    {'city': 'Pune', 'amount': 400},\n    {'city': 'Delhi', 'amount': 300},\n]\n\ndef mean_by_group(rows, key, value):\n    ...\n\nmeans = mean_by_group(rows, 'city', 'amount')\nprint(means)\n",
+       "solution": "rows = [\n    {'city': 'Pune', 'amount': 200},\n    {'city': 'Pune', 'amount': 400},\n    {'city': 'Delhi', 'amount': 300},\n]\n\ndef mean_by_group(rows, key, value):\n    totals, counts = {}, {}\n    for row in rows:\n        name = row[key]\n        totals[name] = totals.get(name, 0) + row[value]\n        counts[name] = counts.get(name, 0) + 1\n    return {name: totals[name] / counts[name] for name in totals}\n\nmeans = mean_by_group(rows, 'city', 'amount')\nprint(means)\n",
+       "checks": [
+        "means['Pune'] == 300.0",
+        "means['Delhi'] == 300.0",
+        "len(means) == 2"
+       ],
+       "hint": {
+        "hinglish": "Do dicts rakho: ek total ke liye, ek count ke liye.",
+        "en": "Keep two dicts: one for totals, one for counts."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m01c04l01q1",
+       "question": {
+        "hinglish": "Data leakage kya hai?",
+        "en": "What is data leakage?"
+       },
+       "options": [
+        "Training me aisi information aana jo prediction ke waqt available nahi hogi",
+        "Data ka file se memory me load hona",
+        "CSV ka corrupt hona",
+        "Model ka overfit hona"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Leakage se test score bahut achha lagta hai, production me wahi model fail hota hai.",
+        "en": "Leakage makes the test score look great and the production model fail."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c04l01q2",
+       "question": {
+        "hinglish": "Missing values ko mean se bharne se pehle kya karna chahiye?",
+        "en": "What should happen before filling missing values with the mean?"
+       },
+       "options": [
+        "Sirf training data se mean nikaalna, test par apply karna",
+        "Poore dataset se mean nikaalna",
+        "Har row ka apna mean",
+        "Missing rows delete karna hamesha"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Poore dataset ka mean test ki information training me le aata hai.",
+        "en": "The full-dataset mean brings test information into training."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c04l01q3",
+       "question": {
+        "hinglish": "Merge kis cheez par hota hai?",
+        "en": "What does a merge join on?"
+       },
+       "options": [
+        "Ek common key ya column",
+        "Row number",
+        "File name",
+        "Model name"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Join key decide karti hai kaunsi row kis row se milegi.",
+        "en": "The join key decides which row matches which."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m01c05",
+   "title": {
+    "hinglish": "Databases",
+    "en": "Databases"
+   },
+   "lessons": [
+    {
+     "id": "ai-m01c05l01",
+     "title": {
+      "hinglish": "Databases, SQL aur vector search",
+      "en": "Databases, SQL and vector search"
+     },
+     "keywords": [
+      "JOIN",
+      "GROUP BY",
+      "index",
+      "ANN",
+      "pgvector"
+     ],
+     "intro": {
+      "hinglish": "SQL joins, GROUP BY aur indexes roz kaam aate hain; vector database usi idea ka AI version hai — nearest neighbours dhoondhna. Postgres + pgvector aaj ka practical default hai.",
+      "en": "SQL joins, GROUP BY and indexes are daily tools; a vector database is the AI version of the same idea, finding nearest neighbours. Postgres + pgvector is today's practical default."
+     },
+     "real_life": {
+      "hinglish": "Library me book dhoondhna: index se seedha shelf par jao, poora hall mat chhaano. ANN index bhi billions vectors me se nearest wale jaldi nikalta hai.",
+      "en": "Finding a book in a library: use the index and go to the shelf instead of scanning the hall. An ANN index finds nearest vectors quickly among billions."
+     },
+     "takeaway": {
+      "hinglish": "Pehle sahi schema aur index, phir fancy vector DB; 90% product SQL + ek vector column se ban jate hain.",
+      "en": "Right schema and index first, fancy vector DB later; 90% of products are SQL plus one vector column."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "JOIN + GROUP BY in a dict",
+        "en": "Dict me JOIN aur GROUP BY"
+       },
+       "code": "users = {1: 'Asha', 2: 'Ravi'}\norders = [(1, 250), (1, 150), (3, 99)]\nspend = {name: 0 for name in users.values()}\nfor user_id, total in orders:\n    if user_id in users:\n        spend[users[user_id]] += total\nprint(spend)",
+       "output": "{'Asha': 400, 'Ravi': 0}",
+       "note": {
+        "hinglish": "Ye inner join + GROUP BY ka dictionary version hai.",
+        "en": "This is a dictionary version of inner join plus GROUP BY."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m01c05l01e1",
+       "prompt": {
+        "hinglish": "`spend_by_user(users, orders)` likho jo har user ka total spend return kare; jis user ka order nahi hai uska 0 rahe. `result` print karo.",
+        "en": "Write `spend_by_user(users, orders)` returning each user's total spend, with 0 for users without orders. Print `result`."
+       },
+       "starter": "users = [{'id': 1, 'name': 'Asha'}, {'id': 2, 'name': 'Ravi'}]\norders = [\n    {'user_id': 1, 'total': 250},\n    {'user_id': 1, 'total': 150},\n    {'user_id': 3, 'total': 99},\n]\n\ndef spend_by_user(users, orders):\n    ...\n\nresult = spend_by_user(users, orders)\nprint(result)\n",
+       "solution": "users = [{'id': 1, 'name': 'Asha'}, {'id': 2, 'name': 'Ravi'}]\norders = [\n    {'user_id': 1, 'total': 250},\n    {'user_id': 1, 'total': 150},\n    {'user_id': 3, 'total': 99},\n]\n\ndef spend_by_user(users, orders):\n    spend = {user['id']: 0 for user in users}\n    for order in orders:\n        if order['user_id'] in spend:\n            spend[order['user_id']] += order['total']\n    return {user['name']: spend[user['id']] for user in users}\n\nresult = spend_by_user(users, orders)\nprint(result)\n",
+       "checks": [
+        "result['Asha'] == 400",
+        "result['Ravi'] == 0",
+        "len(result) == 2"
+       ],
+       "hint": {
+        "hinglish": "LEFT JOIN ki tarah: pehle har user ko 0 se shuru karo, phir matching orders jodo.",
+        "en": "Like a LEFT JOIN: start every user at 0, then add matching orders."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m01c05l01q1",
+       "question": {
+        "hinglish": "Index kya fast karta hai?",
+        "en": "What does an index speed up?"
+       },
+       "options": [
+        "Filter aur lookup wali queries",
+        "Table ka insert hamesha",
+        "Backup lena",
+        "Password hashing"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Index lookup O(log n) jaisa banata hai, par har write par maintain karna padta hai.",
+        "en": "An index makes lookups roughly O(log n) but must be maintained on writes."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c05l01q2",
+       "question": {
+        "hinglish": "Vector database me ANN ka matlab?",
+        "en": "What does ANN mean in a vector database?"
+       },
+       "options": [
+        "Approximate nearest neighbours — thoda approximate, bahut fast",
+        "Artificial neural network",
+        "Automatic normalisation",
+        "All new nodes"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Exact search slow hota hai; ANN index speed ke liye thodi accuracy trade karta hai.",
+        "en": "Exact search is slow; an ANN index trades a little accuracy for speed."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m01c05l01q3",
+       "question": {
+        "hinglish": "GROUP BY kab chahiye?",
+        "en": "When do you need GROUP BY?"
+       },
+       "options": [
+        "Jab har group ka aggregate (count, sum, avg) chahiye",
+        "Jab sirf ek row chahiye",
+        "Jab table delete karni ho",
+        "Jab index banana ho"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "GROUP BY rows ko buckets me daalta hai, aggregate har bucket par chalta hai.",
+        "en": "GROUP BY puts rows into buckets and aggregates each bucket."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "ai-m01x01",
+   "question": {
+    "hinglish": "API key kahan rakhi jati hai?",
+    "en": "Where does an API key belong?"
+   },
+   "options": [
+    "`.env` me, git se bahar",
+    "Python constant me",
+    "README me",
+    "Test file me"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "`.env` + `.gitignore` standard hai; code me key leak ka rasta hai.",
+    "en": "`.env` plus `.gitignore` is the standard; a key in code is a leak."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01x02",
+   "question": {
+    "hinglish": "Type hints ka fayda?",
+    "en": "The benefit of type hints?"
+   },
+   "options": [
+    "Galtiyan jaldi pakadte hain",
+    "Runtime 2x fast",
+    "Model select karte hain",
+    "Key hide karte hain"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Static tools aur editor galat shapes pehle pakadte hain.",
+    "en": "Static tools and editors catch wrong shapes earlier."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01x03",
+   "question": {
+    "hinglish": "Cosine similarity kya naapti hai?",
+    "en": "What does cosine similarity measure?"
+   },
+   "options": [
+    "Vectors ke beech ka angle",
+    "Vectors ki length",
+    "Data ka size",
+    "Model ka cost"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Direction compare hoti hai, magnitude nahi.",
+    "en": "It compares direction, not magnitude."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01x04",
+   "question": {
+    "hinglish": "Data leakage ka example?",
+    "en": "An example of data leakage?"
+   },
+   "options": [
+    "Test ka mean training me use karna",
+    "CSV load karna",
+    "Model save karna",
+    "Index banana"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Test ki information training me aana leakage hai.",
+    "en": "Test information entering training is leakage."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01x05",
+   "question": {
+    "hinglish": "ANN index kya karta hai?",
+    "en": "What does an ANN index do?"
+   },
+   "options": [
+    "Approximate nearest neighbours jaldi dhoondhta hai",
+    "Saare vectors exact scan karta hai",
+    "SQL join karta hai",
+    "Model train karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Speed ke liye thodi accuracy trade hoti hai.",
+    "en": "It trades a little accuracy for speed."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01x06",
+   "question": {
+    "hinglish": "Virtual environment kya deta hai?",
+    "en": "What does a virtual environment give you?"
+   },
+   "options": [
+    "Project ke packages ki isolation",
+    "Faster Python",
+    "Free API credits",
+    "Automatic tests"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Isolation reproducible setup ka base hai.",
+    "en": "Isolation is the base of a reproducible setup."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "ai-m01s01",
+   "question": {
+    "hinglish": "API key kahan rakhni chahiye?",
+    "en": "Where should an API key live?"
+   },
+   "options": [
+    "`.env` file me, jo `.gitignore` me ho",
+    "seedha Python file me constant ki tarah",
+    "README me taaki team use kar sake",
+    "git commit message me"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "`.env` local rehti hai aur git se bahar; code me hard-code karna leak ka sabse aasan rasta hai.",
+    "en": "`.env` stays local and out of git; hard-coding is the easiest way to leak a key."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s02",
+   "question": {
+    "hinglish": "Virtual environment ka kaam kya hai?",
+    "en": "What does a virtual environment do?"
+   },
+   "options": [
+    "Project ke packages ko system Python se alag rakhta hai",
+    "Python ko fast banata hai",
+    "API calls cache karta hai",
+    "Git branches manage karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Isolation se 'mere laptop par chalta tha' wali problem kam hoti hai.",
+    "en": "Isolation removes most 'it worked on my machine' problems."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s03",
+   "question": {
+    "hinglish": "`AGENTS.md` ka role kya hai?",
+    "en": "What is the role of `AGENTS.md`?"
+   },
+   "options": [
+    "AI coding agent ko project ke rules aur commands batata hai",
+    "Python packages install karta hai",
+    "Database schema banata hai",
+    "API key store karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ye agent ke liye project handbook hai: conventions, commands aur boundaries.",
+    "en": "It is the project handbook for an agent: conventions, commands and boundaries."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s04",
+   "question": {
+    "hinglish": "Type hints ka sabse bada fayda?",
+    "en": "The biggest benefit of type hints?"
+   },
+   "options": [
+    "Editor aur tools galtiyan code chalne se pehle pakadte hain",
+    "Python code 2x fast ho jata hai",
+    "API key hide ho jati hai",
+    "Model automatically select ho jata hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Types runtime speed nahi badalte; wo galat call shapes jaldi pakadte hain.",
+    "en": "Types do not speed up runtime; they catch wrong call shapes earlier."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s05",
+   "question": {
+    "hinglish": "Async (`asyncio`) kis kaam me sabse zyada fayda deta hai?",
+    "en": "Where does async (`asyncio`) help most?"
+   },
+   "options": [
+    "Kai network calls ek saath bhejna",
+    "CPU-heavy matrix multiply",
+    "Database schema design",
+    "Git history clean karna"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Waiting wale kaam overlap hote hain; CPU-bound kaam ke liye multiprocessing chahiye.",
+    "en": "Waiting work overlaps; CPU-bound work needs multiprocessing."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s06",
+   "question": {
+    "hinglish": "Pydantic kis jagah lagana chahiye?",
+    "en": "Where should pydantic be used?"
+   },
+   "options": [
+    "Boundary par: user input aur LLM JSON output validate karne ke liye",
+    "Har loop ke andar performance ke liye",
+    "Sirf tests me",
+    "Git hooks me"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Validation boundary par karo; andar typed objects chalao.",
+    "en": "Validate at boundaries; pass typed objects inside."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s07",
+   "question": {
+    "hinglish": "Cosine similarity 0 ka matlab?",
+    "en": "Cosine similarity of 0 means?"
+   },
+   "options": [
+    "Vectors perpendicular hain",
+    "Vectors bilkul same hain",
+    "Ek vector zero hai",
+    "Dono vectors negative hain"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "0 angle 1 deta hai, 90 degree 0; isliye 0 ka matlab koi shared direction nahi.",
+    "en": "Zero angle gives 1, ninety degrees gives 0, so 0 means no shared direction."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s08",
+   "question": {
+    "hinglish": "Gradient descent kis direction me step leta hai?",
+    "en": "Which direction does gradient descent step?"
+   },
+   "options": [
+    "Gradient ke opposite, loss kam karne ke liye",
+    "Gradient ke saath, loss badhane ke liye",
+    "Random direction me",
+    "Sirf pehle feature ki taraf"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Gradient sabse tezi se upar jata hai; opposite jane par loss girta hai.",
+    "en": "The gradient points uphill fastest; going opposite lowers the loss."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s09",
+   "question": {
+    "hinglish": "Entropy kis cheez ko naapti hai?",
+    "en": "What does entropy measure?"
+   },
+   "options": [
+    "Distribution ki uncertainty",
+    "Model ki speed",
+    "Dataset ka size",
+    "API ka cost"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Jitni uncertain distribution, utni zyada entropy; cross-entropy loss isi se aata hai.",
+    "en": "The more uncertain the distribution, the higher the entropy; cross-entropy loss comes from it."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s10",
+   "question": {
+    "hinglish": "Data leakage kya hai?",
+    "en": "What is data leakage?"
+   },
+   "options": [
+    "Training me aisi information aana jo prediction ke waqt available nahi hogi",
+    "Data ka file se memory me load hona",
+    "CSV ka corrupt hona",
+    "Model ka overfit hona"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Leakage se test score bahut achha lagta hai, production me wahi model fail hota hai.",
+    "en": "Leakage makes the test score look great and the production model fail."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s11",
+   "question": {
+    "hinglish": "Missing values ko mean se bharne se pehle kya karna chahiye?",
+    "en": "What should happen before filling missing values with the mean?"
+   },
+   "options": [
+    "Sirf training data se mean nikaalna, test par apply karna",
+    "Poore dataset se mean nikaalna",
+    "Har row ka apna mean",
+    "Missing rows delete karna hamesha"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Poore dataset ka mean test ki information training me le aata hai.",
+    "en": "The full-dataset mean brings test information into training."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s12",
+   "question": {
+    "hinglish": "Merge kis cheez par hota hai?",
+    "en": "What does a merge join on?"
+   },
+   "options": [
+    "Ek common key ya column",
+    "Row number",
+    "File name",
+    "Model name"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Join key decide karti hai kaunsi row kis row se milegi.",
+    "en": "The join key decides which row matches which."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s13",
+   "question": {
+    "hinglish": "Index kya fast karta hai?",
+    "en": "What does an index speed up?"
+   },
+   "options": [
+    "Filter aur lookup wali queries",
+    "Table ka insert hamesha",
+    "Backup lena",
+    "Password hashing"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Index lookup O(log n) jaisa banata hai, par har write par maintain karna padta hai.",
+    "en": "An index makes lookups roughly O(log n) but must be maintained on writes."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s14",
+   "question": {
+    "hinglish": "Vector database me ANN ka matlab?",
+    "en": "What does ANN mean in a vector database?"
+   },
+   "options": [
+    "Approximate nearest neighbours — thoda approximate, bahut fast",
+    "Artificial neural network",
+    "Automatic normalisation",
+    "All new nodes"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Exact search slow hota hai; ANN index speed ke liye thodi accuracy trade karta hai.",
+    "en": "Exact search is slow; an ANN index trades a little accuracy for speed."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s15",
+   "question": {
+    "hinglish": "GROUP BY kab chahiye?",
+    "en": "When do you need GROUP BY?"
+   },
+   "options": [
+    "Jab har group ka aggregate (count, sum, avg) chahiye",
+    "Jab sirf ek row chahiye",
+    "Jab table delete karni ho",
+    "Jab index banana ho"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "GROUP BY rows ko buckets me daalta hai, aggregate har bucket par chalta hai.",
+    "en": "GROUP BY puts rows into buckets and aggregates each bucket."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s16",
+   "question": {
+    "hinglish": "API key kahan rakhi jati hai?",
+    "en": "Where does an API key belong?"
+   },
+   "options": [
+    "`.env` me, git se bahar",
+    "Python constant me",
+    "README me",
+    "Test file me"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "`.env` + `.gitignore` standard hai; code me key leak ka rasta hai.",
+    "en": "`.env` plus `.gitignore` is the standard; a key in code is a leak."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s17",
+   "question": {
+    "hinglish": "Type hints ka fayda?",
+    "en": "The benefit of type hints?"
+   },
+   "options": [
+    "Galtiyan jaldi pakadte hain",
+    "Runtime 2x fast",
+    "Model select karte hain",
+    "Key hide karte hain"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Static tools aur editor galat shapes pehle pakadte hain.",
+    "en": "Static tools and editors catch wrong shapes earlier."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s18",
+   "question": {
+    "hinglish": "Cosine similarity kya naapti hai?",
+    "en": "What does cosine similarity measure?"
+   },
+   "options": [
+    "Vectors ke beech ka angle",
+    "Vectors ki length",
+    "Data ka size",
+    "Model ka cost"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Direction compare hoti hai, magnitude nahi.",
+    "en": "It compares direction, not magnitude."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s19",
+   "question": {
+    "hinglish": "Data leakage ka example?",
+    "en": "An example of data leakage?"
+   },
+   "options": [
+    "Test ka mean training me use karna",
+    "CSV load karna",
+    "Model save karna",
+    "Index banana"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Test ki information training me aana leakage hai.",
+    "en": "Test information entering training is leakage."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s20",
+   "question": {
+    "hinglish": "ANN index kya karta hai?",
+    "en": "What does an ANN index do?"
+   },
+   "options": [
+    "Approximate nearest neighbours jaldi dhoondhta hai",
+    "Saare vectors exact scan karta hai",
+    "SQL join karta hai",
+    "Model train karta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Speed ke liye thodi accuracy trade hoti hai.",
+    "en": "It trades a little accuracy for speed."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m01s21",
+   "question": {
+    "hinglish": "Virtual environment kya deta hai?",
+    "en": "What does a virtual environment give you?"
+   },
+   "options": [
+    "Project ke packages ki isolation",
+    "Faster Python",
+    "Free API credits",
+    "Automatic tests"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Isolation reproducible setup ka base hai.",
+    "en": "Isolation is the base of a reproducible setup."
+   },
+   "misconception": ""
+  }
+ ]
+}

@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block title %}{{ account.name }} — Admin{% endblock %}
+{% block crumbs %}<span><a href="{{ url_for('admin.users_page') }}">Accounts</a></span><span>{{ account.name }}</span>{% endblock %}
+
+{% block body %}
+{% include "admin/_nav.html" %}
+
+<section class="user-head card">
+  <span class="avatar lg">{{ account.name[:1]|upper }}</span>
+  <div class="user-head-main">
+    <h1>{{ account.name }}</h1>
+    <p class="muted">
+      {{ account.email or 'no email — cannot log in yet' }}
+      {% if account.id == learner.id %}<span class="badge soft">you</span>{% endif %}
+    </p>
+    <div class="badge-row">
+      <span class="badge {{ 'ok' if account.status == 'approved' else ('lock' if account.status == 'pending' else 'bad') }}">
+        {{ account.status }}
+      </span>
+      <span class="badge soft">{{ account.role }}</span>
+      <span class="badge soft">starts on {{ account.course }}</span>
+      <span class="badge soft">{{ account.language }}</span>
+    </div>
+  </div>
+  <a class="btn ghost" href="{{ url_for('admin.users_page') }}">← All accounts</a>
+</section>
+
+<div class="admin-cols user-cols">
+  <section class="card">
+    <header class="card-head"><h2>Progress</h2></header>
+    <div class="course-progress">
+      {% for row in courses %}
+        <div class="course-progress-row">
+          <div class="course-progress-head">
+            <b>{{ row.title }}</b>
+            <span class="tiny muted">{{ row.lessons }}/{{ row.lesson_total }} lessons · {{ row.modules }}/{{ row.module_total }} modules</span>
+          </div>
+          <div class="bar" role="img" aria-label="{{ row.percent }} percent complete">
+            <span style="width: {{ row.percent }}%"></span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <header class="card-head spaced"><h2>Open sessions</h2><span class="badge soft">{{ sessions|length }}</span></header>
+    {% if sessions %}
+      <ul class="session-list">
+        {% for session in sessions[:8] %}
+          <li>
+            <span class="session-agent">{{ session.user_agent or 'unknown device' }}</span>
+            <span class="tiny muted">seen {{ session.seen[:16] }} · ends {{ session.expires[:10] }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if sessions|length > 8 %}<p class="tiny muted">and {{ sessions|length - 8 }} more…</p>{% endif %}
+    {% else %}
+      <p class="muted tiny">No device is signed in right now.</p>
+    {% endif %}
+  </section>
+
+  <div class="admin-side">
+    <section class="card">
+      <header class="card-head"><h2>Account</h2></header>
+      <dl class="deflist">
+        <div><dt>Account id</dt><dd>#{{ account.id }}</dd></div>
+        <div><dt>Created</dt><dd>{{ account.created[:16] }}</dd></div>
+        <div><dt>Decision</dt><dd>{{ account.decided_at[:16] if account.decided_at else '—' }}</dd></div>
+        <div><dt>Decided by</dt><dd>{{ ('#' ~ account.decided_by) if account.decided_by else '—' }}</dd></div>
+        <div><dt>Note</dt><dd>{{ account.decision_note or '—' }}</dd></div>
+        <div><dt>Goal</dt><dd>{{ account.goal or '—' }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="card">
+      <header class="card-head"><h2>Actions</h2></header>
+
+      {% if account.id != learner.id %}
+        <div class="action-row">
+          {% if account.status != 'approved' %}
+            <form method="post" action="{{ url_for('admin.set_status', user_id=account.id) }}">
+              <input type="hidden" name="csrf" value="{{ csrf }}">
+              <input type="hidden" name="from" value="detail">
+              <input type="hidden" name="status" value="approved">
+              <button class="btn primary tiny" type="submit">Approve</button>
+            </form>
+          {% else %}
+            <form method="post" action="{{ url_for('admin.set_status', user_id=account.id) }}">
+              <input type="hidden" name="csrf" value="{{ csrf }}">
+              <input type="hidden" name="from" value="detail">
+              <input type="hidden" name="status" value="rejected">
+              <button class="btn danger tiny" type="submit">Revoke access</button>
+            </form>
+          {% endif %}
+          {% if account.status == 'rejected' %}
+            <form method="post" action="{{ url_for('admin.set_status', user_id=account.id) }}">
+              <input type="hidden" name="csrf" value="{{ csrf }}">
+              <input type="hidden" name="from" value="detail">
+              <input type="hidden" name="status" value="pending">
+              <button class="btn ghost tiny" type="submit">Back to waiting</button>
+            </form>
+          {% endif %}
+        </div>
+
+        <div class="action-row">
+          <form method="post" action="{{ url_for('admin.set_role', user_id=account.id) }}">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <input type="hidden" name="role" value="{{ 'learner' if account.role == 'admin' else 'admin' }}">
+            <button class="btn ghost tiny" type="submit">
+              {{ 'Make learner' if account.role == 'admin' else 'Make admin' }}
+            </button>
+          </form>
+          <form method="post" action="{{ url_for('admin.revoke_sessions', user_id=account.id) }}">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <button class="btn ghost tiny" type="submit">Sign out everywhere</button>
+          </form>
+        </div>
+      {% else %}
+        <p class="muted tiny">This is your own account: status and role are protected here.</p>
+        <form method="post" action="{{ url_for('admin.revoke_sessions', user_id=account.id) }}">
+          <input type="hidden" name="csrf" value="{{ csrf }}">
+          <button class="btn ghost tiny" type="submit">Sign out everywhere</button>
+        </form>
+      {% endif %}
+
+      <details class="reset-box">
+        <summary>Set a new password</summary>
+        <p class="tiny muted">There is no email delivery, so a forgotten password is reset here.</p>
+        <form method="post" action="{{ url_for('admin.reset_password', user_id=account.id) }}" class="form tight">
+          <input type="hidden" name="csrf" value="{{ csrf }}">
+          <label class="field full">
+            <span>New password</span>
+            <input type="password" name="password" minlength="8" maxlength="200"
+                   autocomplete="new-password" required>
+          </label>
+          <button class="btn primary tiny" type="submit">Save password</button>
+        </form>
+      </details>
+    </section>
+
+    <section class="card">
+      <header class="card-head"><h2>History</h2></header>
+      {% if history %}
+        <ul class="audit-list">
+          {% for row in history %}
+            <li>
+              <span class="audit-action">{{ row.action }}</span>
+              <span class="tiny">{{ row.detail or '—' }}</span>
+              <span class="tiny audit-at">{{ row.at[:10] }} {{ row.at[11:16] }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted tiny">Nothing recorded for this account yet.</p>
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

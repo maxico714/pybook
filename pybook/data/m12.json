@@ -1,0 +1,1149 @@
+{
+ "id": "m12",
+ "title": {
+  "en": "Real Projects",
+  "hi": "असली प्रोजेक्ट",
+  "hinglish": "Asli Projects"
+ },
+ "goal": {
+  "en": "Concurrency with async/await, reading and writing CSV, testing with unittest, and one complete expense tracker that uses everything.",
+  "hi": "async/await से समवर्ती काम, CSV पढ़ना-लिखना, unittest से जाँच, और सब कुछ इस्तेमाल करने वाला एक पूरा खर्च ट्रैकर।",
+  "hinglish": "async/await se concurrent kaam, CSV padhna-likhna, unittest se jaanch, aur sab kuch use karne wala ek poora expense tracker."
+ },
+ "chapters": [
+  {
+   "id": "m12c01",
+   "title": {
+    "en": "Waiting and data files",
+    "hi": "इंतज़ार और डेटा फ़ाइलें",
+    "hinglish": "Intezaar aur data files"
+   },
+   "lessons": [
+    {
+     "id": "m12c01l01",
+     "title": {
+      "en": "async and await",
+      "hi": "async और await",
+      "hinglish": "async aur await"
+     },
+     "keywords": [
+      "async",
+      "await"
+     ],
+     "intro": {
+      "en": "`async def` defines a coroutine: calling it does not run the body, it returns something you must await. `await` pauses this coroutine while the event loop does other work, which is how one thread waits on many slow operations.",
+      "hi": "`async def` कोरूटीन बनाता है: बुलाने पर शरीर नहीं चलता, ऐसी चीज़ मिलती है जिसे await करना होता है। `await` इस कोरूटीन को रोकता है और इवेंट लूप दूसरा काम करता है, इसी तरह एक थ्रेड कई धीमे काम संभालता है।",
+      "hinglish": "`async def` coroutine banata hai: bulane par body nahi chalta, aisi cheez milti hai jise await karna hota hai. `await` is coroutine ko rokta hai aur event loop doosra kaam karta hai, isi tarah ek thread kai dheeme kaam sambhalta hai."
+     },
+     "real_life": {
+      "en": "One waiter in a cafe. Instead of standing at the coffee machine until it finishes, the waiter starts it, takes another order, and comes back when the machine beeps - that is await.",
+      "hi": "कैफ़े में एक वेटर। कॉफ़ी मशीन के पास खड़े रहने की जगह वेटर मशीन चालू करता है, दूसरा ऑर्डर लेता है, और मशीन बीप करने पर लौटता है - यही await है।",
+      "hinglish": "Cafe me ek waiter. Coffee machine ke paas khade rehne ki jagah waiter machine chaalu karta hai, doosra order leta hai, aur machine beep karne par laut ta hai - yahi await hai."
+     },
+     "docs": "https://docs.python.org/3/library/asyncio-task.html",
+     "visual": "async_tasks",
+     "examples": [
+      {
+       "title": {
+        "en": "two coroutines at once",
+        "hi": "दो कोरूटीन एक साथ",
+        "hinglish": "do coroutines ek saath"
+       },
+       "code": "import asyncio\n\nasync def fetch(name, delay):\n    await asyncio.sleep(delay)\n    return f\"{name} done\"\n\nasync def main():\n    results = await asyncio.gather(fetch(\"a\", 0.02), fetch(\"b\", 0.01))\n    print(results)\n\nasyncio.run(main())",
+       "output": "['a done', 'b done']",
+       "note": {
+        "en": "`gather` starts both and waits for both. The results keep the order of the arguments, not the order they finished.",
+        "hi": "`gather` दोनों शुरू करता है और दोनों का इंतज़ार करता है। परिणाम आर्ग्युमेंट के क्रम में रहते हैं, पूरा होने के क्रम में नहीं।",
+        "hinglish": "`gather` dono shuru karta hai aur dono ka intezaar karta hai. Results arguments ke kram me rehte hain, poora hone ke kram me nahi."
+       }
+      },
+      {
+       "title": {
+        "en": "await one step at a time",
+        "hi": "एक-एक कदम await करना",
+        "hinglish": "ek-ek kadam await karna"
+       },
+       "code": "import asyncio\n\nasync def step(n):\n    await asyncio.sleep(0)\n    return n * 2\n\nasync def main():\n    one = await step(1)\n    two = await step(2)\n    print(one, two)\n\nasyncio.run(main())",
+       "output": "2 4",
+       "note": {
+        "en": "Sequential awaits run one after another. Use gather when the work is independent and can overlap.",
+        "hi": "क्रमिक await एक के बाद एक चलते हैं। जब काम स्वतंत्र हो और साथ हो सके तो gather इस्तेमाल करें।",
+        "hinglish": "Kramik await ek ke baad ek chalte hain. Jab kaam independent ho aur saath ho sake to gather use karo."
+       }
+      },
+      {
+       "title": {
+        "en": "errors work the same way",
+        "hi": "एरर वैसे ही काम करते हैं",
+        "hinglish": "errors waise hi kaam karte hain"
+       },
+       "code": "import asyncio\n\nasync def risky(n):\n    await asyncio.sleep(0)\n    if n < 0:\n        raise ValueError(\"negative input\")\n    return n\n\nasync def main():\n    try:\n        await risky(-1)\n    except ValueError as exc:\n        print(\"caught:\", exc)\n\nasyncio.run(main())",
+       "output": "caught: negative input",
+       "note": {
+        "en": "A coroutine raises like any function; the exception surfaces at the await point, so normal try/except is enough.",
+        "hi": "कोरूटीन आम फ़ंक्शन की तरह एरर देता है; एरर await पर सामने आता है, इसलिए सामान्य try/except काफ़ी है।",
+        "hinglish": "Coroutine aam function ki tarah error deta hai; error await par saamne aata hai, isliye normal try/except kaafi hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m12c01l01e1",
+       "prompt": {
+        "en": "Write `async def double(n)` that awaits `asyncio.sleep(0)` and returns `n * 2`. Run it inside `main()` with `asyncio.run` and print the result for 21.",
+        "hi": "`async def double(n)` लिखें जो `asyncio.sleep(0)` await करे और `n * 2` लौटाए। `main()` में `asyncio.run` से चलाएँ और 21 का परिणाम प्रिंट करें।",
+        "hinglish": "`async def double(n)` likho jo `asyncio.sleep(0)` await kare aur `n * 2` return kare. `main()` me `asyncio.run` se chalao aur 21 ka result print karo."
+       },
+       "starter": "import asyncio\n\n# async def double(n): ...\n\nasync def main():\n    pass\n\n# asyncio.run(main())",
+       "solution": "import asyncio\n\nasync def double(n):\n    await asyncio.sleep(0)\n    return n * 2\n\nasync def main():\n    result = await double(21)\n    print(result)\n\nasyncio.run(main())",
+       "checks": [
+        "asyncio.iscoroutinefunction(double)",
+        "asyncio.run(double(5)) == 10",
+        "printed.strip() == '42'"
+       ],
+       "hint": {
+        "en": "await the call inside main; asyncio.run starts the event loop once.",
+        "hi": "main के अंदर कॉल await करें; asyncio.run इवेंट लूप एक बार शुरू करता है।",
+        "hinglish": "main ke andar call await karo; asyncio.run event loop ek baar shuru karta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m12c01l01q1",
+       "question": {
+        "en": "What does calling an `async def` function return?",
+        "hi": "`async def` फ़ंक्शन बुलाने पर क्या लौटता है?",
+        "hinglish": "`async def` function bulane par kya return hota hai?"
+       },
+       "options": [
+        "the result directly",
+        "a coroutine object",
+        "a thread",
+        "None"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "You must await it (or schedule it) for the body to run.",
+        "hi": "शरीर चलाने के लिए इसे await करना (या शेड्यूल करना) होता है।",
+        "hinglish": "Body chalane ke liye ise await karna (ya schedule karna) hota hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c01l01q2",
+       "question": {
+        "en": "What does `await` do?",
+        "hi": "`await` क्या करता है?",
+        "hinglish": "`await` kya karta hai?"
+       },
+       "options": [
+        "blocks the whole program",
+        "pauses this coroutine so the event loop can run others",
+        "starts a new process",
+        "sleeps for one second"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "That pause-and-resume is what makes concurrency possible in one thread.",
+        "hi": "यही रुकना-फिर-चलना एक थ्रेड में समवर्ती काम संभव बनाता है।",
+        "hinglish": "Yahi rukna-phir-chalna ek thread me concurrent kaam sambhav banata hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c01l01q3",
+       "question": {
+        "en": "When should you prefer `asyncio.gather`?",
+        "hi": "`asyncio.gather` कब बेहतर है?",
+        "hinglish": "`asyncio.gather` kab behtar hai?"
+       },
+       "options": [
+        "when tasks depend on each other's results",
+        "when independent tasks can run concurrently",
+        "when you need threads",
+        "when the function is not async"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "gather overlaps independent work and returns all results together.",
+        "hi": "gather स्वतंत्र काम एक साथ चलाता है और सारे परिणाम एक साथ देता है।",
+        "hinglish": "gather independent kaam ek saath chalata hai aur saare results ek saath deta hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "async def + await for waiting on many things in one thread; gather when the tasks are independent.",
+      "hi": "एक थ्रेड में कई चीज़ों के इंतज़ार के लिए async def + await; काम स्वतंत्र हों तो gather।",
+      "hinglish": "Ek thread me kai cheezon ke intezaar ke liye async def + await; kaam independent hon to gather."
+     }
+    },
+    {
+     "id": "m12c01l02",
+     "title": {
+      "en": "CSV files",
+      "hi": "CSV फ़ाइलें",
+      "hinglish": "CSV files"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "CSV is rows of comma-separated text - the format every spreadsheet exports. The `csv` module handles quoting, commas inside values and line endings that hand-written split(\",\") code gets wrong.",
+      "hi": "CSV अल्पविराम से अलग पंक्तियों वाला टेक्स्ट है - वही जो हर स्प्रेडशीट निर्यात करती है। `csv` मॉड्यूल कोटेशन, मान के अंदर के अल्पविराम और लाइन एंडिंग संभालता है जिन्हें हाथ से लिखा split(\",\") गलत करता है।",
+      "hinglish": "CSV comma se alag lines wala text hai - wahi jo har spreadsheet export karti hai. `csv` module quoting, value ke andar ke comma aur line endings sambhalta hai jinhe haath se likha split(\",\") galat karta hai."
+     },
+     "real_life": {
+      "en": "An attendance register. One row per student, columns for name and present or absent - readable by a human and by Excel.",
+      "hi": "उपस्थिति रजिस्टर। हर छात्र के लिए एक पंक्ति, नाम और उपस्थित/अनुपस्थित के कॉलम - इंसान भी पढ़ सके और एक्सेल भी।",
+      "hinglish": "Upasthiti register. Har student ke liye ek row, naam aur present/absent ke columns - insaan bhi padh sake aur Excel bhi."
+     },
+     "docs": "https://docs.python.org/3/library/csv.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "DictReader gives named columns",
+        "hi": "DictReader नाम वाले कॉलम देता है",
+        "hinglish": "DictReader naam wale columns deta hai"
+       },
+       "code": "import csv\nimport io\n\nraw = \"name,score\\nAsha,9\\nRavi,7\\n\"\nrows = list(csv.DictReader(io.StringIO(raw)))\nprint(rows[0][\"name\"], rows[0][\"score\"])\nprint(len(rows))\nprint([row[\"name\"] for row in rows])",
+       "output": "Asha 9\n2\n['Asha', 'Ravi']",
+       "note": {
+        "en": "The first row becomes the field names, so you read row[\"score\"] instead of row[1]. Much harder to break when a column moves.",
+        "hi": "पहली पंक्ति फ़ील्ड नाम बन जाती है, इसलिए row[\"score\"] पढ़ते हैं row[1] की जगह। कॉलम बदलने पर टूटना बहुत कम होता है।",
+        "hinglish": "Pehli row field naam ban jati hai, isliye row[\"score\"] padhte ho row[1] ki jagah. Column badalne par tootna bahut kam hota hai."
+       }
+      },
+      {
+       "title": {
+        "en": "writing rows",
+        "hi": "पंक्तियाँ लिखना",
+        "hinglish": "rows likhna"
+       },
+       "code": "import csv\nimport io\n\nbuffer = io.StringIO()\nwriter = csv.writer(buffer)\nwriter.writerow([\"item\", \"qty\"])\nwriter.writerow([\"tea\", 2])\nprint(buffer.getvalue().strip().replace(\"\\r\\n\", \" | \"))",
+       "output": "item,qty | tea,2",
+       "note": {
+        "en": "csv writes \\r\\n by default; the replace() here only makes the output print on one line for the lesson.",
+        "hi": "csv डिफ़ॉल्ट रूप से \\r\\n लिखता है; यहाँ replace() सिर्फ़ पाठ के लिए आउटपुट एक पंक्ति में दिखाता है।",
+        "hinglish": "csv default roop se \\r\\n likhta hai; yahan replace() sirf paath ke liye output ek line me dikhata hai."
+       }
+      },
+      {
+       "title": {
+        "en": "quoted commas survive",
+        "hi": "कोटेशन वाले अल्पविराम बचे रहते हैं",
+        "hinglish": "quoted comma bache rehte hain"
+       },
+       "code": "import csv\nimport io\n\nraw = \"item,qty\\ntea,2\\n\\\"gift, small\\\",1\\n\"\nrows = list(csv.DictReader(io.StringIO(raw)))\nprint(len(rows))\nprint(rows[1][\"item\"])",
+       "output": "2\ngift, small",
+       "note": {
+        "en": "A value containing a comma is wrapped in quotes. `split(\",\")` would have produced three broken fields here.",
+        "hi": "अल्पविराम वाला मान कोटेशन में लिपटा होता है। यहाँ `split(\",\")` तीन टूटे फ़ील्ड बना देता।",
+        "hinglish": "Comma wala value quotes me lipta hota hai. Yahan `split(\",\")` teen toote field bana deta."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m12c01l02e1",
+       "prompt": {
+        "en": "Parse `'city,people\\nPune,7\\nDelhi,9\\n'` with DictReader into `rows` and print the people count of Delhi.",
+        "hi": "`'city,people\\nPune,7\\nDelhi,9\\n'` को DictReader से `rows` में पढ़ें और Delhi की people संख्या प्रिंट करें।",
+        "hinglish": "`'city,people\\nPune,7\\nDelhi,9\\n'` ko DictReader se `rows` me padho aur Delhi ki people sankhya print karo."
+       },
+       "starter": "import csv\nimport io\n\nraw = 'city,people\\nPune,7\\nDelhi,9\\n'\n# rows = ...",
+       "solution": "import csv\nimport io\n\nraw = 'city,people\\nPune,7\\nDelhi,9\\n'\nrows = list(csv.DictReader(io.StringIO(raw)))\nprint(rows[1]['people'])",
+       "checks": [
+        "len(rows) == 2",
+        "rows[0]['city'] == 'Pune'",
+        "rows[1]['people'] == '9'",
+        "printed.strip() == '9'"
+       ],
+       "hint": {
+        "en": "CSV values arrive as strings, so '9' compares equal to '9'.",
+        "hi": "CSV मान स्ट्रिंग के रूप में आते हैं, इसलिए '9' ही '9' के बराबर है।",
+        "hinglish": "CSV values string ke roop me aate hain, isliye '9' hi '9' ke barabar hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m12c01l02q1",
+       "question": {
+        "en": "What does DictReader use as field names?",
+        "hi": "DictReader फ़ील्ड नाम किससे लेता है?",
+        "hinglish": "DictReader field naam kis se leta hai?"
+       },
+       "options": [
+        "the first data row",
+        "the first row of the file",
+        "a schema argument",
+        "the file name"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The header row becomes the keys of every later row.",
+        "hi": "हेडर पंक्ति बाद की हर पंक्ति की कुंजियाँ बनती है।",
+        "hinglish": "Header row baad ki har row ki keys banti hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c01l02q2",
+       "question": {
+        "en": "Why not split CSV lines on \",\" by hand?",
+        "hi": "CSV पंक्तियों को हाथ से \",\" पर क्यों नहीं तोड़ें?",
+        "hinglish": "CSV lines ko haath se \",\" par kyun na todein?"
+       },
+       "options": [
+        "it is slower",
+        "quoted values may contain commas and line breaks",
+        "Python forbids it",
+        "it loses the header"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Quoting rules are the whole reason the csv module exists.",
+        "hi": "कोटेशन के नियम ही csv मॉड्यूल होने की पूरी वजह हैं।",
+        "hinglish": "Quoting ke niyam hi csv module hone ki poori wajah hain."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c01l02q3",
+       "question": {
+        "en": "What type is every value read by csv?",
+        "hi": "csv से पढ़ा हर मान किस प्रकार का होता है?",
+        "hinglish": "csv se padha har value kis prakar ka hota hai?"
+       },
+       "options": [
+        "int",
+        "str",
+        "float",
+        "it depends on the column"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Convert explicitly with int() or float() when you need numbers.",
+        "hi": "संख्याएँ चाहिए तो int() या float() से स्पष्ट रूप से बदलें।",
+        "hinglish": "Numbers chahiye to int() ya float() se saaf roop se badlo."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Use csv.DictReader/DictWriter and convert types yourself; never split on commas by hand.",
+      "hi": "csv.DictReader/DictWriter इस्तेमाल करें और टाइप खुद बदलें; अल्पविराम पर हाथ से कभी न तोड़ें।",
+      "hinglish": "csv.DictReader/DictWriter use karo aur type khud badlo; comma par haath se kabhi na todo."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m12c02",
+   "title": {
+    "en": "Quality and a real program",
+    "hi": "गुणवत्ता और असली प्रोग्राम",
+    "hinglish": "Quality aur asli program"
+   },
+   "lessons": [
+    {
+     "id": "m12c02l03",
+     "title": {
+      "en": "Testing your code",
+      "hi": "अपने कोड की जाँच",
+      "hinglish": "Apne code ki jaanch"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A test is code that checks other code. `unittest` ships with Python: subclass TestCase, write methods starting with `test`, and use assertEqual, assertTrue and assertRaises. Tests are how you change code without fear.",
+      "hi": "टेस्ट वह कोड है जो दूसरे कोड की जाँच करता है। `unittest` पायथन के साथ आता है: TestCase से सबक्लास बनाएँ, `test` से शुरू होने वाले मेथड लिखें, और assertEqual, assertTrue, assertRaises इस्तेमाल करें। टेस्ट ही बिना डर बदलाव करने देते हैं।",
+      "hinglish": "Test woh code hai jo doosre code ki jaanch karta hai. `unittest` Python ke saath aata hai: TestCase se subclass banao, `test` se shuru hone wale methods likho, aur assertEqual, assertTrue, assertRaises use karo. Tests hi bina dar badlav karne dete hain."
+     },
+     "real_life": {
+      "en": "A checklist before a flight. The pilot does not trust memory; the checklist runs the same checks every time and catches what a tired human misses.",
+      "hi": "उड़ान से पहले चेकलिस्ट। पायलट याददाश्त पर भरोसा नहीं करता; चेकलिस्ट हर बार वही जाँच चलाती है और वह पकड़ती है जो थका इंसान चूक जाता है।",
+      "hinglish": "Udaan se pehle checklist. Pilot yaaddasht par bharosa nahi karta; checklist har baar wahi jaanch chalati hai aur woh pakadti hai jo thaka insaan chook jata hai."
+     },
+     "docs": "https://docs.python.org/3/library/unittest.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "two tests, both green",
+        "hi": "दो टेस्ट, दोनों पास",
+        "hinglish": "do test, dono pass"
+       },
+       "code": "import unittest\n\ndef add(a, b):\n    return a + b\n\nclass TestAdd(unittest.TestCase):\n    def test_positive(self):\n        self.assertEqual(add(2, 3), 5)\n\n    def test_negative(self):\n        self.assertEqual(add(-1, 1), 0)\n\nsuite = unittest.defaultTestLoader.loadTestsFromTestCase(TestAdd)\nresult = unittest.TextTestRunner(verbosity=0).run(suite)\nprint(result.wasSuccessful())\nprint(result.testsRun)",
+       "output": "True\n2",
+       "note": {
+        "en": "The loader collects every test_ method from the class; the runner executes them. wasSuccessful is True only when all passed.",
+        "hi": "लोडर क्लास के हर test_ मेथड को इकट्ठा करता है; रनर उन्हें चलाता है। wasSuccessful तभी True है जब सब पास हों।",
+        "hinglish": "Loader class ke har test_ method ko ikattha karta hai; runner unhe chalata hai. wasSuccessful tabhi True hai jab sab pass hon."
+       }
+      },
+      {
+       "title": {
+        "en": "testing the failure path too",
+        "hi": "विफलता का रास्ता भी जाँचना",
+        "hinglish": "vifalta ka raasta bhi jaanchna"
+       },
+       "code": "import unittest\n\ndef safe_div(a, b):\n    if b == 0:\n        raise ZeroDivisionError(\"b must not be zero\")\n    return a / b\n\nclass TestDiv(unittest.TestCase):\n    def test_ok(self):\n        self.assertEqual(safe_div(9, 3), 3.0)\n\n    def test_zero(self):\n        with self.assertRaises(ZeroDivisionError):\n            safe_div(1, 0)\n\nsuite = unittest.defaultTestLoader.loadTestsFromTestCase(TestDiv)\nresult = unittest.TextTestRunner(verbosity=0).run(suite)\nprint(result.wasSuccessful(), result.testsRun)",
+       "output": "True 2",
+       "note": {
+        "en": "assertRaises passes only if the block really raises. A test that never sees the error is as valuable as no test.",
+        "hi": "assertRaises तभी पास होता है जब ब्लॉक सचमुच एरर दे। जो टेस्ट एरर देखता ही नहीं वह बिना टेस्ट जैसा है।",
+        "hinglish": "assertRaises tabhi pass hota hai jab block sachmuch error de. Jo test error dekhta hi nahi woh bina test jaisa hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m12c02l03e1",
+       "prompt": {
+        "en": "Write `square(n)` and a TestCase with one test that checks square(4) == 16. Run it with exit=False and print wasSuccessful().",
+        "hi": "`square(n)` लिखें और एक TestCase जिसमें एक टेस्ट square(4) == 16 जाँचे। exit=False से चलाएँ और wasSuccessful() प्रिंट करें।",
+        "hinglish": "`square(n)` likho aur ek TestCase jisme ek test square(4) == 16 jaanche. exit=False se chalao aur wasSuccessful() print karo."
+       },
+       "starter": "import unittest\n\n# def square(n): ...\n# class TestSquare(unittest.TestCase): ...",
+       "solution": "import unittest\n\ndef square(n):\n    return n * n\n\nclass TestSquare(unittest.TestCase):\n    def test_four(self):\n        self.assertEqual(square(4), 16)\n\nsuite = unittest.defaultTestLoader.loadTestsFromTestCase(TestSquare)\nresult = unittest.TextTestRunner(verbosity=0).run(suite)\nprint(result.wasSuccessful())",
+       "checks": [
+        "square(4) == 16",
+        "square(-3) == 9",
+        "printed.strip() == 'True'"
+       ],
+       "hint": {
+        "en": "The method name must start with test_; load the class, then run the suite.",
+        "hi": "मेथड का नाम test_ से शुरू होना चाहिए; क्लास लोड करें, फिर सूट चलाएँ।",
+        "hinglish": "Method ka naam test_ se shuru hona chahiye; class load karo, phir suite chalao."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m12c02l03q1",
+       "question": {
+        "en": "Which method names does unittest run automatically?",
+        "hi": "unittest कौन से मेथड नाम अपने आप चलाता है?",
+        "hinglish": "unittest kaun se method naam apne aap chalata hai?"
+       },
+       "options": [
+        "any method",
+        "methods starting with test",
+        "methods ending with _test",
+        "only setUp"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The `test` prefix is the discovery rule.",
+        "hi": "`test` उपसर्ग ही खोज का नियम है।",
+        "hinglish": "`test` prefix hi khoj ka niyam hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c02l03q2",
+       "question": {
+        "en": "Why write a test for the error path?",
+        "hi": "एरर वाले रास्ते का टेस्ट क्यों लिखें?",
+        "hinglish": "Error wale raaste ka test kyun likhein?"
+       },
+       "options": [
+        "to increase the line count",
+        "to prove the code fails in the intended way, not accidentally",
+        "because unittest requires it",
+        "to make the code faster"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "assertRaises documents and locks the contract for bad input.",
+        "hi": "assertRaises गलत इनपुट के समझौते को लिखता और तय करता है।",
+        "hinglish": "assertRaises galat input ke contract ko likhta aur tay karta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c02l03q3",
+       "question": {
+        "en": "Which pair loads and runs a TestCase explicitly?",
+        "hi": "कौन सा जोड़ा TestCase को स्पष्ट रूप से लोड और चलाता है?",
+        "hinglish": "Kaun sa joda TestCase ko saaf roop se load aur chalata hai?"
+       },
+       "options": [
+        "loadTestsFromTestCase + TextTestRunner",
+        "TestCase + assertEqual",
+        "unittest.main + argv",
+        "setUp + tearDown"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "The loader builds a suite from the class; the runner executes it. This works the same in a notebook and in a file.",
+        "hi": "लोडर क्लास से सूट बनाता है; रनर उसे चलाता है। यह नोटबुक और फ़ाइल दोनों में वैसे ही चलता है।",
+        "hinglish": "Loader class se suite banata hai; runner use chalata hai. Ye notebook aur file dono me waise hi chalta hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Small tests, one behaviour each, including the failure path - that is what makes refactoring safe.",
+      "hi": "छोटे टेस्ट, एक-एक व्यवहार, विफलता का रास्ता भी - इसी से बदलाव सुरक्षित होते हैं।",
+      "hinglish": "Chhote test, ek-ek behaviour, vifalta ka raasta bhi - isi se badlav safe hote hain."
+     }
+    },
+    {
+     "id": "m12c02l04",
+     "title": {
+      "en": "Final project: an expense tracker",
+      "hi": "अंतिम प्रोजेक्ट: खर्च ट्रैकर",
+      "hinglish": "Final project: expense tracker"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "This lesson puts the whole book together: a dataclass for one expense, a class that owns a list of them, JSON for saving, and a comprehension for the report. Every piece was taught earlier; only the combination is new.",
+      "hi": "यह पाठ पूरी किताब जोड़ता है: एक खर्च के लिए डेटाक्लास, उनकी सूची रखने वाली क्लास, सहेजने के लिए JSON, और रिपोर्ट के लिए कॉम्प्रिहेंशन। हर हिस्सा पहले आया है; सिर्फ़ जोड़ नया है।",
+      "hinglish": "Ye paath poori kitaab jodta hai: ek kharch ke liye dataclass, unki list rakhne wali class, save karne ke liye JSON, aur report ke liye comprehension. Har hissa pehle aaya hai; sirf jod naya hai."
+     },
+     "real_life": {
+      "en": "A notebook where you write every tea, auto and grocery spend. At month end you want the total, the biggest category and a file you can reopen next month.",
+      "hi": "एक नोटबुक जिसमें आप हर चाय, ऑटो और किराने का खर्च लिखते हैं। महीने के अंत में कुल, सबसे बड़ी श्रेणी और अगले महीने खोलने लायक फ़ाइल चाहिए।",
+      "hinglish": "Ek notebook jisme aap har chai, auto aur kirane ka kharch likhte ho. Mahine ke ant me total, sabse badi category aur agle mahine kholne layak file chahiye."
+     },
+     "docs": "https://docs.python.org/3/tutorial/stdlib.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "one expense as a dataclass",
+        "hi": "एक खर्च डेटाक्लास के रूप में",
+        "hinglish": "ek kharch dataclass ke roop me"
+       },
+       "code": "import json\nfrom dataclasses import dataclass, asdict\n\n@dataclass\nclass Expense:\n    title: str\n    amount: int\n    category: str = \"other\"\n\nexpense = Expense(\"notebook\", 250, \"study\")\nprint(expense)\nprint(json.dumps(asdict(expense), sort_keys=True))",
+       "output": "Expense(title='notebook', amount=250, category='study')\n{\"amount\": 250, \"category\": \"study\", \"title\": \"notebook\"}",
+       "note": {
+        "en": "`asdict` turns a dataclass into a plain dict, which json can write. That pair is the whole persistence layer.",
+        "hi": "`asdict` डेटाक्लास को सादा dict बनाता है जिसे json लिख सकता है। यही जोड़ी पूरी सहेजने की परत है।",
+        "hinglish": "`asdict` dataclass ko saada dict banata hai jise json likh sakta hai. Yahi jodi poori save karne ki parat hai."
+       }
+      },
+      {
+       "title": {
+        "en": "the monthly report",
+        "hi": "महीने की रिपोर्ट",
+        "hinglish": "mahine ki report"
+       },
+       "code": "import json\n\nrows = [{\"title\": \"tea\", \"amount\": 30, \"category\": \"food\"}, {\"title\": \"book\", \"amount\": 250, \"category\": \"study\"}]\ntotal = sum(row[\"amount\"] for row in rows)\nby_category = {}\nfor row in rows:\n    by_category[row[\"category\"]] = by_category.get(row[\"category\"], 0) + row[\"amount\"]\nprint(f\"total: {total}\")\nprint(by_category)\nprint(json.dumps({\"total\": total, \"count\": len(rows)}, sort_keys=True))",
+       "output": "total: 280\n{'food': 30, 'study': 250}\n{\"count\": 2, \"total\": 280}",
+       "note": {
+        "en": "Sum for the total, a dict for per-category totals, json for the file. Three lines you have already seen, combined.",
+        "hi": "कुल के लिए sum, श्रेणी-वार के लिए dict, फ़ाइल के लिए json। तीन पंक्तियाँ जो पहले देख चुके हैं, जुड़ी हुई।",
+        "hinglish": "Total ke liye sum, category-wise ke liye dict, file ke liye json. Teen lines jo pehle dekh chuke ho, judi hui."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m12c02l04e1",
+       "prompt": {
+        "en": "Finish the tracker: `total(rows)` returns the sum of amounts, `biggest(rows)` returns the title with the largest amount. Print both for the sample rows.",
+        "hi": "ट्रैकर पूरा करें: `total(rows)` रकमों का योग लौटाए, `biggest(rows)` सबसे बड़ी रकम वाला title लौटाए। नमूना पंक्तियों के लिए दोनों प्रिंट करें।",
+        "hinglish": "Tracker poora karo: `total(rows)` amounts ka sum return kare, `biggest(rows)` sabse badi amount wala title return kare. Sample rows ke liye dono print karo."
+       },
+       "starter": "rows = [\n    {\"title\": \"tea\", \"amount\": 30},\n    {\"title\": \"book\", \"amount\": 250},\n]\n\ndef total(rows):\n    pass\n\ndef biggest(rows):\n    pass\n\n# print(total(rows))\n# print(biggest(rows))",
+       "solution": "rows = [\n    {\"title\": \"tea\", \"amount\": 30},\n    {\"title\": \"book\", \"amount\": 250},\n]\n\ndef total(rows):\n    return sum(row[\"amount\"] for row in rows)\n\ndef biggest(rows):\n    return max(rows, key=lambda row: row[\"amount\"])[\"title\"]\n\nprint(total(rows))\nprint(biggest(rows))",
+       "checks": [
+        "total(rows) == 280",
+        "biggest(rows) == 'book'",
+        "total([]) == 0",
+        "printed.split() == ['280', 'book']"
+       ],
+       "hint": {
+        "en": "sum() with a generator for the total; max() with key= for the biggest.",
+        "hi": "कुल के लिए जनरेटर के साथ sum(); सबसे बड़े के लिए key= के साथ max()।",
+        "hinglish": "Total ke liye generator ke saath sum(); sabse bade ke liye key= ke saath max()."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m12c02l04q1",
+       "question": {
+        "en": "Which pair saves a dataclass as JSON?",
+        "hi": "डेटाक्लास को JSON में कौन सा जोड़ा सहेजता है?",
+        "hinglish": "Dataclass ko JSON me kaun sa joda save karta hai?"
+       },
+       "options": [
+        "str() and eval()",
+        "asdict() and json.dumps()",
+        "repr() and print()",
+        "pickle and csv"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "asdict gives a plain dict, json.dumps gives text.",
+        "hi": "asdict सादा dict देता है, json.dumps टेक्स्ट।",
+        "hinglish": "asdict saada dict deta hai, json.dumps text."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c02l04q2",
+       "question": {
+        "en": "Why keep expenses in a list of dicts instead of separate variables?",
+        "hi": "खर्चों को अलग वेरिएबल की जगह dict की सूची में क्यों रखें?",
+        "hinglish": "Khrchon ko alag variable ki jagah dict ki list me kyun rakhein?"
+       },
+       "options": [
+        "it uses less memory",
+        "loops, sum and json all work on a collection without new code",
+        "dicts are faster than ints",
+        "separate variables cannot be printed"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A collection scales from two rows to two thousand with no code change.",
+        "hi": "संग्रह दो पंक्तियों से दो हज़ार तक बिना कोड बदले चलता है।",
+        "hinglish": "Collection do rows se do hazaar tak bina code badle chalta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m12c02l04q3",
+       "question": {
+        "en": "What does `max(rows, key=lambda r: r[\"amount\"])` return?",
+        "hi": "`max(rows, key=lambda r: r[\"amount\"])` क्या लौटाता है?",
+        "hinglish": "`max(rows, key=lambda r: r[\"amount\"])` kya return karta hai?"
+       },
+       "options": [
+        "the largest number",
+        "the whole row with the largest amount",
+        "the index",
+        "None"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "max returns the item, not the key value. Add [\"title\"] to get just the name.",
+        "hi": "max आइटम लौटाता है, कुंजी का मान नहीं। सिर्फ़ नाम के लिए [\"title\"] जोड़ें।",
+        "hinglish": "max item return karta hai, key ki value nahi. Sirf naam ke liye [\"title\"] jodo."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Small pieces you already know - dataclass, list, sum, json - combine into a real tool.",
+      "hi": "जो छोटे हिस्से आप जानते हैं - डेटाक्लास, सूची, sum, json - वे मिलकर असली औज़ार बनते हैं।",
+      "hinglish": "Jo chhote hisse aap jaante ho - dataclass, list, sum, json - wo milkar asli auzar bante hain."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m12x01",
+   "question": {
+    "en": "What does async def create?",
+    "hi": "async def क्या बनाता है?",
+    "hinglish": "async def kya banata hai?"
+   },
+   "options": [
+    "a thread",
+    "a coroutine function",
+    "a generator only",
+    "a class"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Calling it returns a coroutine object to await.",
+    "hi": "बुलाने पर await करने लायक कोरूटीन ऑब्जेक्ट मिलता है।",
+    "hinglish": "Bulane par await karne layak coroutine object milta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12x02",
+   "question": {
+    "en": "Which reader gives named columns?",
+    "hi": "कौन नाम वाले कॉलम देता है?",
+    "hinglish": "Kaun naam wale columns deta hai?"
+   },
+   "options": [
+    "csv.reader",
+    "csv.DictReader",
+    "csv.writer",
+    "csv.Sniffer"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "DictReader maps the header row to keys.",
+    "hi": "DictReader हेडर पंक्ति को कुंजियाँ बनाता है।",
+    "hinglish": "DictReader header row ko keys banata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12x03",
+   "question": {
+    "en": "Which assertion checks that a call raises?",
+    "hi": "कौन सा assertion जाँचता है कि कॉल एरर देती है?",
+    "hinglish": "Kaun sa assertion jaanchta hai ki call error deti hai?"
+   },
+   "options": [
+    "assertEqual",
+    "assertRaises",
+    "assertTrue",
+    "assertIn"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Use it as a context manager around the failing call.",
+    "hi": "इसे विफल होने वाली कॉल के चारों ओर कॉन्टेक्स्ट मैनेजर की तरह इस्तेमाल करें।",
+    "hinglish": "Ise fail hone wali call ke chaaron or context manager ki tarah use karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12x04",
+   "question": {
+    "en": "Which pair runs a TestCase without unittest.main?",
+    "hi": "unittest.main के बिना TestCase कौन सा जोड़ा चलाता है?",
+    "hinglish": "unittest.main ke bina TestCase kaun sa joda chalata hai?"
+   },
+   "options": [
+    "loadTestsFromTestCase + TextTestRunner",
+    "assertEqual + setUp",
+    "TestCase + main",
+    "csv + json"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Loader then runner: explicit and notebook-safe.",
+    "hi": "पहले लोडर फिर रनर: स्पष्ट और नोटबुक-सुरक्षित।",
+    "hinglish": "Pehle loader phir runner: saaf aur notebook-safe."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12x05",
+   "question": {
+    "en": "Which converts a dataclass to a dict?",
+    "hi": "डेटाक्लास को dict में कौन बदलता है?",
+    "hinglish": "Dataclass ko dict me kaun badalta hai?"
+   },
+   "options": [
+    "dataclasses.asdict",
+    "dict(obj)",
+    "obj.dict()",
+    "json.loads(obj)"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "asdict recurses into nested dataclasses too.",
+    "hi": "asdict नेस्टेड डेटाक्लास में भी जाता है।",
+    "hinglish": "asdict nested dataclasses me bhi jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12x06",
+   "question": {
+    "en": "When is gather the right call?",
+    "hi": "gather कब सही कॉल है?",
+    "hinglish": "gather kab sahi call hai?"
+   },
+   "options": [
+    "when each step needs the previous result",
+    "when independent coroutines can overlap",
+    "when you want threads",
+    "when there is one coroutine"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Independent work overlaps; dependent work awaits in order.",
+    "hi": "स्वतंत्र काम साथ चलता है; निर्भर काम क्रम में await होता है।",
+    "hinglish": "Independent kaam saath chalta hai; dependent kaam kram me await hota hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m12s01",
+   "question": {
+    "en": "What does calling an `async def` function return?",
+    "hi": "`async def` फ़ंक्शन बुलाने पर क्या लौटता है?",
+    "hinglish": "`async def` function bulane par kya return hota hai?"
+   },
+   "options": [
+    "the result directly",
+    "a coroutine object",
+    "a thread",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "You must await it (or schedule it) for the body to run.",
+    "hi": "शरीर चलाने के लिए इसे await करना (या शेड्यूल करना) होता है।",
+    "hinglish": "Body chalane ke liye ise await karna (ya schedule karna) hota hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s02",
+   "question": {
+    "en": "What does `await` do?",
+    "hi": "`await` क्या करता है?",
+    "hinglish": "`await` kya karta hai?"
+   },
+   "options": [
+    "blocks the whole program",
+    "pauses this coroutine so the event loop can run others",
+    "starts a new process",
+    "sleeps for one second"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "That pause-and-resume is what makes concurrency possible in one thread.",
+    "hi": "यही रुकना-फिर-चलना एक थ्रेड में समवर्ती काम संभव बनाता है।",
+    "hinglish": "Yahi rukna-phir-chalna ek thread me concurrent kaam sambhav banata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s03",
+   "question": {
+    "en": "When should you prefer `asyncio.gather`?",
+    "hi": "`asyncio.gather` कब बेहतर है?",
+    "hinglish": "`asyncio.gather` kab behtar hai?"
+   },
+   "options": [
+    "when tasks depend on each other's results",
+    "when independent tasks can run concurrently",
+    "when you need threads",
+    "when the function is not async"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "gather overlaps independent work and returns all results together.",
+    "hi": "gather स्वतंत्र काम एक साथ चलाता है और सारे परिणाम एक साथ देता है।",
+    "hinglish": "gather independent kaam ek saath chalata hai aur saare results ek saath deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s04",
+   "question": {
+    "en": "What does DictReader use as field names?",
+    "hi": "DictReader फ़ील्ड नाम किससे लेता है?",
+    "hinglish": "DictReader field naam kis se leta hai?"
+   },
+   "options": [
+    "the first data row",
+    "the first row of the file",
+    "a schema argument",
+    "the file name"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The header row becomes the keys of every later row.",
+    "hi": "हेडर पंक्ति बाद की हर पंक्ति की कुंजियाँ बनती है।",
+    "hinglish": "Header row baad ki har row ki keys banti hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s05",
+   "question": {
+    "en": "Why not split CSV lines on \",\" by hand?",
+    "hi": "CSV पंक्तियों को हाथ से \",\" पर क्यों नहीं तोड़ें?",
+    "hinglish": "CSV lines ko haath se \",\" par kyun na todein?"
+   },
+   "options": [
+    "it is slower",
+    "quoted values may contain commas and line breaks",
+    "Python forbids it",
+    "it loses the header"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Quoting rules are the whole reason the csv module exists.",
+    "hi": "कोटेशन के नियम ही csv मॉड्यूल होने की पूरी वजह हैं।",
+    "hinglish": "Quoting ke niyam hi csv module hone ki poori wajah hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s06",
+   "question": {
+    "en": "What type is every value read by csv?",
+    "hi": "csv से पढ़ा हर मान किस प्रकार का होता है?",
+    "hinglish": "csv se padha har value kis prakar ka hota hai?"
+   },
+   "options": [
+    "int",
+    "str",
+    "float",
+    "it depends on the column"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Convert explicitly with int() or float() when you need numbers.",
+    "hi": "संख्याएँ चाहिए तो int() या float() से स्पष्ट रूप से बदलें।",
+    "hinglish": "Numbers chahiye to int() ya float() se saaf roop se badlo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s07",
+   "question": {
+    "en": "Which method names does unittest run automatically?",
+    "hi": "unittest कौन से मेथड नाम अपने आप चलाता है?",
+    "hinglish": "unittest kaun se method naam apne aap chalata hai?"
+   },
+   "options": [
+    "any method",
+    "methods starting with test",
+    "methods ending with _test",
+    "only setUp"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The `test` prefix is the discovery rule.",
+    "hi": "`test` उपसर्ग ही खोज का नियम है।",
+    "hinglish": "`test` prefix hi khoj ka niyam hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s08",
+   "question": {
+    "en": "Why write a test for the error path?",
+    "hi": "एरर वाले रास्ते का टेस्ट क्यों लिखें?",
+    "hinglish": "Error wale raaste ka test kyun likhein?"
+   },
+   "options": [
+    "to increase the line count",
+    "to prove the code fails in the intended way, not accidentally",
+    "because unittest requires it",
+    "to make the code faster"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "assertRaises documents and locks the contract for bad input.",
+    "hi": "assertRaises गलत इनपुट के समझौते को लिखता और तय करता है।",
+    "hinglish": "assertRaises galat input ke contract ko likhta aur tay karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s09",
+   "question": {
+    "en": "Which pair loads and runs a TestCase explicitly?",
+    "hi": "कौन सा जोड़ा TestCase को स्पष्ट रूप से लोड और चलाता है?",
+    "hinglish": "Kaun sa joda TestCase ko saaf roop se load aur chalata hai?"
+   },
+   "options": [
+    "loadTestsFromTestCase + TextTestRunner",
+    "TestCase + assertEqual",
+    "unittest.main + argv",
+    "setUp + tearDown"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "The loader builds a suite from the class; the runner executes it. This works the same in a notebook and in a file.",
+    "hi": "लोडर क्लास से सूट बनाता है; रनर उसे चलाता है। यह नोटबुक और फ़ाइल दोनों में वैसे ही चलता है।",
+    "hinglish": "Loader class se suite banata hai; runner use chalata hai. Ye notebook aur file dono me waise hi chalta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s10",
+   "question": {
+    "en": "Which pair saves a dataclass as JSON?",
+    "hi": "डेटाक्लास को JSON में कौन सा जोड़ा सहेजता है?",
+    "hinglish": "Dataclass ko JSON me kaun sa joda save karta hai?"
+   },
+   "options": [
+    "str() and eval()",
+    "asdict() and json.dumps()",
+    "repr() and print()",
+    "pickle and csv"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "asdict gives a plain dict, json.dumps gives text.",
+    "hi": "asdict सादा dict देता है, json.dumps टेक्स्ट।",
+    "hinglish": "asdict saada dict deta hai, json.dumps text."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s11",
+   "question": {
+    "en": "Why keep expenses in a list of dicts instead of separate variables?",
+    "hi": "खर्चों को अलग वेरिएबल की जगह dict की सूची में क्यों रखें?",
+    "hinglish": "Khrchon ko alag variable ki jagah dict ki list me kyun rakhein?"
+   },
+   "options": [
+    "it uses less memory",
+    "loops, sum and json all work on a collection without new code",
+    "dicts are faster than ints",
+    "separate variables cannot be printed"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A collection scales from two rows to two thousand with no code change.",
+    "hi": "संग्रह दो पंक्तियों से दो हज़ार तक बिना कोड बदले चलता है।",
+    "hinglish": "Collection do rows se do hazaar tak bina code badle chalta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s12",
+   "question": {
+    "en": "What does `max(rows, key=lambda r: r[\"amount\"])` return?",
+    "hi": "`max(rows, key=lambda r: r[\"amount\"])` क्या लौटाता है?",
+    "hinglish": "`max(rows, key=lambda r: r[\"amount\"])` kya return karta hai?"
+   },
+   "options": [
+    "the largest number",
+    "the whole row with the largest amount",
+    "the index",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "max returns the item, not the key value. Add [\"title\"] to get just the name.",
+    "hi": "max आइटम लौटाता है, कुंजी का मान नहीं। सिर्फ़ नाम के लिए [\"title\"] जोड़ें।",
+    "hinglish": "max item return karta hai, key ki value nahi. Sirf naam ke liye [\"title\"] jodo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s13",
+   "question": {
+    "en": "What does async def create?",
+    "hi": "async def क्या बनाता है?",
+    "hinglish": "async def kya banata hai?"
+   },
+   "options": [
+    "a thread",
+    "a coroutine function",
+    "a generator only",
+    "a class"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Calling it returns a coroutine object to await.",
+    "hi": "बुलाने पर await करने लायक कोरूटीन ऑब्जेक्ट मिलता है।",
+    "hinglish": "Bulane par await karne layak coroutine object milta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s14",
+   "question": {
+    "en": "Which reader gives named columns?",
+    "hi": "कौन नाम वाले कॉलम देता है?",
+    "hinglish": "Kaun naam wale columns deta hai?"
+   },
+   "options": [
+    "csv.reader",
+    "csv.DictReader",
+    "csv.writer",
+    "csv.Sniffer"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "DictReader maps the header row to keys.",
+    "hi": "DictReader हेडर पंक्ति को कुंजियाँ बनाता है।",
+    "hinglish": "DictReader header row ko keys banata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s15",
+   "question": {
+    "en": "Which assertion checks that a call raises?",
+    "hi": "कौन सा assertion जाँचता है कि कॉल एरर देती है?",
+    "hinglish": "Kaun sa assertion jaanchta hai ki call error deti hai?"
+   },
+   "options": [
+    "assertEqual",
+    "assertRaises",
+    "assertTrue",
+    "assertIn"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Use it as a context manager around the failing call.",
+    "hi": "इसे विफल होने वाली कॉल के चारों ओर कॉन्टेक्स्ट मैनेजर की तरह इस्तेमाल करें।",
+    "hinglish": "Ise fail hone wali call ke chaaron or context manager ki tarah use karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s16",
+   "question": {
+    "en": "Which pair runs a TestCase without unittest.main?",
+    "hi": "unittest.main के बिना TestCase कौन सा जोड़ा चलाता है?",
+    "hinglish": "unittest.main ke bina TestCase kaun sa joda chalata hai?"
+   },
+   "options": [
+    "loadTestsFromTestCase + TextTestRunner",
+    "assertEqual + setUp",
+    "TestCase + main",
+    "csv + json"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Loader then runner: explicit and notebook-safe.",
+    "hi": "पहले लोडर फिर रनर: स्पष्ट और नोटबुक-सुरक्षित।",
+    "hinglish": "Pehle loader phir runner: saaf aur notebook-safe."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s17",
+   "question": {
+    "en": "Which converts a dataclass to a dict?",
+    "hi": "डेटाक्लास को dict में कौन बदलता है?",
+    "hinglish": "Dataclass ko dict me kaun badalta hai?"
+   },
+   "options": [
+    "dataclasses.asdict",
+    "dict(obj)",
+    "obj.dict()",
+    "json.loads(obj)"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "asdict recurses into nested dataclasses too.",
+    "hi": "asdict नेस्टेड डेटाक्लास में भी जाता है।",
+    "hinglish": "asdict nested dataclasses me bhi jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m12s18",
+   "question": {
+    "en": "When is gather the right call?",
+    "hi": "gather कब सही कॉल है?",
+    "hinglish": "gather kab sahi call hai?"
+   },
+   "options": [
+    "when each step needs the previous result",
+    "when independent coroutines can overlap",
+    "when you want threads",
+    "when there is one coroutine"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Independent work overlaps; dependent work awaits in order.",
+    "hi": "स्वतंत्र काम साथ चलता है; निर्भर काम क्रम में await होता है।",
+    "hinglish": "Independent kaam saath chalta hai; dependent kaam kram me await hota hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "🚀"
+}

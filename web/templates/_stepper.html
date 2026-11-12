@@ -1,0 +1,29 @@
+{# Shared stepper markup. Expects an Alpine scope exposing: lines, steps, step,
+   vars, out, index, playing, prev(), next(), toggle(), stop(). #}
+<div class="stepper-grid">
+  <div class="step-code">
+    <template x-for="(line, i) in lines" :key="i">
+      <div class="line" :class="{ on: step.line === i + 1 }">
+        <span class="no" x-text="i + 1"></span><span class="tx" x-text="line || ' '"></span>
+      </div>
+    </template>
+  </div>
+  <div class="step-side">
+    <h4>Variables</h4>
+    <div class="vars">
+      <template x-for="v in vars" :key="v.name">
+        <div class="var-row"><span class="k" x-text="v.name"></span><span class="val" x-text="v.value"></span></div>
+      </template>
+      <p class="empty" x-show="!vars.length">no variables yet</p>
+    </div>
+    <h4>Output so far</h4>
+    <pre class="step-out" x-text="out || '—'"></pre>
+  </div>
+</div>
+<div class="step-controls">
+  <button class="btn tiny ghost" type="button" @click="prev()" aria-label="Previous line">◀</button>
+  <button class="btn tiny ghost" type="button" @click="toggle()" x-text="playing ? '⏸' : '▶'"></button>
+  <button class="btn tiny ghost" type="button" @click="next()" aria-label="Next line">▶</button>
+  <input type="range" min="0" :max="steps.length - 1" x-model.number="index" @input="stop()">
+  <span class="count" x-text="(index + 1) + ' / ' + steps.length"></span>
+</div>

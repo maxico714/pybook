@@ -1,0 +1,12 @@
+# Local database, generated secret and Python caches: never published.
+pybook.db
+pybook.db*
+*.bak
+instance/
+*.pyc
+__pycache__/
+.pytest_cache/
+.env
+
+# Generated artifacts that a checkout can rebuild.
+pybook_bundle.zip

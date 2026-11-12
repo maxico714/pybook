@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="{{ 'hi' if lang == 'hi' else 'en' }}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="csrf-token" content="{{ csrf }}">
+  <title>{% block title %}PyBook — learn Python by doing{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/codemirror.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/cm-theme.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/prism.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body class="{{ '' if learner else 'no-rail' }}">
+
+<div class="app">
+  {% if learner %}
+  <aside class="rail" id="rail">
+    <a class="rail-brand" href="{{ url_for('learn') }}">
+      <span class="brand-mark">🐍</span>
+      <span>PyBook</span>
+    </a>
+
+    {% if courses|length > 1 %}
+    <div class="rail-course">
+      <label class="rail-label" for="course-switch">Course</label>
+      <select id="course-switch" class="lang" data-course-switch aria-label="Switch course">
+        {% for item in courses %}
+          <option value="{{ item.id }}" {{ 'selected' if item.id == course.id }}>{{ t(item.title) }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+
+    <div class="rail-card">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 44 44" class="ring" aria-hidden="true">
+          <circle cx="22" cy="22" r="18" class="ring-bg"></circle>
+          <circle cx="22" cy="22" r="18" class="ring-fg"
+                  style="stroke-dasharray: {{ (summary.percent * 1.131)|round(1) }} 113.1"></circle>
+        </svg>
+        <span class="ring-num">{{ summary.percent }}<small>%</small></span>
+      </div>
+      <div class="rail-card-body">
+        <p class="rail-card-title">{{ summary.lessons_done }} / {{ summary.lessons_total }} lessons</p>
+        <p class="rail-card-sub">{{ summary.modules_done }} of {{ summary.modules_total }} modules passed</p>
+      </div>
+    </div>
+
+    <nav class="trail" aria-label="Course path">
+      <p class="rail-label">Your path</p>
+      <ol>
+        {% for node in trail %}
+          <li class="trail-item {{ 'done' if node.passed }} {{ 'locked' if not node.unlocked }} {{ 'current' if node.current }}">
+            <a href="{{ url_for('learn') }}#{{ node.id }}" class="trail-link">
+              <span class="node">
+                {% if node.passed %}✓{% elif not node.unlocked %}🔒{% else %}{{ node.icon }}{% endif %}
+              </span>
+              <span class="trail-text">
+                <span class="trail-name">{{ node.title }}</span>
+                <span class="trail-meta">{{ node.done }}/{{ node.total }}</span>
+              </span>
+              <span class="trail-bar"><i style="width: {{ node.percent }}%"></i></span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </nav>
+
+    <div class="rail-foot">
+      <button class="icon-btn" data-theme-toggle title="Switch theme" aria-label="Switch theme">◐</button>
+      <button class="icon-btn" data-open-palette title="Search (Ctrl+K)" aria-label="Search">⌕</button>
+      <a class="icon-btn" href="{{ url_for('playground') }}" title="Playground">⌨</a>
+      <a class="icon-btn" href="{{ url_for('progress_page') }}" title="Progress">▤</a>
+      {% if learner.role == 'admin' %}
+        <a class="icon-btn admin-dot" href="{{ url_for('admin.dashboard') }}" title="Admin panel">⚙</a>
+      {% endif %}
+    </div>
+  </aside>
+  {% endif %}
+
+  <div class="content">
+    <header class="topbar">
+      {% if learner %}
+        <button class="icon-btn rail-toggle" data-rail-toggle aria-label="Toggle sidebar">☰</button>
+      {% else %}
+        <a class="rail-brand inline" href="{{ url_for('index') }}"><span class="brand-mark">🐍</span> PyBook</a>
+      {% endif %}
+      <div class="top-crumbs">{% block crumbs %}{% endblock %}</div>
+      <div class="top-actions">
+        {% if learner %}
+          <button class="search-btn" data-open-palette>
+            <span>Search lessons</span><kbd>Ctrl K</kbd>
+          </button>
+          <select id="language" class="lang" aria-label="Explanation language">
+            {% for code in languages %}
+              <option value="{{ code }}" {{ 'selected' if code == lang }}>{{ {'en': 'English', 'hi': 'हिन्दी', 'hinglish': 'Hinglish'}[code] }}</option>
+            {% endfor %}
+          </select>
+          <details class="account">
+            <summary class="account-btn" aria-label="Account menu">
+              <span class="avatar">{{ learner.name[:1]|upper }}</span>
+              <span class="account-name">{{ learner.name.split(' ')[0] }}</span>
+              <span aria-hidden="true">▾</span>
+            </summary>
+            <div class="account-menu">
+              <p class="account-email">{{ learner.email }}</p>
+              <p class="account-role">{{ 'Admin' if learner.role == 'admin' else 'Learner' }} · {{ t(course.title) }}</p>
+              <a href="{{ url_for('progress_page') }}">My progress</a>
+              <a href="{{ url_for('playground') }}">Playground</a>
+              <a href="{{ url_for('index') }}">Courses &amp; home</a>
+              {% if learner.role == 'admin' %}
+                <a href="{{ url_for('admin.dashboard') }}">Admin panel
+                  {% if pending_count %}<span class="badge lock">{{ pending_count }}</span>{% endif %}
+                </a>
+              {% endif %}
+              <form method="post" action="{{ url_for('logout') }}">
+                <input type="hidden" name="csrf" value="{{ csrf }}">
+                <button type="submit" class="link-btn">Sign out</button>
+              </form>
+            </div>
+          </details>
+        {% else %}
+          <a class="btn ghost" href="{{ url_for('login') }}">Log in</a>
+          <a class="btn primary" href="{{ url_for('signup') }}">Create account</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="page">
+      {% if flashes %}
+        <div class="flashes" role="status">
+          {% for category, message in flashes %}
+            <p class="flash {{ category }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block body %}{% endblock %}
+    </main>
+
+    <footer class="foot">
+      Runs on your machine · accounts approved by the admin · every asset is served locally · progress in one SQLite file
+    </footer>
+  </div>
+</div>
+
+{% if learner %}
+<!-- command palette -->
+<div class="palette" id="palette" hidden>
+  <div class="palette-panel" role="dialog" aria-modal="true" aria-label="Search lessons">
+    <div class="palette-input">
+      <span>⌕</span>
+      <input type="text" id="palette-q" placeholder="Jump to a lesson you have unlocked…" autocomplete="off">
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="palette-list" id="palette-list"></ul>
+    <p class="palette-foot">Only unlocked lessons can be opened — that is the whole point.</p>
+  </div>
+</div>
+{% endif %}
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+{% if learner %}
+  <script type="application/json" id="nav-data">{{ nav_lessons|tojson }}</script>
+{% endif %}
+
+<script src="{{ url_for('static', filename='vendor/gsap.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/prism.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/prism-python.min.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/codemirror.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/cm-python.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/cm-closebrackets.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/cm-matchbrackets.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/cm-activeline.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/confetti.js') }}" defer></script>
+{% block vendor %}{% endblock %}
+<script src="{{ url_for('static', filename='app.js') }}" defer></script>
+<script src="{{ url_for('static', filename='vendor/alpine.min.js') }}" defer></script>
+{% block script %}{% endblock %}
+</body>
+</html>

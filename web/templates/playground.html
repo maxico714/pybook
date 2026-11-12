@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Playground — PyBook{% endblock %}
+{% block crumbs %}<span>Playground</span>{% endblock %}
+
+{% block body %}
+<header class="page-head">
+  <div>
+    <h1>Playground</h1>
+    <p class="muted">Nothing here is graded. Run anything, break anything, press Run again.</p>
+  </div>
+</header>
+
+<section class="block" x-data="playground">
+  <div class="snippets">
+    <span class="tiny muted">Try:</span>
+    <button class="chip" type="button" data-snippet="loop">loop</button>
+    <button class="chip" type="button" data-snippet="dict">dict</button>
+    <button class="chip" type="button" data-snippet="func">function</button>
+    <button class="chip" type="button" data-snippet="class">class</button>
+    <button class="chip" type="button" data-snippet="try">try/except</button>
+  </div>
+
+  <textarea class="editor big" id="play-code" spellcheck="false" rows="16" aria-label="Code"># try something
+for word in ["chai", "code", "repeat"]:
+    print(word * 2)</textarea>
+
+  <div class="row">
+    <button class="btn primary" type="button" data-play-run @click="run()" :disabled="busy">
+      <span x-show="!busy">▶ Run</span><span x-show="busy">Running…</span>
+    </button>
+    <button class="btn ghost" type="button" @click="trace()" :disabled="busy">⏭ Step through</button>
+    <button class="btn ghost" type="button" @click="clear()">Clear</button>
+    <span class="tiny muted">Ctrl+Enter runs</span>
+  </div>
+
+  <div class="console" x-show="ran" x-cloak :class="{ err: !ok }">
+    <div class="console-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="console-title" x-text="ok ? 'output' : 'error'"></span>
+    </div>
+    <pre x-text="display"></pre>
+  </div>
+
+  <div class="stepper" x-show="steps.length" x-cloak>
+    {% include "_stepper.html" %}
+  </div>
+</section>
+
+<section class="block">
+  <h2>What you can use</h2>
+  <p class="muted small">
+    Standard library only, from a fixed list. No files, no network, no <code>input()</code>,
+    and every run stops after 5 seconds.
+  </p>
+  <p class="chips">{% for name in modules %}<code>{{ name }}</code>{% endfor %}</p>
+</section>
+{% endblock %}

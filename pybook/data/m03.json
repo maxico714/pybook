@@ -1,0 +1,1324 @@
+{
+ "id": "m03",
+ "title": {
+  "en": "Decisions and Loops",
+  "hi": "फ़ैसले और लूप",
+  "hinglish": "Decisions aur Loops"
+ },
+ "goal": {
+  "en": "Make the program choose with if/elif/else and match, then repeat work with while and for — including the three statements that change how a loop ends.",
+  "hi": "if/elif/else और match से प्रोग्राम को चुनने दें, फिर while और for से काम दोहराएँ — उन तीन स्टेटमेंट के साथ जो लूप का अंत बदलते हैं।",
+  "hinglish": "if/elif/else aur match se program ko choose karne do, phir while aur for se kaam dohrao - un teen statements ke saath jo loop ka end badalte hain."
+ },
+ "chapters": [
+  {
+   "id": "m03c01",
+   "title": {
+    "en": "Branching",
+    "hi": "शाखाएँ",
+    "hinglish": "Branching"
+   },
+   "lessons": [
+    {
+     "id": "m03c01l01",
+     "title": {
+      "en": "if, elif, else",
+      "hi": "if, elif, else",
+      "hinglish": "if, elif, else"
+     },
+     "keywords": [
+      "if",
+      "elif",
+      "else"
+     ],
+     "intro": {
+      "en": "An if statement runs a block only when its condition is true. elif adds another question, and else catches everything left over. Exactly one branch of a chain runs.",
+      "hi": "if ब्लॉक तभी चलता है जब उसकी शर्त सच हो। elif दूसरा सवाल जोड़ता है, और else बाकी सब पकड़ लेता है। चेन में ठीक एक शाखा चलती है।",
+      "hinglish": "if block tabhi chalta hai jab uski condition sach ho. elif doosra sawaal jodta hai, aur else baaki sab pakad leta hai. Chain me exactly ek branch chalti hai."
+     },
+     "real_life": {
+      "en": "Grading a paper: 90+ is A, 70+ is B, 50+ is C, anything lower is \"try again\". Python checks from the top and stops at the first true condition, so the order of the questions matters.",
+      "hi": "पेपर जाँचना: 90+ पर A, 70+ पर B, 50+ पर C, उससे कम पर \"फिर कोशिश करो\"। पायथन ऊपर से जाँचता है और पहली सच शर्त पर रुक जाता है, इसलिए सवालों का क्रम मायने रखता है।",
+      "hinglish": "Paper check karna: 90+ par A, 70+ par B, 50+ par C, usse kam par \"phir koshish karo\". Python upar se check karta hai aur pehli true condition par ruk jata hai, isliye sawaalon ka order matter karta hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#if-statements",
+     "visual": "if_flow",
+     "examples": [
+      {
+       "title": {
+        "en": "a grading chain",
+        "hi": "ग्रेडिंग चेन",
+        "hinglish": "grading chain"
+       },
+       "code": "marks = 72\nif marks >= 90:\n    print(\"A\")\nelif marks >= 70:\n    print(\"B\")\nelif marks >= 50:\n    print(\"C\")\nelse:\n    print(\"Try again\")",
+       "output": "B",
+       "note": {
+        "en": "Only 'B' prints. Once a branch runs, the rest of the chain is skipped.",
+        "hi": "सिर्फ़ 'B' प्रिंट होता है। एक शाखा चलने पर बाकी चेन छोड़ दी जाती है।",
+        "hinglish": "Sirf 'B' print hota hai. Ek branch chalne par baaki chain chhod di jati hai."
+       }
+      },
+      {
+       "title": {
+        "en": "truthiness and a one-line if",
+        "hi": "सत्यता और एक-लाइन if",
+        "hinglish": "truthiness aur one-line if"
+       },
+       "code": "items = []\nif items:\n    print(\"we have items\")\nelse:\n    print(\"empty cart\")\n\nname = \"\"\nprint(\"guest\" if not name else name)",
+       "output": "empty cart\nguest",
+       "note": {
+        "en": "`a if condition else b` picks one of two values without a full block.",
+        "hi": "`a if condition else b` पूरे ब्लॉक के बिना दो में से एक वैल्यू चुनता है।",
+        "hinglish": "`a if condition else b` poore block ke bina do me se ek value chunta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m03c01l01e1",
+       "prompt": {
+        "en": "Print 'positive', 'negative' or 'zero' for n = -4. Use if/elif/else.",
+        "hi": "n = -4 के लिए 'positive', 'negative' या 'zero' प्रिंट करें। if/elif/else इस्तेमाल करें।",
+        "hinglish": "n = -4 ke liye 'positive', 'negative' ya 'zero' print karo. if/elif/else use karo."
+       },
+       "starter": "n = -4\n# if ...",
+       "solution": "n = -4\nif n > 0:\n    print(\"positive\")\nelif n < 0:\n    print(\"negative\")\nelse:\n    print(\"zero\")",
+       "checks": [
+        "printed.strip() == \"negative\""
+       ],
+       "hint": {
+        "en": "Three cases: greater than 0, less than 0, and neither.",
+        "hi": "तीन केस: 0 से बड़ा, 0 से छोटा, और न तो।",
+        "hinglish": "Teen cases: 0 se bada, 0 se chhota, aur na to."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m03c01l01q1",
+       "question": {
+        "en": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). What prints?",
+        "hi": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small')। क्या प्रिंट होगा?",
+        "hinglish": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). Kya print hoga?"
+       },
+       "options": [
+        "big",
+        "medium",
+        "small",
+        "nothing"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "5 > 10 is false, so Python tries the elif. 5 > 3 is true, so it prints 'medium' and skips the else.",
+        "hi": "5 > 10 गलत है, इसलिए पायथन elif आज़माता है। 5 > 3 सही है, इसलिए 'medium' प्रिंट होता है और else छूट जाता है।",
+        "hinglish": "5 > 10 false hai, isliye Python elif try karta hai. 5 > 3 true hai, isliye 'medium' print hota hai aur else chhoot jata hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c01l01q2",
+       "question": {
+        "en": "Why does this print nothing? if 0: print('yes')",
+        "hi": "यह कुछ क्यों नहीं प्रिंट करता? if 0: print('yes')",
+        "hinglish": "Ye kuch kyun nahi print karta? if 0: print('yes')"
+       },
+       "options": [
+        "because 0 is falsy",
+        "because 0 is not a number",
+        "because print is misspelled",
+        "it does print yes"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "if does not require True: any value is tested for truthiness. 0, 0.0, '', [], {} and None are all falsy.",
+        "hi": "if को True नहीं चाहिए: हर वैल्यू की सत्यता जाँची जाती है। 0, 0.0, '', [], {} और None सब falsy हैं।",
+        "hinglish": "if ko True nahi chahiye: har value ki truthiness check hoti hai. 0, 0.0, '', [], {} aur None sab falsy hain."
+       },
+       "misconception": "truthiness"
+      },
+      {
+       "id": "m03c01l01q3",
+       "question": {
+        "en": "What is wrong with: if x = 5: print('five')",
+        "hi": "इसमें क्या गलत है: if x = 5: print('five')",
+        "hinglish": "Isme kya galat hai: if x = 5: print('five')"
+       },
+       "options": [
+        "nothing, it prints five",
+        "assignment needs == for comparison",
+        "print cannot be inside if",
+        "5 must be quoted"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A single = assigns, so the condition has no value to test. Python raises a SyntaxError and points at the =.",
+        "hi": "अकेला = असाइन करता है, इसलिए शर्त के पास जाँचने को वैल्यू नहीं होती। पायथन SyntaxError देता है और = की ओर इशारा करता है।",
+        "hinglish": "Akela = assign karta hai, isliye condition ke paas check karne ko value nahi hoti. Python SyntaxError deta hai aur = ki taraf ishara karta hai."
+       },
+       "misconception": "assign-vs-compare"
+      }
+     ],
+     "takeaway": {
+      "en": "First true branch wins; else is optional; any value can be a condition.",
+      "hi": "पहली सच शाखा जीतती है; else वैकल्पिक है; कोई भी वैल्यू शर्त बन सकती है।",
+      "hinglish": "Pehli true branch jeetti hai; else optional hai; koi bhi value condition ban sakti hai."
+     }
+    },
+    {
+     "id": "m03c01l02",
+     "title": {
+      "en": "match and case",
+      "hi": "match और case",
+      "hinglish": "match aur case"
+     },
+     "keywords": [
+      "match",
+      "case",
+      "_"
+     ],
+     "intro": {
+      "en": "match compares one value against several patterns and runs the first one that fits. It is not a switch statement: patterns can unpack tuples, check types and bind names.",
+      "hi": "match एक वैल्यू की कई पैटर्न से तुलना करता है और पहला मेल खाने वाला चलाता है। यह switch नहीं है: पैटर्न ट्यूपल खोल सकते हैं, टाइप जाँच सकते हैं और नाम बाँध सकते हैं।",
+      "hinglish": "match ek value ki kai patterns se tulna karta hai aur pehla match chalata hai. Ye switch nahi hai: patterns tuple khol sakte hain, type check kar sakte hain aur naam bind kar sakte hain."
+     },
+     "real_life": {
+      "en": "A TV remote has a few buttons. Press \"start\" it plays, \"stop\" it stops, anything else shows \"unknown button\". match is exactly that: one value, a list of shapes it might have, one action each.",
+      "hi": "टीवी रिमोट में कुछ बटन हैं। \"start\" दबाओ तो चलता है, \"stop\" दबाओ तो रुकता है, बाकी कुछ भी दबाओ तो \"unknown button\"। match ठीक यही है: एक वैल्यू, उसके संभावित रूपों की लिस्ट, हर एक के लिए एक काम।",
+      "hinglish": "TV remote me kuch buttons hain. \"start\" dabao to chalta hai, \"stop\" dabao to rukta hai, baaki kuch bhi dabao to \"unknown button\". match exactly yahi hai: ek value, uske possible shapes ki list, har ek ke liye ek kaam."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#match-statements",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "matching text",
+        "hi": "टेक्स्ट मैच करना",
+        "hinglish": "text match karna"
+       },
+       "code": "command = \"start\"\nmatch command:\n    case \"start\":\n        print(\"Starting...\")\n    case \"stop\":\n        print(\"Stopping.\")\n    case _:\n        print(\"Unknown command\")",
+       "output": "Starting...",
+       "note": {
+        "en": "case _ is the catch-all. Without it, an unmatched value simply does nothing.",
+        "hi": "case _ सब कुछ पकड़ता है। इसके बिना बिना-मेल वैल्यू पर कुछ नहीं होता।",
+        "hinglish": "case _ sab kuch pakadta hai. Iske bina unmatched value par kuch nahi hota."
+       }
+      },
+      {
+       "title": {
+        "en": "unpacking a tuple pattern",
+        "hi": "ट्यूपल पैटर्न खोलना",
+        "hinglish": "tuple pattern kholna"
+       },
+       "code": "point = (0, 5)\nmatch point:\n    case (0, 0):\n        print(\"origin\")\n    case (0, y):\n        print(f\"on y axis at {y}\")\n    case (x, 0):\n        print(f\"on x axis at {x}\")\n    case _:\n        print(\"somewhere else\")",
+       "output": "on y axis at 5",
+       "note": {
+        "en": "The pattern (0, y) both tests the first item and binds the second to the name y.",
+        "hi": "पैटर्न (0, y) पहला आइटम जाँचता है और दूसरे को नाम y से बाँधता है।",
+        "hinglish": "Pattern (0, y) pehla item check karta hai aur doosre ko naam y se bind karta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m03c01l02e1",
+       "prompt": {
+        "en": "Use match on `status = 404` to print 'not found' for 404, 'ok' for 200, and 'other' otherwise.",
+        "hi": "`status = 404` पर match इस्तेमाल करें: 404 पर 'not found', 200 पर 'ok', बाकी पर 'other' प्रिंट करें।",
+        "hinglish": "`status = 404` par match use karo: 404 par 'not found', 200 par 'ok', baaki par 'other' print karo."
+       },
+       "starter": "status = 404\n# match status:",
+       "solution": "status = 404\nmatch status:\n    case 200:\n        print(\"ok\")\n    case 404:\n        print(\"not found\")\n    case _:\n        print(\"other\")",
+       "checks": [
+        "printed.strip() == \"not found\""
+       ],
+       "hint": {
+        "en": "Numbers match by value, exactly like strings.",
+        "hi": "नंबर वैल्यू से मैच करते हैं, स्ट्रिंग की तरह।",
+        "hinglish": "Numbers value se match karte hain, string ki tarah."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m03c01l02q1",
+       "question": {
+        "en": "Which version of Python added match?",
+        "hi": "match किस पायथन संस्करण में आया?",
+        "hinglish": "match kis Python version me aaya?"
+       },
+       "options": [
+        "3.8",
+        "3.10",
+        "3.12",
+        "2.7"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "match/case arrived in 3.10. On older versions it is a SyntaxError, which is worth knowing when you share code.",
+        "hi": "match/case 3.10 में आया। पुराने संस्करणों पर यह SyntaxError है, जो कोड साझा करते समय जानना ज़रूरी है।",
+        "hinglish": "match/case 3.10 me aaya. Purane versions par ye SyntaxError hai, jo code share karte samay jaanna zaroori hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c01l02q2",
+       "question": {
+        "en": "What happens if no case matches and there is no case _?",
+        "hi": "अगर कोई case मेल न खाए और case _ भी न हो तो?",
+        "hinglish": "Agar koi case match na kare aur case _ bhi na ho to?"
+       },
+       "options": [
+        "an error is raised",
+        "nothing happens",
+        "the first case runs",
+        "None is returned"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "match with no matching case does nothing at all — it is not like an if chain without else, and it raises nothing.",
+        "hi": "बिना मेल वाले case पर match कुछ नहीं करता — यह बिना else वाली if चेन जैसा नहीं है, और कोई एरर नहीं देता।",
+        "hinglish": "Bina match wale case par match kuch nahi karta - ye bina else wali if chain jaisa nahi hai, aur koi error nahi deta."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c01l02q3",
+       "question": {
+        "en": "In `case (0, y):`, what is y?",
+        "hi": "`case (0, y):` में y क्या है?",
+        "hinglish": "`case (0, y):` me y kya hai?"
+       },
+       "options": [
+        "a constant that must equal 'y'",
+        "a name bound to the second item of the tuple",
+        "a syntax error",
+        "the number of items"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A bare name in a pattern captures. A name with a dot (like Colour.RED) is compared as a value instead.",
+        "hi": "पैटर्न में सादा नाम कैप्चर करता है। डॉट वाला नाम (जैसे Colour.RED) वैल्यू की तरह तुलना होता है।",
+        "hinglish": "Pattern me saada naam capture karta hai. Dot wala naam (jaise Colour.RED) value ki tarah compare hota hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "match picks the first fitting pattern; case _ is the safe catch-all.",
+      "hi": "match पहला फ़िटिंग पैटर्न चुनता है; case _ सुरक्षित कैच-ऑल है।",
+      "hinglish": "match pehla fitting pattern chunta hai; case _ safe catch-all hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m03c02",
+   "title": {
+    "en": "Loops",
+    "hi": "लूप",
+    "hinglish": "Loops"
+   },
+   "lessons": [
+    {
+     "id": "m03c02l03",
+     "title": {
+      "en": "while, break, continue, pass",
+      "hi": "while, break, continue, pass",
+      "hinglish": "while, break, continue, pass"
+     },
+     "keywords": [
+      "while",
+      "break",
+      "continue",
+      "pass"
+     ],
+     "intro": {
+      "en": "while repeats a block as long as its condition stays true. break leaves the loop immediately, continue jumps to the next round, and pass is a do-nothing placeholder that keeps the syntax valid.",
+      "hi": "while तब तक ब्लॉक दोहराता है जब तक शर्त सच रहे। break लूप से तुरंत बाहर निकलता है, continue अगले चक्कर पर कूदता है, और pass कुछ न करने वाला प्लेसहोल्डर है जो सिंटैक्स सही रखता है।",
+      "hinglish": "while tab tak block dohrata hai jab tak condition sach rahe. break loop se turant bahar nikalta hai, continue agle chakkar par koodta hai, aur pass kuch na karne wala placeholder hai jo syntax sahi rakhta hai."
+     },
+     "real_life": {
+      "en": "A lift door: while someone is still walking in, keep the door open. If the door sensor breaks (break), stop waiting. If the person says \"not this lift\", skip them (continue) and keep waiting for others.",
+      "hi": "लिफ़्ट का दरवाज़ा: जब तक कोई अंदर आ रहा है, दरवाज़ा खुला रखो। अगर सेंसर ख़राब हो (break) तो इंतज़ार बंद। अगर कोई कहे \"यह लिफ़्ट नहीं\" (continue) तो उसे छोड़कर बाकी का इंतज़ार करो।",
+      "hinglish": "Lift ka darwaza: jab tak koi andar aa raha hai, darwaza khula rakho. Agar sensor kharab ho (break) to intezaar band. Agar koi kahe \"ye lift nahi\" (continue) to use chhodkar baaki ka intezaar karo."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements",
+     "visual": "loop_flow",
+     "examples": [
+      {
+       "title": {
+        "en": "counting down",
+        "hi": "उल्टी गिनती",
+        "hinglish": "ulti ginti"
+       },
+       "code": "n = 3\nwhile n > 0:\n    print(n)\n    n -= 1\nprint(\"liftoff\")",
+       "output": "3\n2\n1\nliftoff",
+       "note": {
+        "en": "Forgetting n -= 1 makes the condition true forever: an infinite loop.",
+        "hi": "n -= 1 भूलने पर शर्त हमेशा सच रहती है: अनंत लूप।",
+        "hinglish": "n -= 1 bhoolne par condition hamesha true rehti hai: infinite loop."
+       }
+      },
+      {
+       "title": {
+        "en": "continue then break",
+        "hi": "पहले continue फिर break",
+        "hinglish": "pehle continue phir break"
+       },
+       "code": "for n in range(1, 10):\n    if n == 3:\n        continue\n    if n == 6:\n        break\n    print(n)",
+       "output": "1\n2\n4\n5",
+       "note": {
+        "en": "3 is skipped by continue; 6 stops the loop before printing.",
+        "hi": "3 को continue छोड़ देता है; 6 प्रिंट होने से पहले लूप रोक देता है।",
+        "hinglish": "3 ko continue chhod deta hai; 6 print hone se pehle loop rok deta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m03c02l03e1",
+       "prompt": {
+        "en": "Print the numbers 1 to 5 using a while loop.",
+        "hi": "while लूप से 1 से 5 तक नंबर प्रिंट करें।",
+        "hinglish": "while loop se 1 se 5 tak numbers print karo."
+       },
+       "starter": "n = 1\n# while ...",
+       "solution": "n = 1\nwhile n <= 5:\n    print(n)\n    n += 1",
+       "checks": [
+        "printed.split() == [\"1\", \"2\", \"3\", \"4\", \"5\"]"
+       ],
+       "hint": {
+        "en": "Change the condition inside the loop, or it never ends.",
+        "hi": "लूप के अंदर शर्त बदलें, वरना वह कभी ख़त्म नहीं होगा।",
+        "hinglish": "Loop ke andar condition badlo, warna woh kabhi khatam nahi hoga."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m03c02l03q1",
+       "question": {
+        "en": "What is the main risk of a while loop?",
+        "hi": "while लूप का मुख्य ख़तरा क्या है?",
+        "hinglish": "while loop ka main khatra kya hai?"
+       },
+       "options": [
+        "it runs at most once",
+        "the condition may never become false",
+        "it cannot use break",
+        "it needs a list"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "If nothing inside the loop changes the condition, it runs forever. A for loop over a fixed sequence cannot do that.",
+        "hi": "अगर लूप के अंदर कुछ शर्त नहीं बदलता, तो वह हमेशा चलता है। तय सीक्वेंस वाला for लूप ऐसा नहीं कर सकता।",
+        "hinglish": "Agar loop ke andar kuch condition nahi badalta, to woh hamesha chalta hai. Fixed sequence wala for loop aisa nahi kar sakta."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c02l03q2",
+       "question": {
+        "en": "What does continue do?",
+        "hi": "continue क्या करता है?",
+        "hinglish": "continue kya karta hai?"
+       },
+       "options": [
+        "stops the loop entirely",
+        "skips the rest of this round and goes to the next",
+        "restarts the program",
+        "does nothing"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "continue jumps to the next iteration. break would leave the loop.",
+        "hi": "continue अगले चक्कर पर कूदता है। break लूप छोड़ देता है।",
+        "hinglish": "continue agle iteration par koodta hai. break loop chhod deta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c02l03q3",
+       "question": {
+        "en": "When is pass useful?",
+        "hi": "pass कब काम आता है?",
+        "hinglish": "pass kab kaam aata hai?"
+       },
+       "options": [
+        "to skip the rest of a loop",
+        "as a placeholder where a block is required but nothing should happen",
+        "to end the program",
+        "to return None"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Python needs at least one statement in every block. pass satisfies that while you are still writing the code.",
+        "hi": "पायथन को हर ब्लॉक में कम से कम एक स्टेटमेंट चाहिए। जब आप कोड लिख रहे हों, pass वह शर्त पूरी करता है।",
+        "hinglish": "Python ko har block me kam se kam ek statement chahiye. Jab aap code likh rahe ho, pass woh shart poori karta hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "while needs its condition to change; break exits, continue skips, pass waits.",
+      "hi": "while की शर्त बदलनी चाहिए; break बाहर, continue छोड़ता, pass रुकता है।",
+      "hinglish": "while ki condition badalni chahiye; break bahar, continue chhodta, pass rukta hai."
+     }
+    },
+    {
+     "id": "m03c02l04",
+     "title": {
+      "en": "for, range, enumerate, zip",
+      "hi": "for, range, enumerate, zip",
+      "hinglish": "for, range, enumerate, zip"
+     },
+     "keywords": [
+      "for",
+      "in"
+     ],
+     "intro": {
+      "en": "for walks over a sequence one item at a time. range() produces numbers without building a list, enumerate() adds a counter, and zip() walks two sequences side by side.",
+      "hi": "for सीक्वेंस पर एक-एक आइटम चलता है। range() बिना लिस्ट बनाए नंबर देता है, enumerate() काउंटर जोड़ता है, और zip() दो सीक्वेंस साथ-साथ चलाता है।",
+      "hinglish": "for sequence par ek-ek item chalta hai. range() bina list banaye numbers deta hai, enumerate() counter jodta hai, aur zip() do sequences saath-saath chalata hai."
+     },
+     "real_life": {
+      "en": "Checking attendance: go through the register name by name. enumerate is the roll number plus the name. zip is matching the name list with the marks list, line by line.",
+      "hi": "हाज़िरी जाँचना: रजिस्टर में नाम-दर-नाम जाओ। enumerate = रोल नंबर + नाम। zip = नाम की लिस्ट और नंबर की लिस्ट को लाइन-दर-लाइन मिलाना।",
+      "hinglish": "Attendance check karna: register me naam-dar-naam jao. enumerate = roll number + naam. zip = naam ki list aur marks ki list ko line-dar-line milana."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#for-statements",
+     "visual": "loop_flow",
+     "examples": [
+      {
+       "title": {
+        "en": "range with start, stop, step",
+        "hi": "range: शुरू, अंत, कदम",
+        "hinglish": "range: start, stop, step"
+       },
+       "code": "for i in range(3):\n    print(\"round\", i)\nprint(list(range(2, 10, 3)))",
+       "output": "round 0\nround 1\nround 2\n[2, 5, 8]",
+       "note": {
+        "en": "range(2, 10, 3) starts at 2 and adds 3 until it would reach 10, so it stops at 8.",
+        "hi": "range(2, 10, 3) 2 से शुरू होकर 3 जोड़ता है जब तक 10 तक पहुँचे, इसलिए 8 पर रुकता है।",
+        "hinglish": "range(2, 10, 3) 2 se shuru hokar 3 jodta hai jab tak 10 tak pahunche, isliye 8 par rukta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "two lists at once",
+        "hi": "एक साथ दो लिस्ट",
+        "hinglish": "ek saath do lists"
+       },
+       "code": "names = [\"Asha\", \"Ravi\"]\nscores = [91, 78]\nfor i, (name, score) in enumerate(zip(names, scores), start=1):\n    print(f\"{i}. {name}: {score}\")",
+       "output": "1. Asha: 91\n2. Ravi: 78",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m03c02l04e1",
+       "prompt": {
+        "en": "Print the squares of 1 to 5 using a for loop and range().",
+        "hi": "for लूप और range() से 1 से 5 तक के वर्ग प्रिंट करें।",
+        "hinglish": "for loop aur range() se 1 se 5 tak ke squares print karo."
+       },
+       "starter": "# for n in range(...):\n#     print(...)",
+       "solution": "for n in range(1, 6):\n    print(n * n)",
+       "checks": [
+        "printed.split() == [\"1\", \"4\", \"9\", \"16\", \"25\"]"
+       ],
+       "hint": {
+        "en": "range(1, 6) gives 1,2,3,4,5 — 6 is excluded.",
+        "hi": "range(1, 6) 1,2,3,4,5 देता है — 6 शामिल नहीं।",
+        "hinglish": "range(1, 6) 1,2,3,4,5 deta hai - 6 include nahi."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m03c02l04q1",
+       "question": {
+        "en": "What does list(range(3)) give?",
+        "hi": "list(range(3)) क्या देता है?",
+        "hinglish": "list(range(3)) kya deta hai?"
+       },
+       "options": [
+        "[1, 2, 3]",
+        "[0, 1, 2]",
+        "[0, 1, 2, 3]",
+        "[3]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "range starts at 0 by default and stops before the number you give. This off-by-one is the most common loop bug.",
+        "hi": "range डिफ़ॉल्ट 0 से शुरू होता है और दिए नंबर से पहले रुकता है। यह off-by-one सबसे आम लूप बग है।",
+        "hinglish": "range default 0 se shuru hota hai aur diye number se pehle rukta hai. Ye off-by-one sabse aam loop bug hai."
+       },
+       "misconception": "range-exclusive"
+      },
+      {
+       "id": "m03c02l04q2",
+       "question": {
+        "en": "What does zip(['a','b'], [1,2]) produce when looped?",
+        "hi": "zip(['a','b'], [1,2]) लूप में क्या देता है?",
+        "hinglish": "zip(['a','b'], [1,2]) loop me kya deta hai?"
+       },
+       "options": [
+        "['a', 1, 'b', 2]",
+        "('a', 1) then ('b', 2)",
+        "['ab', '12']",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "zip pairs items position by position and stops at the shorter sequence.",
+        "hi": "zip आइटम को जगह-दर-जगह जोड़ता है और छोटी सीक्वेंस पर रुक जाता है।",
+        "hinglish": "zip items ko position-dar-position jodta hai aur chhoti sequence par ruk jata hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c02l04q3",
+       "question": {
+        "en": "What is wrong here? for i in range(5): print(i) print('done')",
+        "hi": "यहाँ क्या गलत है? for i in range(5): print(i) print('done')",
+        "hinglish": "Yahan kya galat hai? for i in range(5): print(i) print('done')"
+       },
+       "options": [
+        "nothing, it works",
+        "the second print must be indented inside the loop or written on a new line",
+        "range cannot be used with print",
+        "i is undefined"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "On one line after the colon only one simple statement fits. The second statement needs a new line, and its indentation decides whether it is inside the loop.",
+        "hi": "कोलन के बाद एक ही लाइन में सिर्फ़ एक साधारण स्टेटमेंट आता है। दूसरे के लिए नई लाइन चाहिए, और इंडेंटेशन तय करता है कि वह लूप के अंदर है या नहीं।",
+        "hinglish": "Colon ke baad ek hi line me sirf ek simple statement aata hai. Doosre ke liye nayi line chahiye, aur indentation tay karta hai ki woh loop ke andar hai ya nahi."
+       },
+       "misconception": "indentation"
+      }
+     ],
+     "takeaway": {
+      "en": "range stops before its stop value; enumerate counts; zip pairs two sequences.",
+      "hi": "range अपनी अंत वैल्यू से पहले रुकता है; enumerate गिनता है; zip दो सीक्वेंस जोड़ता है।",
+      "hinglish": "range apni stop value se pehle rukta hai; enumerate ginta hai; zip do sequences jodta hai."
+     }
+    },
+    {
+     "id": "m03c02l05",
+     "title": {
+      "en": "Nested loops and loop else",
+      "hi": "नेस्टेड लूप और loop else",
+      "hinglish": "Nested loops aur loop else"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A loop inside a loop runs the inner loop completely for every single turn of the outer loop. A loop can also carry an else block, which runs only when the loop finished without hitting break.",
+      "hi": "लूप के अंदर लूप: बाहरी लूप के हर एक चक्कर के लिए अंदरूनी लूप पूरा चलता है। लूप के साथ else ब्लॉक भी हो सकता है, जो तभी चलता है जब लूप बिना break के पूरा हुआ हो।",
+      "hinglish": "Loop ke andar loop: bahari loop ke har ek chakkar ke liye andaruni loop poora chalta hai. Loop ke saath else block bhi ho sakta hai, jo tabhi chalta hai jab loop bina break ke poora hua ho."
+     },
+     "real_life": {
+      "en": "A cinema hall: for each row (outer), check each seat (inner). A timetable is the same shape — rows are days, columns are hours, and every cell is one meeting.",
+      "hi": "सिनेमा हॉल: हर पंक्ति (बाहरी) के लिए हर सीट (अंदरूनी) जाँचो। टाइमटेबल भी वही आकार है — पंक्तियाँ दिन, कॉलम घंटे, और हर सेल एक मीटिंग।",
+      "hinglish": "Cinema hall: har row (bahari) ke liye har seat (andaruni) check karo. Timetable bhi wahi shape hai - rows din, columns ghante, aur har cell ek meeting."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#else-clauses-on-loops",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "a multiplication table",
+        "hi": "पहाड़ा",
+        "hinglish": "pahada"
+       },
+       "code": "for row in range(1, 4):\n    for col in range(1, 4):\n        print(f\"{row * col:2}\", end=\"\")\n    print()",
+       "output": " 1 2 3\n 2 4 6\n 3 6 9",
+       "note": {
+        "en": "The inner print uses end=\"\" so nothing breaks the line; the outer print() ends the row.",
+        "hi": "अंदरूनी print में end=\"\" है इसलिए लाइन नहीं टूटती; बाहरी print() पंक्ति ख़त्म करता है।",
+        "hinglish": "Andaruni print me end=\"\" hai isliye line nahi tootti; bahari print() row khatam karta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "else runs when there was no break",
+        "hi": "break न हो तो else चलता है",
+        "hinglish": "break na ho to else chalta hai"
+       },
+       "code": "for n in [2, 4, 6]:\n    if n % 2:\n        print(\"odd found:\", n)\n        break\nelse:\n    print(\"all even\")",
+       "output": "all even",
+       "note": {
+        "en": "The else belongs to the for, not to the if. It runs after a complete loop with no break.",
+        "hi": "else, for का है, if का नहीं। यह बिना break वाले पूरे लूप के बाद चलता है।",
+        "hinglish": "else, for ka hai, if ka nahi. Ye bina break wale poore loop ke baad chalta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m03c02l05e1",
+       "prompt": {
+        "en": "Print a 3x3 grid of stars, one row per line, using nested loops.",
+        "hi": "नेस्टेड लूप से 3x3 स्टार ग्रिड प्रिंट करें, हर पंक्ति अलग लाइन में।",
+        "hinglish": "Nested loops se 3x3 star grid print karo, har row alag line me."
+       },
+       "starter": "# for row in range(3):\n#     for col in range(3):",
+       "solution": "for row in range(3):\n    for col in range(3):\n        print(\"*\", end=\"\")\n    print()",
+       "checks": [
+        "printed.split() == [\"***\", \"***\", \"***\"]"
+       ],
+       "hint": {
+        "en": "end=\"\" keeps the stars on one line.",
+        "hi": "end=\"\" स्टार एक लाइन में रखता है।",
+        "hinglish": "end=\"\" stars ko ek line me rakhta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m03c02l05q1",
+       "question": {
+        "en": "How many times does the inner body run? for i in range(3): for j in range(4): ...",
+        "hi": "अंदरूनी बॉडी कितनी बार चलेगी? for i in range(3): for j in range(4): ...",
+        "hinglish": "Andaruni body kitni baar chalegi? for i in range(3): for j in range(4): ..."
+       },
+       "options": [
+        "4",
+        "7",
+        "12",
+        "3"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "3 outer turns × 4 inner turns = 12. Nested loops multiply, they do not add.",
+        "hi": "3 बाहरी × 4 अंदरूनी = 12। नेस्टेड लूप गुणा करते हैं, जोड़ते नहीं।",
+        "hinglish": "3 bahari × 4 andaruni = 12. Nested loops multiply karte hain, add nahi."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c02l05q2",
+       "question": {
+        "en": "When does a loop's else block run?",
+        "hi": "लूप का else ब्लॉक कब चलता है?",
+        "hinglish": "Loop ka else block kab chalta hai?"
+       },
+       "options": [
+        "always, after the loop",
+        "only if the loop finished without break",
+        "only if the loop was empty",
+        "never"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "This is the one place where else does not mean 'otherwise'. It means 'the loop completed normally'.",
+        "hi": "यह एक जगह है जहाँ else का मतलब 'वरना' नहीं है। इसका मतलब है 'लूप सामान्य रूप से पूरा हुआ'।",
+        "hinglish": "Ye ek jagah hai jahan else ka matlab 'warna' nahi hai. Iska matlab hai 'loop normally poora hua'."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m03c02l05q3",
+       "question": {
+        "en": "Why is this an infinite loop? while True: pass",
+        "hi": "यह अनंत लूप क्यों है? while True: pass",
+        "hinglish": "Ye infinite loop kyun hai? while True: pass"
+       },
+       "options": [
+        "pass restarts the loop",
+        "the condition never becomes false",
+        "True is not a bool",
+        "it is not infinite"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "True stays True forever and nothing inside changes it. A break is the only way out.",
+        "hi": "True हमेशा True रहता है और अंदर कुछ उसे नहीं बदलता। बाहर निकलने का एक ही रास्ता break है।",
+        "hinglish": "True hamesha True rehta hai aur andar kuch use nahi badalta. Bahar nikalne ka ek hi rasta break hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Nested loops multiply; loop else means 'finished without break'.",
+      "hi": "नेस्टेड लूप गुणा करते हैं; loop else का मतलब 'बिना break पूरा हुआ'।",
+      "hinglish": "Nested loops multiply karte hain; loop else ka matlab 'bina break poora hua'."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m03x01",
+   "question": {
+    "en": "What does range(5) produce?",
+    "hi": "range(5) क्या देता है?",
+    "hinglish": "range(5) kya deta hai?"
+   },
+   "options": [
+    "1,2,3,4,5",
+    "0,1,2,3,4",
+    "0,1,2,3,4,5",
+    "5"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Start 0, stop before 5: five values, 0 to 4.",
+    "hi": "शुरू 0, 5 से पहले रुको: पाँच वैल्यू, 0 से 4।",
+    "hinglish": "Start 0, 5 se pehle ruko: paanch values, 0 se 4."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03x02",
+   "question": {
+    "en": "What is bool(0.0)?",
+    "hi": "bool(0.0) क्या है?",
+    "hinglish": "bool(0.0) kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "None",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Zero of any numeric type is falsy, including 0.0.",
+    "hi": "किसी भी न्यूमेरिक टाइप का शून्य falsy है, 0.0 भी।",
+    "hinglish": "Kisi bhi numeric type ka zero falsy hai, 0.0 bhi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03x03",
+   "question": {
+    "en": "How many times does 'hi' print? for i in range(2): for j in range(3): print('hi')",
+    "hi": "'hi' कितनी बार प्रिंट होगा? for i in range(2): for j in range(3): print('hi')",
+    "hinglish": "'hi' kitni baar print hoga? for i in range(2): for j in range(3): print('hi')"
+   },
+   "options": [
+    "2",
+    "3",
+    "5",
+    "6"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "2 × 3 = 6.",
+    "hi": "2 × 3 = 6।",
+    "hinglish": "2 × 3 = 6."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03x04",
+   "question": {
+    "en": "Which statement leaves a loop immediately?",
+    "hi": "कौन सा स्टेटमेंट लूप से तुरंत बाहर निकलता है?",
+    "hinglish": "Kaun sa statement loop se turant bahar nikalta hai?"
+   },
+   "options": [
+    "continue",
+    "pass",
+    "break",
+    "return only"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "break exits the loop. continue skips one round; pass does nothing.",
+    "hi": "break लूप छोड़ता है। continue एक चक्कर छोड़ता है; pass कुछ नहीं करता।",
+    "hinglish": "break loop chhodta hai. continue ek chakkar chhodta hai; pass kuch nahi karta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03x05",
+   "question": {
+    "en": "if a > b: print('A') else: print('B') — when does B print?",
+    "hi": "if a > b: print('A') else: print('B') — B कब प्रिंट होता है?",
+    "hinglish": "if a > b: print('A') else: print('B') — B kab print hota hai?"
+   },
+   "options": [
+    "when a > b",
+    "when a <= b",
+    "always",
+    "never"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "else is everything the if did not catch, which here is a <= b.",
+    "hi": "else वह सब है जो if ने नहीं पकड़ा, यानी a <= b।",
+    "hinglish": "else woh sab hai jo if ne nahi pakda, yani a <= b."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03x06",
+   "question": {
+    "en": "Which is NOT valid Python?",
+    "hi": "कौन सा वैध पायथन नहीं है?",
+    "hinglish": "Kaun sa valid Python nahi hai?"
+   },
+   "options": [
+    "while x < 5:",
+    "for i in range(3):",
+    "if x > 2 and y < 1:",
+    "elif x > 2:"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "elif only exists as part of an if chain; it cannot start a statement on its own.",
+    "hi": "elif सिर्फ़ if चेन के हिस्से के रूप में होता है; वह अकेला स्टेटमेंट नहीं बन सकता।",
+    "hinglish": "elif sirf if chain ke hisse ke roop me hota hai; woh akela statement nahi ban sakta."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m03s01",
+   "question": {
+    "en": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). What prints?",
+    "hi": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small')। क्या प्रिंट होगा?",
+    "hinglish": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). Kya print hoga?"
+   },
+   "options": [
+    "big",
+    "medium",
+    "small",
+    "nothing"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "5 > 10 is false, so Python tries the elif. 5 > 3 is true, so it prints 'medium' and skips the else.",
+    "hi": "5 > 10 गलत है, इसलिए पायथन elif आज़माता है। 5 > 3 सही है, इसलिए 'medium' प्रिंट होता है और else छूट जाता है।",
+    "hinglish": "5 > 10 false hai, isliye Python elif try karta hai. 5 > 3 true hai, isliye 'medium' print hota hai aur else chhoot jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s02",
+   "question": {
+    "en": "Why does this print nothing? if 0: print('yes')",
+    "hi": "यह कुछ क्यों नहीं प्रिंट करता? if 0: print('yes')",
+    "hinglish": "Ye kuch kyun nahi print karta? if 0: print('yes')"
+   },
+   "options": [
+    "because 0 is falsy",
+    "because 0 is not a number",
+    "because print is misspelled",
+    "it does print yes"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "if does not require True: any value is tested for truthiness. 0, 0.0, '', [], {} and None are all falsy.",
+    "hi": "if को True नहीं चाहिए: हर वैल्यू की सत्यता जाँची जाती है। 0, 0.0, '', [], {} और None सब falsy हैं।",
+    "hinglish": "if ko True nahi chahiye: har value ki truthiness check hoti hai. 0, 0.0, '', [], {} aur None sab falsy hain."
+   },
+   "misconception": "truthiness"
+  },
+  {
+   "id": "m03s03",
+   "question": {
+    "en": "What is wrong with: if x = 5: print('five')",
+    "hi": "इसमें क्या गलत है: if x = 5: print('five')",
+    "hinglish": "Isme kya galat hai: if x = 5: print('five')"
+   },
+   "options": [
+    "nothing, it prints five",
+    "assignment needs == for comparison",
+    "print cannot be inside if",
+    "5 must be quoted"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A single = assigns, so the condition has no value to test. Python raises a SyntaxError and points at the =.",
+    "hi": "अकेला = असाइन करता है, इसलिए शर्त के पास जाँचने को वैल्यू नहीं होती। पायथन SyntaxError देता है और = की ओर इशारा करता है।",
+    "hinglish": "Akela = assign karta hai, isliye condition ke paas check karne ko value nahi hoti. Python SyntaxError deta hai aur = ki taraf ishara karta hai."
+   },
+   "misconception": "assign-vs-compare"
+  },
+  {
+   "id": "m03s04",
+   "question": {
+    "en": "Which version of Python added match?",
+    "hi": "match किस पायथन संस्करण में आया?",
+    "hinglish": "match kis Python version me aaya?"
+   },
+   "options": [
+    "3.8",
+    "3.10",
+    "3.12",
+    "2.7"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "match/case arrived in 3.10. On older versions it is a SyntaxError, which is worth knowing when you share code.",
+    "hi": "match/case 3.10 में आया। पुराने संस्करणों पर यह SyntaxError है, जो कोड साझा करते समय जानना ज़रूरी है।",
+    "hinglish": "match/case 3.10 me aaya. Purane versions par ye SyntaxError hai, jo code share karte samay jaanna zaroori hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s05",
+   "question": {
+    "en": "What happens if no case matches and there is no case _?",
+    "hi": "अगर कोई case मेल न खाए और case _ भी न हो तो?",
+    "hinglish": "Agar koi case match na kare aur case _ bhi na ho to?"
+   },
+   "options": [
+    "an error is raised",
+    "nothing happens",
+    "the first case runs",
+    "None is returned"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "match with no matching case does nothing at all — it is not like an if chain without else, and it raises nothing.",
+    "hi": "बिना मेल वाले case पर match कुछ नहीं करता — यह बिना else वाली if चेन जैसा नहीं है, और कोई एरर नहीं देता।",
+    "hinglish": "Bina match wale case par match kuch nahi karta - ye bina else wali if chain jaisa nahi hai, aur koi error nahi deta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s06",
+   "question": {
+    "en": "In `case (0, y):`, what is y?",
+    "hi": "`case (0, y):` में y क्या है?",
+    "hinglish": "`case (0, y):` me y kya hai?"
+   },
+   "options": [
+    "a constant that must equal 'y'",
+    "a name bound to the second item of the tuple",
+    "a syntax error",
+    "the number of items"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A bare name in a pattern captures. A name with a dot (like Colour.RED) is compared as a value instead.",
+    "hi": "पैटर्न में सादा नाम कैप्चर करता है। डॉट वाला नाम (जैसे Colour.RED) वैल्यू की तरह तुलना होता है।",
+    "hinglish": "Pattern me saada naam capture karta hai. Dot wala naam (jaise Colour.RED) value ki tarah compare hota hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s07",
+   "question": {
+    "en": "What is the main risk of a while loop?",
+    "hi": "while लूप का मुख्य ख़तरा क्या है?",
+    "hinglish": "while loop ka main khatra kya hai?"
+   },
+   "options": [
+    "it runs at most once",
+    "the condition may never become false",
+    "it cannot use break",
+    "it needs a list"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "If nothing inside the loop changes the condition, it runs forever. A for loop over a fixed sequence cannot do that.",
+    "hi": "अगर लूप के अंदर कुछ शर्त नहीं बदलता, तो वह हमेशा चलता है। तय सीक्वेंस वाला for लूप ऐसा नहीं कर सकता।",
+    "hinglish": "Agar loop ke andar kuch condition nahi badalta, to woh hamesha chalta hai. Fixed sequence wala for loop aisa nahi kar sakta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s08",
+   "question": {
+    "en": "What does continue do?",
+    "hi": "continue क्या करता है?",
+    "hinglish": "continue kya karta hai?"
+   },
+   "options": [
+    "stops the loop entirely",
+    "skips the rest of this round and goes to the next",
+    "restarts the program",
+    "does nothing"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "continue jumps to the next iteration. break would leave the loop.",
+    "hi": "continue अगले चक्कर पर कूदता है। break लूप छोड़ देता है।",
+    "hinglish": "continue agle iteration par koodta hai. break loop chhod deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s09",
+   "question": {
+    "en": "When is pass useful?",
+    "hi": "pass कब काम आता है?",
+    "hinglish": "pass kab kaam aata hai?"
+   },
+   "options": [
+    "to skip the rest of a loop",
+    "as a placeholder where a block is required but nothing should happen",
+    "to end the program",
+    "to return None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Python needs at least one statement in every block. pass satisfies that while you are still writing the code.",
+    "hi": "पायथन को हर ब्लॉक में कम से कम एक स्टेटमेंट चाहिए। जब आप कोड लिख रहे हों, pass वह शर्त पूरी करता है।",
+    "hinglish": "Python ko har block me kam se kam ek statement chahiye. Jab aap code likh rahe ho, pass woh shart poori karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s10",
+   "question": {
+    "en": "What does list(range(3)) give?",
+    "hi": "list(range(3)) क्या देता है?",
+    "hinglish": "list(range(3)) kya deta hai?"
+   },
+   "options": [
+    "[1, 2, 3]",
+    "[0, 1, 2]",
+    "[0, 1, 2, 3]",
+    "[3]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "range starts at 0 by default and stops before the number you give. This off-by-one is the most common loop bug.",
+    "hi": "range डिफ़ॉल्ट 0 से शुरू होता है और दिए नंबर से पहले रुकता है। यह off-by-one सबसे आम लूप बग है।",
+    "hinglish": "range default 0 se shuru hota hai aur diye number se pehle rukta hai. Ye off-by-one sabse aam loop bug hai."
+   },
+   "misconception": "range-exclusive"
+  },
+  {
+   "id": "m03s11",
+   "question": {
+    "en": "What does zip(['a','b'], [1,2]) produce when looped?",
+    "hi": "zip(['a','b'], [1,2]) लूप में क्या देता है?",
+    "hinglish": "zip(['a','b'], [1,2]) loop me kya deta hai?"
+   },
+   "options": [
+    "['a', 1, 'b', 2]",
+    "('a', 1) then ('b', 2)",
+    "['ab', '12']",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "zip pairs items position by position and stops at the shorter sequence.",
+    "hi": "zip आइटम को जगह-दर-जगह जोड़ता है और छोटी सीक्वेंस पर रुक जाता है।",
+    "hinglish": "zip items ko position-dar-position jodta hai aur chhoti sequence par ruk jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s12",
+   "question": {
+    "en": "What is wrong here? for i in range(5): print(i) print('done')",
+    "hi": "यहाँ क्या गलत है? for i in range(5): print(i) print('done')",
+    "hinglish": "Yahan kya galat hai? for i in range(5): print(i) print('done')"
+   },
+   "options": [
+    "nothing, it works",
+    "the second print must be indented inside the loop or written on a new line",
+    "range cannot be used with print",
+    "i is undefined"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "On one line after the colon only one simple statement fits. The second statement needs a new line, and its indentation decides whether it is inside the loop.",
+    "hi": "कोलन के बाद एक ही लाइन में सिर्फ़ एक साधारण स्टेटमेंट आता है। दूसरे के लिए नई लाइन चाहिए, और इंडेंटेशन तय करता है कि वह लूप के अंदर है या नहीं।",
+    "hinglish": "Colon ke baad ek hi line me sirf ek simple statement aata hai. Doosre ke liye nayi line chahiye, aur indentation tay karta hai ki woh loop ke andar hai ya nahi."
+   },
+   "misconception": "indentation"
+  },
+  {
+   "id": "m03s13",
+   "question": {
+    "en": "How many times does the inner body run? for i in range(3): for j in range(4): ...",
+    "hi": "अंदरूनी बॉडी कितनी बार चलेगी? for i in range(3): for j in range(4): ...",
+    "hinglish": "Andaruni body kitni baar chalegi? for i in range(3): for j in range(4): ..."
+   },
+   "options": [
+    "4",
+    "7",
+    "12",
+    "3"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "3 outer turns × 4 inner turns = 12. Nested loops multiply, they do not add.",
+    "hi": "3 बाहरी × 4 अंदरूनी = 12। नेस्टेड लूप गुणा करते हैं, जोड़ते नहीं।",
+    "hinglish": "3 bahari × 4 andaruni = 12. Nested loops multiply karte hain, add nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s14",
+   "question": {
+    "en": "When does a loop's else block run?",
+    "hi": "लूप का else ब्लॉक कब चलता है?",
+    "hinglish": "Loop ka else block kab chalta hai?"
+   },
+   "options": [
+    "always, after the loop",
+    "only if the loop finished without break",
+    "only if the loop was empty",
+    "never"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "This is the one place where else does not mean 'otherwise'. It means 'the loop completed normally'.",
+    "hi": "यह एक जगह है जहाँ else का मतलब 'वरना' नहीं है। इसका मतलब है 'लूप सामान्य रूप से पूरा हुआ'।",
+    "hinglish": "Ye ek jagah hai jahan else ka matlab 'warna' nahi hai. Iska matlab hai 'loop normally poora hua'."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s15",
+   "question": {
+    "en": "Why is this an infinite loop? while True: pass",
+    "hi": "यह अनंत लूप क्यों है? while True: pass",
+    "hinglish": "Ye infinite loop kyun hai? while True: pass"
+   },
+   "options": [
+    "pass restarts the loop",
+    "the condition never becomes false",
+    "True is not a bool",
+    "it is not infinite"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "True stays True forever and nothing inside changes it. A break is the only way out.",
+    "hi": "True हमेशा True रहता है और अंदर कुछ उसे नहीं बदलता। बाहर निकलने का एक ही रास्ता break है।",
+    "hinglish": "True hamesha True rehta hai aur andar kuch use nahi badalta. Bahar nikalne ka ek hi rasta break hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s16",
+   "question": {
+    "en": "What does range(5) produce?",
+    "hi": "range(5) क्या देता है?",
+    "hinglish": "range(5) kya deta hai?"
+   },
+   "options": [
+    "1,2,3,4,5",
+    "0,1,2,3,4",
+    "0,1,2,3,4,5",
+    "5"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Start 0, stop before 5: five values, 0 to 4.",
+    "hi": "शुरू 0, 5 से पहले रुको: पाँच वैल्यू, 0 से 4।",
+    "hinglish": "Start 0, 5 se pehle ruko: paanch values, 0 se 4."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s17",
+   "question": {
+    "en": "What is bool(0.0)?",
+    "hi": "bool(0.0) क्या है?",
+    "hinglish": "bool(0.0) kya hai?"
+   },
+   "options": [
+    "True",
+    "False",
+    "None",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Zero of any numeric type is falsy, including 0.0.",
+    "hi": "किसी भी न्यूमेरिक टाइप का शून्य falsy है, 0.0 भी।",
+    "hinglish": "Kisi bhi numeric type ka zero falsy hai, 0.0 bhi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s18",
+   "question": {
+    "en": "How many times does 'hi' print? for i in range(2): for j in range(3): print('hi')",
+    "hi": "'hi' कितनी बार प्रिंट होगा? for i in range(2): for j in range(3): print('hi')",
+    "hinglish": "'hi' kitni baar print hoga? for i in range(2): for j in range(3): print('hi')"
+   },
+   "options": [
+    "2",
+    "3",
+    "5",
+    "6"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "2 × 3 = 6.",
+    "hi": "2 × 3 = 6।",
+    "hinglish": "2 × 3 = 6."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s19",
+   "question": {
+    "en": "Which statement leaves a loop immediately?",
+    "hi": "कौन सा स्टेटमेंट लूप से तुरंत बाहर निकलता है?",
+    "hinglish": "Kaun sa statement loop se turant bahar nikalta hai?"
+   },
+   "options": [
+    "continue",
+    "pass",
+    "break",
+    "return only"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "break exits the loop. continue skips one round; pass does nothing.",
+    "hi": "break लूप छोड़ता है। continue एक चक्कर छोड़ता है; pass कुछ नहीं करता।",
+    "hinglish": "break loop chhodta hai. continue ek chakkar chhodta hai; pass kuch nahi karta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s20",
+   "question": {
+    "en": "if a > b: print('A') else: print('B') — when does B print?",
+    "hi": "if a > b: print('A') else: print('B') — B कब प्रिंट होता है?",
+    "hinglish": "if a > b: print('A') else: print('B') — B kab print hota hai?"
+   },
+   "options": [
+    "when a > b",
+    "when a <= b",
+    "always",
+    "never"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "else is everything the if did not catch, which here is a <= b.",
+    "hi": "else वह सब है जो if ने नहीं पकड़ा, यानी a <= b।",
+    "hinglish": "else woh sab hai jo if ne nahi pakda, yani a <= b."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m03s21",
+   "question": {
+    "en": "Which is NOT valid Python?",
+    "hi": "कौन सा वैध पायथन नहीं है?",
+    "hinglish": "Kaun sa valid Python nahi hai?"
+   },
+   "options": [
+    "while x < 5:",
+    "for i in range(3):",
+    "if x > 2 and y < 1:",
+    "elif x > 2:"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "elif only exists as part of an if chain; it cannot start a statement on its own.",
+    "hi": "elif सिर्फ़ if चेन के हिस्से के रूप में होता है; वह अकेला स्टेटमेंट नहीं बन सकता।",
+    "hinglish": "elif sirf if chain ke hisse ke roop me hota hai; woh akela statement nahi ban sakta."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "🔀"
+}

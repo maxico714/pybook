@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Create your account — PyBook{% endblock %}
+{% block crumbs %}<span><a href="{{ url_for('index') }}">Home</a></span><span>Create account</span>{% endblock %}
+
+{% block body %}
+<section class="auth">
+  <div class="auth-aside">
+    <p class="kicker">Join the classroom</p>
+    <h1>One account.<br>Two full courses.</h1>
+    <p class="muted">
+      Fill this in once. Your request goes to the admin panel, and as soon as it is approved
+      you can log in and start lesson one.
+    </p>
+    <ul class="auth-points">
+      <li>Practice task before every quiz</li>
+      <li>No skipping ahead without a passing skip exam</li>
+      <li>Progress saved per account, per course</li>
+      <li>English, हिन्दी or Hinglish explanations</li>
+    </ul>
+    <p class="tiny">
+      Only your name, email, chosen course, language and optional goal are stored.
+      The password is kept as a scrypt hash, never as text.
+    </p>
+  </div>
+
+  <div class="auth-card card">
+    <h2>Create account</h2>
+    <p class="muted tiny">Already approved? <a href="{{ url_for('login') }}">Log in instead</a>.</p>
+
+    {% if errors.form %}
+      <p class="form-alert" role="alert">{{ errors.form }}</p>
+    {% elif errors %}
+      <p class="form-alert" role="alert">Please fix the highlighted fields.</p>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('signup') }}" class="form" novalidate>
+      <input type="hidden" name="csrf" value="{{ csrf }}">
+
+      <label class="field full {{ 'has-error' if errors.name }}">
+        <span>Your name</span>
+        <input type="text" name="name" maxlength="60" value="{{ form.name }}"
+               autocomplete="name" placeholder="e.g. Asha Verma" required>
+        {% if errors.name %}<em class="field-error">{{ errors.name }}</em>{% endif %}
+      </label>
+
+      <label class="field full {{ 'has-error' if errors.email }}">
+        <span>Email</span>
+        <input type="email" name="email" maxlength="190" value="{{ form.email }}"
+               autocomplete="email" placeholder="you@example.com" required>
+        {% if errors.email %}<em class="field-error">{{ errors.email }}</em>{% endif %}
+      </label>
+
+      <label class="field full {{ 'has-error' if errors.password }}">
+        <span>Password</span>
+        <input type="password" name="password" minlength="8" maxlength="200"
+               autocomplete="new-password" required>
+        <em class="field-hint">At least 8 characters. Do not reuse another site's password.</em>
+        {% if errors.password %}<em class="field-error">{{ errors.password }}</em>{% endif %}
+      </label>
+
+      <label class="field full {{ 'has-error' if errors.confirm }}">
+        <span>Confirm password</span>
+        <input type="password" name="confirm" minlength="8" maxlength="200"
+               autocomplete="new-password" required>
+        {% if errors.confirm %}<em class="field-error">{{ errors.confirm }}</em>{% endif %}
+      </label>
+
+      <label class="field full {{ 'has-error' if errors.course }}">
+        <span>Which course do you want?</span>
+        <select name="course">
+          {% for item in courses %}
+            <option value="{{ item.id }}" {{ 'selected' if item.id == form.course }}>
+              {{ t(item.title) }} · {{ item.lessons }} lessons
+            </option>
+          {% endfor %}
+        </select>
+        {% if errors.course %}<em class="field-error">{{ errors.course }}</em>{% endif %}
+      </label>
+
+      <label class="field full">
+        <span>Explanation language</span>
+        <select name="language">
+          <option value="hinglish" {{ 'selected' if form.language == 'hinglish' }}>Hinglish (default)</option>
+          <option value="en" {{ 'selected' if form.language == 'en' }}>English</option>
+          <option value="hi" {{ 'selected' if form.language == 'hi' }}>हिन्दी</option>
+        </select>
+      </label>
+
+      <label class="field full">
+        <span>What do you want to build? <span class="tiny">(optional)</span></span>
+        <textarea name="goal" rows="3" maxlength="500"
+                  placeholder="e.g. automate my reports, or get into AI engineering">{{ form.goal }}</textarea>
+      </label>
+
+      <label class="check {{ 'has-error' if errors.agree }}">
+        <input type="checkbox" name="agree" value="1">
+        <span>I understand this device stores my name, email and progress in a local database,
+          and that an admin must approve the account before I can log in.</span>
+      </label>
+      {% if errors.agree %}<em class="field-error">{{ errors.agree }}</em>{% endif %}
+
+      <button type="submit" class="btn primary lg wide">Send my request</button>
+    </form>
+
+    <p class="tiny">
+      After submitting you will see a confirmation page. Keep the email and password you used —
+      you will need them to log in once approved.
+    </p>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Request received — PyBook{% endblock %}
+{% block crumbs %}<span><a href="{{ url_for('index') }}">Home</a></span><span>Account request</span>{% endblock %}
+
+{% block body %}
+<section class="lock-card pending-card">
+  <span class="lock-icon big" aria-hidden="true">{{ '✅' if account else '⏳' }}</span>
+
+  {% if account %}
+    <h1>Request received, {{ account.name }}.</h1>
+    <p class="muted">
+      Your account request is now in the admin panel under <strong>new account requests</strong>.
+      Nothing else is needed from you.
+    </p>
+
+    <dl class="pending-facts">
+      <div><dt>Email</dt><dd>{{ account.email }}</dd></div>
+      <div><dt>Status</dt><dd><span class="badge lock">waiting for approval</span></dd></div>
+    </dl>
+
+    <p class="muted">
+      When the admin approves it, come back to this page and log in with the same email and password.
+      Until then, logging in will say the account is waiting for approval.
+    </p>
+
+    <div class="cta-row center">
+      <a class="btn primary lg" href="{{ url_for('login') }}">Go to log in</a>
+      <a class="btn ghost lg" href="{{ url_for('index') }}">Back to courses</a>
+    </div>
+  {% else %}
+    <h1>Accounts need admin approval</h1>
+    <p class="muted">
+      PyBook keeps a small, real classroom. A new account stays <strong>pending</strong> until the
+      admin approves it in the admin panel — only then does the login work.
+    </p>
+    <ol class="pending-steps">
+      <li>Create an account with your name and email.</li>
+      <li>The request appears in the admin's <em>new account requests</em> list.</li>
+      <li>The admin approves or rejects it.</li>
+      <li>Once approved, log in and lesson one unlocks.</li>
+    </ol>
+    <p class="muted">
+      If you already signed up, just try logging in: a pending account gets a clear message
+      instead of a session.
+    </p>
+    <div class="cta-row center">
+      <a class="btn primary lg" href="{{ url_for('login') }}">Log in</a>
+      <a class="btn ghost lg" href="{{ url_for('signup') }}">Create account</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

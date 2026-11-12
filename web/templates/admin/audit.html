@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Audit trail — Admin{% endblock %}
+{% block crumbs %}<span>Admin</span><span>Audit trail</span>{% endblock %}
+
+{% block body %}
+<section class="page-head">
+  <div>
+    <h1>Audit trail</h1>
+    <p class="muted">
+      Every signup, login, decision and password change, newest first. The newest
+      120 rows are shown.
+    </p>
+  </div>
+</section>
+
+{% include "admin/_nav.html" %}
+
+<nav class="filter-tabs" aria-label="Filter audit rows">
+  {% for prefix, label in filters %}
+    <a class="{{ 'is-active' if action == prefix }}"
+       href="{{ url_for('admin.audit_page', action=prefix) if prefix else url_for('admin.audit_page') }}">
+      {{ label }}
+    </a>
+  {% endfor %}
+</nav>
+
+{% if rows %}
+  <div class="accounts-wrap card">
+    <table class="accounts-table audit-table">
+      <thead>
+        <tr>
+          <th scope="col">When</th>
+          <th scope="col">Actor</th>
+          <th scope="col">Action</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+          <tr>
+            <td class="tiny nowrap">{{ row.at[:10] }} {{ row.at[11:19] }}</td>
+            <td class="tiny">{{ ('#' ~ row.actor_id) if row.actor_id else 'system' }}</td>
+            <td><span class="audit-action">{{ row.action }}</span></td>
+            <td class="tiny">{{ row.subject or '—' }}</td>
+            <td class="tiny">{{ row.detail or '—' }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <section class="card empty-state">
+    <span class="lock-icon big" aria-hidden="true">🗒</span>
+    <h2>Nothing recorded here</h2>
+    <p class="muted">Pick another filter, or come back after the next sign-in.</p>
+  </section>
+{% endif %}
+{% endblock %}

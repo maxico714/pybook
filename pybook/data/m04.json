@@ -1,0 +1,1533 @@
+{
+ "id": "m04",
+ "title": {
+  "en": "Collections",
+  "hi": "संग्रह",
+  "hinglish": "Collections"
+ },
+ "goal": {
+  "en": "Hold many values well: lists when order and change matter, tuples when the group is fixed, dicts for named fields, sets for uniqueness and membership.",
+  "hi": "कई वैल्यू अच्छे से रखें: क्रम और बदलाव के लिए लिस्ट, तय समूह के लिए ट्यूपल, नाम वाले फ़ील्ड के लिए dict, विशिष्टता के लिए सेट।",
+  "hinglish": "Kai values achhe se rakho: order aur change ke liye list, fixed group ke liye tuple, named fields ke liye dict, uniqueness ke liye set."
+ },
+ "chapters": [
+  {
+   "id": "m04c01",
+   "title": {
+    "en": "Lists",
+    "hi": "लिस्ट",
+    "hinglish": "Lists"
+   },
+   "lessons": [
+    {
+     "id": "m04c01l01",
+     "title": {
+      "en": "Lists and mutability",
+      "hi": "लिस्ट और परिवर्तनशीलता",
+      "hinglish": "Lists aur mutability"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A list holds many values in order and you can change it: add, remove, replace. That is what mutable means. Two names can point at the same list, so changing it through one name is visible through the other.",
+      "hi": "लिस्ट क्रम में कई वैल्यू रखती है और आप उसे बदल सकते हैं: जोड़ना, हटाना, बदलना। इसे mutable कहते हैं। दो नाम एक ही लिस्ट को दिखा सकते हैं, इसलिए एक नाम से बदलाव दूसरे से भी दिखता है।",
+      "hinglish": "List order me kai values rakhti hai aur aap use badal sakte ho: jodna, hatana, badalna. Ise mutable kehte hain. Do naam ek hi list ko point kar sakte hain, isliye ek naam se change doosre se bhi dikhta hai."
+     },
+     "real_life": {
+      "en": "A shared shopping list on the fridge. If you add \"milk\" with a pen, your brother sees milk too — there is only one list. That is aliasing. If you photocopy it first, his copy stays unchanged — that is a real copy.",
+      "hi": "फ़्रिज पर लगी साझा शॉपिंग लिस्ट। आप पेन से \"दूध\" जोड़ते हैं तो भाई को भी दूध दिखता है — लिस्ट एक ही है। यह aliasing है। पहले फ़ोटोकॉपी कर लें तो उसकी कॉपी नहीं बदलती — यह असली कॉपी है।",
+      "hinglish": "Fridge par lagi shared shopping list. Aap pen se \"doodh\" jodte ho to bhai ko bhi doodh dikhta hai - list ek hi hai. Ye aliasing hai. Pehle photocopy kar lo to uski copy nahi badalti - ye asli copy hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/introduction.html#lists",
+     "visual": "alias_copy",
+     "examples": [
+      {
+       "title": {
+        "en": "changing a list in place",
+        "hi": "लिस्ट को जगह पर बदलना",
+        "hinglish": "list ko jagah par badalna"
+       },
+       "code": "nums = [10, 20, 30]\nnums.append(40)\nprint(nums)\nnums[0] = 99\nprint(nums, len(nums))",
+       "output": "[10, 20, 30, 40]\n[99, 20, 30, 40] 4",
+       "note": {
+        "en": "append and index assignment change the same list; no new list is made.",
+        "hi": "append और इंडेक्स असाइनमेंट उसी लिस्ट को बदलते हैं; नई लिस्ट नहीं बनती।",
+        "hinglish": "append aur index assignment usi list ko badalte hain; nayi list nahi banti."
+       }
+      },
+      {
+       "title": {
+        "en": "alias versus copy",
+        "hi": "एलियस बनाम कॉपी",
+        "hinglish": "alias versus copy"
+       },
+       "code": "a = [1, 2]\nb = a\nb.append(3)\nprint(a)\nc = a[:]\nc.append(4)\nprint(a)\nprint(c)",
+       "output": "[1, 2, 3]\n[1, 2, 3]\n[1, 2, 3, 4]",
+       "note": {
+        "en": "b = a makes a second name for one list. a[:] or list(a) or a.copy() makes a second list.",
+        "hi": "b = a एक लिस्ट के लिए दूसरा नाम बनाता है। a[:] या list(a) या a.copy() दूसरी लिस्ट बनाते हैं।",
+        "hinglish": "b = a ek list ke liye doosra naam banata hai. a[:] ya list(a) ya a.copy() doosri list banate hain."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c01l01e1",
+       "prompt": {
+        "en": "Start with `cart = ['bread']`, add 'milk' with append, then print the length.",
+        "hi": "`cart = ['bread']` से शुरू करें, append से 'milk' जोड़ें, फिर लंबाई प्रिंट करें।",
+        "hinglish": "`cart = ['bread']` se shuru karo, append se 'milk' jodo, phir length print karo."
+       },
+       "starter": "cart = ['bread']\n# ...",
+       "solution": "cart = ['bread']\ncart.append('milk')\nprint(len(cart))",
+       "checks": [
+        "cart == ['bread', 'milk']",
+        "printed.strip() == \"2\""
+       ],
+       "hint": {
+        "en": "append changes the list and returns None.",
+        "hi": "append लिस्ट बदलता है और None देता है।",
+        "hinglish": "append list badalta hai aur None deta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c01l01q1",
+       "question": {
+        "en": "a = [1, 2]; b = a; b.append(3). What is a?",
+        "hi": "a = [1, 2]; b = a; b.append(3). a क्या है?",
+        "hinglish": "a = [1, 2]; b = a; b.append(3). a kya hai?"
+       },
+       "options": [
+        "[1, 2]",
+        "[1, 2, 3]",
+        "an error",
+        "[3]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "b is another name for the same list, so appending through b changes a as well.",
+        "hi": "b उसी लिस्ट का दूसरा नाम है, इसलिए b से append करने पर a भी बदल जाता है।",
+        "hinglish": "b usi list ka doosra naam hai, isliye b se append karne par a bhi badal jata hai."
+       },
+       "misconception": "aliasing"
+      },
+      {
+       "id": "m04c01l01q2",
+       "question": {
+        "en": "Which one makes an independent copy?",
+        "hi": "कौन सा स्वतंत्र कॉपी बनाता है?",
+        "hinglish": "Kaun sa independent copy banata hai?"
+       },
+       "options": [
+        "b = a",
+        "b = a[:]",
+        "b = a.append(0)",
+        "b = a[0]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A full slice copies the list. b = a only adds a name, and append returns None.",
+        "hi": "पूरा स्लाइस लिस्ट कॉपी करता है। b = a सिर्फ़ नाम जोड़ता है, और append None देता है।",
+        "hinglish": "Poora slice list copy karta hai. b = a sirf naam jodta hai, aur append None deta hai."
+       },
+       "misconception": "aliasing"
+      },
+      {
+       "id": "m04c01l01q3",
+       "question": {
+        "en": "What is len([1, [2, 3], 4])?",
+        "hi": "len([1, [2, 3], 4]) क्या है?",
+        "hinglish": "len([1, [2, 3], 4]) kya hai?"
+       },
+       "options": [
+        "4",
+        "3",
+        "2",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "len counts top-level items. The inner list counts as one item, no matter how many things are inside it.",
+        "hi": "len सिर्फ़ ऊपरी स्तर के आइटम गिनता है। अंदरूनी लिस्ट एक आइटम है, चाहे उसमें कुछ भी हो।",
+        "hinglish": "len sirf top-level items ginta hai. Andaruni list ek item hai, chahe usme kuch bhi ho."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Lists are mutable; b = a shares, a[:] copies.",
+      "hi": "लिस्ट mutable हैं; b = a साझा करता है, a[:] कॉपी करता है।",
+      "hinglish": "Lists mutable hain; b = a share karta hai, a[:] copy karta hai."
+     }
+    },
+    {
+     "id": "m04c01l02",
+     "title": {
+      "en": "List methods and sorting",
+      "hi": "लिस्ट मेथड और सॉर्टिंग",
+      "hinglish": "List methods aur sorting"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Lists have methods for everyday work: append, insert, remove, pop, extend, count, index, sort, reverse. sorted() returns a new sorted list while list.sort() sorts in place and returns None.",
+      "hi": "लिस्ट में रोज़ के काम के मेथड हैं: append, insert, remove, pop, extend, count, index, sort, reverse। sorted() नई सॉर्टेड लिस्ट देता है जबकि list.sort() जगह पर सॉर्ट करता है और None देता है।",
+      "hinglish": "List me roz ke kaam ke methods hain: append, insert, remove, pop, extend, count, index, sort, reverse. sorted() nayi sorted list deta hai jabki list.sort() jagah par sort karta hai aur None deta hai."
+     },
+     "real_life": {
+      "en": "A queue at a ticket counter: append joins the back, pop() leaves from the back, and pop(0) would be the front. For a real queue you would use collections.deque, but a list is fine to learn the idea.",
+      "hi": "टिकट काउंटर की कतार: append पीछे जोड़ता है, pop() पीछे से निकालता है, और pop(0) आगे से। असली कतार के लिए collections.deque बेहतर है, पर आइडिया समझने के लिए लिस्ट ठीक है।",
+      "hinglish": "Ticket counter ki kataar: append peeche jodta hai, pop() peeche se nikalta hai, aur pop(0) aage se. Asli kataar ke liye collections.deque behtar hai, par idea samajhne ke liye list theek hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/datastructures.html#more-on-lists",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "adding and removing",
+        "hi": "जोड़ना और हटाना",
+        "hinglish": "jodna aur hataana"
+       },
+       "code": "nums = [3, 1, 4, 1, 5]\nnums.append(9)\nnums.insert(0, 7)\nnums.remove(1)\nprint(nums)\nprint(nums.pop())\nprint(nums)",
+       "output": "[7, 3, 4, 1, 5, 9]\n9\n[7, 3, 4, 1, 5]",
+       "note": {
+        "en": "remove(1) removes the first value equal to 1, not index 1. That difference bites beginners constantly.",
+        "hi": "remove(1) पहली वैल्यू 1 हटाता है, इंडेक्स 1 नहीं। यह फ़र्क शुरुआती लोगों को लगातार चौंकाता है।",
+        "hinglish": "remove(1) pehli value 1 hataata hai, index 1 nahi. Ye farq beginners ko lagatar chaukaata hai."
+       }
+      },
+      {
+       "title": {
+        "en": "sorted returns a new list",
+        "hi": "sorted नई लिस्ट देता है",
+        "hinglish": "sorted nayi list deta hai"
+       },
+       "code": "words = [\"banana\", \"fig\", \"kiwi\"]\nprint(sorted(words))\nprint(sorted(words, key=len))\nprint(sorted(words, reverse=True))\nprint(words)",
+       "output": "['banana', 'fig', 'kiwi']\n['fig', 'kiwi', 'banana']\n['kiwi', 'fig', 'banana']\n['banana', 'fig', 'kiwi']",
+       "note": {
+        "en": "words is unchanged at the end. sort() would have changed it in place.",
+        "hi": "अंत में words वैसा ही है। sort() उसे जगह पर बदल देता।",
+        "hinglish": "End me words waisa hi hai. sort() use jagah par badal deta."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c01l02e1",
+       "prompt": {
+        "en": "Sort `scores = [55, 91, 72]` from highest to lowest and print the result. Do not change the original list.",
+        "hi": "`scores = [55, 91, 72]` को सबसे बड़े से छोटे क्रम में सॉर्ट करें और प्रिंट करें। मूल लिस्ट न बदलें।",
+        "hinglish": "`scores = [55, 91, 72]` ko sabse bade se chhote order me sort karo aur print karo. Original list na badlo."
+       },
+       "starter": "scores = [55, 91, 72]\n# ...",
+       "solution": "scores = [55, 91, 72]\nprint(sorted(scores, reverse=True))",
+       "checks": [
+        "printed.strip() == \"[91, 72, 55]\"",
+        "scores == [55, 91, 72]"
+       ],
+       "hint": {
+        "en": "sorted(..., reverse=True) returns a new list.",
+        "hi": "sorted(..., reverse=True) नई लिस्ट देता है।",
+        "hinglish": "sorted(..., reverse=True) nayi list deta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c01l02q1",
+       "question": {
+        "en": "What does [1, 2, 3].pop() return?",
+        "hi": "[1, 2, 3].pop() क्या लौटाता है?",
+        "hinglish": "[1, 2, 3].pop() kya return karta hai?"
+       },
+       "options": [
+        "1",
+        "3",
+        "[1, 2]",
+        "None"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "pop() removes and returns the last item. pop(0) would return 1.",
+        "hi": "pop() आख़िरी आइटम हटाकर लौटाता है। pop(0) 1 लौटाता।",
+        "hinglish": "pop() aakhri item hataakar return karta hai. pop(0) 1 return karta."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c01l02q2",
+       "question": {
+        "en": "nums = [3, 1, 2]; result = nums.sort(); print(result). What prints?",
+        "hi": "nums = [3, 1, 2]; result = nums.sort(); print(result)। क्या प्रिंट होगा?",
+        "hinglish": "nums = [3, 1, 2]; result = nums.sort(); print(result). Kya print hoga?"
+       },
+       "options": [
+        "[1, 2, 3]",
+        "None",
+        "an error",
+        "[3, 1, 2]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "sort() sorts in place and returns None. Assigning its result is the classic mistake; use sorted() if you want the value.",
+        "hi": "sort() जगह पर सॉर्ट करता है और None देता है। उसका परिणाम असाइन करना क्लासिक गलती है; वैल्यू चाहिए तो sorted() इस्तेमाल करें।",
+        "hinglish": "sort() jagah par sort karta hai aur None deta hai. Uska result assign karna classic galti hai; value chahiye to sorted() use karo."
+       },
+       "misconception": "sort-returns-none"
+      },
+      {
+       "id": "m04c01l02q3",
+       "question": {
+        "en": "nums = [1, 2, 3]; nums.remove(2). What is nums now?",
+        "hi": "nums = [1, 2, 3]; nums.remove(2). अब nums क्या है?",
+        "hinglish": "nums = [1, 2, 3]; nums.remove(2). Ab nums kya hai?"
+       },
+       "options": [
+        "[1, 3]",
+        "[1, 2]",
+        "[2, 3]",
+        "an error"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "remove takes a value, not an index, and deletes the first match.",
+        "hi": "remove वैल्यू लेता है, इंडेक्स नहीं, और पहला मेल हटाता है।",
+        "hinglish": "remove value leta hai, index nahi, aur pehla match hataata hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "sorted() returns a list; sort() returns None; remove takes a value.",
+      "hi": "sorted() लिस्ट देता है; sort() None देता है; remove वैल्यू लेता है।",
+      "hinglish": "sorted() list deta hai; sort() None deta hai; remove value leta hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m04c02",
+   "title": {
+    "en": "Tuples",
+    "hi": "ट्यूपल",
+    "hinglish": "Tuples"
+   },
+   "lessons": [
+    {
+     "id": "m04c02l03",
+     "title": {
+      "en": "Tuples and unpacking",
+      "hi": "ट्यूपल और अनपैकिंग",
+      "hinglish": "Tuples aur unpacking"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A tuple is an ordered collection you cannot change. It is perfect for a fixed group of values such as coordinates or a date. Unpacking assigns several names in one line.",
+      "hi": "ट्यूपल क्रम में रखा ऐसा संग्रह है जिसे बदला नहीं जा सकता। तय समूह के लिए यह परफ़ेक्ट है जैसे निर्देशांक या तारीख़। अनपैकिंग एक लाइन में कई नाम असाइन करती है।",
+      "hinglish": "Tuple order me rakha aisa collection hai jise badla nahi ja sakta. Fixed group ke liye ye perfect hai jaise coordinates ya date. Unpacking ek line me kai naam assign karti hai."
+     },
+     "real_life": {
+      "en": "A passport is a tuple: name, date of birth, place. You do not edit those fields, you get a new passport. A shopping list is a list: it changes every week.",
+      "hi": "पासपोर्ट एक ट्यूपल है: नाम, जन्मतिथि, जगह। आप वे फ़ील्ड बदलते नहीं, नया पासपोर्ट मिलता है। शॉपिंग लिस्ट एक लिस्ट है: वह हर हफ़्ते बदलती है।",
+      "hinglish": "Passport ek tuple hai: naam, date of birth, jagah. Aap woh fields badalte nahi, naya passport milta hai. Shopping list ek list hai: woh har hafte badalti hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "unpacking a tuple",
+        "hi": "ट्यूपल खोलना",
+        "hinglish": "tuple kholna"
+       },
+       "code": "point = (3, 5)\nx, y = point\nprint(x, y)\nprint(point[0])\nprint(len(point))",
+       "output": "3 5\n3\n2",
+       "note": {}
+      },
+      {
+       "title": {
+        "en": "star unpacking and swapping",
+        "hi": "स्टार अनपैकिंग और बदलना",
+        "hinglish": "star unpacking aur swap"
+       },
+       "code": "first, *rest = [1, 2, 3, 4]\nprint(first, rest)\na, b = 1, 2\na, b = b, a\nprint(a, b)\nprint((1, 2) + (3,))",
+       "output": "1 [2, 3, 4]\n2 1\n(1, 2, 3)",
+       "note": {
+        "en": "a, b = b, a swaps without a temporary variable. The trailing comma in (3,) makes it a tuple, not a number in brackets.",
+        "hi": "a, b = b, a बिना टेम्परेरी वेरिएबल के बदल देता है। (3,) में अंतिम कॉमा उसे ट्यूपल बनाता है, ब्रैकेट में नंबर नहीं।",
+        "hinglish": "a, b = b, a bina temporary variable ke swap karta hai. (3,) me trailing comma use tuple banata hai, bracket me number nahi."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c02l03e1",
+       "prompt": {
+        "en": "Given `pair = ('Asha', 91)`, unpack it into `name` and `score`, then print `name`.",
+        "hi": "`pair = ('Asha', 91)` को `name` और `score` में खोलें, फिर `name` प्रिंट करें।",
+        "hinglish": "`pair = ('Asha', 91)` ko `name` aur `score` me kholo, phir `name` print karo."
+       },
+       "starter": "pair = ('Asha', 91)\n# name, score = ...",
+       "solution": "pair = ('Asha', 91)\nname, score = pair\nprint(name)",
+       "checks": [
+        "name == \"Asha\"",
+        "score == 91",
+        "\"Asha\" in printed"
+       ],
+       "hint": {
+        "en": "Left side has the names, right side has the tuple.",
+        "hi": "बाएँ नाम, दाएँ ट्यूपल।",
+        "hinglish": "Left me naam, right me tuple."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c02l03q1",
+       "question": {
+        "en": "What is type((5))?",
+        "hi": "type((5)) क्या है?",
+        "hinglish": "type((5)) kya hai?"
+       },
+       "options": [
+        "tuple",
+        "int",
+        "list",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "(5) is just 5 in brackets. A one-item tuple needs a comma: (5,).",
+        "hi": "(5) सिर्फ़ ब्रैकेट में 5 है। एक आइटम का ट्यूपल (5,) होता है।",
+        "hinglish": "(5) sirf bracket me 5 hai. Ek item ka tuple (5,) hota hai."
+       },
+       "misconception": "single-tuple-comma"
+      },
+      {
+       "id": "m04c02l03q2",
+       "question": {
+        "en": "Can you do t = (1, 2); t[0] = 9?",
+        "hi": "क्या t = (1, 2); t[0] = 9 चलेगा?",
+        "hinglish": "Kya t = (1, 2); t[0] = 9 chalega?"
+       },
+       "options": [
+        "yes",
+        "no, TypeError",
+        "no, but only for strings",
+        "yes, if you use append"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Tuples are immutable, so item assignment raises TypeError. You would build a new tuple instead.",
+        "hi": "ट्यूपल immutable हैं, इसलिए आइटम असाइनमेंट TypeError देता है। उसकी जगह नया ट्यूपल बनाएँ।",
+        "hinglish": "Tuples immutable hain, isliye item assignment TypeError deta hai. Uski jagah naya tuple banao."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c02l03q3",
+       "question": {
+        "en": "What is a, b = 1, 2, 3?",
+        "hi": "a, b = 1, 2, 3 क्या है?",
+        "hinglish": "a, b = 1, 2, 3 kya hai?"
+       },
+       "options": [
+        "a=1, b=2",
+        "a=1, b=(2, 3)",
+        "a=(1,2), b=3",
+        "ValueError"
+       ],
+       "answer": "d",
+       "why": {
+        "en": "The counts must match: two names, three values. Use a, b, *rest = 1, 2, 3 to collect the extra one.",
+        "hi": "गिनती मेल खानी चाहिए: दो नाम, तीन वैल्यू। बचा इकट्ठा करने के लिए a, b, *rest = 1, 2, 3 लिखें।",
+        "hinglish": "Count match karni chahiye: do naam, teen values. Bacha collect karne ke liye a, b, *rest = 1, 2, 3 likho."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Tuples are immutable; unpacking names several values in one line.",
+      "hi": "ट्यूपल immutable हैं; अनपैकिंग एक लाइन में कई नाम देती है।",
+      "hinglish": "Tuples immutable hain; unpacking ek line me kai naam deti hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m04c03",
+   "title": {
+    "en": "Dictionaries",
+    "hi": "डिक्शनरी",
+    "hinglish": "Dictionaries"
+   },
+   "lessons": [
+    {
+     "id": "m04c03l04",
+     "title": {
+      "en": "Dictionaries",
+      "hi": "डिक्शनरी",
+      "hinglish": "Dictionaries"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A dict stores key-value pairs. You look a value up by its key instead of by position, which is what you want when the data has names. Keys must be immutable; values can be anything.",
+      "hi": "डिक्शनरी की-वैल्यू जोड़े रखती है। आप वैल्यू को पोज़िशन की जगह उसकी की से ढूँढते हैं, जो तब चाहिए जब डेटा के नाम हों। की immutable होनी चाहिए; वैल्यू कुछ भी हो सकती है।",
+      "hinglish": "Dictionary key-value pairs rakhti hai. Aap value ko position ki jagah uski key se dhoondte ho, jo tab chahiye jab data ke naam hon. Key immutable honi chahiye; value kuch bhi ho sakti hai."
+     },
+     "real_life": {
+      "en": "A phone book is the perfect dict: the name is the key, the number is the value. You do not ask for \"entry 47\", you ask for \"Mummy\".",
+      "hi": "फ़ोन बुक परफ़ेक्ट dict है: नाम की है, नंबर वैल्यू। आप \"entry 47\" नहीं पूछते, आप \"Mummy\" पूछते हैं।",
+      "hinglish": "Phone book perfect dict hai: naam key hai, number value. Aap \"entry 47\" nahi poochhte, aap \"Mummy\" poochhte ho."
+     },
+     "docs": "https://docs.python.org/3/tutorial/datastructures.html#dictionaries",
+     "visual": "dict_map",
+     "examples": [
+      {
+       "title": {
+        "en": "lookup, default, add",
+        "hi": "खोज, डिफ़ॉल्ट, जोड़ना",
+        "hinglish": "lookup, default, add"
+       },
+       "code": "person = {\"name\": \"Asha\", \"age\": 30}\nprint(person[\"name\"])\nprint(person.get(\"city\", \"unknown\"))\nperson[\"city\"] = \"Pune\"\nprint(person)\nprint(list(person.keys()))",
+       "output": "Asha\nunknown\n{'name': 'Asha', 'age': 30, 'city': 'Pune'}\n['name', 'age', 'city']",
+       "note": {
+        "en": "person[\"city\"] would raise KeyError before the key exists. get() returns a default instead.",
+        "hi": "की बनने से पहले person[\"city\"] KeyError देता। get() उसकी जगह डिफ़ॉल्ट देता है।",
+        "hinglish": "Key banne se pehle person[\"city\"] KeyError deta. get() uski jagah default deta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "counting with get",
+        "hi": "get से गिनना",
+        "hinglish": "get se ginna"
+       },
+       "code": "counts = {}\nfor word in [\"a\", \"b\", \"a\"]:\n    counts[word] = counts.get(word, 0) + 1\nprint(counts)\nfor key, value in counts.items():\n    print(key, value)",
+       "output": "{'a': 2, 'b': 1}\na 2\nb 1",
+       "note": {
+        "en": "This is the standard counting pattern before you learn collections.Counter in module 11.",
+        "hi": "यह मॉड्यूल 11 में collections.Counter सीखने से पहले का मानक गिनती पैटर्न है।",
+        "hinglish": "Ye module 11 me collections.Counter seekhne se pehle ka standard ginti pattern hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c03l04e1",
+       "prompt": {
+        "en": "Build `ages = {'Asha': 30}` and add 'Ravi': 25, then print Ravi's age using its key.",
+        "hi": "`ages = {'Asha': 30}` बनाएँ और 'Ravi': 25 जोड़ें, फिर की से Ravi की उम्र प्रिंट करें।",
+        "hinglish": "`ages = {'Asha': 30}` banao aur 'Ravi': 25 jodo, phir key se Ravi ki age print karo."
+       },
+       "starter": "ages = {'Asha': 30}\n# ...",
+       "solution": "ages = {'Asha': 30}\nages['Ravi'] = 25\nprint(ages['Ravi'])",
+       "checks": [
+        "ages == {'Asha': 30, 'Ravi': 25}",
+        "printed.strip() == \"25\""
+       ],
+       "hint": {
+        "en": "Square brackets with a new key create it.",
+        "hi": "नई की के साथ स्क्वायर ब्रैकेट उसे बना देता है।",
+        "hinglish": "Nayi key ke saath square bracket use bana deta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c03l04q1",
+       "question": {
+        "en": "d = {\"a\": 1}. What does d[\"b\"] do?",
+        "hi": "d = {\"a\": 1}. d[\"b\"] क्या करता है?",
+        "hinglish": "d = {\"a\": 1}. d[\"b\"] kya karta hai?"
+       },
+       "options": [
+        "returns None",
+        "returns 0",
+        "raises KeyError",
+        "creates the key"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "Square-bracket lookup of a missing key raises KeyError. Use .get(\"b\") when the key may be absent.",
+        "hi": "गुम की पर स्क्वायर-ब्रैकेट लुकअप KeyError देता है। की न हो सकती हो तो .get(\"b\") इस्तेमाल करें।",
+        "hinglish": "Missing key par square-bracket lookup KeyError deta hai. Key na ho sakti ho to .get(\"b\") use karo."
+       },
+       "misconception": "dict-keyerror"
+      },
+      {
+       "id": "m04c03l04q2",
+       "question": {
+        "en": "Which is a valid dict key?",
+        "hi": "कौन सी वैध dict की है?",
+        "hinglish": "Kaun si valid dict key hai?"
+       },
+       "options": [
+        "[1, 2]",
+        "{'a': 1}",
+        "(1, 2)",
+        "['a']"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "Keys must be immutable (hashable). A tuple of numbers is fine; a list or a dict is not.",
+        "hi": "की immutable (hashable) होनी चाहिए। नंबरों का ट्यूपल ठीक है; लिस्ट या dict नहीं।",
+        "hinglish": "Key immutable (hashable) honi chahiye. Numbers ka tuple theek hai; list ya dict nahi."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c03l04q3",
+       "question": {
+        "en": "What does {'a': 1}.get('b', 0) return?",
+        "hi": "{'a': 1}.get('b', 0) क्या लौटाता है?",
+        "hinglish": "{'a': 1}.get('b', 0) kya return karta hai?"
+       },
+       "options": [
+        "KeyError",
+        "None",
+        "0",
+        "1"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "get returns the second argument when the key is missing. That is why get(key, 0) + 1 is the classic counter.",
+        "hi": "की न होने पर get दूसरा आर्ग्युमेंट लौटाता है। इसीलिए get(key, 0) + 1 क्लासिक काउंटर है।",
+        "hinglish": "Key na hone par get doosra argument return karta hai. Isliye get(key, 0) + 1 classic counter hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Dicts map keys to values; use get() for keys that may be missing.",
+      "hi": "dict की को वैल्यू से जोड़ती है; गुम की के लिए get() इस्तेमाल करें।",
+      "hinglish": "Dict key ko value se jodta hai; missing key ke liye get() use karo."
+     }
+    },
+    {
+     "id": "m04c03l05",
+     "title": {
+      "en": "Nested data",
+      "hi": "नेस्टेड डेटा",
+      "hinglish": "Nested data"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "Real data is nested: a list of dicts, a dict of lists, a list of lists. You reach inside one step at a time, and .get() chains keep missing pieces from crashing the program.",
+      "hi": "असली डेटा नेस्टेड होता है: dict की लिस्ट, लिस्ट की dict, लिस्ट की लिस्ट। आप एक-एक कदम अंदर जाते हैं, और .get() की चेन गुम टुकड़ों पर प्रोग्राम क्रैश नहीं होने देती।",
+      "hinglish": "Asli data nested hota hai: dict ki list, list ki dict, list ki list. Aap ek-ek kadam andar jaate ho, aur .get() ki chain missing tukdon par program crash nahi hone deti."
+     },
+     "real_life": {
+      "en": "A class register: a list of students, each student a dict with a name and a list of marks. That is exactly how JSON from a web API looks, which is why this lesson matters later.",
+      "hi": "क्लास रजिस्टर: छात्रों की लिस्ट, हर छात्र एक dict जिसमें नाम और नंबरों की लिस्ट। वेब API का JSON बिल्कुल ऐसा ही दिखता है, इसीलिए यह लेसन आगे काम आता है।",
+      "hinglish": "Class register: students ki list, har student ek dict jisme naam aur marks ki list. Web API ka JSON bilkul aisa hi dikhta hai, isliye ye lesson aage kaam aata hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/datastructures.html#dictionaries",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "a list of dicts",
+        "hi": "dict की लिस्ट",
+        "hinglish": "dict ki list"
+       },
+       "code": "students = [\n    {\"name\": \"Asha\", \"marks\": [88, 92]},\n    {\"name\": \"Ravi\", \"marks\": [70, 81]},\n]\nfor s in students:\n    print(s[\"name\"], sum(s[\"marks\"]) / len(s[\"marks\"]))",
+       "output": "Asha 90.0\nRavi 75.5",
+       "note": {}
+      },
+      {
+       "title": {
+        "en": "walking down safely",
+        "hi": "सुरक्षित नीचे जाना",
+        "hinglish": "safely neeche jaana"
+       },
+       "code": "data = {\"user\": {\"name\": \"Asha\", \"roles\": [\"admin\", \"editor\"]}}\nprint(data[\"user\"][\"name\"])\nprint(data[\"user\"][\"roles\"][0])\nprint(data.get(\"missing\", {}).get(\"name\", \"n/a\"))",
+       "output": "Asha\nadmin\nn/a",
+       "note": {
+        "en": "data.get(\"missing\", {}) returns an empty dict, so the second .get() still works. Chaining plain [] here would raise KeyError.",
+        "hi": "data.get(\"missing\", {}) खाली dict देता है, इसलिए दूसरा .get() भी चलता है। यहाँ सादा [] KeyError देता।",
+        "hinglish": "data.get(\"missing\", {}) khaali dict deta hai, isliye doosra .get() bhi chalta hai. Yahan saada [] KeyError deta."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c03l05e1",
+       "prompt": {
+        "en": "From `order = {'items': [{'price': 50}, {'price': 70}]}` print the total price.",
+        "hi": "`order = {'items': [{'price': 50}, {'price': 70}]}` से कुल कीमत प्रिंट करें।",
+        "hinglish": "`order = {'items': [{'price': 50}, {'price': 70}]}` se total price print karo."
+       },
+       "starter": "order = {'items': [{'price': 50}, {'price': 70}]}\n# ...",
+       "solution": "order = {'items': [{'price': 50}, {'price': 70}]}\nprint(sum(i['price'] for i in order['items']))",
+       "checks": [
+        "printed.strip() == \"120\""
+       ],
+       "hint": {
+        "en": "A generator inside sum() keeps it to one line.",
+        "hi": "sum() के अंदर जनरेटर एक लाइन में रखता है।",
+        "hinglish": "sum() ke andar generator ek line me rakhta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c03l05q1",
+       "question": {
+        "en": "data = {\"a\": {\"b\": 5}}. What is data[\"a\"][\"b\"]?",
+        "hi": "data = {\"a\": {\"b\": 5}}. data[\"a\"][\"b\"] क्या है?",
+        "hinglish": "data = {\"a\": {\"b\": 5}}. data[\"a\"][\"b\"] kya hai?"
+       },
+       "options": [
+        "5",
+        "'b'",
+        "{'b': 5}",
+        "an error"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "The first [] gets the inner dict, the second gets the value inside it.",
+        "hi": "पहला [] अंदरूनी dict देता है, दूसरा उसके अंदर की वैल्यू।",
+        "hinglish": "Pehla [] andaruni dict deta hai, doosra uske andar ki value."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c03l05q2",
+       "question": {
+        "en": "Why is data.get('x', {}).get('y') safer than data['x']['y']?",
+        "hi": "data.get('x', {}).get('y') data['x']['y'] से सुरक्षित क्यों है?",
+        "hinglish": "data.get('x', {}).get('y') data['x']['y'] se safe kyun hai?"
+       },
+       "options": [
+        "get is faster",
+        "a missing 'x' gives an empty dict instead of KeyError",
+        "get creates the key",
+        "it is not safer"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "With [], a missing key raises KeyError and the program stops. With get, you get a default and can keep going.",
+        "hi": "[], में गुम की KeyError देती है और प्रोग्राम रुक जाता है। get से डिफ़ॉल्ट मिलता है और काम चलता रहता है।",
+        "hinglish": "[], me missing key KeyError deti hai aur program ruk jata hai. get se default milta hai aur kaam chalta rehta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c03l05q3",
+       "question": {
+        "en": "Which is the correct way to read the first mark? marks = [[88, 92], [70]]",
+        "hi": "पहला नंबर पढ़ने का सही तरीका? marks = [[88, 92], [70]]",
+        "hinglish": "Pehla mark padhne ka sahi tarika? marks = [[88, 92], [70]]"
+       },
+       "options": [
+        "marks[0]",
+        "marks[0][0]",
+        "marks[1][0]",
+        "marks[0, 0]"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "marks[0] is the inner list [88, 92]; one more [0] gets 88. marks[0, 0] is a tuple index and raises TypeError on a list.",
+        "hi": "marks[0] अंदरूनी लिस्ट [88, 92] है; एक और [0] से 88 मिलता है। marks[0, 0] ट्यूपल इंडेक्स है और लिस्ट पर TypeError देता है।",
+        "hinglish": "marks[0] andaruni list [88, 92] hai; ek aur [0] se 88 milta hai. marks[0, 0] tuple index hai aur list par TypeError deta hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Nested data is read one step at a time; .get() keeps missing keys safe.",
+      "hi": "नेस्टेड डेटा एक-एक कदम पढ़ा जाता है; .get() गुम की को सुरक्षित रखता है।",
+      "hinglish": "Nested data ek-ek kadam padha jata hai; .get() missing key ko safe rakhta hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m04c04",
+   "title": {
+    "en": "Sets",
+    "hi": "सेट",
+    "hinglish": "Sets"
+   },
+   "lessons": [
+    {
+     "id": "m04c04l06",
+     "title": {
+      "en": "Sets",
+      "hi": "सेट",
+      "hinglish": "Sets"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A set is an unordered collection with no duplicates. It answers \"is this in here?\" extremely fast and supports the maths you learned at school: union, intersection and difference.",
+      "hi": "सेट बिना क्रम और बिना दोहराव का संग्रह है। यह \"क्या यह इसमें है?\" बहुत तेज़ बताता है और स्कूल की गणित देता है: यूनियन, इंटरसेक्शन और डिफ़रेंस।",
+      "hinglish": "Set bina order aur bina duplicate ka collection hai. Ye \"kya ye isme hai?\" bahut fast batata hai aur school ki maths deta hai: union, intersection aur difference."
+     },
+     "real_life": {
+      "en": "Two friends compare their movie lists. Which movies both watched? Intersection. Which did only you watch? Difference. Which did at least one of you watch? Union.",
+      "hi": "दो दोस्त अपनी मूवी लिस्ट मिलाते हैं। दोनों ने कौन सी देखी? इंटरसेक्शन। सिर्फ़ आपने कौन सी देखी? डिफ़रेंस। कम से कम एक ने कौन सी देखी? यूनियन।",
+      "hinglish": "Do dost apni movie list milate hain. Dono ne kaun si dekhi? Intersection. Sirf aapne kaun si dekhi? Difference. Kam se kam ek ne kaun si dekhi? Union."
+     },
+     "docs": "https://docs.python.org/3/tutorial/datastructures.html#sets",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "set algebra",
+        "hi": "सेट गणित",
+        "hinglish": "set algebra"
+       },
+       "code": "a = {1, 2, 3}\nb = {3, 4}\nprint(a | b)\nprint(a & b)\nprint(a - b)\nprint(2 in a)",
+       "output": "{1, 2, 3, 4}\n{3}\n{1, 2}\nTrue",
+       "note": {
+        "en": "| is union, & is intersection, - is difference. The method names are union(), intersection(), difference().",
+        "hi": "| यूनियन, & इंटरसेक्शन, - डिफ़रेंस। मेथड नाम union(), intersection(), difference() हैं।",
+        "hinglish": "| union, & intersection, - difference. Method naam union(), intersection(), difference() hain."
+       }
+      },
+      {
+       "title": {
+        "en": "removing duplicates",
+        "hi": "दोहराव हटाना",
+        "hinglish": "duplicates hataana"
+       },
+       "code": "names = [\"asha\", \"ravi\", \"asha\"]\nunique = set(names)\nprint(len(unique))\nprint(sorted(unique))\nempty = set()\nprint(type(empty))",
+       "output": "2\n['asha', 'ravi']\n<class 'set'>",
+       "note": {
+        "en": "{} makes an empty dict, not an empty set. Use set() for an empty set.",
+        "hi": "{} खाली dict बनाता है, खाली सेट नहीं। खाली सेट के लिए set() लिखें।",
+        "hinglish": "{} khaali dict banata hai, khaali set nahi. Khaali set ke liye set() likho."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m04c04l06e1",
+       "prompt": {
+        "en": "Find the common subjects in a = {'math', 'art'} and b = {'art', 'music'} and print them.",
+        "hi": "a = {'math', 'art'} और b = {'art', 'music'} में साझा विषय खोजें और प्रिंट करें।",
+        "hinglish": "a = {'math', 'art'} aur b = {'art', 'music'} me common subject dhoondo aur print karo."
+       },
+       "starter": "a = {'math', 'art'}\nb = {'art', 'music'}\n# print(...)",
+       "solution": "a = {'math', 'art'}\nb = {'art', 'music'}\nprint(a & b)",
+       "checks": [
+        "printed.strip() in (\"{'art'}\", \"set()\") or \"art\" in printed"
+       ],
+       "hint": {
+        "en": "& gives the intersection.",
+        "hi": "& इंटरसेक्शन देता है।",
+        "hinglish": "& intersection deta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m04c04l06q1",
+       "question": {
+        "en": "What is len({1, 1, 2, 2, 3})?",
+        "hi": "len({1, 1, 2, 2, 3}) क्या है?",
+        "hinglish": "len({1, 1, 2, 2, 3}) kya hai?"
+       },
+       "options": [
+        "5",
+        "3",
+        "2",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A set drops duplicates, so only 1, 2 and 3 remain.",
+        "hi": "सेट दोहराव हटाता है, इसलिए सिर्फ़ 1, 2, 3 बचते हैं।",
+        "hinglish": "Set duplicate hataata hai, isliye sirf 1, 2, 3 bachte hain."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m04c04l06q2",
+       "question": {
+        "en": "What is type({})?",
+        "hi": "type({}) क्या है?",
+        "hinglish": "type({}) kya hai?"
+       },
+       "options": [
+        "set",
+        "dict",
+        "tuple",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Empty braces make a dict. set() is the only way to write an empty set.",
+        "hi": "खाली ब्रेसेस dict बनाते हैं। खाली सेट लिखने का एक ही तरीका set() है।",
+        "hinglish": "Khaali braces dict banate hain. Khaali set likhne ka ek hi tarika set() hai."
+       },
+       "misconception": "empty-braces"
+      },
+      {
+       "id": "m04c04l06q3",
+       "question": {
+        "en": "Why can a set not be indexed like s[0]?",
+        "hi": "सेट को s[0] की तरह इंडेक्स क्यों नहीं कर सकते?",
+        "hinglish": "Set ko s[0] ki tarah index kyun nahi kar sakte?"
+       },
+       "options": [
+        "it has no order, so position 0 means nothing",
+        "it is too slow",
+        "sets are immutable",
+        "you can, it works"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "Sets are unordered by design (that is what makes membership fast). Convert with list(s) or sorted(s) when you need positions.",
+        "hi": "सेट डिज़ाइन से बिना क्रम हैं (इसी से सदस्यता तेज़ होती है)। पोज़िशन चाहिए तो list(s) या sorted(s) करें।",
+        "hinglish": "Sets design se unordered hain (isise membership fast hoti hai). Position chahiye to list(s) ya sorted(s) karo."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Sets remove duplicates and answer membership fast; {} is a dict, set() is a set.",
+      "hi": "सेट दोहराव हटाते हैं और सदस्यता तेज़ बताते हैं; {} dict है, set() सेट है।",
+      "hinglish": "Sets duplicate hataate hain aur membership fast batate hain; {} dict hai, set() set hai."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m04x01",
+   "question": {
+    "en": "Which collection cannot contain duplicates?",
+    "hi": "कौन सा संग्रह दोहराव नहीं रख सकता?",
+    "hinglish": "Kaun sa collection duplicate nahi rakh sakta?"
+   },
+   "options": [
+    "list",
+    "tuple",
+    "set",
+    "dict values"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "A set stores unique values only. A list and a tuple happily repeat.",
+    "hi": "सेट सिर्फ़ अलग-अलग वैल्यू रखता है। लिस्ट और ट्यूपल दोहराव रख लेते हैं।",
+    "hinglish": "Set sirf alag-alag values rakhta hai. List aur tuple duplicate rakh lete hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04x02",
+   "question": {
+    "en": "What is [1, 2] + [3]?",
+    "hi": "[1, 2] + [3] क्या है?",
+    "hinglish": "[1, 2] + [3] kya hai?"
+   },
+   "options": [
+    "[1, 2, 3]",
+    "an error",
+    "[1, 5]",
+    "[4]"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "+ on lists concatenates and returns a new list. Use append or extend to change one in place.",
+    "hi": "लिस्ट पर + जोड़ता है और नई लिस्ट देता है। जगह पर बदलने के लिए append या extend।",
+    "hinglish": "List par + jodta hai aur nayi list deta hai. Jagah par badalne ke liye append ya extend."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04x03",
+   "question": {
+    "en": "What is (1, 2) * 2?",
+    "hi": "(1, 2) * 2 क्या है?",
+    "hinglish": "(1, 2) * 2 kya hai?"
+   },
+   "options": [
+    "(2, 4)",
+    "(1, 2, 1, 2)",
+    "an error",
+    "(1, 2, 2)"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "* on a tuple or list repeats it, exactly like * on a string.",
+    "hi": "ट्यूपल या लिस्ट पर * उसे दोहराता है, स्ट्रिंग की तरह।",
+    "hinglish": "Tuple ya list par * use repeat karta hai, string ki tarah."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04x04",
+   "question": {
+    "en": "Which dict method returns all key-value pairs?",
+    "hi": "कौन सा dict मेथड सभी की-वैल्यू जोड़े देता है?",
+    "hinglish": "Kaun sa dict method sab key-value pairs deta hai?"
+   },
+   "options": [
+    "keys()",
+    "values()",
+    "items()",
+    "get()"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "items() yields (key, value) tuples, which is why `for k, v in d.items()` works.",
+    "hi": "items() (key, value) ट्यूपल देता है, इसीलिए `for k, v in d.items()` चलता है।",
+    "hinglish": "items() (key, value) tuple deta hai, isliye `for k, v in d.items()` chalta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04x05",
+   "question": {
+    "en": "What is {1, 2} & {2, 3}?",
+    "hi": "{1, 2} & {2, 3} क्या है?",
+    "hinglish": "{1, 2} & {2, 3} kya hai?"
+   },
+   "options": [
+    "{1, 2, 3}",
+    "{2}",
+    "{1, 3}",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "& keeps only the shared items.",
+    "hi": "& सिर्फ़ साझा आइटम रखता है।",
+    "hinglish": "& sirf shared items rakhta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04x06",
+   "question": {
+    "en": "Which statement about tuple unpacking is true?",
+    "hi": "ट्यूपल अनपैकिंग के बारे में कौन सा सही है?",
+    "hinglish": "Tuple unpacking ke baare me kaun sa sahi hai?"
+   },
+   "options": [
+    "the number of names must match the number of values",
+    "you need a loop",
+    "it only works for strings",
+    "it changes the tuple"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "a, b = 1, 2 works; a, b = 1, 2, 3 raises ValueError unless you use *rest.",
+    "hi": "a, b = 1, 2 चलता है; a, b = 1, 2, 3 ValueError देता है जब तक *rest न लें।",
+    "hinglish": "a, b = 1, 2 chalta hai; a, b = 1, 2, 3 ValueError deta hai jab tak *rest na lo."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m04s01",
+   "question": {
+    "en": "a = [1, 2]; b = a; b.append(3). What is a?",
+    "hi": "a = [1, 2]; b = a; b.append(3). a क्या है?",
+    "hinglish": "a = [1, 2]; b = a; b.append(3). a kya hai?"
+   },
+   "options": [
+    "[1, 2]",
+    "[1, 2, 3]",
+    "an error",
+    "[3]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "b is another name for the same list, so appending through b changes a as well.",
+    "hi": "b उसी लिस्ट का दूसरा नाम है, इसलिए b से append करने पर a भी बदल जाता है।",
+    "hinglish": "b usi list ka doosra naam hai, isliye b se append karne par a bhi badal jata hai."
+   },
+   "misconception": "aliasing"
+  },
+  {
+   "id": "m04s02",
+   "question": {
+    "en": "Which one makes an independent copy?",
+    "hi": "कौन सा स्वतंत्र कॉपी बनाता है?",
+    "hinglish": "Kaun sa independent copy banata hai?"
+   },
+   "options": [
+    "b = a",
+    "b = a[:]",
+    "b = a.append(0)",
+    "b = a[0]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A full slice copies the list. b = a only adds a name, and append returns None.",
+    "hi": "पूरा स्लाइस लिस्ट कॉपी करता है। b = a सिर्फ़ नाम जोड़ता है, और append None देता है।",
+    "hinglish": "Poora slice list copy karta hai. b = a sirf naam jodta hai, aur append None deta hai."
+   },
+   "misconception": "aliasing"
+  },
+  {
+   "id": "m04s03",
+   "question": {
+    "en": "What is len([1, [2, 3], 4])?",
+    "hi": "len([1, [2, 3], 4]) क्या है?",
+    "hinglish": "len([1, [2, 3], 4]) kya hai?"
+   },
+   "options": [
+    "4",
+    "3",
+    "2",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "len counts top-level items. The inner list counts as one item, no matter how many things are inside it.",
+    "hi": "len सिर्फ़ ऊपरी स्तर के आइटम गिनता है। अंदरूनी लिस्ट एक आइटम है, चाहे उसमें कुछ भी हो।",
+    "hinglish": "len sirf top-level items ginta hai. Andaruni list ek item hai, chahe usme kuch bhi ho."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s04",
+   "question": {
+    "en": "What does [1, 2, 3].pop() return?",
+    "hi": "[1, 2, 3].pop() क्या लौटाता है?",
+    "hinglish": "[1, 2, 3].pop() kya return karta hai?"
+   },
+   "options": [
+    "1",
+    "3",
+    "[1, 2]",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "pop() removes and returns the last item. pop(0) would return 1.",
+    "hi": "pop() आख़िरी आइटम हटाकर लौटाता है। pop(0) 1 लौटाता।",
+    "hinglish": "pop() aakhri item hataakar return karta hai. pop(0) 1 return karta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s05",
+   "question": {
+    "en": "nums = [3, 1, 2]; result = nums.sort(); print(result). What prints?",
+    "hi": "nums = [3, 1, 2]; result = nums.sort(); print(result)। क्या प्रिंट होगा?",
+    "hinglish": "nums = [3, 1, 2]; result = nums.sort(); print(result). Kya print hoga?"
+   },
+   "options": [
+    "[1, 2, 3]",
+    "None",
+    "an error",
+    "[3, 1, 2]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "sort() sorts in place and returns None. Assigning its result is the classic mistake; use sorted() if you want the value.",
+    "hi": "sort() जगह पर सॉर्ट करता है और None देता है। उसका परिणाम असाइन करना क्लासिक गलती है; वैल्यू चाहिए तो sorted() इस्तेमाल करें।",
+    "hinglish": "sort() jagah par sort karta hai aur None deta hai. Uska result assign karna classic galti hai; value chahiye to sorted() use karo."
+   },
+   "misconception": "sort-returns-none"
+  },
+  {
+   "id": "m04s06",
+   "question": {
+    "en": "nums = [1, 2, 3]; nums.remove(2). What is nums now?",
+    "hi": "nums = [1, 2, 3]; nums.remove(2). अब nums क्या है?",
+    "hinglish": "nums = [1, 2, 3]; nums.remove(2). Ab nums kya hai?"
+   },
+   "options": [
+    "[1, 3]",
+    "[1, 2]",
+    "[2, 3]",
+    "an error"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "remove takes a value, not an index, and deletes the first match.",
+    "hi": "remove वैल्यू लेता है, इंडेक्स नहीं, और पहला मेल हटाता है।",
+    "hinglish": "remove value leta hai, index nahi, aur pehla match hataata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s07",
+   "question": {
+    "en": "What is type((5))?",
+    "hi": "type((5)) क्या है?",
+    "hinglish": "type((5)) kya hai?"
+   },
+   "options": [
+    "tuple",
+    "int",
+    "list",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "(5) is just 5 in brackets. A one-item tuple needs a comma: (5,).",
+    "hi": "(5) सिर्फ़ ब्रैकेट में 5 है। एक आइटम का ट्यूपल (5,) होता है।",
+    "hinglish": "(5) sirf bracket me 5 hai. Ek item ka tuple (5,) hota hai."
+   },
+   "misconception": "single-tuple-comma"
+  },
+  {
+   "id": "m04s08",
+   "question": {
+    "en": "Can you do t = (1, 2); t[0] = 9?",
+    "hi": "क्या t = (1, 2); t[0] = 9 चलेगा?",
+    "hinglish": "Kya t = (1, 2); t[0] = 9 chalega?"
+   },
+   "options": [
+    "yes",
+    "no, TypeError",
+    "no, but only for strings",
+    "yes, if you use append"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Tuples are immutable, so item assignment raises TypeError. You would build a new tuple instead.",
+    "hi": "ट्यूपल immutable हैं, इसलिए आइटम असाइनमेंट TypeError देता है। उसकी जगह नया ट्यूपल बनाएँ।",
+    "hinglish": "Tuples immutable hain, isliye item assignment TypeError deta hai. Uski jagah naya tuple banao."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s09",
+   "question": {
+    "en": "What is a, b = 1, 2, 3?",
+    "hi": "a, b = 1, 2, 3 क्या है?",
+    "hinglish": "a, b = 1, 2, 3 kya hai?"
+   },
+   "options": [
+    "a=1, b=2",
+    "a=1, b=(2, 3)",
+    "a=(1,2), b=3",
+    "ValueError"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "The counts must match: two names, three values. Use a, b, *rest = 1, 2, 3 to collect the extra one.",
+    "hi": "गिनती मेल खानी चाहिए: दो नाम, तीन वैल्यू। बचा इकट्ठा करने के लिए a, b, *rest = 1, 2, 3 लिखें।",
+    "hinglish": "Count match karni chahiye: do naam, teen values. Bacha collect karne ke liye a, b, *rest = 1, 2, 3 likho."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s10",
+   "question": {
+    "en": "d = {\"a\": 1}. What does d[\"b\"] do?",
+    "hi": "d = {\"a\": 1}. d[\"b\"] क्या करता है?",
+    "hinglish": "d = {\"a\": 1}. d[\"b\"] kya karta hai?"
+   },
+   "options": [
+    "returns None",
+    "returns 0",
+    "raises KeyError",
+    "creates the key"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "Square-bracket lookup of a missing key raises KeyError. Use .get(\"b\") when the key may be absent.",
+    "hi": "गुम की पर स्क्वायर-ब्रैकेट लुकअप KeyError देता है। की न हो सकती हो तो .get(\"b\") इस्तेमाल करें।",
+    "hinglish": "Missing key par square-bracket lookup KeyError deta hai. Key na ho sakti ho to .get(\"b\") use karo."
+   },
+   "misconception": "dict-keyerror"
+  },
+  {
+   "id": "m04s11",
+   "question": {
+    "en": "Which is a valid dict key?",
+    "hi": "कौन सी वैध dict की है?",
+    "hinglish": "Kaun si valid dict key hai?"
+   },
+   "options": [
+    "[1, 2]",
+    "{'a': 1}",
+    "(1, 2)",
+    "['a']"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "Keys must be immutable (hashable). A tuple of numbers is fine; a list or a dict is not.",
+    "hi": "की immutable (hashable) होनी चाहिए। नंबरों का ट्यूपल ठीक है; लिस्ट या dict नहीं।",
+    "hinglish": "Key immutable (hashable) honi chahiye. Numbers ka tuple theek hai; list ya dict nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s12",
+   "question": {
+    "en": "What does {'a': 1}.get('b', 0) return?",
+    "hi": "{'a': 1}.get('b', 0) क्या लौटाता है?",
+    "hinglish": "{'a': 1}.get('b', 0) kya return karta hai?"
+   },
+   "options": [
+    "KeyError",
+    "None",
+    "0",
+    "1"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "get returns the second argument when the key is missing. That is why get(key, 0) + 1 is the classic counter.",
+    "hi": "की न होने पर get दूसरा आर्ग्युमेंट लौटाता है। इसीलिए get(key, 0) + 1 क्लासिक काउंटर है।",
+    "hinglish": "Key na hone par get doosra argument return karta hai. Isliye get(key, 0) + 1 classic counter hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s13",
+   "question": {
+    "en": "data = {\"a\": {\"b\": 5}}. What is data[\"a\"][\"b\"]?",
+    "hi": "data = {\"a\": {\"b\": 5}}. data[\"a\"][\"b\"] क्या है?",
+    "hinglish": "data = {\"a\": {\"b\": 5}}. data[\"a\"][\"b\"] kya hai?"
+   },
+   "options": [
+    "5",
+    "'b'",
+    "{'b': 5}",
+    "an error"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "The first [] gets the inner dict, the second gets the value inside it.",
+    "hi": "पहला [] अंदरूनी dict देता है, दूसरा उसके अंदर की वैल्यू।",
+    "hinglish": "Pehla [] andaruni dict deta hai, doosra uske andar ki value."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s14",
+   "question": {
+    "en": "Why is data.get('x', {}).get('y') safer than data['x']['y']?",
+    "hi": "data.get('x', {}).get('y') data['x']['y'] से सुरक्षित क्यों है?",
+    "hinglish": "data.get('x', {}).get('y') data['x']['y'] se safe kyun hai?"
+   },
+   "options": [
+    "get is faster",
+    "a missing 'x' gives an empty dict instead of KeyError",
+    "get creates the key",
+    "it is not safer"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "With [], a missing key raises KeyError and the program stops. With get, you get a default and can keep going.",
+    "hi": "[], में गुम की KeyError देती है और प्रोग्राम रुक जाता है। get से डिफ़ॉल्ट मिलता है और काम चलता रहता है।",
+    "hinglish": "[], me missing key KeyError deti hai aur program ruk jata hai. get se default milta hai aur kaam chalta rehta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s15",
+   "question": {
+    "en": "Which is the correct way to read the first mark? marks = [[88, 92], [70]]",
+    "hi": "पहला नंबर पढ़ने का सही तरीका? marks = [[88, 92], [70]]",
+    "hinglish": "Pehla mark padhne ka sahi tarika? marks = [[88, 92], [70]]"
+   },
+   "options": [
+    "marks[0]",
+    "marks[0][0]",
+    "marks[1][0]",
+    "marks[0, 0]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "marks[0] is the inner list [88, 92]; one more [0] gets 88. marks[0, 0] is a tuple index and raises TypeError on a list.",
+    "hi": "marks[0] अंदरूनी लिस्ट [88, 92] है; एक और [0] से 88 मिलता है। marks[0, 0] ट्यूपल इंडेक्स है और लिस्ट पर TypeError देता है।",
+    "hinglish": "marks[0] andaruni list [88, 92] hai; ek aur [0] se 88 milta hai. marks[0, 0] tuple index hai aur list par TypeError deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s16",
+   "question": {
+    "en": "What is len({1, 1, 2, 2, 3})?",
+    "hi": "len({1, 1, 2, 2, 3}) क्या है?",
+    "hinglish": "len({1, 1, 2, 2, 3}) kya hai?"
+   },
+   "options": [
+    "5",
+    "3",
+    "2",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A set drops duplicates, so only 1, 2 and 3 remain.",
+    "hi": "सेट दोहराव हटाता है, इसलिए सिर्फ़ 1, 2, 3 बचते हैं।",
+    "hinglish": "Set duplicate hataata hai, isliye sirf 1, 2, 3 bachte hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s17",
+   "question": {
+    "en": "What is type({})?",
+    "hi": "type({}) क्या है?",
+    "hinglish": "type({}) kya hai?"
+   },
+   "options": [
+    "set",
+    "dict",
+    "tuple",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Empty braces make a dict. set() is the only way to write an empty set.",
+    "hi": "खाली ब्रेसेस dict बनाते हैं। खाली सेट लिखने का एक ही तरीका set() है।",
+    "hinglish": "Khaali braces dict banate hain. Khaali set likhne ka ek hi tarika set() hai."
+   },
+   "misconception": "empty-braces"
+  },
+  {
+   "id": "m04s18",
+   "question": {
+    "en": "Why can a set not be indexed like s[0]?",
+    "hi": "सेट को s[0] की तरह इंडेक्स क्यों नहीं कर सकते?",
+    "hinglish": "Set ko s[0] ki tarah index kyun nahi kar sakte?"
+   },
+   "options": [
+    "it has no order, so position 0 means nothing",
+    "it is too slow",
+    "sets are immutable",
+    "you can, it works"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "Sets are unordered by design (that is what makes membership fast). Convert with list(s) or sorted(s) when you need positions.",
+    "hi": "सेट डिज़ाइन से बिना क्रम हैं (इसी से सदस्यता तेज़ होती है)। पोज़िशन चाहिए तो list(s) या sorted(s) करें।",
+    "hinglish": "Sets design se unordered hain (isise membership fast hoti hai). Position chahiye to list(s) ya sorted(s) karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s19",
+   "question": {
+    "en": "Which collection cannot contain duplicates?",
+    "hi": "कौन सा संग्रह दोहराव नहीं रख सकता?",
+    "hinglish": "Kaun sa collection duplicate nahi rakh sakta?"
+   },
+   "options": [
+    "list",
+    "tuple",
+    "set",
+    "dict values"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "A set stores unique values only. A list and a tuple happily repeat.",
+    "hi": "सेट सिर्फ़ अलग-अलग वैल्यू रखता है। लिस्ट और ट्यूपल दोहराव रख लेते हैं।",
+    "hinglish": "Set sirf alag-alag values rakhta hai. List aur tuple duplicate rakh lete hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s20",
+   "question": {
+    "en": "What is [1, 2] + [3]?",
+    "hi": "[1, 2] + [3] क्या है?",
+    "hinglish": "[1, 2] + [3] kya hai?"
+   },
+   "options": [
+    "[1, 2, 3]",
+    "an error",
+    "[1, 5]",
+    "[4]"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "+ on lists concatenates and returns a new list. Use append or extend to change one in place.",
+    "hi": "लिस्ट पर + जोड़ता है और नई लिस्ट देता है। जगह पर बदलने के लिए append या extend।",
+    "hinglish": "List par + jodta hai aur nayi list deta hai. Jagah par badalne ke liye append ya extend."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s21",
+   "question": {
+    "en": "What is (1, 2) * 2?",
+    "hi": "(1, 2) * 2 क्या है?",
+    "hinglish": "(1, 2) * 2 kya hai?"
+   },
+   "options": [
+    "(2, 4)",
+    "(1, 2, 1, 2)",
+    "an error",
+    "(1, 2, 2)"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "* on a tuple or list repeats it, exactly like * on a string.",
+    "hi": "ट्यूपल या लिस्ट पर * उसे दोहराता है, स्ट्रिंग की तरह।",
+    "hinglish": "Tuple ya list par * use repeat karta hai, string ki tarah."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s22",
+   "question": {
+    "en": "Which dict method returns all key-value pairs?",
+    "hi": "कौन सा dict मेथड सभी की-वैल्यू जोड़े देता है?",
+    "hinglish": "Kaun sa dict method sab key-value pairs deta hai?"
+   },
+   "options": [
+    "keys()",
+    "values()",
+    "items()",
+    "get()"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "items() yields (key, value) tuples, which is why `for k, v in d.items()` works.",
+    "hi": "items() (key, value) ट्यूपल देता है, इसीलिए `for k, v in d.items()` चलता है।",
+    "hinglish": "items() (key, value) tuple deta hai, isliye `for k, v in d.items()` chalta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s23",
+   "question": {
+    "en": "What is {1, 2} & {2, 3}?",
+    "hi": "{1, 2} & {2, 3} क्या है?",
+    "hinglish": "{1, 2} & {2, 3} kya hai?"
+   },
+   "options": [
+    "{1, 2, 3}",
+    "{2}",
+    "{1, 3}",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "& keeps only the shared items.",
+    "hi": "& सिर्फ़ साझा आइटम रखता है।",
+    "hinglish": "& sirf shared items rakhta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m04s24",
+   "question": {
+    "en": "Which statement about tuple unpacking is true?",
+    "hi": "ट्यूपल अनपैकिंग के बारे में कौन सा सही है?",
+    "hinglish": "Tuple unpacking ke baare me kaun sa sahi hai?"
+   },
+   "options": [
+    "the number of names must match the number of values",
+    "you need a loop",
+    "it only works for strings",
+    "it changes the tuple"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "a, b = 1, 2 works; a, b = 1, 2, 3 raises ValueError unless you use *rest.",
+    "hi": "a, b = 1, 2 चलता है; a, b = 1, 2, 3 ValueError देता है जब तक *rest न लें।",
+    "hinglish": "a, b = 1, 2 chalta hai; a, b = 1, 2, 3 ValueError deta hai jab tak *rest na lo."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "📦"
+}

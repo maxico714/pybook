@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}PyBook — learn Python and AI engineering by doing{% endblock %}
+{% block crumbs %}<span>Home</span>{% endblock %}
+
+{% block body %}
+<section class="hero home-hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <p class="kicker" data-animate>Practice first · theory second · local and private</p>
+  <h1 data-animate>Learn Python and <span class="grad">AI engineering</span> by running real code.</h1>
+  <p class="lede" data-animate>
+    Two complete courses, one path. Every lesson is a short idea, a runnable example,
+    a practice task you must solve and a quiz that unlocks the next lesson.
+    No jumping ahead — that is the point. Your progress is saved to your own account.
+  </p>
+
+  <div class="cta-row" data-animate>
+    <a class="btn primary lg" href="{{ url_for('signup') }}">Create a free account <span aria-hidden="true">→</span></a>
+    <a class="btn ghost lg" href="{{ url_for('login') }}">I already have one</a>
+  </div>
+
+  <p class="tiny approval-note">
+    Accounts are reviewed by the admin before first login, so the classroom stays small and real.
+  </p>
+
+  <ul class="hero-stats">
+    <li><b>2</b><span>courses</span></li>
+    <li><b>{{ courses|sum(attribute='lessons') }}</b><span>lessons</span></li>
+    <li><b>{{ courses|sum(attribute='modules') }}</b><span>modules</span></li>
+    <li><b>0 ₹</b><span>cost, no ads</span></li>
+  </ul>
+</section>
+
+<h2 class="section-title">Course enquiry</h2>
+<div class="grid home-courses">
+  {% for item in courses %}
+    <article class="card course-card">
+      <header class="course-card-head">
+        <span class="course-icon" aria-hidden="true">{{ '🐍' if item.id == 'pybook' else '🤖' }}</span>
+        <div>
+          <h3>{{ t(item.title) }}</h3>
+          <p class="muted">{{ t(item.subtitle) }}</p>
+        </div>
+      </header>
+      <ul class="course-facts">
+        <li><b>{{ item.modules }}</b> modules</li>
+        <li><b>{{ item.chapters }}</b> chapters</li>
+        <li><b>{{ item.lessons }}</b> lessons</li>
+      </ul>
+      <div class="course-card-foot">
+        <a class="btn ghost" href="{{ url_for('course_detail', course_id=item.id) }}">View syllabus</a>
+        <a class="btn primary" href="{{ url_for('signup', course=item.id) }}">Enquire &amp; join</a>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+
+<h2 class="section-title">How it works</h2>
+<ol class="steps">
+  <li class="card">
+    <span class="step-num">1</span>
+    <h3>Sign up</h3>
+    <p class="muted">Tell us your name, email and which course you want. Nothing else is collected.</p>
+  </li>
+  <li class="card">
+    <span class="step-num">2</span>
+    <h3>Admin approves</h3>
+    <p class="muted">Your request appears in the admin panel. Once it is approved you can log in.</p>
+  </li>
+  <li class="card">
+    <span class="step-num">3</span>
+    <h3>Practice, then quiz</h3>
+    <p class="muted">Solve the practice task to unlock the quiz. Optional drills only add XP.</p>
+  </li>
+  <li class="card">
+    <span class="step-num">4</span>
+    <h3>Progress is saved</h3>
+    <p class="muted">Every lesson, exam and drill is stored per account. Log in tomorrow and continue.</p>
+  </li>
+</ol>
+
+<h2 class="section-title">What makes this different</h2>
+<div class="grid features">
+  <article class="card">
+    <h3>You cannot skip ahead</h3>
+    <p class="muted">A lesson opens only when the previous one is passed. The only shortcut is a
+      {{ skip_pass }}% skip exam that proves you already know the module.</p>
+  </article>
+  <article class="card">
+    <h3>Practice gates the quiz</h3>
+    <p class="muted">Reading is not learning. The quiz stays locked until the lesson's practice task
+      actually passes its checks in the sandbox.</p>
+  </article>
+  <article class="card">
+    <h3>Three explanation languages</h3>
+    <p class="muted">English, हिन्दी and Hinglish, switchable per account. Code stays in English,
+      the explanation adapts to you.</p>
+  </article>
+  <article class="card">
+    <h3>Runs on your machine</h3>
+    <p class="muted">No CDN, no telemetry, no third-party fonts. One SQLite file holds the accounts
+      and the progress.</p>
+  </article>
+</div>
+
+<section class="cta-band">
+  <div>
+    <h2>Ready to start {{ courses|sum(attribute='lessons') }} lessons?</h2>
+    <p class="muted">Create the account now; the admin usually approves within a day.</p>
+  </div>
+  <a class="btn primary lg" href="{{ url_for('signup') }}">Create account</a>
+</section>
+{% endblock %}

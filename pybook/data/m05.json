@@ -1,0 +1,1366 @@
+{
+ "id": "m05",
+ "title": {
+  "en": "Functions",
+  "hi": "फ़ंक्शन",
+  "hinglish": "Functions"
+ },
+ "goal": {
+  "en": "Name a block of work once and reuse it: return values, defaults, *args, scope, lambda and recursion.",
+  "hi": "काम के ब्लॉक को एक बार नाम दें और दोबारा इस्तेमाल करें: return वैल्यू, डिफ़ॉल्ट, *args, स्कोप, lambda और रिकर्शन।",
+  "hinglish": "Kaam ke block ko ek baar naam do aur dobara use karo: return values, defaults, *args, scope, lambda aur recursion."
+ },
+ "chapters": [
+  {
+   "id": "m05c01",
+   "title": {
+    "en": "Writing functions",
+    "hi": "फ़ंक्शन लिखना",
+    "hinglish": "Functions likhna"
+   },
+   "lessons": [
+    {
+     "id": "m05c01l01",
+     "title": {
+      "en": "def and return",
+      "hi": "def और return",
+      "hinglish": "def aur return"
+     },
+     "keywords": [
+      "def",
+      "return"
+     ],
+     "intro": {
+      "en": "A function is a named block of code that does one job. You define it once with def, then call it as many times as you like. return sends a value back to whoever called it.",
+      "hi": "फ़ंक्शन एक नाम वाला कोड ब्लॉक है जो एक काम करता है। इसे def से एक बार परिभाषित करते हैं, फिर जितनी बार चाहें बुलाते हैं। return वैल्यू को वापस बुलाने वाले को भेजता है।",
+      "hinglish": "Function ek naam wala code block hai jo ek kaam karta hai. Ise def se ek baar define karte hain, phir jitni baar chahein call karte hain. return value ko wapas caller ko bhejta hai."
+     },
+     "real_life": {
+      "en": "A mixer grinder: you put ingredients in, press the same button every time, and get a result out. You do not rebuild the machine for every chutney. A function is that button — same steps, new input, new output.",
+      "hi": "मिक्सर ग्राइंडर: आप सामग्री डालते हैं, हर बार वही बटन दबाते हैं, और परिणाम मिलता है। हर चटनी के लिए मशीन दोबारा नहीं बनाते। फ़ंक्शन वही बटन है — वही स्टेप्स, नया इनपुट, नया आउटपुट।",
+      "hinglish": "Mixer grinder: aap samagri daalte ho, har baar wahi button dabate ho, aur result milta hai. Har chutney ke liye machine dobara nahi banate. Function wahi button hai - wahi steps, naya input, naya output."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+     "visual": "function_call",
+     "examples": [
+      {
+       "title": {
+        "en": "define once, call twice",
+        "hi": "एक बार लिखो, दो बार बुलाओ",
+        "hinglish": "ek baar likho, do baar bulao"
+       },
+       "code": "def greet(name):\n    return f\"Namaste, {name}!\"\n\nprint(greet(\"Asha\"))\nprint(greet(\"Ravi\"))",
+       "output": "Namaste, Asha!\nNamaste, Ravi!",
+       "note": {
+        "en": "The indented line is the function body. It runs only when you call greet(...).",
+        "hi": "इंडेंटेड लाइन फ़ंक्शन की बॉडी है। वह तभी चलती है जब greet(...) बुलाएँ।",
+        "hinglish": "Indented line function ki body hai. Woh tabhi chalti hai jab greet(...) bulao."
+       }
+      },
+      {
+       "title": {
+        "en": "the same code, different types",
+        "hi": "वही कोड, अलग टाइप",
+        "hinglish": "wahi code, alag types"
+       },
+       "code": "def add(a, b):\n    return a + b\n\nresult = add(3, 4)\nprint(result)\nprint(add(\"py\", \"thon\"))",
+       "output": "7\npython",
+       "note": {
+        "en": "add does not care whether it gets numbers or text: + means whatever the values define. That flexibility is normal in Python.",
+        "hi": "add को फ़र्क नहीं पड़ता कि नंबर मिले या टेक्स्ट: + का मतलब वही जो वैल्यू तय करें। यह लचीलापन पायथन में सामान्य है।",
+        "hinglish": "add ko farq nahi padta ki number mile ya text: + ka matlab wahi jo values tay karein. Ye flexibility Python me normal hai."
+       }
+      },
+      {
+       "title": {
+        "en": "print versus return",
+        "hi": "print बनाम return",
+        "hinglish": "print versus return"
+       },
+       "code": "def show(x):\n    print(\"inside\", x)\n\nvalue = show(5)\nprint(value)",
+       "output": "inside 5\nNone",
+       "note": {
+        "en": "show prints but returns nothing, so value is None. print shows text on screen; return hands a value back to the code that called it.",
+        "hi": "show प्रिंट करता है पर कुछ लौटाता नहीं, इसलिए value None है। print स्क्रीन पर दिखाता है; return वैल्यू कोड को वापस देता है।",
+        "hinglish": "show print karta hai par kuch return nahi karta, isliye value None hai. print screen par dikhata hai; return value code ko wapas deta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m05c01l01e1",
+       "prompt": {
+        "en": "Write `square(n)` that returns n multiplied by itself, then print `square(6)`.",
+        "hi": "`square(n)` लिखें जो n को उसी से गुणा करके लौटाए, फिर `square(6)` प्रिंट करें।",
+        "hinglish": "`square(n)` likho jo n ko usi se multiply karke return kare, phir `square(6)` print karo."
+       },
+       "starter": "def square(n):\n    # return ...\n\n# print(square(6))",
+       "solution": "def square(n):\n    return n * n\n\nprint(square(6))",
+       "checks": [
+        "callable(square)",
+        "square(4) == 16",
+        "square(0) == 0",
+        "square(-3) == 9",
+        "\"36\" in printed"
+       ],
+       "hint": {
+        "en": "Use return, not print, inside the function.",
+        "hi": "फ़ंक्शन के अंदर print नहीं, return लिखें।",
+        "hinglish": "Function ke andar print nahi, return likho."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m05c01l01q1",
+       "question": {
+        "en": "What does a function return when it has no return statement?",
+        "hi": "जिस फ़ंक्शन में return नहीं है वह क्या लौटाता है?",
+        "hinglish": "Jis function me return nahi hai woh kya return karta hai?"
+       },
+       "options": [
+        "0",
+        "None",
+        "an empty string",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Every Python function returns something. Without return, that something is None.",
+        "hi": "हर पायथन फ़ंक्शन कुछ लौटाता है। return के बिना वह कुछ None है।",
+        "hinglish": "Har Python function kuch return karta hai. return ke bina woh kuch None hai."
+       },
+       "misconception": "print-vs-return"
+      },
+      {
+       "id": "m05c01l01q2",
+       "question": {
+        "en": "What is the difference between print(x) and return x?",
+        "hi": "print(x) और return x में क्या फ़र्क है?",
+        "hinglish": "print(x) aur return x me kya farq hai?"
+       },
+       "options": [
+        "nothing, they are the same",
+        "print shows a value on screen; return hands it back to the caller",
+        "return shows a value; print stores it",
+        "print only works inside functions"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "print is a side effect on the screen. return is the value the caller receives and can store or reuse.",
+        "hi": "print स्क्रीन पर असर है। return वह वैल्यू है जो बुलाने वाले को मिलती है और जिसे वह रख या दोबारा इस्तेमाल कर सकता है।",
+        "hinglish": "print screen par side effect hai. return woh value hai jo caller ko milti hai aur jise woh store ya reuse kar sakta hai."
+       },
+       "misconception": "print-vs-return"
+      },
+      {
+       "id": "m05c01l01q3",
+       "question": {
+        "en": "def double(x): return x * 2 — what is double(5) + 1?",
+        "hi": "def double(x): return x * 2 — double(5) + 1 क्या है?",
+        "hinglish": "def double(x): return x * 2 — double(5) + 1 kya hai?"
+       },
+       "options": [
+        "10",
+        "11",
+        "an error",
+        "6"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "double(5) is 10, and the call is replaced by its value, so 10 + 1 is 11.",
+        "hi": "double(5) = 10, और कॉल अपनी वैल्यू से बदल जाती है, इसलिए 10 + 1 = 11।",
+        "hinglish": "double(5) = 10, aur call apni value se replace ho jati hai, isliye 10 + 1 = 11."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "def names a block; return gives a value back; print only displays.",
+      "hi": "def ब्लॉक को नाम देता है; return वैल्यू लौटाता है; print सिर्फ़ दिखाता है।",
+      "hinglish": "def block ko naam deta hai; return value lautata hai; print sirf dikhata hai."
+     }
+    },
+    {
+     "id": "m05c01l02",
+     "title": {
+      "en": "Defaults, *args and **kwargs",
+      "hi": "डिफ़ॉल्ट, *args और **kwargs",
+      "hinglish": "Defaults, *args aur **kwargs"
+     },
+     "keywords": [
+      "def"
+     ],
+     "intro": {
+      "en": "Parameters can have default values, so callers may skip them. *args collects extra positional arguments into a tuple and **kwargs collects extra named arguments into a dict.",
+      "hi": "पैरामीटर की डिफ़ॉल्ट वैल्यू हो सकती है, इसलिए बुलाने वाला उन्हें छोड़ सकता है। *args अतिरिक्त पोज़िशनल आर्ग्युमेंट ट्यूपल में जमा करता है और **kwargs अतिरिक्त नाम वाले आर्ग्युमेंट dict में।",
+      "hinglish": "Parameters ki default value ho sakti hai, isliye caller unhe chhod sakta hai. *args extra positional arguments tuple me jama karta hai aur **kwargs extra named arguments dict me."
+     },
+     "real_life": {
+      "en": "Ordering food: \"one chai\" is enough because size defaults to medium. \"Two chai, large\" overrides it. A thali restaurant where you just say \"add this, this, this\" is *args — any number of items, one bill.",
+      "hi": "खाना ऑर्डर करना: \"एक चाय\" काफ़ी है क्योंकि साइज़ डिफ़ॉल्ट medium है। \"दो चाय, large\" उसे बदल देता है। थाली वाला रेस्टोरेंट जहाँ आप कहते हैं \"यह, यह, यह डालो\" वह *args है — कितने भी आइटम, एक बिल।",
+      "hinglish": "Khana order karna: \"ek chai\" kaafi hai kyunki size default medium hai. \"Do chai, large\" use badal deta hai. Thali restaurant jahan aap kehte ho \"ye, ye, ye daalo\" woh *args hai - kitne bhi items, ek bill."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "defaults and keyword arguments",
+        "hi": "डिफ़ॉल्ट और कीवर्ड आर्ग्युमेंट",
+        "hinglish": "defaults aur keyword arguments"
+       },
+       "code": "def order(item, qty=1, size=\"medium\"):\n    return f\"{qty} x {item} ({size})\"\n\nprint(order(\"chai\"))\nprint(order(\"chai\", 2))\nprint(order(\"chai\", 2, \"large\"))\nprint(order(\"chai\", size=\"large\"))",
+       "output": "1 x chai (medium)\n2 x chai (medium)\n2 x chai (large)\n1 x chai (large)",
+       "note": {
+        "en": "order(\"chai\", size=\"large\") skips qty by naming the argument you do want. That only works for parameters after the ones you skip.",
+        "hi": "order(\"chai\", size=\"large\") qty छोड़ देता है क्योंकि आप चाहा हुआ आर्ग्युमेंट नाम से देते हैं। यह सिर्फ़ छोड़े गए पैरामीटर के बाद वालों के लिए चलता है।",
+        "hinglish": "order(\"chai\", size=\"large\") qty chhod deta hai kyunki aap chaha hua argument naam se dete ho. Ye sirf chhode gaye parameter ke baad walon ke liye chalta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "*args is a tuple, **kwargs is a dict",
+        "hi": "*args ट्यूपल है, **kwargs dict",
+        "hinglish": "*args tuple hai, **kwargs dict"
+       },
+       "code": "def total(*prices):\n    return sum(prices)\n\ndef profile(**fields):\n    return \", \".join(f\"{k}={v}\" for k, v in fields.items())\n\nprint(total(10, 20, 30))\nprint(total())\nprint(profile(name=\"Asha\", city=\"Pune\"))",
+       "output": "60\n0\nname=Asha, city=Pune",
+       "note": {
+        "en": "Inside the function, prices is the tuple (10, 20, 30) and fields is a dict. The stars are only in the definition and the call.",
+        "hi": "फ़ंक्शन के अंदर prices ट्यूपल (10, 20, 30) है और fields एक dict है। स्टार सिर्फ़ परिभाषा और कॉल में होते हैं।",
+        "hinglish": "Function ke andar prices tuple (10, 20, 30) hai aur fields ek dict hai. Stars sirf definition aur call me hote hain."
+       }
+      },
+      {
+       "title": {
+        "en": "the mutable default trap",
+        "hi": "म्यूटेबल डिफ़ॉल्ट का जाल",
+        "hinglish": "mutable default ka jaal"
+       },
+       "code": "def add_item(item, box=[]):\n    box.append(item)\n    return box\n\nprint(add_item(\"a\"))\nprint(add_item(\"b\"))\n\ndef add_safe(item, box=None):\n    if box is None:\n        box = []\n    box.append(item)\n    return box\n\nprint(add_safe(\"a\"))\nprint(add_safe(\"b\"))",
+       "output": "['a']\n['a', 'b']\n['a']\n['b']",
+       "note": {
+        "en": "The default [] is created once, when the function is defined, and shared by every call. box=None is the standard fix.",
+        "hi": "डिफ़ॉल्ट [] एक बार बनता है, जब फ़ंक्शन परिभाषित होता है, और हर कॉल में साझा रहता है। box=None मानक समाधान है।",
+        "hinglish": "Default [] ek baar banta hai, jab function define hota hai, aur har call me share hota hai. box=None standard fix hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m05c01l02e1",
+       "prompt": {
+        "en": "Write `area(width, height=1)` that returns width * height, then print `area(5)` and `area(5, 2)`.",
+        "hi": "`area(width, height=1)` लिखें जो width * height लौटाए, फिर `area(5)` और `area(5, 2)` प्रिंट करें।",
+        "hinglish": "`area(width, height=1)` likho jo width * height return kare, phir `area(5)` aur `area(5, 2)` print karo."
+       },
+       "starter": "def area(width, height=1):\n    # return ...\n\n# print(area(5))\n# print(area(5, 2))",
+       "solution": "def area(width, height=1):\n    return width * height\n\nprint(area(5))\nprint(area(5, 2))",
+       "checks": [
+        "area(5) == 5",
+        "area(5, 2) == 10",
+        "area(3, 4) == 12",
+        "printed.split() == [\"5\", \"10\"]"
+       ],
+       "hint": {
+        "en": "The default makes the second argument optional.",
+        "hi": "डिफ़ॉल्ट दूसरे आर्ग्युमेंट को वैकल्पिक बनाता है।",
+        "hinglish": "Default doosre argument ko optional banata hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m05c01l02q1",
+       "question": {
+        "en": "def f(a, b=2) — which calls are valid?",
+        "hi": "def f(a, b=2) — कौन सी कॉल वैध हैं?",
+        "hinglish": "def f(a, b=2) — kaun si calls valid hain?"
+       },
+       "options": [
+        "f() only",
+        "f(1) and f(1, 3)",
+        "f(1, 2, 3) only",
+        "f(b=1) only"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "a has no default so it must always be given; b may be skipped or overridden.",
+        "hi": "a का डिफ़ॉल्ट नहीं है इसलिए वह हमेशा देना होगा; b छोड़ा या बदला जा सकता है।",
+        "hinglish": "a ka default nahi hai isliye woh hamesha dena hoga; b chhoda ya badla ja sakta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c01l02q2",
+       "question": {
+        "en": "Why is `def f(box=[])` a bug when the function appends to box?",
+        "hi": "जब फ़ंक्शन box में append करता है तो `def f(box=[])` बग क्यों है?",
+        "hinglish": "Jab function box me append karta hai to `def f(box=[])` bug kyun hai?"
+       },
+       "options": [
+        "lists cannot be defaults",
+        "the default list is created once and shared by every call",
+        "append is not allowed on a default",
+        "it raises a SyntaxError"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Default values are evaluated at definition time, not at call time. Use None and create a fresh list inside.",
+        "hi": "डिफ़ॉल्ट वैल्यू परिभाषा के समय तय होती हैं, कॉल के समय नहीं। None इस्तेमाल करें और अंदर नई लिस्ट बनाएँ।",
+        "hinglish": "Default values definition ke time tay hoti hain, call ke time nahi. None use karo aur andar nayi list banao."
+       },
+       "misconception": "mutable-default"
+      },
+      {
+       "id": "m05c01l02q3",
+       "question": {
+        "en": "What is the type of args inside def f(*args)?",
+        "hi": "def f(*args) में args का टाइप क्या है?",
+        "hinglish": "def f(*args) me args ka type kya hai?"
+       },
+       "options": [
+        "list",
+        "tuple",
+        "dict",
+        "set"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "*args is a tuple; **kwargs is a dict. That is why args[0] works and kwargs[\"name\"] works.",
+        "hi": "*args ट्यूपल है; **kwargs dict है। इसीलिए args[0] और kwargs[\"name\"] चलते हैं।",
+        "hinglish": "*args tuple hai; **kwargs dict hai. Isliye args[0] aur kwargs[\"name\"] chalte hain."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Defaults make arguments optional; *args is a tuple, **kwargs a dict; never default to a mutable value.",
+      "hi": "डिफ़ॉल्ट आर्ग्युमेंट वैकल्पिक बनाते हैं; *args ट्यूपल, **kwargs dict; mutable डिफ़ॉल्ट कभी नहीं।",
+      "hinglish": "Defaults arguments ko optional banate hain; *args tuple, **kwargs dict; mutable default kabhi nahi."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m05c02",
+   "title": {
+    "en": "Scope and small functions",
+    "hi": "स्कोप और छोटे फ़ंक्शन",
+    "hinglish": "Scope aur chhote functions"
+   },
+   "lessons": [
+    {
+     "id": "m05c02l03",
+     "title": {
+      "en": "Scope: global and nonlocal",
+      "hi": "स्कोप: global और nonlocal",
+      "hinglish": "Scope: global aur nonlocal"
+     },
+     "keywords": [
+      "global",
+      "nonlocal"
+     ],
+     "intro": {
+      "en": "Python looks a name up from the inside out: local, then enclosing function, then global, then builtins. Assigning a name inside a function makes it local unless you say global or nonlocal.",
+      "hi": "पायथन नाम को अंदर से बाहर खोजता है: पहले local, फिर enclosing फ़ंक्शन, फिर global, फिर builtins। फ़ंक्शन के अंदर किसी नाम को असाइन करना उसे local बना देता है, जब तक आप global या nonlocal न कहें।",
+      "hinglish": "Python naam ko andar se bahar dhoondta hai: pehle local, phir enclosing function, phir global, phir builtins. Function ke andar kisi naam ko assign karna use local bana deta hai, jab tak aap global ya nonlocal na kaho."
+     },
+     "real_life": {
+      "en": "A family budget: the money box in the kitchen is global — anyone can read it. If you want to change what is in it, you need explicit permission (global). A locked drawer inside your own room is local.",
+      "hi": "परिवार का बजट: रसोई का पैसा वाला डिब्बा global है — कोई भी पढ़ सकता है। उसमें बदलाव करना हो तो साफ़ अनुमति चाहिए (global)। अपने कमरे की बंद दराज़ local है।",
+      "hinglish": "Family budget: kitchen ka paisa wala dibba global hai - koi bhi padh sakta hai. Usme badlav karna ho to saaf permission chahiye (global). Apne kamre ki band daraz local hai."
+     },
+     "docs": "https://docs.python.org/3/reference/simple_stmts.html#the-global-statement",
+     "visual": "scope_legb",
+     "examples": [
+      {
+       "title": {
+        "en": "global lets a function rebind a module name",
+        "hi": "global फ़ंक्शन को मॉड्यूल नाम बदलने देता है",
+        "hinglish": "global function ko module naam badalne deta hai"
+       },
+       "code": "count = 0\n\ndef bump():\n    global count\n    count += 1\n\nbump()\nbump()\nprint(count)",
+       "output": "2",
+       "note": {
+        "en": "Without the global line, count += 1 would create a local count and then fail with UnboundLocalError when it reads it.",
+        "hi": "global लाइन के बिना count += 1 एक local count बनाता और फिर उसे पढ़ते समय UnboundLocalError देता।",
+        "hinglish": "global line ke bina count += 1 ek local count banata aur phir use padhte samay UnboundLocalError deta."
+       }
+      },
+      {
+       "title": {
+        "en": "nonlocal changes the enclosing function",
+        "hi": "nonlocal बाहरी फ़ंक्शन बदलता है",
+        "hinglish": "nonlocal bahari function badalta hai"
+       },
+       "code": "count = 5\n\ndef outer():\n    total = 0\n    def inner():\n        nonlocal total\n        total += 10\n        return total\n    inner()\n    inner()\n    return total\n\ndef shadow():\n    count = 99\n    return count\n\nprint(outer())\nprint(shadow(), count)",
+       "output": "20\n99 5",
+       "note": {
+        "en": "inner changes outer's total, so two calls make 20. shadow assigns its own count and leaves the global one at 5.",
+        "hi": "inner, outer का total बदलता है, इसलिए दो कॉल 20 बनाते हैं। shadow अपना count बनाता है और global को 5 ही रहने देता है।",
+        "hinglish": "inner, outer ka total badalta hai, isliye do calls 20 banate hain. shadow apna count banata hai aur global ko 5 hi rehne deta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m05c02l03e1",
+       "prompt": {
+        "en": "Make `add_points` add to the module-level `score`, so the program prints 8.",
+        "hi": "`add_points` को मॉड्यूल-स्तर के `score` में जोड़ने दें, ताकि प्रोग्राम 8 प्रिंट करे।",
+        "hinglish": "`add_points` ko module-level `score` me jodne do, taaki program 8 print kare."
+       },
+       "starter": "score = 0\n\ndef add_points(n):\n    # add n to score\n    pass\n\nadd_points(5)\nadd_points(3)\nprint(score)",
+       "solution": "score = 0\n\ndef add_points(n):\n    global score\n    score += n\n\nadd_points(5)\nadd_points(3)\nprint(score)",
+       "checks": [
+        "score == 8",
+        "printed.strip() == \"8\""
+       ],
+       "hint": {
+        "en": "One line at the top of the function: global score.",
+        "hi": "फ़ंक्शन के ऊपर एक लाइन: global score।",
+        "hinglish": "Function ke upar ek line: global score."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m05c02l03q1",
+       "question": {
+        "en": "Which keyword lets a function change a module-level variable?",
+        "hi": "कौन सा कीवर्ड फ़ंक्शन को मॉड्यूल-स्तर वेरिएबल बदलने देता है?",
+        "hinglish": "Kaun sa keyword function ko module-level variable badalne deta hai?"
+       },
+       "options": [
+        "global",
+        "nonlocal",
+        "public",
+        "outer"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "global points at module scope; nonlocal points at the nearest enclosing function.",
+        "hi": "global मॉड्यूल स्कोप की ओर इशारा करता है; nonlocal नज़दीकी बाहरी फ़ंक्शन की ओर।",
+        "hinglish": "global module scope ki taraf ishara karta hai; nonlocal nazdeeki bahari function ki taraf."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l03q2",
+       "question": {
+        "en": "What does nonlocal refer to?",
+        "hi": "nonlocal किसे दर्शाता है?",
+        "hinglish": "nonlocal kise darshata hai?"
+       },
+       "options": [
+        "the builtins namespace",
+        "the nearest enclosing function's variable",
+        "the module namespace",
+        "a variable in another file"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "nonlocal is only valid inside a nested function and reaches the enclosing function's name, not the module's.",
+        "hi": "nonlocal सिर्फ़ अंदरूनी फ़ंक्शन में वैध है और बाहरी फ़ंक्शन का नाम पकड़ता है, मॉड्यूल का नहीं।",
+        "hinglish": "nonlocal sirf andaruni function me valid hai aur bahari function ka naam pakadta hai, module ka nahi."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l03q3",
+       "question": {
+        "en": "x = 10; def f(): x = 5; f(); print(x) — what prints?",
+        "hi": "x = 10; def f(): x = 5; f(); print(x) — क्या प्रिंट होगा?",
+        "hinglish": "x = 10; def f(): x = 5; f(); print(x) — kya print hoga?"
+       },
+       "options": [
+        "5",
+        "10",
+        "None",
+        "an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The assignment inside f creates a local x and leaves the global one alone. This is the single most common scope surprise.",
+        "hi": "f के अंदर असाइनमेंट एक local x बनाता है और global को छोड़ देता है। स्कोप का यह सबसे आम आश्चर्य है।",
+        "hinglish": "f ke andar assignment ek local x banata hai aur global ko chhod deta hai. Scope ka ye sabse aam surprise hai."
+       },
+       "misconception": "scope-shadowing"
+      }
+     ],
+     "takeaway": {
+      "en": "Lookup goes local, enclosing, global, builtins; assignment makes a name local unless declared global or nonlocal.",
+      "hi": "खोज local, enclosing, global, builtins क्रम में; असाइनमेंट नाम को local बनाता है जब तक global/nonlocal न कहें।",
+      "hinglish": "Lookup local, enclosing, global, builtins; assignment naam ko local banata hai jab tak global/nonlocal na kaho."
+     }
+    },
+    {
+     "id": "m05c02l04",
+     "title": {
+      "en": "lambda: small anonymous functions",
+      "hi": "lambda: छोटे बिना-नाम फ़ंक्शन",
+      "hinglish": "lambda: chhote bina-naam functions"
+     },
+     "keywords": [
+      "lambda"
+     ],
+     "intro": {
+      "en": "A lambda is a function written in one expression, without a name. It can only contain a single expression and returns its result automatically. It exists for the places where a tiny function is needed once.",
+      "hi": "lambda एक एक्सप्रेशन में लिखा फ़ंक्शन है, बिना नाम। इसमें सिर्फ़ एक एक्सप्रेशन हो सकता है और उसका परिणाम अपने आप लौटता है। यह उन जगहों के लिए है जहाँ एक बार के लिए छोटा फ़ंक्शन चाहिए।",
+      "hinglish": "lambda ek expression me likha function hai, bina naam. Isme sirf ek expression ho sakta hai aur uska result apne aap return hota hai. Ye un jagahon ke liye hai jahan ek baar ke liye chhota function chahiye."
+     },
+     "real_life": {
+      "en": "Sorting a contact list by age, or a price list by amount: you do not want to write a full named function just to say \"compare this field\". That is exactly what key=lambda does in one line.",
+      "hi": "कॉन्टैक्ट लिस्ट को उम्र से, या कीमत की लिस्ट को रकम से सॉर्ट करना: सिर्फ़ \"इस फ़ील्ड से तुलना करो\" कहने के लिए पूरा नाम वाला फ़ंक्शन नहीं लिखना चाहते। key=lambda यही एक लाइन में करता है।",
+      "hinglish": "Contact list ko age se, ya price list ko amount se sort karna: sirf \"is field se compare karo\" kehne ke liye poora named function nahi likhna chahte. key=lambda yahi ek line me karta hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#lambda-expressions",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "a lambda with a name, and one without",
+        "hi": "नाम वाला lambda, और बिना नाम वाला",
+        "hinglish": "naam wala lambda, aur bina naam wala"
+       },
+       "code": "double = lambda x: x * 2\nprint(double(7))\nprint((lambda a, b: a + b)(3, 4))",
+       "output": "14\n7",
+       "note": {
+        "en": "The second line calls the lambda immediately by putting arguments in brackets right after it.",
+        "hi": "दूसरी लाइन lambda को तुरंत बुलाती है — उसके ठीक बाद ब्रैकेट में आर्ग्युमेंट देकर।",
+        "hinglish": "Doosri line lambda ko turant call karti hai - uske theek baad bracket me arguments dekar."
+       }
+      },
+      {
+       "title": {
+        "en": "sorting by one field",
+        "hi": "एक फ़ील्ड से सॉर्ट करना",
+        "hinglish": "ek field se sort karna"
+       },
+       "code": "people = [(\"Asha\", 30), (\"Ravi\", 25), (\"Meera\", 35)]\npeople.sort(key=lambda p: p[1])\nprint(people)\nprint(sorted(people, key=lambda p: p[0], reverse=True))",
+       "output": "[('Ravi', 25), ('Asha', 30), ('Meera', 35)]\n[('Ravi', 25), ('Meera', 35), ('Asha', 30)]",
+       "note": {
+        "en": "key receives each item and returns the value to compare. p[1] means the second item of the tuple, which is the age.",
+        "hi": "key हर आइटम लेता है और तुलना की वैल्यू लौटाता है। p[1] ट्यूपल का दूसरा आइटम है, यानी उम्र।",
+        "hinglish": "key har item leta hai aur compare ki value return karta hai. p[1] tuple ka doosra item hai, yani age."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m05c02l04e1",
+       "prompt": {
+        "en": "Using a lambda as the key, sort `words = ['banana', 'fig', 'kiwi']` by length into `by_len` and print it.",
+        "hi": "lambda को key बनाकर `words = ['banana', 'fig', 'kiwi']` को लंबाई से सॉर्ट करके `by_len` में रखें और प्रिंट करें।",
+        "hinglish": "lambda ko key bana kar `words = ['banana', 'fig', 'kiwi']` ko length se sort karke `by_len` me rakho aur print karo."
+       },
+       "starter": "words = ['banana', 'fig', 'kiwi']\n# by_len = sorted(...)\n# print(by_len)",
+       "solution": "words = ['banana', 'fig', 'kiwi']\nby_len = sorted(words, key=lambda w: len(w))\nprint(by_len)",
+       "checks": [
+        "by_len == ['fig', 'kiwi', 'banana']",
+        "words == ['banana', 'fig', 'kiwi']",
+        "str(by_len) in printed"
+       ],
+       "hint": {
+        "en": "key=lambda w: len(w) gives sorted() the number to compare.",
+        "hi": "key=lambda w: len(w) sorted() को तुलना का नंबर देता है।",
+        "hinglish": "key=lambda w: len(w) sorted() ko compare ka number deta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m05c02l04q1",
+       "question": {
+        "en": "What can the body of a lambda contain?",
+        "hi": "lambda की बॉडी में क्या हो सकता है?",
+        "hinglish": "lambda ki body me kya ho sakta hai?"
+       },
+       "options": [
+        "any number of statements",
+        "exactly one expression",
+        "only a return statement",
+        "only a print call"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "One expression, whose value is returned. If you need several statements or a docstring, write a normal def.",
+        "hi": "एक एक्सप्रेशन, जिसकी वैल्यू लौटती है। कई स्टेटमेंट या docstring चाहिए तो सामान्य def लिखें।",
+        "hinglish": "Ek expression, jiski value return hoti hai. Kai statements ya docstring chahiye to normal def likho."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l04q2",
+       "question": {
+        "en": "What is (lambda x: x + 1)(4)?",
+        "hi": "(lambda x: x + 1)(4) क्या है?",
+        "hinglish": "(lambda x: x + 1)(4) kya hai?"
+       },
+       "options": [
+        "4",
+        "5",
+        "an error",
+        "x + 1"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The lambda is called with 4, so x is 4 and the result is 5.",
+        "hi": "lambda को 4 के साथ बुलाया गया, इसलिए x = 4 और परिणाम 5 है।",
+        "hinglish": "lambda ko 4 ke saath bulaya gaya, isliye x = 4 aur result 5 hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l04q3",
+       "question": {
+        "en": "When should you prefer def over lambda?",
+        "hi": "def को lambda पर कब प्राथमिकता दें?",
+        "hinglish": "def ko lambda par kab priority dein?"
+       },
+       "options": [
+        "never, lambda is always better",
+        "when the function needs a name, a docstring or several statements",
+        "when the function has parameters",
+        "when you use it with sorted()"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "lambda is for throwaway one-liners. Anything you need to explain, name or reuse belongs in a def.",
+        "hi": "lambda एक बार के one-liner के लिए है। जिसे समझाना, नाम देना या दोबारा इस्तेमाल करना हो वह def में जाना चाहिए।",
+        "hinglish": "lambda ek baar ke one-liner ke liye hai. Jise samjhana, naam dena ya reuse karna ho woh def me jaana chahiye."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "lambda is a one-expression function; use it for key= and other throwaway callbacks.",
+      "hi": "lambda एक-एक्सप्रेशन फ़ंक्शन है; key= और एक बार के कॉलबैक के लिए इस्तेमाल करें।",
+      "hinglish": "lambda ek-expression function hai; key= aur ek baar ke callbacks ke liye use karo."
+     }
+    },
+    {
+     "id": "m05c02l05",
+     "title": {
+      "en": "Recursion",
+      "hi": "रिकर्शन",
+      "hinglish": "Recursion"
+     },
+     "keywords": [
+      "def",
+      "return"
+     ],
+     "intro": {
+      "en": "A recursive function calls itself on a smaller version of the same problem. Every recursive function needs a base case that stops the calling, or it runs until Python raises RecursionError.",
+      "hi": "रिकर्सिव फ़ंक्शन खुद को उसी समस्या के छोटे रूप पर बुलाता है। हर रिकर्सिव फ़ंक्शन को एक बेस केस चाहिए जो कॉल रोके, वरना वह तब तक चलता है जब तक पायथन RecursionError न दे।",
+      "hinglish": "Recursive function khud ko usi problem ke chhote roop par bulata hai. Har recursive function ko ek base case chahiye jo call roke, warna woh tab tak chalta hai jab tak Python RecursionError na de."
+     },
+     "real_life": {
+      "en": "Standing between two mirrors: you see a copy inside a copy inside a copy. The copies get smaller and stop at the mirror's edge — that edge is the base case.",
+      "hi": "दो आईनों के बीच खड़े होना: आप एक कॉपी के अंदर कॉपी के अंदर कॉपी देखते हैं। कॉपियाँ छोटी होती जाती हैं और आईने के किनारे पर रुक जाती हैं — वही किनारा बेस केस है।",
+      "hinglish": "Do aainon ke beech khade hona: aap ek copy ke andar copy ke andar copy dekhte ho. Copies chhoti hoti jaati hain aur aaine ke kinare par ruk jaati hain - wahi kinara base case hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "factorial",
+        "hi": "फ़ैक्टोरियल",
+        "hinglish": "factorial"
+       },
+       "code": "def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\nprint(factorial(5))\nprint(factorial(1))",
+       "output": "120\n1",
+       "note": {
+        "en": "factorial(5) becomes 5 * 4 * 3 * 2 * 1. The base case n <= 1 stops the chain.",
+        "hi": "factorial(5) = 5 * 4 * 3 * 2 * 1 बन जाता है। बेस केस n <= 1 चेन रोकता है।",
+        "hinglish": "factorial(5) = 5 * 4 * 3 * 2 * 1 ban jata hai. Base case n <= 1 chain rokta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "a countdown",
+        "hi": "उल्टी गिनती",
+        "hinglish": "ulti ginti"
+       },
+       "code": "def countdown(n):\n    if n == 0:\n        print(\"liftoff\")\n        return\n    print(n)\n    countdown(n - 1)\n\ncountdown(3)",
+       "output": "3\n2\n1\nliftoff",
+       "note": {
+        "en": "The prints happen on the way down, before each recursive call. That order is what makes the output count downwards.",
+        "hi": "प्रिंट नीचे जाते समय होते हैं, हर रिकर्सिव कॉल से पहले। इसी क्रम से आउटपुट उल्टा गिनता है।",
+        "hinglish": "Prints neeche jaate samay hote hain, har recursive call se pehle. Isi order se output ulta ginta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m05c02l05e1",
+       "prompt": {
+        "en": "Write `total(nums)` recursively: an empty list is 0, otherwise the first item plus the total of the rest.",
+        "hi": "`total(nums)` रिकर्सिव लिखें: खाली लिस्ट 0 है, वरना पहला आइटम प्लस बाकी का टोटल।",
+        "hinglish": "`total(nums)` recursive likho: khaali list 0 hai, warna pehla item plus baaki ka total."
+       },
+       "starter": "def total(nums):\n    # base case, then recursive case\n\n# print(total([1, 2, 3]))",
+       "solution": "def total(nums):\n    if not nums:\n        return 0\n    return nums[0] + total(nums[1:])\n\nprint(total([1, 2, 3]))",
+       "checks": [
+        "total([1, 2, 3]) == 6",
+        "total([]) == 0",
+        "total([5]) == 5",
+        "printed.strip() == \"6\""
+       ],
+       "hint": {
+        "en": "`if not nums: return 0` is the base case.",
+        "hi": "`if not nums: return 0` बेस केस है।",
+        "hinglish": "`if not nums: return 0` base case hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m05c02l05q1",
+       "question": {
+        "en": "What must every recursive function have?",
+        "hi": "हर रिकर्सिव फ़ंक्शन में क्या होना चाहिए?",
+        "hinglish": "Har recursive function me kya hona chahiye?"
+       },
+       "options": [
+        "a loop",
+        "a base case that stops the recursion",
+        "a global variable",
+        "a lambda"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Without a base case the calls never stop and Python raises RecursionError after about a thousand levels.",
+        "hi": "बेस केस के बिना कॉल कभी नहीं रुकते और पायथन लगभग हज़ार स्तरों के बाद RecursionError देता है।",
+        "hinglish": "Base case ke bina calls kabhi nahi rukte aur Python lagbhag hazaar levels ke baad RecursionError deta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l05q2",
+       "question": {
+        "en": "Is recursion faster than a loop in Python?",
+        "hi": "क्या पायथन में रिकर्शन लूप से तेज़ है?",
+        "hinglish": "Kya Python me recursion loop se tez hai?"
+       },
+       "options": [
+        "yes, always",
+        "no, a loop is usually faster and has no depth limit",
+        "only for numbers",
+        "only inside a class"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Every call costs a stack frame, and Python has a recursion limit. Recursion is a clarity tool, not a speed tool.",
+        "hi": "हर कॉल एक स्टैक फ़्रेम लेती है, और पायथन की रिकर्शन सीमा है। रिकर्शन स्पष्टता का औज़ार है, तेज़ी का नहीं।",
+        "hinglish": "Har call ek stack frame leti hai, aur Python ki recursion limit hai. Recursion clarity ka tool hai, speed ka nahi."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m05c02l05q3",
+       "question": {
+        "en": "def f(n): return f(n - 1) — what happens when you call f(3)?",
+        "hi": "def f(n): return f(n - 1) — f(3) बुलाने पर क्या होगा?",
+        "hinglish": "def f(n): return f(n - 1) — f(3) bulane par kya hoga?"
+       },
+       "options": [
+        "it returns 2",
+        "it returns None",
+        "RecursionError",
+        "SyntaxError"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "There is no base case, so the calls keep going until the stack limit is hit.",
+        "hi": "कोई बेस केस नहीं है, इसलिए कॉल तब तक चलते हैं जब तक स्टैक सीमा न पहुँचे।",
+        "hinglish": "Koi base case nahi hai, isliye calls tab tak chalte hain jab tak stack limit na pahunche."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Recursion needs a base case; it trades stack depth for a shorter, clearer definition.",
+      "hi": "रिकर्शन को बेस केस चाहिए; यह स्टैक गहराई के बदले छोटी और साफ़ परिभाषा देता है।",
+      "hinglish": "Recursion ko base case chahiye; ye stack depth ke badle chhoti aur saaf definition deta hai."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m05x01",
+   "question": {
+    "en": "What is f(3) if def f(x): return x * x?",
+    "hi": "def f(x): return x * x हो तो f(3) क्या है?",
+    "hinglish": "def f(x): return x * x ho to f(3) kya hai?"
+   },
+   "options": [
+    "6",
+    "9",
+    "3",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "3 * 3 = 9.",
+    "hi": "3 * 3 = 9।",
+    "hinglish": "3 * 3 = 9."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05x02",
+   "question": {
+    "en": "What is printed by: def f(): pass — print(f())",
+    "hi": "क्या प्रिंट होगा: def f(): pass — print(f())",
+    "hinglish": "Kya print hoga: def f(): pass — print(f())"
+   },
+   "options": [
+    "0",
+    "None",
+    "nothing",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "pass does nothing, so the function returns None.",
+    "hi": "pass कुछ नहीं करता, इसलिए फ़ंक्शन None लौटाता है।",
+    "hinglish": "pass kuch nahi karta, isliye function None lautata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05x03",
+   "question": {
+    "en": "Which call is invalid for def f(a, b=1)?",
+    "hi": "def f(a, b=1) के लिए कौन सी कॉल अवैध है?",
+    "hinglish": "def f(a, b=1) ke liye kaun si call invalid hai?"
+   },
+   "options": [
+    "f(1)",
+    "f(1, 2)",
+    "f(b=2, a=1)",
+    "f()"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "a has no default, so f() is missing a required argument.",
+    "hi": "a का डिफ़ॉल्ट नहीं है, इसलिए f() में ज़रूरी आर्ग्युमेंट गायब है।",
+    "hinglish": "a ka default nahi hai, isliye f() me zaroori argument gayab hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05x04",
+   "question": {
+    "en": "What is the type of kwargs in def f(**kwargs)?",
+    "hi": "def f(**kwargs) में kwargs का टाइप क्या है?",
+    "hinglish": "def f(**kwargs) me kwargs ka type kya hai?"
+   },
+   "options": [
+    "tuple",
+    "list",
+    "dict",
+    "set"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "**kwargs collects named arguments into a dict.",
+    "hi": "**kwargs नाम वाले आर्ग्युमेंट dict में जमा करता है।",
+    "hinglish": "**kwargs named arguments dict me jama karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05x05",
+   "question": {
+    "en": "x = 1; def f(): x = 2; f(); print(x) — what prints?",
+    "hi": "x = 1; def f(): x = 2; f(); print(x) — क्या प्रिंट होगा?",
+    "hinglish": "x = 1; def f(): x = 2; f(); print(x) — kya print hoga?"
+   },
+   "options": [
+    "1",
+    "2",
+    "None",
+    "an error"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "The assignment inside f is local, so the global x stays 1.",
+    "hi": "f के अंदर असाइनमेंट local है, इसलिए global x 1 ही रहता है।",
+    "hinglish": "f ke andar assignment local hai, isliye global x 1 hi rehta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05x06",
+   "question": {
+    "en": "Which is the correct lambda for squaring?",
+    "hi": "वर्ग करने के लिए सही lambda कौन सा है?",
+    "hinglish": "Square karne ke liye sahi lambda kaun sa hai?"
+   },
+   "options": [
+    "lambda x: x * x",
+    "lambda x: return x * x",
+    "lambda (x): x * x",
+    "lambda x -> x * x"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "A lambda has no return keyword and takes plain parameter names.",
+    "hi": "lambda में return कीवर्ड नहीं होता और सादे पैरामीटर नाम होते हैं।",
+    "hinglish": "lambda me return keyword nahi hota aur saade parameter naam hote hain."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m05s01",
+   "question": {
+    "en": "What does a function return when it has no return statement?",
+    "hi": "जिस फ़ंक्शन में return नहीं है वह क्या लौटाता है?",
+    "hinglish": "Jis function me return nahi hai woh kya return karta hai?"
+   },
+   "options": [
+    "0",
+    "None",
+    "an empty string",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Every Python function returns something. Without return, that something is None.",
+    "hi": "हर पायथन फ़ंक्शन कुछ लौटाता है। return के बिना वह कुछ None है।",
+    "hinglish": "Har Python function kuch return karta hai. return ke bina woh kuch None hai."
+   },
+   "misconception": "print-vs-return"
+  },
+  {
+   "id": "m05s02",
+   "question": {
+    "en": "What is the difference between print(x) and return x?",
+    "hi": "print(x) और return x में क्या फ़र्क है?",
+    "hinglish": "print(x) aur return x me kya farq hai?"
+   },
+   "options": [
+    "nothing, they are the same",
+    "print shows a value on screen; return hands it back to the caller",
+    "return shows a value; print stores it",
+    "print only works inside functions"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "print is a side effect on the screen. return is the value the caller receives and can store or reuse.",
+    "hi": "print स्क्रीन पर असर है। return वह वैल्यू है जो बुलाने वाले को मिलती है और जिसे वह रख या दोबारा इस्तेमाल कर सकता है।",
+    "hinglish": "print screen par side effect hai. return woh value hai jo caller ko milti hai aur jise woh store ya reuse kar sakta hai."
+   },
+   "misconception": "print-vs-return"
+  },
+  {
+   "id": "m05s03",
+   "question": {
+    "en": "def double(x): return x * 2 — what is double(5) + 1?",
+    "hi": "def double(x): return x * 2 — double(5) + 1 क्या है?",
+    "hinglish": "def double(x): return x * 2 — double(5) + 1 kya hai?"
+   },
+   "options": [
+    "10",
+    "11",
+    "an error",
+    "6"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "double(5) is 10, and the call is replaced by its value, so 10 + 1 is 11.",
+    "hi": "double(5) = 10, और कॉल अपनी वैल्यू से बदल जाती है, इसलिए 10 + 1 = 11।",
+    "hinglish": "double(5) = 10, aur call apni value se replace ho jati hai, isliye 10 + 1 = 11."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s04",
+   "question": {
+    "en": "def f(a, b=2) — which calls are valid?",
+    "hi": "def f(a, b=2) — कौन सी कॉल वैध हैं?",
+    "hinglish": "def f(a, b=2) — kaun si calls valid hain?"
+   },
+   "options": [
+    "f() only",
+    "f(1) and f(1, 3)",
+    "f(1, 2, 3) only",
+    "f(b=1) only"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "a has no default so it must always be given; b may be skipped or overridden.",
+    "hi": "a का डिफ़ॉल्ट नहीं है इसलिए वह हमेशा देना होगा; b छोड़ा या बदला जा सकता है।",
+    "hinglish": "a ka default nahi hai isliye woh hamesha dena hoga; b chhoda ya badla ja sakta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s05",
+   "question": {
+    "en": "Why is `def f(box=[])` a bug when the function appends to box?",
+    "hi": "जब फ़ंक्शन box में append करता है तो `def f(box=[])` बग क्यों है?",
+    "hinglish": "Jab function box me append karta hai to `def f(box=[])` bug kyun hai?"
+   },
+   "options": [
+    "lists cannot be defaults",
+    "the default list is created once and shared by every call",
+    "append is not allowed on a default",
+    "it raises a SyntaxError"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Default values are evaluated at definition time, not at call time. Use None and create a fresh list inside.",
+    "hi": "डिफ़ॉल्ट वैल्यू परिभाषा के समय तय होती हैं, कॉल के समय नहीं। None इस्तेमाल करें और अंदर नई लिस्ट बनाएँ।",
+    "hinglish": "Default values definition ke time tay hoti hain, call ke time nahi. None use karo aur andar nayi list banao."
+   },
+   "misconception": "mutable-default"
+  },
+  {
+   "id": "m05s06",
+   "question": {
+    "en": "What is the type of args inside def f(*args)?",
+    "hi": "def f(*args) में args का टाइप क्या है?",
+    "hinglish": "def f(*args) me args ka type kya hai?"
+   },
+   "options": [
+    "list",
+    "tuple",
+    "dict",
+    "set"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "*args is a tuple; **kwargs is a dict. That is why args[0] works and kwargs[\"name\"] works.",
+    "hi": "*args ट्यूपल है; **kwargs dict है। इसीलिए args[0] और kwargs[\"name\"] चलते हैं।",
+    "hinglish": "*args tuple hai; **kwargs dict hai. Isliye args[0] aur kwargs[\"name\"] chalte hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s07",
+   "question": {
+    "en": "Which keyword lets a function change a module-level variable?",
+    "hi": "कौन सा कीवर्ड फ़ंक्शन को मॉड्यूल-स्तर वेरिएबल बदलने देता है?",
+    "hinglish": "Kaun sa keyword function ko module-level variable badalne deta hai?"
+   },
+   "options": [
+    "global",
+    "nonlocal",
+    "public",
+    "outer"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "global points at module scope; nonlocal points at the nearest enclosing function.",
+    "hi": "global मॉड्यूल स्कोप की ओर इशारा करता है; nonlocal नज़दीकी बाहरी फ़ंक्शन की ओर।",
+    "hinglish": "global module scope ki taraf ishara karta hai; nonlocal nazdeeki bahari function ki taraf."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s08",
+   "question": {
+    "en": "What does nonlocal refer to?",
+    "hi": "nonlocal किसे दर्शाता है?",
+    "hinglish": "nonlocal kise darshata hai?"
+   },
+   "options": [
+    "the builtins namespace",
+    "the nearest enclosing function's variable",
+    "the module namespace",
+    "a variable in another file"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "nonlocal is only valid inside a nested function and reaches the enclosing function's name, not the module's.",
+    "hi": "nonlocal सिर्फ़ अंदरूनी फ़ंक्शन में वैध है और बाहरी फ़ंक्शन का नाम पकड़ता है, मॉड्यूल का नहीं।",
+    "hinglish": "nonlocal sirf andaruni function me valid hai aur bahari function ka naam pakadta hai, module ka nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s09",
+   "question": {
+    "en": "x = 10; def f(): x = 5; f(); print(x) — what prints?",
+    "hi": "x = 10; def f(): x = 5; f(); print(x) — क्या प्रिंट होगा?",
+    "hinglish": "x = 10; def f(): x = 5; f(); print(x) — kya print hoga?"
+   },
+   "options": [
+    "5",
+    "10",
+    "None",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The assignment inside f creates a local x and leaves the global one alone. This is the single most common scope surprise.",
+    "hi": "f के अंदर असाइनमेंट एक local x बनाता है और global को छोड़ देता है। स्कोप का यह सबसे आम आश्चर्य है।",
+    "hinglish": "f ke andar assignment ek local x banata hai aur global ko chhod deta hai. Scope ka ye sabse aam surprise hai."
+   },
+   "misconception": "scope-shadowing"
+  },
+  {
+   "id": "m05s10",
+   "question": {
+    "en": "What can the body of a lambda contain?",
+    "hi": "lambda की बॉडी में क्या हो सकता है?",
+    "hinglish": "lambda ki body me kya ho sakta hai?"
+   },
+   "options": [
+    "any number of statements",
+    "exactly one expression",
+    "only a return statement",
+    "only a print call"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "One expression, whose value is returned. If you need several statements or a docstring, write a normal def.",
+    "hi": "एक एक्सप्रेशन, जिसकी वैल्यू लौटती है। कई स्टेटमेंट या docstring चाहिए तो सामान्य def लिखें।",
+    "hinglish": "Ek expression, jiski value return hoti hai. Kai statements ya docstring chahiye to normal def likho."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s11",
+   "question": {
+    "en": "What is (lambda x: x + 1)(4)?",
+    "hi": "(lambda x: x + 1)(4) क्या है?",
+    "hinglish": "(lambda x: x + 1)(4) kya hai?"
+   },
+   "options": [
+    "4",
+    "5",
+    "an error",
+    "x + 1"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The lambda is called with 4, so x is 4 and the result is 5.",
+    "hi": "lambda को 4 के साथ बुलाया गया, इसलिए x = 4 और परिणाम 5 है।",
+    "hinglish": "lambda ko 4 ke saath bulaya gaya, isliye x = 4 aur result 5 hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s12",
+   "question": {
+    "en": "When should you prefer def over lambda?",
+    "hi": "def को lambda पर कब प्राथमिकता दें?",
+    "hinglish": "def ko lambda par kab priority dein?"
+   },
+   "options": [
+    "never, lambda is always better",
+    "when the function needs a name, a docstring or several statements",
+    "when the function has parameters",
+    "when you use it with sorted()"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "lambda is for throwaway one-liners. Anything you need to explain, name or reuse belongs in a def.",
+    "hi": "lambda एक बार के one-liner के लिए है। जिसे समझाना, नाम देना या दोबारा इस्तेमाल करना हो वह def में जाना चाहिए।",
+    "hinglish": "lambda ek baar ke one-liner ke liye hai. Jise samjhana, naam dena ya reuse karna ho woh def me jaana chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s13",
+   "question": {
+    "en": "What must every recursive function have?",
+    "hi": "हर रिकर्सिव फ़ंक्शन में क्या होना चाहिए?",
+    "hinglish": "Har recursive function me kya hona chahiye?"
+   },
+   "options": [
+    "a loop",
+    "a base case that stops the recursion",
+    "a global variable",
+    "a lambda"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Without a base case the calls never stop and Python raises RecursionError after about a thousand levels.",
+    "hi": "बेस केस के बिना कॉल कभी नहीं रुकते और पायथन लगभग हज़ार स्तरों के बाद RecursionError देता है।",
+    "hinglish": "Base case ke bina calls kabhi nahi rukte aur Python lagbhag hazaar levels ke baad RecursionError deta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s14",
+   "question": {
+    "en": "Is recursion faster than a loop in Python?",
+    "hi": "क्या पायथन में रिकर्शन लूप से तेज़ है?",
+    "hinglish": "Kya Python me recursion loop se tez hai?"
+   },
+   "options": [
+    "yes, always",
+    "no, a loop is usually faster and has no depth limit",
+    "only for numbers",
+    "only inside a class"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Every call costs a stack frame, and Python has a recursion limit. Recursion is a clarity tool, not a speed tool.",
+    "hi": "हर कॉल एक स्टैक फ़्रेम लेती है, और पायथन की रिकर्शन सीमा है। रिकर्शन स्पष्टता का औज़ार है, तेज़ी का नहीं।",
+    "hinglish": "Har call ek stack frame leti hai, aur Python ki recursion limit hai. Recursion clarity ka tool hai, speed ka nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s15",
+   "question": {
+    "en": "def f(n): return f(n - 1) — what happens when you call f(3)?",
+    "hi": "def f(n): return f(n - 1) — f(3) बुलाने पर क्या होगा?",
+    "hinglish": "def f(n): return f(n - 1) — f(3) bulane par kya hoga?"
+   },
+   "options": [
+    "it returns 2",
+    "it returns None",
+    "RecursionError",
+    "SyntaxError"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "There is no base case, so the calls keep going until the stack limit is hit.",
+    "hi": "कोई बेस केस नहीं है, इसलिए कॉल तब तक चलते हैं जब तक स्टैक सीमा न पहुँचे।",
+    "hinglish": "Koi base case nahi hai, isliye calls tab tak chalte hain jab tak stack limit na pahunche."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s16",
+   "question": {
+    "en": "What is f(3) if def f(x): return x * x?",
+    "hi": "def f(x): return x * x हो तो f(3) क्या है?",
+    "hinglish": "def f(x): return x * x ho to f(3) kya hai?"
+   },
+   "options": [
+    "6",
+    "9",
+    "3",
+    "None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "3 * 3 = 9.",
+    "hi": "3 * 3 = 9।",
+    "hinglish": "3 * 3 = 9."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s17",
+   "question": {
+    "en": "What is printed by: def f(): pass — print(f())",
+    "hi": "क्या प्रिंट होगा: def f(): pass — print(f())",
+    "hinglish": "Kya print hoga: def f(): pass — print(f())"
+   },
+   "options": [
+    "0",
+    "None",
+    "nothing",
+    "an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "pass does nothing, so the function returns None.",
+    "hi": "pass कुछ नहीं करता, इसलिए फ़ंक्शन None लौटाता है।",
+    "hinglish": "pass kuch nahi karta, isliye function None lautata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s18",
+   "question": {
+    "en": "Which call is invalid for def f(a, b=1)?",
+    "hi": "def f(a, b=1) के लिए कौन सी कॉल अवैध है?",
+    "hinglish": "def f(a, b=1) ke liye kaun si call invalid hai?"
+   },
+   "options": [
+    "f(1)",
+    "f(1, 2)",
+    "f(b=2, a=1)",
+    "f()"
+   ],
+   "answer": "d",
+   "why": {
+    "en": "a has no default, so f() is missing a required argument.",
+    "hi": "a का डिफ़ॉल्ट नहीं है, इसलिए f() में ज़रूरी आर्ग्युमेंट गायब है।",
+    "hinglish": "a ka default nahi hai, isliye f() me zaroori argument gayab hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s19",
+   "question": {
+    "en": "What is the type of kwargs in def f(**kwargs)?",
+    "hi": "def f(**kwargs) में kwargs का टाइप क्या है?",
+    "hinglish": "def f(**kwargs) me kwargs ka type kya hai?"
+   },
+   "options": [
+    "tuple",
+    "list",
+    "dict",
+    "set"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "**kwargs collects named arguments into a dict.",
+    "hi": "**kwargs नाम वाले आर्ग्युमेंट dict में जमा करता है।",
+    "hinglish": "**kwargs named arguments dict me jama karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s20",
+   "question": {
+    "en": "x = 1; def f(): x = 2; f(); print(x) — what prints?",
+    "hi": "x = 1; def f(): x = 2; f(); print(x) — क्या प्रिंट होगा?",
+    "hinglish": "x = 1; def f(): x = 2; f(); print(x) — kya print hoga?"
+   },
+   "options": [
+    "1",
+    "2",
+    "None",
+    "an error"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "The assignment inside f is local, so the global x stays 1.",
+    "hi": "f के अंदर असाइनमेंट local है, इसलिए global x 1 ही रहता है।",
+    "hinglish": "f ke andar assignment local hai, isliye global x 1 hi rehta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m05s21",
+   "question": {
+    "en": "Which is the correct lambda for squaring?",
+    "hi": "वर्ग करने के लिए सही lambda कौन सा है?",
+    "hinglish": "Square karne ke liye sahi lambda kaun sa hai?"
+   },
+   "options": [
+    "lambda x: x * x",
+    "lambda x: return x * x",
+    "lambda (x): x * x",
+    "lambda x -> x * x"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "A lambda has no return keyword and takes plain parameter names.",
+    "hi": "lambda में return कीवर्ड नहीं होता और सादे पैरामीटर नाम होते हैं।",
+    "hinglish": "lambda me return keyword nahi hota aur saade parameter naam hote hain."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "🧰"
+}

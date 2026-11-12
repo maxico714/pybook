@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Locked — PyBook{% endblock %}
+{% block crumbs %}<span>Locked</span>{% endblock %}
+
+{% block body %}
+<section class="lock-card">
+  <div class="lock-orbit" aria-hidden="true">
+    <span class="orbit-dot"></span><span class="orbit-dot"></span><span class="orbit-dot"></span>
+    <span class="lock-icon">🔒</span>
+  </div>
+  <h1>This {{ what }} is locked</h1>
+  <p class="muted">
+    <b>{{ title }}</b> opens only after the one before it is passed.
+    PyBook does not let you jump ahead — the order is what makes the course work.
+  </p>
+  {% if previous %}
+    <a class="btn primary lg" href="{{ url_for('lesson', lesson_id=previous) }}">Go to your current lesson →</a>
+  {% else %}
+    <a class="btn primary lg" href="{{ url_for('learn') }}">Back to your path →</a>
+  {% endif %}
+</section>
+{% endblock %}

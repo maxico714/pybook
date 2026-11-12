@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Skip exam' if skip else 'Module exam' }} · {{ title }} — PyBook{% endblock %}
+{% block crumbs %}
+  <a href="{{ url_for('learn') }}">Your path</a><span class="sep">/</span>
+  <span>{{ title }}</span><span class="sep">/</span>
+  <span class="now">{{ 'Skip exam' if skip else 'Module exam' }}</span>
+{% endblock %}
+
+{% block body %}
+<header class="page-head">
+  <div>
+    <p class="eyebrow">{{ 'Shortcut' if skip else 'Gate' }}</p>
+    <h1>{{ 'Skip exam' if skip else 'Module exam' }}: {{ title }}</h1>
+    <p class="muted">
+      {{ items|length }} questions ·
+      {% if skip %}
+        {{ (skip_pass * 100)|int }}% passes and marks every lesson in this module as passed.
+      {% else %}
+        {{ (exam_pass * 100)|int }}% passes. Every lesson in this module must be passed first.
+      {% endif %}
+    </p>
+  </div>
+  {% if passed %}<span class="badge ok lg">module passed{% if best %} · {{ (best * 100)|round|int }}%{% endif %}</span>{% endif %}
+</header>
+
+{% if blocked %}
+  <section class="block notice">
+    <h2>🔒 Not open yet</h2>
+    <p>Pass these {{ remaining|length }} lesson{{ '' if remaining|length == 1 else 's' }} first, or take the
+      <a href="{{ url_for('skip', module_id=module_id) }}">skip exam</a> if you already know the module.</p>
+    <ol class="lessons">
+      {% for lesson in remaining %}
+        <li class="lesson-row open">
+          <a href="{{ url_for('lesson', lesson_id=lesson.id) }}">
+            <span class="dot"></span>
+            <span class="lesson-name">{{ lesson.title }}</span>
+            <span class="go">open →</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+{% else %}
+  <div x-data="quiz({ exam: '{{ module_id }}', skip: {{ 1 if skip else 0 }} })">
+    <div class="exam-layout">
+      <aside class="exam-nav" aria-label="Questions">
+        <p class="rail-label">Questions</p>
+        <div class="exam-dots">
+          {% for item in items %}
+            <a href="#q{{ item.number }}" class="exam-dot" :class="{ done: answers.q{{ item.number }} }">{{ item.number }}</a>
+          {% endfor %}
+        </div>
+        <p class="tiny muted"><span x-text="answered"></span> / {{ items|length }} answered</p>
+        <button class="btn primary" type="button" @click="submit()" :disabled="busy">
+          <span x-show="!busy">Submit</span><span x-show="busy">Checking…</span>
+        </button>
+      </aside>
+
+      <form class="quiz exam" @submit.prevent="submit()">
+        {% set letters = "abcdef" %}
+        {% for item in items %}
+          <fieldset class="q" id="q{{ item.number }}">
+            <legend><span class="qnum">{{ item.number }}</span> {{ item.question }}</legend>
+            {% for option in item.options %}
+              <label class="opt" :class="optionClass('q{{ item.number }}', '{{ letters[loop.index0] }}')">
+                <input type="radio" name="q{{ item.number }}" value="{{ letters[loop.index0] }}"
+                       x-model="answers.q{{ item.number }}">
+                <span class="letter">{{ letters[loop.index0]|upper }}</span>
+                <span class="opt-text">{{ option }}</span>
+              </label>
+            {% endfor %}
+          </fieldset>
+        {% endfor %}
+        <div class="row">
+          <button class="btn primary lg" type="submit" :disabled="busy">Submit {{ items|length }} answers</button>
+          <a class="btn ghost" href="{{ url_for('learn') }}">Not yet</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="result" x-show="result" x-cloak :class="result && result.ok && result.passed ? 'ok' : (result && result.ok ? 'bad' : '')">
+      <h4 x-text="!result ? '' : (!result.ok ? 'Could not submit' : (result.passed ? 'Passed 🎉' : 'Not yet'))"></h4>
+      <p class="small" x-show="result && !result.ok" x-text="result && (result.message || result.error)"></p>
+      <p class="score-line" x-show="result && result.ok" x-text="result && (result.correct + ' / ' + result.total + ' correct · ' + result.percent + '% · ' + Math.round(result.needed * 100) + '% needed')"></p>
+      <template x-for="miss in (result && result.detail) || []" :key="miss.id">
+        <div class="miss">
+          <p class="q-text" x-text="'Q' + miss.number + '. ' + miss.question"></p>
+          <p class="picked">Your answer: <b x-text="miss.given || '—'"></b> · correct: <b x-text="miss.answer"></b></p>
+          <p class="why" x-text="miss.why"></p>
+        </div>
+      </template>
+      <p x-show="result && result.passed">
+        <a class="btn primary" href="{{ url_for('learn') }}">Back to your path →</a>
+      </p>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

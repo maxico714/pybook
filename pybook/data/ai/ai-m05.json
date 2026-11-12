@@ -1,0 +1,631 @@
+{
+ "id": "ai-m05",
+ "title": {
+  "hinglish": "Career aur capstones",
+  "en": "Career and capstones"
+ },
+ "goal": {
+  "hinglish": "Interview, portfolio, freelancing aur paanch capstones jo proof dikhate hain.",
+  "en": "Interviews, portfolio, freelancing and five capstones that show proof."
+ },
+ "icon": "🎯",
+ "chapters": [
+  {
+   "id": "ai-m05c22",
+   "title": {
+    "hinglish": "Career: Interviews, Portfolio & Freelancing",
+    "en": "Career: Interviews, Portfolio & Freelancing"
+   },
+   "lessons": [
+    {
+     "id": "ai-m05c22l01",
+     "title": {
+      "hinglish": "Career: interview, portfolio aur freelancing",
+      "en": "Career: interviews, portfolio and freelancing"
+     },
+     "keywords": [
+      "STAR",
+      "ATS",
+      "portfolio",
+      "take-home",
+      "pricing"
+     ],
+     "intro": {
+      "hinglish": "Job ke liye proof chahiye, sirf certificate nahi. Portfolio me demo + eval numbers + README rakho. Interview me STAR se bolo, aur take-home me scope likh kar time-box karo. Freelancing me proposal, scope aur price likhna sabse zaroori hai.",
+      "en": "A job needs proof, not just a certificate. Put a demo, eval numbers and a README in the portfolio. Answer interviews with STAR, and time-box a take-home with a written scope. In freelancing, the proposal, scope and price matter most."
+     },
+     "real_life": {
+      "hinglish": "Shaadi ka card chhota hota hai par saari zaroori baat batata hai. Resume/README bhi wahi: short, specific, aur proof ke saath.",
+      "en": "A wedding card is small but carries every essential detail. A resume or README is the same: short, specific and backed by proof."
+     },
+     "takeaway": {
+      "hinglish": "Har project ke saath ek number likho: latency, cost, accuracy ya eval score.",
+      "en": "Every project gets one number: latency, cost, accuracy or an eval score."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "ATS keyword match",
+        "en": "ATS keyword match"
+       },
+       "code": "resume = 'python sql rag evals docker'\njd = 'python sql rag kubernetes'\nhave = set(resume.split())\nwant = {w for w in jd.split() if len(w) > 3}\nprint(len(have & want) / len(want))",
+       "output": "0.5",
+       "note": {
+        "hinglish": "ATS keyword match ka simple version; asli resume me achievements bhi likho.",
+        "en": "A simple version of ATS keyword matching; a real resume also shows achievements."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "DECK = [\n    (\"Bias vs variance\", \"Bias = underfit, variance = overfit. Trade-off model complexity se.\"),\n    (\"Precision vs recall\", \"Precision = TP/(TP+FP), recall = TP/(TP+FN). Imbalanced data mein PR-AUC better.\"),\n    (\"Data leakage\", \"Train mein test ka information aa jana. Example: split se pehle scaling ya target encoding.\"),\n    (\"ROC-AUC vs PR-AUC\", \"PR-AUC rare positive class par zyada informative hota hai.\"),\n    (\"L1 vs L2\", \"L1 sparse features, L2 smooth weights; dono overfitting kam karte hain.\"),\n    (\"Cross-validation\", \"K-fold se variance estimate; time series mein forward-chaining chahiye.\"),\n    (\"Class imbalance\", \"Resampling, class weights, threshold tuning; accuracy alone misleading.\"),\n    (\"Distribution shift\", \"Production data train se alag; monitor input drift aur retrain plan.\"),\n]\n\n\ndef quiz(deck: list[tuple[str, str]], start: int = 0, count: int = 5) -> None:\n    subset = deck[start:start + count]\n    for i, (question, answer) in enumerate(subset, 1):\n        print(f\"Q{i}. {question}\")\n        print(f\"    -> {answer}\")\n    print(f\"\\n({len(subset)} cards. Kal dobara, phir 3 din baad.)\")\n\n\nquiz(DECK, start=0, count=5)",
+       "output": "Q1. Bias vs variance\n    -> Bias = underfit, variance = overfit. Trade-off model complexity se.\nQ2. Precision vs recall\n    -> Precision = TP/(TP+FP), recall = TP/(TP+FN). Imbalanced data mein PR-AUC better.\nQ3. Data leakage\n    -> Train mein test ka information aa jana. Example: split se pehle scaling ya target encoding.\nQ4. ROC-AUC vs PR-AUC\n    -> PR-AUC rare positive class par zyada informative hota hai.\nQ5. L1 vs L2\n    -> L1 sparse features, L2 smooth weights; dono overfitting kam karte hain.\n\n(5 cards. Kal dobara, phir 3 din baad.)",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m05c22l01e1",
+       "prompt": {
+        "hinglish": "`match(resume, jd)` likho jo JD ke 4+ letter words me se kitne resume me hain, wo fraction return kare; `score` print karo.",
+        "en": "Write `match(resume, jd)` returning the fraction of 4+ letter JD words present in the resume; print `score`."
+       },
+       "starter": "def match(resume, jd):\n    ...\n\nscore = match('python sql rag evals docker', 'python sql rag kubernetes')\nprint(round(score, 2))\n",
+       "solution": "def match(resume, jd):\n    resume_words = set(resume.lower().split())\n    jd_words = {word for word in jd.lower().split() if len(word) > 3}\n    return len(resume_words & jd_words) / len(jd_words)\n\nscore = match('python sql rag evals docker', 'python sql rag kubernetes')\nprint(round(score, 2))\n",
+       "checks": [
+        "abs(score - 0.5) < 1e-9"
+       ],
+       "hint": {
+        "hinglish": "JD words ka set banao, resume words se intersection lo, size se divide karo.",
+        "en": "Build a set of JD words, intersect with resume words, divide by its size."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m05c22l01q1",
+       "question": {
+        "hinglish": "STAR ka matlab?",
+        "en": "What does STAR stand for?"
+       },
+       "options": [
+        "Situation, Task, Action, Result",
+        "Skill, Tool, Answer, Review",
+        "Start, Test, Apply, Repeat",
+        "Scope, Time, Amount, Risk"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Behavioural answer ko structure deta hai, aur Result par khatam karna zaroori hai.",
+        "en": "It structures a behavioural answer, and it must end on the Result."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m05c22l01q2",
+       "question": {
+        "hinglish": "Portfolio project me kya sabse zyada matter karta hai?",
+        "en": "What matters most in a portfolio project?"
+       },
+       "options": [
+        "Chalne wala demo aur eval ke numbers",
+        "Code ki lines ki ginti",
+        "Kitne frameworks use hue",
+        "Repository ka naam"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Recruiter proof dekhta hai: demo chalta hai aur quality naapi gayi hai.",
+        "en": "A recruiter looks for proof: the demo runs and quality was measured."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m05c22l01q3",
+       "question": {
+        "hinglish": "Take-home ka sahi approach?",
+        "en": "The right take-home approach?"
+       },
+       "options": [
+        "Scope likho, time-box karo, trade-offs README me batao",
+        "Jitna bada ho sake banao",
+        "Poora product banane ki koshish karo",
+        "Kuch mat likho, sirf code do"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Time-box aur clear trade-offs senior engineer ki nishani hai.",
+        "en": "A time-box and clear trade-offs signal a senior engineer."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ai-m05c23",
+   "title": {
+    "hinglish": "Capstone Projects",
+    "en": "Capstone Projects"
+   },
+   "lessons": [
+    {
+     "id": "ai-m05c23l01",
+     "title": {
+      "hinglish": "Capstone: chhota RAG pipeline",
+      "en": "Capstone: a small RAG pipeline"
+     },
+     "keywords": [
+      "retrieval",
+      "citation",
+      "eval",
+      "pipeline",
+      "cost"
+     ],
+     "intro": {
+      "hinglish": "Ab sab jodo: documents, retrieval, answer aur citation. Capstone ka maqsad fancy UI nahi, end-to-end proof hai — input se grounded answer tak, aur ek eval jo quality naape.",
+      "en": "Now join everything: documents, retrieval, an answer and a citation. The capstone goal is not a fancy UI but end-to-end proof, from input to a grounded answer, plus an eval that measures quality."
+     },
+     "real_life": {
+      "hinglish": "Lawyer ka case file: sirf answer nahi, kaunsa page aur kaunsi line, wo bhi batana padta hai. Citation ke bina answer adhoora hai.",
+      "en": "A lawyer's case file: not just the answer but which page and line. Without a citation the answer is incomplete."
+     },
+     "takeaway": {
+      "hinglish": "Capstone me ek number zaroor dikhao: recall@k, faithfulness ya cost per 1k requests.",
+      "en": "A capstone must show one number: recall@k, faithfulness or cost per 1k requests."
+     },
+     "examples": [
+      {
+       "title": {
+        "hinglish": "Retrieval by word overlap",
+        "en": "Word overlap se retrieval"
+       },
+       "code": "docs = [\n    {'id': 'd1', 'text': 'RAG retrieves documents before answering.'},\n    {'id': 'd2', 'text': 'Fine-tuning changes model weights.'},\n]\nq = set('how does rag retrieve'.split())\nbest = max(docs, key=lambda d: len(q & set(d['text'].lower().split())))\nprint(best['id'])",
+       "output": "d1",
+       "note": {
+        "hinglish": "Retrieval ka simplest version: shared words ka count.",
+        "en": "The simplest retrieval: count shared words."
+       }
+      },
+      {
+       "title": {
+        "hinglish": "Chapter notebook se",
+        "en": "Straight from the chapter notebook"
+       },
+       "code": "SCHEDULE = [\n    (1, \"C1 core\", 12, \"schema + tools + cost tracker\"),\n    (2, \"C1 finish + C2 ingest\", 14, \"C1 README + ingest pipeline\"),\n    (3, \"C2 retrieval\", 14, \"hybrid + RRF + eval baseline\"),\n    (4, \"C2 finish\", 14, \"rerank + citations + results\"),\n    (5, \"C3 agent\", 14, \"tool loop + HITL + trace\"),\n    (6, \"C4 fine-tune\", 15, \"dataset + QLoRA + comparison\"),\n    (7, \"C5 build\", 15, \"FastAPI + Docker + pgvector + CI\"),\n    (8, \"C5 harden + portfolio\", 12, \"load test + cost report + polish\"),\n]\n\n\ndef schedule_report(weeks: list[tuple], available_per_week: float) -> dict:\n    total = sum(hours for _, _, hours, _ in weeks)\n    over = [(w, hours) for w, _, hours, _ in weeks if hours > available_per_week]\n    return {\n        \"total_hours\": total,\n        \"weeks\": len(weeks),\n        \"avg_per_week\": round(total / len(weeks), 1),\n        \"overloaded_weeks\": over,\n        \"realistic\": not over,\n    }\n\n\nprint(schedule_report(SCHEDULE, available_per_week=12))\nprint(schedule_report(SCHEDULE, available_per_week=15))\nprint(\"\\nWeek 8 rule: no new features. Evidence only.\")",
+       "output": "{'total_hours': 110, 'weeks': 8, 'avg_per_week': 13.8, 'overloaded_weeks': [(2, 14), (3, 14), (4, 14), (5, 14), (6, 15), (7, 15)], 'realistic': False}\n{'total_hours': 110, 'weeks': 8, 'avg_per_week': 13.8, 'overloaded_weeks': [], 'realistic': True}\n\nWeek 8 rule: no new features. Evidence only.",
+       "note": {}
+      }
+     ],
+     "exercises": [
+      {
+       "id": "ai-m05c23l01e1",
+       "prompt": {
+        "hinglish": "`answer(question, docs)` likho jo sabse zyada overlap wale doc ka `(id, text)` return kare; `doc_id` aur sentence print karo.",
+        "en": "Write `answer(question, docs)` returning `(id, text)` of the best-overlap document; print `doc_id` and the sentence."
+       },
+       "starter": "def answer(question, docs):\n    ...\n\ndocs = [\n    {'id': 'd1', 'text': 'RAG retrieves documents before answering.'},\n    {'id': 'd2', 'text': 'Fine-tuning changes model weights.'},\n]\ndoc_id, sentence = answer('how does rag retrieve documents', docs)\nprint(doc_id, '|', sentence)\n",
+       "solution": "def answer(question, docs):\n    words = set(question.lower().split())\n    best = max(docs, key=lambda doc: len(words & set(doc['text'].lower().split())))\n    return best['id'], best['text']\n\ndocs = [\n    {'id': 'd1', 'text': 'RAG retrieves documents before answering.'},\n    {'id': 'd2', 'text': 'Fine-tuning changes model weights.'},\n]\ndoc_id, sentence = answer('how does rag retrieve documents', docs)\nprint(doc_id, '|', sentence)\n",
+       "checks": [
+        "doc_id == 'd1'",
+        "'retrieves' in sentence"
+       ],
+       "hint": {
+        "hinglish": "`max` ko key do: question words aur doc words ka intersection size.",
+        "en": "Give `max` a key: the intersection size of question and document words."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "ai-m05c23l01q1",
+       "question": {
+        "hinglish": "Capstone me pehle kya banana chahiye?",
+        "en": "What should a capstone build first?"
+       },
+       "options": [
+        "End-to-end thin slice: ek document se grounded answer",
+        "Poora UI",
+        "Saare providers ka integration",
+        "Fine-tuning"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Thin slice pehle: ek document, ek answer, ek citation, ek eval.",
+        "en": "Thin slice first: one document, one answer, one citation, one eval."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m05c23l01q2",
+       "question": {
+        "hinglish": "Faithfulness eval kya check karta hai?",
+        "en": "What does a faithfulness eval check?"
+       },
+       "options": [
+        "Answer retrieved context se supported hai ya nahi",
+        "Answer ki length",
+        "Model ka size",
+        "API ka price"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Grounded answer ke har claim ka source context me hona chahiye.",
+        "en": "Every claim in a grounded answer should be supported by the context."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "ai-m05c23l01q3",
+       "question": {
+        "hinglish": "Cost per 1k requests kyun likhna chahiye?",
+        "en": "Why report cost per 1k requests?"
+       },
+       "options": [
+        "Decision makers ko scale par cost dikhta hai",
+        "Model ko train karne ke liye",
+        "Prompt ko chhota karne ke liye",
+        "Latency badhane ke liye"
+       ],
+       "answer": "a",
+       "why": {
+        "hinglish": "Ek request ka cost chhota lagta hai; 1k requests par asli number dikhta hai.",
+        "en": "One request looks cheap; 1k requests shows the real number."
+       },
+       "misconception": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "ai-m05x01",
+   "question": {
+    "hinglish": "STAR ka R kya hai?",
+    "en": "What is the R in STAR?"
+   },
+   "options": [
+    "Result",
+    "Review",
+    "Repeat",
+    "Risk"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Answer result par khatam hona chahiye.",
+    "en": "The answer should end on the result."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05x02",
+   "question": {
+    "hinglish": "Portfolio me kya dikhana chahiye?",
+    "en": "What should a portfolio show?"
+   },
+   "options": [
+    "Demo + eval numbers",
+    "Sirf code lines",
+    "Frameworks ki list",
+    "Certificate"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Proof demo aur measurement se aata hai.",
+    "en": "Proof comes from a demo and measurement."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05x03",
+   "question": {
+    "hinglish": "Capstone ka pehla step?",
+    "en": "The first capstone step?"
+   },
+   "options": [
+    "Thin end-to-end slice",
+    "Poora UI",
+    "Saare providers",
+    "Fine-tuning"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ek document se grounded answer tak pehle.",
+    "en": "One document to a grounded answer first."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05x04",
+   "question": {
+    "hinglish": "Faithfulness kya check karta hai?",
+    "en": "What does faithfulness check?"
+   },
+   "options": [
+    "Answer context se supported hai",
+    "Answer lamba hai",
+    "Model bada hai",
+    "API sasta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Grounded answer ke claims context me hone chahiye.",
+    "en": "Claims in a grounded answer must be in the context."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05x05",
+   "question": {
+    "hinglish": "Cost per 1k requests kyun?",
+    "en": "Why cost per 1k requests?"
+   },
+   "options": [
+    "Scale par asli cost dikhta hai",
+    "Model train hota hai",
+    "Prompt chhota hota hai",
+    "Latency badhti hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ek request sasta lagta hai; 1k par number saaf dikhta hai.",
+    "en": "One request looks cheap; 1k shows the real number."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05x06",
+   "question": {
+    "hinglish": "Take-home me kya likhna chahiye?",
+    "en": "What should a take-home include?"
+   },
+   "options": [
+    "Scope aur trade-offs",
+    "Sirf code",
+    "Sirf screenshot",
+    "Kuch nahi"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Time-box aur trade-offs senior signal hain.",
+    "en": "A time-box and trade-offs signal seniority."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "ai-m05s01",
+   "question": {
+    "hinglish": "STAR ka matlab?",
+    "en": "What does STAR stand for?"
+   },
+   "options": [
+    "Situation, Task, Action, Result",
+    "Skill, Tool, Answer, Review",
+    "Start, Test, Apply, Repeat",
+    "Scope, Time, Amount, Risk"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Behavioural answer ko structure deta hai, aur Result par khatam karna zaroori hai.",
+    "en": "It structures a behavioural answer, and it must end on the Result."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s02",
+   "question": {
+    "hinglish": "Portfolio project me kya sabse zyada matter karta hai?",
+    "en": "What matters most in a portfolio project?"
+   },
+   "options": [
+    "Chalne wala demo aur eval ke numbers",
+    "Code ki lines ki ginti",
+    "Kitne frameworks use hue",
+    "Repository ka naam"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Recruiter proof dekhta hai: demo chalta hai aur quality naapi gayi hai.",
+    "en": "A recruiter looks for proof: the demo runs and quality was measured."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s03",
+   "question": {
+    "hinglish": "Take-home ka sahi approach?",
+    "en": "The right take-home approach?"
+   },
+   "options": [
+    "Scope likho, time-box karo, trade-offs README me batao",
+    "Jitna bada ho sake banao",
+    "Poora product banane ki koshish karo",
+    "Kuch mat likho, sirf code do"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Time-box aur clear trade-offs senior engineer ki nishani hai.",
+    "en": "A time-box and clear trade-offs signal a senior engineer."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s04",
+   "question": {
+    "hinglish": "Capstone me pehle kya banana chahiye?",
+    "en": "What should a capstone build first?"
+   },
+   "options": [
+    "End-to-end thin slice: ek document se grounded answer",
+    "Poora UI",
+    "Saare providers ka integration",
+    "Fine-tuning"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Thin slice pehle: ek document, ek answer, ek citation, ek eval.",
+    "en": "Thin slice first: one document, one answer, one citation, one eval."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s05",
+   "question": {
+    "hinglish": "Faithfulness eval kya check karta hai?",
+    "en": "What does a faithfulness eval check?"
+   },
+   "options": [
+    "Answer retrieved context se supported hai ya nahi",
+    "Answer ki length",
+    "Model ka size",
+    "API ka price"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Grounded answer ke har claim ka source context me hona chahiye.",
+    "en": "Every claim in a grounded answer should be supported by the context."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s06",
+   "question": {
+    "hinglish": "Cost per 1k requests kyun likhna chahiye?",
+    "en": "Why report cost per 1k requests?"
+   },
+   "options": [
+    "Decision makers ko scale par cost dikhta hai",
+    "Model ko train karne ke liye",
+    "Prompt ko chhota karne ke liye",
+    "Latency badhane ke liye"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ek request ka cost chhota lagta hai; 1k requests par asli number dikhta hai.",
+    "en": "One request looks cheap; 1k requests shows the real number."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s07",
+   "question": {
+    "hinglish": "STAR ka R kya hai?",
+    "en": "What is the R in STAR?"
+   },
+   "options": [
+    "Result",
+    "Review",
+    "Repeat",
+    "Risk"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Answer result par khatam hona chahiye.",
+    "en": "The answer should end on the result."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s08",
+   "question": {
+    "hinglish": "Portfolio me kya dikhana chahiye?",
+    "en": "What should a portfolio show?"
+   },
+   "options": [
+    "Demo + eval numbers",
+    "Sirf code lines",
+    "Frameworks ki list",
+    "Certificate"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Proof demo aur measurement se aata hai.",
+    "en": "Proof comes from a demo and measurement."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s09",
+   "question": {
+    "hinglish": "Capstone ka pehla step?",
+    "en": "The first capstone step?"
+   },
+   "options": [
+    "Thin end-to-end slice",
+    "Poora UI",
+    "Saare providers",
+    "Fine-tuning"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ek document se grounded answer tak pehle.",
+    "en": "One document to a grounded answer first."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s10",
+   "question": {
+    "hinglish": "Faithfulness kya check karta hai?",
+    "en": "What does faithfulness check?"
+   },
+   "options": [
+    "Answer context se supported hai",
+    "Answer lamba hai",
+    "Model bada hai",
+    "API sasta hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Grounded answer ke claims context me hone chahiye.",
+    "en": "Claims in a grounded answer must be in the context."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s11",
+   "question": {
+    "hinglish": "Cost per 1k requests kyun?",
+    "en": "Why cost per 1k requests?"
+   },
+   "options": [
+    "Scale par asli cost dikhta hai",
+    "Model train hota hai",
+    "Prompt chhota hota hai",
+    "Latency badhti hai"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Ek request sasta lagta hai; 1k par number saaf dikhta hai.",
+    "en": "One request looks cheap; 1k shows the real number."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "ai-m05s12",
+   "question": {
+    "hinglish": "Take-home me kya likhna chahiye?",
+    "en": "What should a take-home include?"
+   },
+   "options": [
+    "Scope aur trade-offs",
+    "Sirf code",
+    "Sirf screenshot",
+    "Kuch nahi"
+   ],
+   "answer": "a",
+   "why": {
+    "hinglish": "Time-box aur trade-offs senior signal hain.",
+    "en": "A time-box and trade-offs signal seniority."
+   },
+   "misconception": ""
+  }
+ ]
+}

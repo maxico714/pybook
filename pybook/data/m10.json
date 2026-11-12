@@ -1,0 +1,1138 @@
+{
+ "id": "m10",
+ "title": {
+  "en": "Modern Python",
+  "hi": "आधुनिक पायथन",
+  "hinglish": "Modern Python"
+ },
+ "goal": {
+  "en": "Type hints and type aliases, functions as values, closures, decorators, and structural pattern matching.",
+  "hi": "टाइप हिंट और टाइप उपनाम, फ़ंक्शन मान के रूप में, क्लोज़र, डेकोरेटर, और संरचनात्मक पैटर्न मिलान।",
+  "hinglish": "Type hints aur type aliases, functions values ke roop me, closures, decorators, aur structural pattern matching."
+ },
+ "chapters": [
+  {
+   "id": "m10c01",
+   "title": {
+    "en": "Hints and higher-order functions",
+    "hi": "हिंट और उच्च-क्रम फ़ंक्शन",
+    "hinglish": "Hints aur higher-order functions"
+   },
+   "lessons": [
+    {
+     "id": "m10c01l01",
+     "title": {
+      "en": "Type hints and type aliases",
+      "hi": "टाइप हिंट और टाइप उपनाम",
+      "hinglish": "Type hints aur type aliases"
+     },
+     "keywords": [
+      "type"
+     ],
+     "intro": {
+      "en": "A type hint says what a function expects and returns, for readers, editors and checkers. Python still does not enforce it at runtime. The `type` statement (3.12+) gives a reusable name to a type.",
+      "hi": "टाइप हिंट बताता है कि फ़ंक्शन क्या लेता और लौटाता है - पढ़ने वालों, एडिटर और चेकर के लिए। पायथन रनटाइम पर इसे लागू नहीं करता। `type` स्टेटमेंट (3.12+) किसी टाइप को दोबारा इस्तेमाल लायक नाम देता है।",
+      "hinglish": "Type hint batata hai ki function kya leta aur return karta hai - padhne walon, editor aur checker ke liye. Python runtime par ise enforce nahi karta. `type` statement (3.12+) kisi type ko dobara use layak naam deta hai."
+     },
+     "real_life": {
+      "en": "A label on a jar. \"Sugar\" on the jar does not make it sugar, but everyone in the kitchen stops guessing.",
+      "hi": "जार पर लेबल। जार पर \"चीनी\" लिखा होने से अंदर चीनी नहीं बन जाती, पर रसोई में सबका अंदाज़ा खत्म हो जाता है।",
+      "hinglish": "Jar par label. Jar par \"cheeni\" likha hone se andar cheeni nahi ban jati, par rasoi me sabka andaza khatam ho jata hai."
+     },
+     "docs": "https://docs.python.org/3/library/typing.html",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "annotations on parameters and return",
+        "hi": "पैरामीटर और रिटर्न पर एनोटेशन",
+        "hinglish": "parameter aur return par annotations"
+       },
+       "code": "def greet(name: str, times: int = 1) -> str:\n    return \" \".join([f\"Hi {name}!\"] * times)\n\nprint(greet(\"Asha\"))\nprint(greet(\"Ravi\", 2))",
+       "output": "Hi Asha!\nHi Ravi! Hi Ravi!",
+       "note": {
+        "en": "`name: str` and `-> str` are read by tools. Nothing stops you from passing an int, but an editor will warn you first.",
+        "hi": "`name: str` और `-> str` टूल पढ़ते हैं। int भेजने से कोई रोकता नहीं, पर एडिटर पहले चेतावनी देगा।",
+        "hinglish": "`name: str` aur `-> str` tools padhte hain. int bhejne se koi rokta nahi, par editor pehle chetavni dega."
+       }
+      },
+      {
+       "title": {
+        "en": "the type statement (Python 3.12+)",
+        "hi": "type स्टेटमेंट (पायथन 3.12+)",
+        "hinglish": "type statement (Python 3.12+)"
+       },
+       "code": "type Vector = list[float]\n\ndef total(values: Vector) -> float:\n    return sum(values)\n\nprint(total([1.5, 2.5]))\nprint(total([]))",
+       "output": "4.0\n0",
+       "note": {
+        "en": "`type Vector = list[float]` is a real type alias, not a variable. On Python 3.11 or older write `Vector = list[float]` instead - it works the same for hints.",
+        "hi": "`type Vector = list[float]` असली टाइप उपनाम है, वेरिएबल नहीं। पायथन 3.11 या पुराने में `Vector = list[float]` लिखें - हिंट के लिए वही काम करता है।",
+        "hinglish": "`type Vector = list[float]` asli type alias hai, variable nahi. Python 3.11 ya purane me `Vector = list[float]` likho - hint ke liye wahi kaam karta hai."
+       }
+      },
+      {
+       "title": {
+        "en": "X | None means \"or nothing\"",
+        "hi": "X | None का मतलब \"या कुछ नहीं\"",
+        "hinglish": "X | None ka matlab \"ya kuch nahi\""
+       },
+       "code": "def find(users: list[dict], name: str) -> dict | None:\n    for user in users:\n        if user['name'] == name:\n            return user\n    return None\n\nusers = [{'name': 'Asha'}, {'name': 'Ravi'}]\nprint(find(users, 'Ravi'))\nprint(find(users, 'Mili'))",
+       "output": "{'name': 'Ravi'}\nNone",
+       "note": {
+        "en": "The hint says the caller must handle None. That is more useful than a docstring sentence nobody reads.",
+        "hi": "हिंट कहता है कि बुलाने वाले को None संभालना है। यह उस डॉकस्ट्रिंग से ज़्यादा काम का है जिसे कोई नहीं पढ़ता।",
+        "hinglish": "Hint kehta hai ki caller ko None sambhalna hai. Ye us docstring se zyada kaam ka hai jise koi nahi padhta."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m10c01l01e1",
+       "prompt": {
+        "en": "Annotate `add(a, b)` so it takes two ints and returns an int, then print `add(2, 3)`.",
+        "hi": "`add(a, b)` पर एनोटेशन लगाएँ: दो int ले और int लौटाए, फिर `add(2, 3)` प्रिंट करें।",
+        "hinglish": "`add(a, b)` par annotation lagao: do int le aur int return kare, phir `add(2, 3)` print karo."
+       },
+       "starter": "def add(a, b):\n    return a + b\n\n# print(add(2, 3))",
+       "solution": "def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(2, 3))",
+       "checks": [
+        "add(2, 3) == 5",
+        "add.__annotations__['a'] is int",
+        "add.__annotations__['return'] is int",
+        "printed.strip() == '5'"
+       ],
+       "hint": {
+        "en": "Put `: int` after each parameter and `-> int` before the colon.",
+        "hi": "हर पैरामीटर के बाद `: int` और कोलन से पहले `-> int` लगाएँ।",
+        "hinglish": "Har parameter ke baad `: int` aur colon se pehle `-> int` lagao."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m10c01l01q1",
+       "question": {
+        "en": "Does a type hint stop a wrong argument at runtime?",
+        "hi": "टाइप हिंट रनटाइम पर गलत आर्ग्युमेंट रोकता है?",
+        "hinglish": "Type hint runtime par galat argument rokta hai?"
+       },
+       "options": [
+        "yes, it raises TypeError",
+        "no, it is documentation for tools and readers",
+        "only for int and str",
+        "only inside classes"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Hints are not enforced. Use a checker such as mypy or pyright for that.",
+        "hi": "हिंट लागू नहीं होते। उसके लिए mypy या pyright जैसा चेकर इस्तेमाल करें।",
+        "hinglish": "Hints laagu nahi hote. Uske liye mypy ya pyright jaisa checker use karo."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c01l01q2",
+       "question": {
+        "en": "What does `-> None` mean on a function?",
+        "hi": "फ़ंक्शन पर `-> None` का क्या मतलब है?",
+        "hinglish": "Function par `-> None` ka kya matlab hai?"
+       },
+       "options": [
+        "it returns nothing useful",
+        "it returns the string 'None'",
+        "it cannot be called",
+        "it returns False"
+       ],
+       "answer": "a",
+       "why": {
+        "en": "It performs an action (print, save) and returns no value.",
+        "hi": "यह कोई काम करता है (प्रिंट, सेव) और कोई मान नहीं लौटाता।",
+        "hinglish": "Ye koi kaam karta hai (print, save) aur koi value nahi return karta."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c01l01q3",
+       "question": {
+        "en": "Which spelling is the modern union hint?",
+        "hi": "आधुनिक यूनियन हिंट कौन सी है?",
+        "hinglish": "Aadhunik union hint kaun si hai?"
+       },
+       "options": [
+        "Union[int, None]",
+        "Optional[int] only",
+        "int | None",
+        "int or None"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "`int | None` works from 3.10. Union and Optional still work and are common in older code.",
+        "hi": "`int | None` 3.10 से चलता है। Union और Optional भी चलते हैं और पुराने कोड में आम हैं।",
+        "hinglish": "`int | None` 3.10 se chalta hai. Union aur Optional bhi chalte hain aur purane code me aam hain."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Annotate public functions, use `X | None` for may-be-missing values, and remember hints are not runtime checks.",
+      "hi": "सार्वजनिक फ़ंक्शन पर एनोटेशन लगाएँ, अनुपस्थित हो सकने वाले मान के लिए `X | None`, और याद रखें हिंट रनटाइम जाँच नहीं हैं।",
+      "hinglish": "Public functions par annotation lagao, missing ho sakne wale value ke liye `X | None`, aur yaad rakho hints runtime checks nahi hain."
+     }
+    },
+    {
+     "id": "m10c01l02",
+     "title": {
+      "en": "Functions as objects and closures",
+      "hi": "फ़ंक्शन ऑब्जेक्ट की तरह और क्लोज़र",
+      "hinglish": "Functions objects ki tarah aur closures"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "In Python a function is a value: you can store it in a list, pass it to another function, and return it. A closure is an inner function that remembers variables from the function that created it.",
+      "hi": "पायथन में फ़ंक्शन एक मान है: उसे सूची में रख सकते हैं, दूसरे फ़ंक्शन को दे सकते हैं, और लौटा सकते हैं। क्लोज़र अंदरूनी फ़ंक्शन है जो अपने बनाने वाले फ़ंक्शन के वेरिएबल याद रखता है।",
+      "hinglish": "Python me function ek value hai: use list me rakh sakte ho, doosre function ko de sakte ho, aur return kar sakte ho. Closure andaruni function hai jo apne banane wale function ke variables yaad rakhta hai."
+     },
+     "real_life": {
+      "en": "A key with a tag. The key shape is the function; the tag it carries is the remembered variable. Hand the key to anyone and it still opens that one lock.",
+      "hi": "टैग लगी चाबी। चाबी का आकार फ़ंक्शन है; उस पर लगा टैग याद रखा वेरिएबल। चाबी किसी को भी दें, वह उसी ताले को खोलती है।",
+      "hinglish": "Tag lagi chaabi. Chaabi ka aakaar function hai; us par laga tag yaad rakha variable. Chaabi kisi ko bhi do, woh usi taale ko kholti hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#defining-functions",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "passing a function as an argument",
+        "hi": "फ़ंक्शन को आर्ग्युमेंट की तरह भेजना",
+        "hinglish": "function ko argument ki tarah bhejna"
+       },
+       "code": "def shout(text):\n    return text.upper() + \"!\"\n\ndef whisper(text):\n    return text.lower() + \"...\"\n\ndef announce(style, text):\n    print(style(text))\n\nannounce(shout, \"hello\")\nannounce(whisper, \"HELLO\")",
+       "output": "HELLO!\nhello...",
+       "note": {
+        "en": "`style` is just a name bound to a function. The same announce() works with any function that takes one string.",
+        "hi": "`style` बस एक नाम है जो फ़ंक्शन से जुड़ा है। वही announce() किसी भी ऐसे फ़ंक्शन से चलता है जो एक स्ट्रिंग ले।",
+        "hinglish": "`style` bas ek naam hai jo function se juda hai. Wahi announce() kisi bhi aise function se chalta hai jo ek string le."
+       }
+      },
+      {
+       "title": {
+        "en": "a closure remembers factor",
+        "hi": "क्लोज़र factor याद रखता है",
+        "hinglish": "closure factor yaad rakhta hai"
+       },
+       "code": "def multiplier(factor):\n    def times(number):\n        return number * factor\n    return times\n\ndouble = multiplier(2)\ntriple = multiplier(3)\nprint(double(10), triple(10))\nprint(double.__closure__[0].cell_contents)",
+       "output": "20 30\n2",
+       "note": {
+        "en": "Each call to multiplier creates a new closure with its own `factor`. That is why double and triple do not interfere.",
+        "hi": "multiplier की हर कॉल अपने `factor` वाला नया क्लोज़र बनाती है। इसलिए double और triple एक-दूसरे में नहीं पड़ते।",
+        "hinglish": "multiplier ki har call apne `factor` wala naya closure banati hai. Isliye double aur triple ek-doosre me nahi padte."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m10c01l02e1",
+       "prompt": {
+        "en": "Write `make_counter()` that returns a function; each call to that function returns 1, 2, 3 ... Print three calls.",
+        "hi": "`make_counter()` लिखें जो फ़ंक्शन लौटाए; उस फ़ंक्शन की हर कॉल 1, 2, 3 ... लौटाए। तीन कॉल प्रिंट करें।",
+        "hinglish": "`make_counter()` likho jo function return kare; us function ki har call 1, 2, 3 ... return kare. Teen call print karo."
+       },
+       "starter": "def make_counter():\n    # count = ...\n    # def step(): ...\n    pass\n\n# counter = make_counter()",
+       "solution": "def make_counter():\n    count = 0\n\n    def step():\n        nonlocal count\n        count += 1\n        return count\n\n    return step\n\ncounter = make_counter()\nprint(counter())\nprint(counter())\nprint(counter())",
+       "checks": [
+        "callable(make_counter())",
+        "make_counter()() == 1",
+        "printed.split() == ['1', '2', '3']"
+       ],
+       "hint": {
+        "en": "The inner function needs `nonlocal count` to change the outer variable.",
+        "hi": "अंदरूनी फ़ंक्शन को बाहरी वेरिएबल बदलने के लिए `nonlocal count` चाहिए।",
+        "hinglish": "Andaruni function ko bahari variable badalne ke liye `nonlocal count` chahiye."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m10c01l02q1",
+       "question": {
+        "en": "What is a closure?",
+        "hi": "क्लोज़र क्या है?",
+        "hinglish": "Closure kya hai?"
+       },
+       "options": [
+        "a function with no arguments",
+        "an inner function that keeps variables from its enclosing scope",
+        "a class with one method",
+        "a loop that never ends"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The saved variables live in the function's __closure__ cells.",
+        "hi": "याद रखे वेरिएबल फ़ंक्शन की __closure__ कोशिकाओं में रहते हैं।",
+        "hinglish": "Yaad rakhe variables function ki __closure__ cells me rehte hain."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c01l02q2",
+       "question": {
+        "en": "Why do you need `nonlocal count` inside the inner function?",
+        "hi": "अंदरूनी फ़ंक्शन में `nonlocal count` क्यों चाहिए?",
+        "hinglish": "Andaruni function me `nonlocal count` kyun chahiye?"
+       },
+       "options": [
+        "to read count",
+        "to assign to the outer function's variable instead of making a local one",
+        "to make count global",
+        "to copy count"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Assignment creates a local name unless you declare where it lives.",
+        "hi": "असाइनमेंट लोकल नाम बना देता है जब तक आप न बताएँ कि वह कहाँ रहता है।",
+        "hinglish": "Assignment local naam bana deta hai jab tak aap na batayein ki woh kahan rehta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c01l02q3",
+       "question": {
+        "en": "Which value can be stored in a list?",
+        "hi": "सूची में कौन सा मान रखा जा सकता है?",
+        "hinglish": "List me kaun sa value rakha ja sakta hai?"
+       },
+       "options": [
+        "only numbers",
+        "only strings",
+        "any object, including functions",
+        "only objects with a name"
+       ],
+       "answer": "c",
+       "why": {
+        "en": "Functions are objects: lists of callbacks are a normal Python pattern.",
+        "hi": "फ़ंक्शन ऑब्जेक्ट हैं: कॉलबैक की सूची सामान्य पायथन पैटर्न है।",
+        "hinglish": "Functions objects hain: callbacks ki list normal Python pattern hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "Functions are values; a closure is a function plus the variables it remembers.",
+      "hi": "फ़ंक्शन मान हैं; क्लोज़र फ़ंक्शन प्लस याद रखे वेरिएबल है।",
+      "hinglish": "Functions values hain; closure function plus yaad rakhe variables hai."
+     }
+    }
+   ]
+  },
+  {
+   "id": "m10c02",
+   "title": {
+    "en": "Wrapping and matching",
+    "hi": "लपेटना और मिलान",
+    "hinglish": "Lapetna aur matching"
+   },
+   "lessons": [
+    {
+     "id": "m10c02l03",
+     "title": {
+      "en": "Decorators",
+      "hi": "डेकोरेटर",
+      "hinglish": "Decorators"
+     },
+     "keywords": [],
+     "intro": {
+      "en": "A decorator is a function that takes a function and returns a replacement. `@name` above a def is short for `func = name(func)`. It is how logging, timing and caching get added without touching the original body.",
+      "hi": "डेकोरेटर वह फ़ंक्शन है जो फ़ंक्शन लेकर उसका विकल्प लौटाता है। def के ऊपर `@name` का मतलब है `func = name(func)`। इसी तरह लॉगिंग, समय मापना और कैशिंग मूल शरीर को छुए बिना जुड़ते हैं।",
+      "hinglish": "Decorator woh function hai jo function lekar uska replacement return karta hai. def ke upar `@name` ka matlab hai `func = name(func)`. Isi tarah logging, timing aur caching mool body ko chhue bina judte hain."
+     },
+     "real_life": {
+      "en": "A phone cover. The phone is unchanged, but every photo you take now has a case around it - and you can put on two covers.",
+      "hi": "फ़ोन का कवर। फ़ोन वैसा ही है, पर अब हर फ़ोटो के साथ कवर भी है - और दो कवर भी लगा सकते हैं।",
+      "hinglish": "Phone ka cover. Phone waisa hi hai, par ab har photo ke saath cover bhi hai - aur do cover bhi laga sakte ho."
+     },
+     "docs": "https://docs.python.org/3/glossary.html#term-decorator",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "a minimal decorator",
+        "hi": "सबसे छोटा डेकोरेटर",
+        "hinglish": "sabse chhota decorator"
+       },
+       "code": "def logged(func):\n    def wrapper(*args, **kwargs):\n        print(\"calling\", func.__name__)\n        return func(*args, **kwargs)\n    return wrapper\n\n@logged\ndef add(a, b):\n    return a + b\n\nprint(add(2, 3))",
+       "output": "calling add\n5",
+       "note": {
+        "en": "`@logged` replaced `add` with `wrapper`. The original add still exists inside the closure, so the result is unchanged.",
+        "hi": "`@logged` ने `add` की जगह `wrapper` रख दिया। मूल add क्लोज़र के अंदर मौजूद है, इसलिए परिणाम वही है।",
+        "hinglish": "`@logged` ne `add` ki jagah `wrapper` rakh diya. Mool add closure ke andar maujood hai, isliye result wahi hai."
+       }
+      },
+      {
+       "title": {
+        "en": "@wraps keeps the original name",
+        "hi": "@wraps मूल नाम रखता है",
+        "hinglish": "@wraps mool naam rakhta hai"
+       },
+       "code": "from functools import wraps\n\ndef logged(func):\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs)\n    return wrapper\n\n@logged\ndef area(width, height):\n    return width * height\n\nprint(area.__name__)\nprint(area(3, 4))",
+       "output": "area\n12",
+       "note": {
+        "en": "Without @wraps, area.__name__ would be 'wrapper'. That breaks tracebacks, docs and test names.",
+        "hi": "@wraps के बिना area.__name__ 'wrapper' होता। इससे ट्रेसबैक, डॉक्स और टेस्ट के नाम टूटते हैं।",
+        "hinglish": "@wraps ke bina area.__name__ 'wrapper' hota. Isse traceback, docs aur test ke naam tootte hain."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m10c02l03e1",
+       "prompt": {
+        "en": "Write a decorator `doubled` that makes the function return twice its result. Apply it to `five()` returning 5 and print `five()`.",
+        "hi": "डेकोरेटर `doubled` लिखें जो फ़ंक्शन का परिणाम दोगुना कर दे। इसे `five()` पर लगाएँ जो 5 लौटाता है और `five()` प्रिंट करें।",
+        "hinglish": "Decorator `doubled` likho jo function ka result doguna kar de. Ise `five()` par lagao jo 5 return karta hai aur `five()` print karo."
+       },
+       "starter": "def doubled(func):\n    # def wrapper(): ...\n    pass\n\n# @doubled\n# def five(): ...",
+       "solution": "def doubled(func):\n    def wrapper(*args, **kwargs):\n        return func(*args, **kwargs) * 2\n    return wrapper\n\n@doubled\ndef five():\n    return 5\n\nprint(five())",
+       "checks": [
+        "five() == 10",
+        "callable(five)",
+        "printed.strip() == '10'"
+       ],
+       "hint": {
+        "en": "wrapper calls func() and multiplies what comes back.",
+        "hi": "wrapper func() बुलाकर जो लौटे उसे गुणा करता है।",
+        "hinglish": "wrapper func() bula kar jo laute use guna karta hai."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m10c02l03q1",
+       "question": {
+        "en": "What is `@deco` above a def equivalent to?",
+        "hi": "def के ऊपर `@deco` किसके बराबर है?",
+        "hinglish": "def ke upar `@deco` kiske barabar hai?"
+       },
+       "options": [
+        "deco()",
+        "func = deco(func)",
+        "deco(func) inside the body",
+        "import deco"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The name is rebound to whatever the decorator returns.",
+        "hi": "नाम उस चीज़ से जुड़ जाता है जो डेकोरेटर लौटाता है।",
+        "hinglish": "Naam us cheez se jud jata hai jo decorator return karta hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c02l03q2",
+       "question": {
+        "en": "Why is `@wraps(func)` recommended?",
+        "hi": "`@wraps(func)` क्यों सलाह दी जाती है?",
+        "hinglish": "`@wraps(func)` kyun salah di jati hai?"
+       },
+       "options": [
+        "it makes the wrapper faster",
+        "it copies __name__ and __doc__ from the original function",
+        "it catches exceptions",
+        "it is required by Python"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "Without it every wrapped function is named 'wrapper', which hides the real function in logs and tests.",
+        "hi": "इसके बिना हर लिपटा फ़ंक्शन 'wrapper' नाम का हो जाता है, जिससे लॉग और टेस्ट में असली फ़ंक्शन छिप जाता है।",
+        "hinglish": "Iske bina har wrapped function 'wrapper' naam ka ho jata hai, jisse log aur test me asli function chhip jata hai."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c02l03q3",
+       "question": {
+        "en": "Why does a wrapper usually accept `*args, **kwargs`?",
+        "hi": "wrapper आमतौर पर `*args, **kwargs` क्यों लेता है?",
+        "hinglish": "wrapper aam taur par `*args, **kwargs` kyun leta hai?"
+       },
+       "options": [
+        "to run faster",
+        "so it can wrap any function without knowing its parameters",
+        "because decorators forbid named parameters",
+        "to avoid @wraps"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A generic wrapper must forward whatever arguments the caller used.",
+        "hi": "सामान्य wrapper को वही आर्ग्युमेंट आगे भेजने होते हैं जो बुलाने वाले ने दिए।",
+        "hinglish": "Saamanya wrapper ko wahi arguments aage bhejne hote hain jo caller ne diye."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "A decorator wraps a function; always forward *args/**kwargs and add @wraps.",
+      "hi": "डेकोरेटर फ़ंक्शन को लपेटता है; हमेशा *args/**kwargs आगे भेजें और @wraps जोड़ें।",
+      "hinglish": "Decorator function ko lapetta hai; hamesha *args/**kwargs aage bhejo aur @wraps jodo."
+     }
+    },
+    {
+     "id": "m10c02l04",
+     "title": {
+      "en": "match and case: structural patterns",
+      "hi": "match और case: संरचनात्मक पैटर्न",
+      "hinglish": "match aur case: structural patterns"
+     },
+     "keywords": [
+      "match",
+      "case",
+      "_"
+     ],
+     "intro": {
+      "en": "`match` compares a value against patterns, not just equality: shapes of sequences, mapping keys, class attributes and guards. `case _` is the default branch and matches anything.",
+      "hi": "`match` मान की तुलना पैटर्न से करता है, सिर्फ़ बराबरी से नहीं: सीक्वेंस का आकार, mapping की कुंजियाँ, क्लास एट्रिब्यूट और guard। `case _` डिफ़ॉल्ट शाखा है जो कुछ भी मिल जाए।",
+      "hinglish": "`match` value ki tulna patterns se karta hai, sirf barabari se nahi: sequence ka aakaar, mapping ki keys, class attributes aur guards. `case _` default branch hai jo kuch bhi match kare."
+     },
+     "real_life": {
+      "en": "A courier sorting table. Round parcels go left, flat envelopes go right, and anything unrecognised goes to the manual desk - that is `case _`.",
+      "hi": "कूरियर की छँटाई मेज़। गोल पार्सल बाएँ, चपटे लिफ़ाफ़े दाएँ, और जो पहचाना न जाए वह मैनुअल डेस्क पर - यही `case _` है।",
+      "hinglish": "Courier ki chhantai mez. Gol parcel baayein, chapte envelope daayein, aur jo pehchana na jaye woh manual desk par - yahi `case _` hai."
+     },
+     "docs": "https://docs.python.org/3/tutorial/controlflow.html#match-statements",
+     "visual": "",
+     "examples": [
+      {
+       "title": {
+        "en": "sequence patterns with capture",
+        "hi": "कैप्चर के साथ सीक्वेंस पैटर्न",
+        "hinglish": "capture ke saath sequence patterns"
+       },
+       "code": "def describe(point):\n    match point:\n        case (0, 0):\n            return \"origin\"\n        case (x, 0):\n            return f\"on x axis at {x}\"\n        case (0, y):\n            return f\"on y axis at {y}\"\n        case (x, y):\n            return f\"at {x},{y}\"\n\nprint(describe((0, 0)))\nprint(describe((5, 0)))\nprint(describe((2, 3)))",
+       "output": "origin\non x axis at 5\nat 2,3",
+       "note": {
+        "en": "`(x, 0)` matches any two-item sequence whose second item is 0, and binds the first to x. Order matters: the most specific case goes first.",
+        "hi": "`(x, 0)` किसी भी दो-आइटम सीक्वेंस से मिलता है जिसका दूसरा आइटम 0 हो, और पहले को x में रखता है। क्रम मायने रखता है: सबसे ख़ास केस पहले।",
+        "hinglish": "`(x, 0)` kisi bhi do-item sequence se milta hai jiska doosra item 0 ho, aur pehle ko x me rakhta hai. Kram maayne rakhta hai: sabse khaas case pehle."
+       }
+      },
+      {
+       "title": {
+        "en": "class patterns, guard and default",
+        "hi": "क्लास पैटर्न, guard और डिफ़ॉल्ट",
+        "hinglish": "class patterns, guard aur default"
+       },
+       "code": "class Order:\n    def __init__(self, item, qty):\n        self.item = item\n        self.qty = qty\n\ndef check(order):\n    match order:\n        case Order(item=\"tea\", qty=q) if q > 3:\n            return f\"big tea order: {q}\"\n        case Order(item=name):\n            return f\"order: {name}\"\n        case _:\n            return \"unknown\"\n\nprint(check(Order(\"tea\", 5)))\nprint(check(Order(\"coffee\", 1)))\nprint(check(\"nope\"))",
+       "output": "big tea order: 5\norder: coffee\nunknown",
+       "note": {
+        "en": "`if q > 3` is a guard: the pattern matches but the branch is skipped when the guard is false. `case _` catches everything else.",
+        "hi": "`if q > 3` गार्ड है: पैटर्न मिलता है पर गार्ड झूठा हो तो शाखा छूट जाती है। `case _` बाकी सब पकड़ता है।",
+        "hinglish": "`if q > 3` guard hai: pattern milta hai par guard jhoota ho to branch chhoot jati hai. `case _` baaki sab pakadta hai."
+       }
+      }
+     ],
+     "exercises": [
+      {
+       "id": "m10c02l04e1",
+       "prompt": {
+        "en": "Write `route(command)` using match: 'start' returns 'starting', 'stop' returns 'stopping', anything else returns 'unknown'. Print all three.",
+        "hi": "match से `route(command)` लिखें: 'start' → 'starting', 'stop' → 'stopping', बाकी कुछ भी → 'unknown'। तीनों प्रिंट करें।",
+        "hinglish": "match se `route(command)` likho: 'start' → 'starting', 'stop' → 'stopping', baaki kuch bhi → 'unknown'. Teeno print karo."
+       },
+       "starter": "def route(command):\n    # match command: ...\n    pass\n\n# print(route('start'))",
+       "solution": "def route(command):\n    match command:\n        case \"start\":\n            return \"starting\"\n        case \"stop\":\n            return \"stopping\"\n        case _:\n            return \"unknown\"\n\nprint(route('start'))\nprint(route('stop'))\nprint(route('pause'))",
+       "checks": [
+        "route('start') == 'starting'",
+        "route('stop') == 'stopping'",
+        "route('pause') == 'unknown'",
+        "printed.split() == ['starting', 'stopping', 'unknown']"
+       ],
+       "hint": {
+        "en": "Literal strings are patterns too; `case _` must come last.",
+        "hi": "सादे स्ट्रिंग भी पैटर्न हैं; `case _` अंत में आना चाहिए।",
+        "hinglish": "Saade strings bhi patterns hain; `case _` end me aana chahiye."
+       }
+      }
+     ],
+     "quiz": [
+      {
+       "id": "m10c02l04q1",
+       "question": {
+        "en": "What does `case _` match?",
+        "hi": "`case _` किससे मिलता है?",
+        "hinglish": "`case _` kis se milta hai?"
+       },
+       "options": [
+        "only None",
+        "anything, it is the wildcard",
+        "only numbers",
+        "nothing"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "It is the default branch, and it must be last to be useful.",
+        "hi": "यह डिफ़ॉल्ट शाखा है, और काम का होने के लिए अंत में होनी चाहिए।",
+        "hinglish": "Ye default branch hai, aur kaam ka hone ke liye end me honi chahiye."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c02l04q2",
+       "question": {
+        "en": "What is `case (x, 0)` doing?",
+        "hi": "`case (x, 0)` क्या कर रहा है?",
+        "hinglish": "`case (x, 0)` kya kar raha hai?"
+       },
+       "options": [
+        "comparing with a tuple literal",
+        "matching a 2-item sequence and binding the first item to x",
+        "creating a tuple",
+        "calling a function"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "A bare name in a pattern captures; a literal must match exactly.",
+        "hi": "पैटर्न में सादा नाम कैप्चर करता है; शाब्दिक मान बिल्कुल मिलना चाहिए।",
+        "hinglish": "Pattern me saada naam capture karta hai; literal value bilkul milna chahiye."
+       },
+       "misconception": ""
+      },
+      {
+       "id": "m10c02l04q3",
+       "question": {
+        "en": "What does a guard (`case X if cond`) do?",
+        "hi": "गार्ड (`case X if cond`) क्या करता है?",
+        "hinglish": "Guard (`case X if cond`) kya karta hai?"
+       },
+       "options": [
+        "it changes the matched value",
+        "it adds an extra condition before the branch runs",
+        "it disables the case",
+        "it raises an error"
+       ],
+       "answer": "b",
+       "why": {
+        "en": "The pattern must match and the guard must be true; otherwise the next case is tried.",
+        "hi": "पैटर्न मिलना चाहिए और गार्ड सच होना चाहिए; वरना अगला case देखा जाता है।",
+        "hinglish": "Pattern milna chahiye aur guard sach hona chahiye; warna agla case dekha jata hai."
+       },
+       "misconception": ""
+      }
+     ],
+     "takeaway": {
+      "en": "match is for shape: literals, sequences, mappings, class attributes and guards - with case _ as the safety net.",
+      "hi": "match आकार के लिए है: शाब्दिक, सीक्वेंस, mapping, क्लास एट्रिब्यूट और गार्ड - और case _ सुरक्षा जाल।",
+      "hinglish": "match aakaar ke liye hai: literal, sequence, mapping, class attributes aur guards - aur case _ safety net."
+     }
+    }
+   ]
+  }
+ ],
+ "exam": [
+  {
+   "id": "m10x01",
+   "question": {
+    "en": "Do type hints raise an error when violated?",
+    "hi": "टाइप हिंट टूटने पर एरर देते हैं?",
+    "hinglish": "Type hints tootne par error dete hain?"
+   },
+   "options": [
+    "yes, always",
+    "no, they are not enforced at runtime",
+    "only in classes",
+    "only with -> None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "They are checked by external tools, not by the interpreter.",
+    "hi": "वे बाहरी टूल जाँचते हैं, इंटरप्रेटर नहीं।",
+    "hinglish": "Wo baahari tools jaanchte hain, interpreter nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10x02",
+   "question": {
+    "en": "What does a decorator return?",
+    "hi": "डेकोरेटर क्या लौटाता है?",
+    "hinglish": "Decorator kya return karta hai?"
+   },
+   "options": [
+    "nothing",
+    "a replacement function (or object)",
+    "always the same function",
+    "a string"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Usually a wrapper around the original.",
+    "hi": "आमतौर पर मूल के चारों ओर wrapper।",
+    "hinglish": "Aam taur par mool ke chaaron or wrapper."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10x03",
+   "question": {
+    "en": "Which statement creates a reusable type alias in 3.12?",
+    "hi": "3.12 में दोबारा इस्तेमाल लायक टाइप उपनाम कौन बनाता है?",
+    "hinglish": "3.12 me dobara use layak type alias kaun banata hai?"
+   },
+   "options": [
+    "alias Vector = list[float]",
+    "type Vector = list[float]",
+    "typedef Vector",
+    "Vector := list[float]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The type statement, new in 3.12.",
+    "hi": "type स्टेटमेंट, 3.12 में नया।",
+    "hinglish": "type statement, 3.12 me naya."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10x04",
+   "question": {
+    "en": "What does a closure keep alive?",
+    "hi": "क्लोज़र किसे जीवित रखता है?",
+    "hinglish": "Closure kise jeevit rakhta hai?"
+   },
+   "options": [
+    "the whole module",
+    "variables from the enclosing function",
+    "only globals",
+    "the caller's stack"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Those variables live in __closure__ cells.",
+    "hi": "वे वेरिएबल __closure__ कोशिकाओं में रहते हैं।",
+    "hinglish": "Wo variables __closure__ cells me rehte hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10x05",
+   "question": {
+    "en": "In a match statement, which case should come last?",
+    "hi": "match में कौन सा case अंत में आए?",
+    "hinglish": "match me kaun sa case end me aaye?"
+   },
+   "options": [
+    "the first literal",
+    "case _",
+    "a class pattern",
+    "a guard"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The wildcard catches everything, so anything after it is unreachable.",
+    "hi": "वाइल्डकार्ड सब पकड़ता है, इसलिए उसके बाद कुछ नहीं पहुँचता।",
+    "hinglish": "Wildcard sab pakadta hai, isliye uske baad kuch nahi pahunchta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10x06",
+   "question": {
+    "en": "Why add @wraps inside a decorator?",
+    "hi": "@wraps डेकोरेटर में क्यों जोड़ें?",
+    "hinglish": "Decorator me @wraps kyun jodein?"
+   },
+   "options": [
+    "for speed",
+    "to preserve __name__ and __doc__",
+    "to catch errors",
+    "to allow async"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It keeps the wrapped function recognisable in logs and tracebacks.",
+    "hi": "यह लिपटे फ़ंक्शन को लॉग और ट्रेसबैक में पहचानने लायक रखता है।",
+    "hinglish": "Ye wrapped function ko log aur traceback me pehchanne layak rakhta hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "skip_exam": [
+  {
+   "id": "m10s01",
+   "question": {
+    "en": "Does a type hint stop a wrong argument at runtime?",
+    "hi": "टाइप हिंट रनटाइम पर गलत आर्ग्युमेंट रोकता है?",
+    "hinglish": "Type hint runtime par galat argument rokta hai?"
+   },
+   "options": [
+    "yes, it raises TypeError",
+    "no, it is documentation for tools and readers",
+    "only for int and str",
+    "only inside classes"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Hints are not enforced. Use a checker such as mypy or pyright for that.",
+    "hi": "हिंट लागू नहीं होते। उसके लिए mypy या pyright जैसा चेकर इस्तेमाल करें।",
+    "hinglish": "Hints laagu nahi hote. Uske liye mypy ya pyright jaisa checker use karo."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s02",
+   "question": {
+    "en": "What does `-> None` mean on a function?",
+    "hi": "फ़ंक्शन पर `-> None` का क्या मतलब है?",
+    "hinglish": "Function par `-> None` ka kya matlab hai?"
+   },
+   "options": [
+    "it returns nothing useful",
+    "it returns the string 'None'",
+    "it cannot be called",
+    "it returns False"
+   ],
+   "answer": "a",
+   "why": {
+    "en": "It performs an action (print, save) and returns no value.",
+    "hi": "यह कोई काम करता है (प्रिंट, सेव) और कोई मान नहीं लौटाता।",
+    "hinglish": "Ye koi kaam karta hai (print, save) aur koi value nahi return karta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s03",
+   "question": {
+    "en": "Which spelling is the modern union hint?",
+    "hi": "आधुनिक यूनियन हिंट कौन सी है?",
+    "hinglish": "Aadhunik union hint kaun si hai?"
+   },
+   "options": [
+    "Union[int, None]",
+    "Optional[int] only",
+    "int | None",
+    "int or None"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "`int | None` works from 3.10. Union and Optional still work and are common in older code.",
+    "hi": "`int | None` 3.10 से चलता है। Union और Optional भी चलते हैं और पुराने कोड में आम हैं।",
+    "hinglish": "`int | None` 3.10 se chalta hai. Union aur Optional bhi chalte hain aur purane code me aam hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s04",
+   "question": {
+    "en": "What is a closure?",
+    "hi": "क्लोज़र क्या है?",
+    "hinglish": "Closure kya hai?"
+   },
+   "options": [
+    "a function with no arguments",
+    "an inner function that keeps variables from its enclosing scope",
+    "a class with one method",
+    "a loop that never ends"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The saved variables live in the function's __closure__ cells.",
+    "hi": "याद रखे वेरिएबल फ़ंक्शन की __closure__ कोशिकाओं में रहते हैं।",
+    "hinglish": "Yaad rakhe variables function ki __closure__ cells me rehte hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s05",
+   "question": {
+    "en": "Why do you need `nonlocal count` inside the inner function?",
+    "hi": "अंदरूनी फ़ंक्शन में `nonlocal count` क्यों चाहिए?",
+    "hinglish": "Andaruni function me `nonlocal count` kyun chahiye?"
+   },
+   "options": [
+    "to read count",
+    "to assign to the outer function's variable instead of making a local one",
+    "to make count global",
+    "to copy count"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Assignment creates a local name unless you declare where it lives.",
+    "hi": "असाइनमेंट लोकल नाम बना देता है जब तक आप न बताएँ कि वह कहाँ रहता है।",
+    "hinglish": "Assignment local naam bana deta hai jab tak aap na batayein ki woh kahan rehta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s06",
+   "question": {
+    "en": "Which value can be stored in a list?",
+    "hi": "सूची में कौन सा मान रखा जा सकता है?",
+    "hinglish": "List me kaun sa value rakha ja sakta hai?"
+   },
+   "options": [
+    "only numbers",
+    "only strings",
+    "any object, including functions",
+    "only objects with a name"
+   ],
+   "answer": "c",
+   "why": {
+    "en": "Functions are objects: lists of callbacks are a normal Python pattern.",
+    "hi": "फ़ंक्शन ऑब्जेक्ट हैं: कॉलबैक की सूची सामान्य पायथन पैटर्न है।",
+    "hinglish": "Functions objects hain: callbacks ki list normal Python pattern hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s07",
+   "question": {
+    "en": "What is `@deco` above a def equivalent to?",
+    "hi": "def के ऊपर `@deco` किसके बराबर है?",
+    "hinglish": "def ke upar `@deco` kiske barabar hai?"
+   },
+   "options": [
+    "deco()",
+    "func = deco(func)",
+    "deco(func) inside the body",
+    "import deco"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The name is rebound to whatever the decorator returns.",
+    "hi": "नाम उस चीज़ से जुड़ जाता है जो डेकोरेटर लौटाता है।",
+    "hinglish": "Naam us cheez se jud jata hai jo decorator return karta hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s08",
+   "question": {
+    "en": "Why is `@wraps(func)` recommended?",
+    "hi": "`@wraps(func)` क्यों सलाह दी जाती है?",
+    "hinglish": "`@wraps(func)` kyun salah di jati hai?"
+   },
+   "options": [
+    "it makes the wrapper faster",
+    "it copies __name__ and __doc__ from the original function",
+    "it catches exceptions",
+    "it is required by Python"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Without it every wrapped function is named 'wrapper', which hides the real function in logs and tests.",
+    "hi": "इसके बिना हर लिपटा फ़ंक्शन 'wrapper' नाम का हो जाता है, जिससे लॉग और टेस्ट में असली फ़ंक्शन छिप जाता है।",
+    "hinglish": "Iske bina har wrapped function 'wrapper' naam ka ho jata hai, jisse log aur test me asli function chhip jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s09",
+   "question": {
+    "en": "Why does a wrapper usually accept `*args, **kwargs`?",
+    "hi": "wrapper आमतौर पर `*args, **kwargs` क्यों लेता है?",
+    "hinglish": "wrapper aam taur par `*args, **kwargs` kyun leta hai?"
+   },
+   "options": [
+    "to run faster",
+    "so it can wrap any function without knowing its parameters",
+    "because decorators forbid named parameters",
+    "to avoid @wraps"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A generic wrapper must forward whatever arguments the caller used.",
+    "hi": "सामान्य wrapper को वही आर्ग्युमेंट आगे भेजने होते हैं जो बुलाने वाले ने दिए।",
+    "hinglish": "Saamanya wrapper ko wahi arguments aage bhejne hote hain jo caller ne diye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s10",
+   "question": {
+    "en": "What does `case _` match?",
+    "hi": "`case _` किससे मिलता है?",
+    "hinglish": "`case _` kis se milta hai?"
+   },
+   "options": [
+    "only None",
+    "anything, it is the wildcard",
+    "only numbers",
+    "nothing"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It is the default branch, and it must be last to be useful.",
+    "hi": "यह डिफ़ॉल्ट शाखा है, और काम का होने के लिए अंत में होनी चाहिए।",
+    "hinglish": "Ye default branch hai, aur kaam ka hone ke liye end me honi chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s11",
+   "question": {
+    "en": "What is `case (x, 0)` doing?",
+    "hi": "`case (x, 0)` क्या कर रहा है?",
+    "hinglish": "`case (x, 0)` kya kar raha hai?"
+   },
+   "options": [
+    "comparing with a tuple literal",
+    "matching a 2-item sequence and binding the first item to x",
+    "creating a tuple",
+    "calling a function"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "A bare name in a pattern captures; a literal must match exactly.",
+    "hi": "पैटर्न में सादा नाम कैप्चर करता है; शाब्दिक मान बिल्कुल मिलना चाहिए।",
+    "hinglish": "Pattern me saada naam capture karta hai; literal value bilkul milna chahiye."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s12",
+   "question": {
+    "en": "What does a guard (`case X if cond`) do?",
+    "hi": "गार्ड (`case X if cond`) क्या करता है?",
+    "hinglish": "Guard (`case X if cond`) kya karta hai?"
+   },
+   "options": [
+    "it changes the matched value",
+    "it adds an extra condition before the branch runs",
+    "it disables the case",
+    "it raises an error"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The pattern must match and the guard must be true; otherwise the next case is tried.",
+    "hi": "पैटर्न मिलना चाहिए और गार्ड सच होना चाहिए; वरना अगला case देखा जाता है।",
+    "hinglish": "Pattern milna chahiye aur guard sach hona chahiye; warna agla case dekha jata hai."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s13",
+   "question": {
+    "en": "Do type hints raise an error when violated?",
+    "hi": "टाइप हिंट टूटने पर एरर देते हैं?",
+    "hinglish": "Type hints tootne par error dete hain?"
+   },
+   "options": [
+    "yes, always",
+    "no, they are not enforced at runtime",
+    "only in classes",
+    "only with -> None"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "They are checked by external tools, not by the interpreter.",
+    "hi": "वे बाहरी टूल जाँचते हैं, इंटरप्रेटर नहीं।",
+    "hinglish": "Wo baahari tools jaanchte hain, interpreter nahi."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s14",
+   "question": {
+    "en": "What does a decorator return?",
+    "hi": "डेकोरेटर क्या लौटाता है?",
+    "hinglish": "Decorator kya return karta hai?"
+   },
+   "options": [
+    "nothing",
+    "a replacement function (or object)",
+    "always the same function",
+    "a string"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Usually a wrapper around the original.",
+    "hi": "आमतौर पर मूल के चारों ओर wrapper।",
+    "hinglish": "Aam taur par mool ke chaaron or wrapper."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s15",
+   "question": {
+    "en": "Which statement creates a reusable type alias in 3.12?",
+    "hi": "3.12 में दोबारा इस्तेमाल लायक टाइप उपनाम कौन बनाता है?",
+    "hinglish": "3.12 me dobara use layak type alias kaun banata hai?"
+   },
+   "options": [
+    "alias Vector = list[float]",
+    "type Vector = list[float]",
+    "typedef Vector",
+    "Vector := list[float]"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The type statement, new in 3.12.",
+    "hi": "type स्टेटमेंट, 3.12 में नया।",
+    "hinglish": "type statement, 3.12 me naya."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s16",
+   "question": {
+    "en": "What does a closure keep alive?",
+    "hi": "क्लोज़र किसे जीवित रखता है?",
+    "hinglish": "Closure kise jeevit rakhta hai?"
+   },
+   "options": [
+    "the whole module",
+    "variables from the enclosing function",
+    "only globals",
+    "the caller's stack"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "Those variables live in __closure__ cells.",
+    "hi": "वे वेरिएबल __closure__ कोशिकाओं में रहते हैं।",
+    "hinglish": "Wo variables __closure__ cells me rehte hain."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s17",
+   "question": {
+    "en": "In a match statement, which case should come last?",
+    "hi": "match में कौन सा case अंत में आए?",
+    "hinglish": "match me kaun sa case end me aaye?"
+   },
+   "options": [
+    "the first literal",
+    "case _",
+    "a class pattern",
+    "a guard"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "The wildcard catches everything, so anything after it is unreachable.",
+    "hi": "वाइल्डकार्ड सब पकड़ता है, इसलिए उसके बाद कुछ नहीं पहुँचता।",
+    "hinglish": "Wildcard sab pakadta hai, isliye uske baad kuch nahi pahunchta."
+   },
+   "misconception": ""
+  },
+  {
+   "id": "m10s18",
+   "question": {
+    "en": "Why add @wraps inside a decorator?",
+    "hi": "@wraps डेकोरेटर में क्यों जोड़ें?",
+    "hinglish": "Decorator me @wraps kyun jodein?"
+   },
+   "options": [
+    "for speed",
+    "to preserve __name__ and __doc__",
+    "to catch errors",
+    "to allow async"
+   ],
+   "answer": "b",
+   "why": {
+    "en": "It keeps the wrapped function recognisable in logs and tracebacks.",
+    "hi": "यह लिपटे फ़ंक्शन को लॉग और ट्रेसबैक में पहचानने लायक रखता है।",
+    "hinglish": "Ye wrapped function ko log aur traceback me pehchanne layak rakhta hai."
+   },
+   "misconception": ""
+  }
+ ],
+ "icon": "✨"
+}
