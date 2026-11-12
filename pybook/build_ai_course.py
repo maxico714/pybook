@@ -1,9 +1,8 @@
 """Build ``pybook/data/ai`` - the AI-engineering course - from authored lessons.
 
-The chapter explanations live in the 23 notebooks of
-``C:\\project\\aie-app\\notebooks`` (outlined by
-``C:\\project\\ai-engineering-course``); the teachable layer and the question
-banks live in :mod:`pybook.ai_syllabus`.  This script merges the two:
+The chapter explanations were adapted from the author's own AI-engineering
+notebook course; the teachable layer and the question banks live in
+:mod:`pybook.ai_syllabus`.  This script merges the two:
 
 * every authored example is **run**, and its real stdout becomes ``output``;
 * up to one extra pure-stdlib cell is lifted from the matching notebook, and is

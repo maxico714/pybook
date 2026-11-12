@@ -1,9 +1,9 @@
 """The AI-engineering course: 23 chapters in 5 parts, plus one exam per part.
 
-The chapter text and examples come from ``C:\\project\\aie-app\\notebooks`` and
-``C:\\project\\ai-engineering-course``; this package holds the teachable layer and
-the question banks.  :mod:`pybook.build_ai_course` merges them, runs every
-example and exercise, and writes ``pybook/data/ai``.
+The chapter material was adapted from the author's own AI-engineering notebook
+course; this package holds the teachable layer and the question banks.
+:mod:`pybook.build_ai_course` merges them, runs every example and exercise, and
+writes ``pybook/data/ai``.
 """
 from __future__ import annotations
 
