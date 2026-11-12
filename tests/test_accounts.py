@@ -450,3 +450,50 @@ def test_an_old_learners_table_is_migrated_without_losing_progress(tmp_path):
     assert store.db.execute(
         "SELECT 1 FROM sqlite_master WHERE type='table' AND name='learners'"
     ).fetchone() is None
+
+# ------------------------------------------------------- bootstrap (no shell)
+def test_bootstrap_creates_the_first_admin_once(app, monkeypatch):
+    """Render has no shell, so the first admin must come from env vars."""
+    from web.bootstrap import ensure_admin
+
+    store = app.config["STORE"]
+    monkeypatch.setenv("PYBOOK_ADMIN_EMAIL", "boss@example.com")
+    monkeypatch.setenv("PYBOOK_ADMIN_PASSWORD", "quiet forest 77")
+    monkeypatch.setenv("PYBOOK_ADMIN_NAME", "Boss")
+
+    first = ensure_admin(store)
+    assert first is not None
+    assert first["role"] == "admin"
+    assert first["status"] == "approved"
+
+    # A restart with the same variables must not create a second admin.
+    assert ensure_admin(store) is None
+    admins = store.db.execute(
+        "SELECT COUNT(*) AS n FROM users WHERE role = 'admin'"
+    ).fetchone()["n"]
+    assert admins == 1
+
+    # The password really works for logging in.
+    client = app.test_client()
+    response = login(client, email="boss@example.com", password="quiet forest 77")
+    assert response.status_code == 302
+
+
+def test_bootstrap_refuses_a_short_password(app, monkeypatch):
+    from web.bootstrap import ensure_admin
+
+    store = app.config["STORE"]
+    monkeypatch.setenv("PYBOOK_ADMIN_EMAIL", "boss@example.com")
+    monkeypatch.setenv("PYBOOK_ADMIN_PASSWORD", "short")
+
+    assert ensure_admin(store) is None
+    assert store.user_by_email("boss@example.com") is None
+
+
+def test_bootstrap_does_nothing_without_variables(app, monkeypatch):
+    from web.bootstrap import ensure_admin
+
+    store = app.config["STORE"]
+    monkeypatch.delenv("PYBOOK_ADMIN_EMAIL", raising=False)
+    monkeypatch.delenv("PYBOOK_ADMIN_PASSWORD", raising=False)
+    assert ensure_admin(store) is None

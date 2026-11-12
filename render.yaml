@@ -1,0 +1,33 @@
+# Render blueprint for PyBook.
+#
+# Free plan notes that matter here:
+#   * the filesystem is ephemeral, so pybook.db is recreated on every deploy,
+#     restart and spin-down - accounts and progress do not survive them;
+#   * there is no shell and no one-off job, which is why the first admin is
+#     created from PYBOOK_ADMIN_EMAIL / PYBOOK_ADMIN_PASSWORD on first boot.
+# Attach a paid persistent disk (and point PYBOOK_DB at it) to keep data.
+services:
+  - type: web
+    name: pybook
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      # Signs the CSRF session cookie. Generated once by Render, never committed.
+      - key: PYBOOK_SECRET_KEY
+        generateValue: true
+      # Render terminates TLS, so the session cookie must be Secure.
+      - key: PYBOOK_SECURE_COOKIES
+        value: "1"
+      # First admin, created once on the first boot. Set these in the dashboard;
+      # remove them after the first successful deploy if you prefer.
+      - key: PYBOOK_ADMIN_EMAIL
+        sync: false
+      - key: PYBOOK_ADMIN_PASSWORD
+        sync: false
+      - key: PYBOOK_ADMIN_NAME
+        sync: false

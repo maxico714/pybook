@@ -297,6 +297,32 @@ python run.py --check               # data, database, admin account
   logout → second account login, with **no console errors** and only local assets
   requested.
 
+## Deploying on Render
+
+`render.yaml` is a blueprint for a **free** web service. Point Render at the
+repository and it uses these values:
+
+| Field | Value |
+|---|---|
+| Root directory | *(empty - the repo root)* |
+| Build command | `pip install -r requirements.txt` |
+| Start command | `python run.py` |
+| Health check path | `/healthz` |
+| Environment | `PYTHON_VERSION=3.12.10`, `PYBOOK_SECRET_KEY` (generated), `PYBOOK_SECURE_COOKIES=1`, `PYBOOK_ADMIN_EMAIL`, `PYBOOK_ADMIN_PASSWORD`, `PYBOOK_ADMIN_NAME` |
+
+`python run.py` reads the `PORT` variable that Render injects and binds
+`0.0.0.0`, so no flags are needed. The first admin is created from
+`PYBOOK_ADMIN_EMAIL` / `PYBOOK_ADMIN_PASSWORD` on the first boot, because a free
+service has no shell to run `python -m web.manage create-admin`. Remove those two
+variables after the first successful deploy.
+
+**The free plan has an ephemeral filesystem.** `pybook.db` is recreated on every
+deploy, restart and idle spin-down, so accounts and progress do not survive them.
+For data that lasts, either attach a paid persistent disk and set
+`PYBOOK_DB=/data/pybook.db`, or move the store to Postgres (not implemented).
+Free services also spin down after 15 minutes of inactivity and take about a
+minute to wake.
+
 ## Limitations, stated honestly
 
 * Pass scores (80 / 80 / 90) are a **design choice** for this course. They are not

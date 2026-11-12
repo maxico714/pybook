@@ -39,6 +39,7 @@ from flask import (
 )
 
 from . import auth
+from . import bootstrap
 from . import drills as drill_lib
 from .admin import bp as admin_bp
 from .auth import (
@@ -132,6 +133,8 @@ def create_app(
     store = Store(db_path or os.environ.get("PYBOOK_DB") or (ROOT / "pybook.db"))
     store.purge_expired_sessions()
     store.purge_attempts()
+    if not testing:
+        bootstrap.ensure_admin(store)
     app.config["CATALOG"] = catalog
     app.config["CATALOGS"] = catalogs
     app.config["STORE"] = store

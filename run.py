@@ -75,8 +75,13 @@ def check() -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the PyBook web platform.")
     parser.add_argument("--check", action="store_true", help="verify the setup and exit")
-    parser.add_argument("--host", default=os.environ.get("PYBOOK_HOST", "127.0.0.1"))
-    parser.add_argument("--port", type=int, default=int(os.environ.get("PYBOOK_PORT", "5000")))
+    # Render and most PaaS hosts inject PORT and expect a 0.0.0.0 bind; a local
+    # run keeps the safe loopback default.
+    platform_port = os.environ.get("PORT")
+    default_host = os.environ.get("PYBOOK_HOST") or ("0.0.0.0" if platform_port else "127.0.0.1")
+    default_port = int(platform_port or os.environ.get("PYBOOK_PORT", "5000"))
+    parser.add_argument("--host", default=default_host)
+    parser.add_argument("--port", type=int, default=default_port)
     args = parser.parse_args()
 
     if args.check:
