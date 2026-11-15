@@ -1,0 +1,14 @@
+fix(css): keep long code lines inside the quiz card
+
+The new q-code block used overflow-x: auto, but two container rules let it
+widen the page instead of scrolling:
+
+- a <fieldset> defaults to min-inline-size: min-content, so .q grew to the
+  longest line; .q now sets min-inline-size: 0
+- the mobile rule for .exam-layout used grid-template-columns: 1fr, whose
+  auto minimum also grows to min-content; it is now minmax(0, 1fr)
+
+Measured before/after in the running app with a deliberately over-long line:
+the skip exam page overflowed by 384px before and 0px after, with the block
+scrolling internally. Lesson and skip pages both report pageOverflow 0 and
+every code block inside the viewport at 509px width.

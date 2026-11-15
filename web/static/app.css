@@ -525,9 +525,11 @@ body.no-rail .page { max-width: 1080px; }
 .quiz-bar { flex: 1; min-width: 80px; height: 6px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
 .quiz-bar span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: inherit; transition: width .25s var(--ease); }
 .quiz-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
-.q-code { margin: 8px 0 10px; padding: 11px 13px; border-radius: 10px; background: var(--code); border: 1px solid rgba(255, 255, 255, .08); overflow-x: auto; }
+.q-code { margin: 8px 0 10px; padding: 11px 13px; border-radius: 10px; background: var(--code); border: 1px solid rgba(255, 255, 255, .08); overflow-x: auto; min-width: 0; max-width: 100%; }
 .q-code code { font-family: var(--mono); font-size: .84rem; line-height: 1.55; color: #e6e6f0; white-space: pre; }
-.q { border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; margin: 0 0 12px; background: var(--surface-2); }
+/* A <fieldset> defaults to min-inline-size: min-content, so one long code line
+   used to widen the whole page instead of scrolling inside .q-code. */
+.q { border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; margin: 0 0 12px; background: var(--surface-2); min-width: 0; min-inline-size: 0; }
 .q legend { display: flex; gap: 10px; align-items: baseline; font-weight: 650; padding: 0 4px; }
 .qnum { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); font-size: .74rem; font-weight: 800; flex: none; color: var(--muted); }
 .opt { display: flex; gap: 10px; align-items: flex-start; padding: 9px 11px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: background .15s var(--ease), border-color .15s var(--ease); }
@@ -729,7 +731,7 @@ body.no-rail .page { max-width: 1080px; }
   .search-btn span { display: none; }
   .stepper-grid { grid-template-columns: 1fr; }
   .step-side { border-left: 0; border-top: 1px solid var(--line); }
-  .exam-layout { grid-template-columns: 1fr; }
+  .exam-layout { grid-template-columns: minmax(0, 1fr); }
   .exam-nav { position: static; }
   .dash { grid-template-columns: 1fr; }
   .chart-card.wide { grid-column: auto; }
