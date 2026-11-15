@@ -10,3 +10,6 @@ __pycache__/
 
 # Generated artifacts that a checkout can rebuild.
 pybook_bundle.zip
+
+# Scratch files used while committing.
+.git-commit-msg.txt
