@@ -219,11 +219,11 @@
 {% endif %}
 
 <section class="block" id="quiz"
-         x-data="quiz({ lesson: '{{ lesson_id }}', ready: {{ 1 if ready else 0 }} })">
+         x-data="quiz({ lesson: '{{ lesson_id }}', ready: {{ 1 if ready else 0 }}, total: {{ quiz|length }} })">
   <h2 class="step-h"><span class="step-n">{{ 5 if exercises else 4 }}</span> Check yourself</h2>
   <p class="muted small">{{ (lesson_pass * 100)|int }}% passes this lesson and opens the next one.</p>
 
-  <div class="gate" {% if ready %}hidden{% endif %} x-show="!ready">
+  <div class="gate" x-show="!ready" x-cloak>
     <span class="gate-icon" aria-hidden="true">🔒</span>
     <div>
       <b>Quiz locked</b>
@@ -234,36 +234,60 @@
   </div>
 
   {% set letters = "abcdef" %}
-  <form class="quiz" @submit.prevent="submit()" {% if not ready %}hidden{% endif %} x-show="ready">
+  <form class="quiz" @submit.prevent="submit()" x-show="ready" x-cloak>
+    <div class="quiz-head">
+      <span class="small muted" x-text="answered + ' of ' + total + ' answered'"></span>
+      <div class="quiz-bar" role="progressbar" aria-label="Questions answered"
+           aria-valuemin="0" :aria-valuemax="total" :aria-valuenow="answered">
+        <span :style="'width:' + (total ? Math.round(100 * answered / total) : 0) + '%'"></span>
+      </div>
+    </div>
     {% for item in quiz %}
       <fieldset class="q">
-        <legend><span class="qnum">{{ item.number }}</span> {{ item.question }}</legend>
+        <legend><span class="qnum">{{ item.number }}</span> {{ item.question|inline|safe }}</legend>
+        {% if item.code %}
+          <pre class="q-code" aria-label="Code for question {{ item.number }}"><code>{{ item.code }}</code></pre>
+        {% endif %}
         {% for option in item.options %}
           <label class="opt" :class="optionClass('q{{ item.number }}', '{{ letters[loop.index0] }}')">
             <input type="radio" name="q{{ item.number }}" value="{{ letters[loop.index0] }}"
                    x-model="answers.q{{ item.number }}">
             <span class="letter">{{ letters[loop.index0]|upper }}</span>
-            <span class="opt-text">{{ option }}</span>
+            <span class="opt-text">{{ option|inline|safe }}</span>
           </label>
         {% endfor %}
       </fieldset>
     {% endfor %}
-    <button class="btn primary lg" type="submit" :disabled="busy">
-      <span x-show="!busy">Submit answers</span><span x-show="busy">Checking…</span>
-    </button>
+    <div class="quiz-actions">
+      <button class="btn primary lg" type="submit" :disabled="busy || answered < total">
+        <span x-show="!busy" x-text="answered < total ? 'Answer all ' + total + ' first' : 'Submit answers'"></span>
+        <span x-show="busy">Checking…</span>
+      </button>
+      <span class="small muted" x-show="answered < total">Pick one option in every question.</span>
+    </div>
   </form>
 
   <div class="result" x-show="result" x-cloak :class="result && result.ok && result.passed ? 'ok' : (result && result.ok ? 'bad' : '')">
-    <h4 x-text="!result ? '' : (!result.ok ? 'Could not submit' : (result.passed ? 'Passed 🎉' : 'Not yet'))"></h4>
+    <h4 x-text="!result ? '' : (!result.ok ? 'Could not submit' : (result.passed ? 'Passed 🎉' : 'Not yet — you are close'))"></h4>
     <p class="small" x-show="result && !result.ok" x-text="result && (result.message || result.error)"></p>
     <p class="score-line" x-show="result && result.ok" x-text="result && (result.correct + ' / ' + result.total + ' correct · ' + result.percent + '% · ' + Math.round(result.needed * 100) + '% needed')"></p>
+    <p class="small" x-show="result && result.ok && !result.passed">
+      Read the explanation for each one you missed, then try again — your answers are kept.
+    </p>
     <template x-for="miss in (result && result.detail) || []" :key="miss.id">
       <div class="miss">
         <p class="q-text" x-text="'Q' + miss.number + '. ' + miss.question"></p>
+        <template x-if="miss.code">
+          <pre class="q-code"><code x-text="miss.code"></code></pre>
+        </template>
         <p class="picked">Your answer: <b x-text="miss.given || '—'"></b> · correct: <b x-text="miss.answer"></b></p>
         <p class="why" x-text="miss.why"></p>
       </div>
     </template>
+    <div class="quiz-actions" x-show="result && result.ok && !result.passed">
+      <button type="button" class="btn primary" @click="retry()">Try again</button>
+      <button type="button" class="btn ghost" @click="clearMisses()">Clear my answers</button>
+    </div>
     <p x-show="result && result.passed && result.next">
       <a class="btn primary" :href="'/lesson/' + (result && result.next)">Next lesson →</a>
     </p>

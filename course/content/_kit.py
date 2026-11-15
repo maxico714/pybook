@@ -35,14 +35,20 @@ def ex(code: str, output: str = "", title=DEFAULT_EXAMPLE_TITLE, note="") -> Cod
     )
 
 
-def quiz(question, options, answer: str, why, misconception: str = "") -> dict:
-    """One question, before ids are assigned."""
+def quiz(question, options, answer: str, why, misconception: str = "",
+         code: str = "") -> dict:
+    """One question, before ids are assigned.
+
+    Pass ``code`` whenever the question talks about a program, a line or an
+    output: the learner must be able to read the code before answering.
+    """
     return {
         "question": _text(question),
         "options": list(options),
         "answer": answer,
         "why": _text(why),
         "misconception": misconception,
+        "code": code.strip("\n"),
     }
 
 
@@ -77,6 +83,7 @@ def lesson(
             answer=item["answer"],
             why=item["why"],
             misconception=item["misconception"],
+            code=item.get("code", ""),
         )
         for n, item in enumerate(quiz_items, 1)
     ]
@@ -126,6 +133,7 @@ def module(
             answer=item["answer"],
             why=item["why"],
             misconception=item["misconception"],
+            code=item.get("code", ""),
         )
         for n, item in enumerate(exam, 1)
     ]
@@ -146,6 +154,7 @@ def module(
                 answer=item.answer,
                 why=item.why,
                 misconception=item.misconception,
+                code=item.code,
             )
             for n, item in enumerate(pool, 1)
         ]
@@ -158,6 +167,7 @@ def module(
                 answer=item["answer"],
                 why=item["why"],
                 misconception=item["misconception"],
+                code=item.get("code", ""),
             )
             for n, item in enumerate(skip_exam, 1)
         ]

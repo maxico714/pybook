@@ -75,7 +75,11 @@ l01 = lesson(
     ],
     quiz_items=[
         quiz(
-            L("a = [1, 2]; b = a; b.append(3). What is a?", "a = [1, 2]; b = a; b.append(3). a क्या है?", "a = [1, 2]; b = a; b.append(3). a kya hai?"),
+            L(
+                "After these lines, what is a?",
+                "इन लाइनों के बाद a क्या है?",
+                "In lines ke baad a kya hai?",
+            ),
             ["[1, 2]", "[1, 2, 3]", "an error", "[3]"],
             "b",
             L(
@@ -85,6 +89,7 @@ l01 = lesson(
                 "b usi list ka doosra naam hai, isliye b se append karne par a bhi badal jata hai.",
             ),
             "aliasing",
+            code="a = [1, 2]\nb = a\nb.append(3)",
         ),
         quiz(
             L(
@@ -206,9 +211,9 @@ l02 = lesson(
         ),
         quiz(
             L(
-                "nums = [3, 1, 2]; result = nums.sort(); print(result). What prints?",
-                "nums = [3, 1, 2]; result = nums.sort(); print(result)। क्या प्रिंट होगा?",
-                "nums = [3, 1, 2]; result = nums.sort(); print(result). Kya print hoga?",
+                "What does this program print?",
+                "यह प्रोग्राम क्या प्रिंट करेगा?",
+                "Ye program kya print karega?",
             ),
             ["[1, 2, 3]", "None", "an error", "[3, 1, 2]"],
             "b",
@@ -221,12 +226,13 @@ l02 = lesson(
                 "assign karna classic galti hai; value chahiye to sorted() use karo.",
             ),
             "sort-returns-none",
+            code="nums = [3, 1, 2]\nresult = nums.sort()\nprint(result)",
         ),
         quiz(
             L(
-                "nums = [1, 2, 3]; nums.remove(2). What is nums now?",
-                "nums = [1, 2, 3]; nums.remove(2). अब nums क्या है?",
-                "nums = [1, 2, 3]; nums.remove(2). Ab nums kya hai?",
+                "After these lines, what is nums?",
+                "इन लाइनों के बाद nums क्या है?",
+                "In lines ke baad nums kya hai?",
             ),
             ["[1, 3]", "[1, 2]", "[2, 3]", "an error"],
             "a",
@@ -235,6 +241,7 @@ l02 = lesson(
                 "remove वैल्यू लेता है, इंडेक्स नहीं, और पहला मेल हटाता है।",
                 "remove value leta hai, index nahi, aur pehla match hataata hai.",
             ),
+            code="nums = [1, 2, 3]\nnums.remove(2)",
         ),
     ],
     takeaway=L(
@@ -421,9 +428,9 @@ l04 = lesson(
     quiz_items=[
         quiz(
             L(
-                'd = {"a": 1}. What does d["b"] do?',
-                'd = {"a": 1}. d["b"] क्या करता है?',
-                'd = {"a": 1}. d["b"] kya karta hai?',
+                "What happens when this program runs?",
+                "यह प्रोग्राम चलने पर क्या होता है?",
+                "Ye program chalne par kya hota hai?",
             ),
             ["returns None", "returns 0", "raises KeyError", "creates the key"],
             "c",
@@ -436,6 +443,7 @@ l04 = lesson(
                 "sakti ho to .get(\"b\") use karo.",
             ),
             "dict-keyerror",
+            code='d = {"a": 1}\nprint(d["b"])',
         ),
         quiz(
             L(
@@ -541,9 +549,9 @@ l05 = lesson(
     quiz_items=[
         quiz(
             L(
-                'data = {"a": {"b": 5}}. What is data["a"]["b"]?',
-                'data = {"a": {"b": 5}}. data["a"]["b"] क्या है?',
-                'data = {"a": {"b": 5}}. data["a"]["b"] kya hai?',
+                "What does this program print?",
+                "यह प्रोग्राम क्या प्रिंट करेगा?",
+                "Ye program kya print karega?",
             ),
             ["5", "'b'", "{'b': 5}", "an error"],
             "a",
@@ -552,6 +560,7 @@ l05 = lesson(
                 "पहला [] अंदरूनी dict देता है, दूसरा उसके अंदर की वैल्यू।",
                 "Pehla [] andaruni dict deta hai, doosra uske andar ki value.",
             ),
+            code='data = {"a": {"b": 5}}\nprint(data["a"]["b"])',
         ),
         quiz(
             L(

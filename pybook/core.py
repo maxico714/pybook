@@ -587,6 +587,8 @@ class Course:
         parts.append('<div class="pc-h">5 · Quiz</div>')
         for n, item in enumerate(lesson.get("quiz", []), 1):
             parts.append(f'<div class="pc-q"><p class="pc-p"><b>Q{n}.</b> {_e(self.t(item["question"]))}</p>')
+            if item.get("code"):
+                parts.append(f'<div class="pc-code">{_e(item["code"])}</div>')
             for letter, option in zip("abcd", item["options"]):
                 parts.append(f'<div class="pc-opt">{letter}) {_e(option)}</div>')
             parts.append("</div>")
@@ -620,11 +622,17 @@ class Course:
             else:
                 correct = item["answer"].lower()
                 right = item["options"]["abcd".index(correct)] if correct in "abcd" else "?"
+                snippet = (
+                    f'<div class="pc-code">{_e(item["code"])}</div>'
+                    if item.get("code")
+                    else ""
+                )
                 rows.append(
                     f'<p class="pc-p">❌ <b>Q{n}</b> you answered '
                     f'<code>{_e(row["given"] or "-")}</code>; the answer is '
                     f'<code>{_e(correct)}</code> ({_e(right)}).</p>'
-                    f'<p class="pc-small">{_e(self.t(item["why"]))}</p>'
+                    + snippet
+                    + f'<p class="pc-small">{_e(self.t(item["why"]))}</p>'
                 )
         verdict = (
             f'<p class="pc-ok">Passed · {_pct(score)} (needed {_pct(need)})</p>'

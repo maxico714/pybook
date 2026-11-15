@@ -84,13 +84,18 @@ def _discover_catalogs(data_dir=None) -> dict[str, Catalog]:
 
 
 def _strip_answers(items: list[dict], language: str, catalog: Catalog) -> list[dict]:
-    """What the browser may see before an attempt: no answers, no explanations."""
+    """What the browser may see before an attempt: no answers, no explanations.
+
+    ``code`` is kept on purpose.  A question that says "this program" is
+    unanswerable unless the program travels with it.
+    """
     return [
         {
             "id": item["id"],
             "number": number,
             "question": catalog.t(item["question"], language),
             "options": list(item["options"]),
+            "code": item.get("code", ""),
         }
         for number, item in enumerate(items, 1)
     ]

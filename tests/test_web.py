@@ -224,6 +224,33 @@ def test_progress_page_renders(client):
 
 
 # --------------------------------------------------------------- quiz gating
+def test_lesson_quiz_shows_the_code_a_question_talks_about(client, catalog):
+    """The bug the owner hit: "What does this program print?" with no program."""
+    page = client.get("/lesson/m01c01l01").get_data(as_text=True)
+    assert 'class="q-code"' in page
+    assert "print(3 + 4)" in page
+    assert "# print(&#39;hi&#39;)" in page
+
+
+def test_skip_exam_shows_the_same_code(client, catalog):
+    """The skip exam reuses lesson items, so it must carry their code too."""
+    page = client.get("/skip/m01").get_data(as_text=True)
+    assert 'class="q-code"' in page
+    assert "print(3 + 4)" in page
+
+
+def test_a_failed_attempt_repeats_the_code_in_its_explanation(client, catalog):
+    """Reviewing a miss is useless if the program has scrolled out of memory."""
+    _solve(client, catalog, "m01c01l01")
+    data = client.post(
+        "/api/quiz/m01c01l01", json={"q1": "z", "q2": "z", "q3": "z"}
+    ).get_json()
+    assert data["ok"] is True and data["passed"] is False
+    first = data["detail"][0]
+    assert first["code"] == "print(3 + 4)"
+    assert first["why"], "every miss needs its explanation"
+
+
 def test_quiz_passes_and_unlocks_exactly_the_next_lesson(client, catalog):
     first, second, third = catalog.lessons[:3]
     _solve(client, catalog, first["id"])

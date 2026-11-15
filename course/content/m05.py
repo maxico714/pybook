@@ -141,9 +141,9 @@ l01 = lesson(
         ),
         quiz(
             L(
-                "def double(x): return x * 2 — what is double(5) + 1?",
-                "def double(x): return x * 2 — double(5) + 1 क्या है?",
-                "def double(x): return x * 2 — double(5) + 1 kya hai?",
+                "What is `double(5) + 1`?",
+                "`double(5) + 1` क्या है?",
+                "`double(5) + 1` kya hai?",
             ),
             ["10", "11", "an error", "6"],
             "b",
@@ -154,6 +154,7 @@ l01 = lesson(
                 "double(5) = 10, aur call apni value se replace ho jati hai, isliye "
                 "10 + 1 = 11.",
             ),
+            code="def double(x):\n    return x * 2",
         ),
     ],
     takeaway=L(
@@ -261,9 +262,9 @@ l02 = lesson(
     quiz_items=[
         quiz(
             L(
-                "def f(a, b=2) — which calls are valid?",
-                "def f(a, b=2) — कौन सी कॉल वैध हैं?",
-                "def f(a, b=2) — kaun si calls valid hain?",
+                "Which calls are valid for this function?",
+                "इस फ़ंक्शन के लिए कौन सी कॉल वैध हैं?",
+                "Is function ke liye kaun si calls valid hain?",
             ),
             ["f() only", "f(1) and f(1, 3)", "f(1, 2, 3) only", "f(b=1) only"],
             "b",
@@ -275,6 +276,7 @@ l02 = lesson(
                 "a ka default nahi hai isliye woh hamesha dena hoga; b chhoda ya "
                 "badla ja sakta hai.",
             ),
+            code="def f(a, b=2):\n    return a + b",
         ),
         quiz(
             L(
@@ -438,9 +440,9 @@ l03 = lesson(
         ),
         quiz(
             L(
-                "x = 10; def f(): x = 5; f(); print(x) — what prints?",
-                "x = 10; def f(): x = 5; f(); print(x) — क्या प्रिंट होगा?",
-                "x = 10; def f(): x = 5; f(); print(x) — kya print hoga?",
+                "What does this program print?",
+                "यह प्रोग्राम क्या प्रिंट करेगा?",
+                "Ye program kya print karega?",
             ),
             ["5", "10", "None", "an error"],
             "b",
@@ -453,6 +455,7 @@ l03 = lesson(
                 "hai. Scope ka ye sabse aam surprise hai.",
             ),
             "scope-shadowing",
+            code="x = 10\ndef f():\n    x = 5\nf()\nprint(x)",
         ),
     ],
     takeaway=L(
@@ -724,9 +727,9 @@ l05 = lesson(
         ),
         quiz(
             L(
-                "def f(n): return f(n - 1) — what happens when you call f(3)?",
-                "def f(n): return f(n - 1) — f(3) बुलाने पर क्या होगा?",
-                "def f(n): return f(n - 1) — f(3) bulane par kya hoga?",
+                "What happens when you call `f(3)`?",
+                "`f(3)` बुलाने पर क्या होगा?",
+                "`f(3)` bulane par kya hoga?",
             ),
             ["it returns 2", "it returns None", "RecursionError", "SyntaxError"],
             "c",
@@ -738,6 +741,7 @@ l05 = lesson(
                 "Koi base case nahi hai, isliye calls tab tak chalte hain jab tak "
                 "stack limit na pahunche.",
             ),
+            code="def f(n):\n    return f(n - 1)",
         ),
     ],
     takeaway=L(

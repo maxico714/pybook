@@ -106,7 +106,8 @@
         "hi": "इंडेक्स 1 ('y') से शुरू और 3 से पहले रुको, इसलिए सिर्फ़ 1 और 2 शामिल हैं।",
         "hinglish": "Index 1 ('y') se shuru aur 3 se pehle ruk, isliye sirf 1 aur 2 include hain."
        },
-       "misconception": "slice-exclusive-end"
+       "misconception": "slice-exclusive-end",
+       "code": ""
       },
       {
        "id": "m02c01l01q2",
@@ -127,7 +128,8 @@
         "hi": "नेगेटिव इंडेक्स अंत से गिनते हैं, इसलिए -1 आख़िरी आइटम है। IndexError तभी आता है जब नंबर दोनों दिशाओं में बहुत बड़ा हो।",
         "hinglish": "Negative index end se ginte hain, isliye -1 aakhri item hai. IndexError tabhi aata hai jab number dono directions me bahut bada ho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m02c01l01q3",
@@ -148,7 +150,8 @@
         "hi": "स्लाइस रेंज से बाहर के नंबर पर कभी फेल नहीं होता: वह अंत पर रुक जाता है। [10] से इंडेक्स करने पर IndexError आता।",
         "hinglish": "Slice range se bahar ke number par kabhi fail nahi hota: woh end par ruk jata hai. [10] se index karne par IndexError aata."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -248,14 +251,15 @@
         "hi": "split सेपरेटर के बीच के टुकड़ों की लिस्ट देता है। join उल्टा काम करता है।",
         "hinglish": "split separator ke beech ke tukdon ki list deta hai. join ulta kaam karta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m02c01l02q2",
        "question": {
-        "en": "s = '  hi  '; s.strip(); print(s). What prints?",
-        "hi": "s = '  hi  '; s.strip(); print(s)। क्या प्रिंट होगा?",
-        "hinglish": "s = '  hi  '; s.strip(); print(s). Kya print hoga?"
+        "en": "What does this program print?",
+        "hi": "यह प्रोग्राम क्या प्रिंट करेगा?",
+        "hinglish": "Ye program kya print karega?"
        },
        "options": [
         "hi",
@@ -269,7 +273,8 @@
         "hi": "strip() ने नई स्ट्रिंग दी जो कहीं रखी नहीं गई। रखने के लिए s = s.strip() लिखें।",
         "hinglish": "strip() ne nayi string di jo kahin rakhi nahi gayi. Rakhne ke liye s = s.strip() likho."
        },
-       "misconception": "immutability"
+       "misconception": "immutability",
+       "code": "s = '  hi  '\ns.strip()\nprint(s)"
       },
       {
        "id": "m02c01l02q3",
@@ -290,7 +295,8 @@
         "hi": "f-string का परिणाम हमेशा स्ट्रिंग होता है, इसलिए जवाब में कोटेशन हैं। f के बिना वह 3 * 4 टेक्स्ट ही रहता।",
         "hinglish": "f-string ka result hamesha string hota hai, isliye answer me quotes hain. f ke bina woh 3 * 4 text hi rehta."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -401,7 +407,8 @@
         "hi": "इसका मतलब (1 < 5) and (5 < 3)। पहला सही, दूसरा गलत, इसलिए पूरी चेन False है।",
         "hinglish": "Iska matlab (1 < 5) and (5 < 3). Pehla true, doosra false, isliye poori chain False hai."
        },
-       "misconception": "chained-comparison"
+       "misconception": "chained-comparison",
+       "code": ""
       },
       {
        "id": "m02c02l03q2",
@@ -422,7 +429,8 @@
         "hi": "टेक्स्ट '0' और नंबर 0 अलग वैल्यू हैं, इसलिए == False है। पायथन str और int को अपने आप नहीं बदलता।",
         "hinglish": "Text '0' aur number 0 alag values hain, isliye == False hai. Python str aur int ko apne aap nahi badalta."
        },
-       "misconception": "str-vs-int"
+       "misconception": "str-vs-int",
+       "code": ""
       },
       {
        "id": "m02c02l03q3",
@@ -443,7 +451,8 @@
         "hi": "0 falsy है, इसलिए `or` आगे बढ़कर दूसरा ऑपरेंड देता है। `or` वैल्यू देता है, bool नहीं।",
         "hinglish": "0 falsy hai, isliye `or` aage badhkar doosra operand deta hai. `or` value deta hai, bool nahi."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -546,7 +555,8 @@
         "hi": "दो लिस्ट लिटरल दो ऑब्जेक्ट बनाते हैं। वे == हैं (बराबर) पर `is` नहीं (एक जैसे नहीं)।",
         "hinglish": "Do list literals do objects banate hain. Woh == hain (barabar) par `is` nahi (identical nahi)."
        },
-       "misconception": "is-vs-eq"
+       "misconception": "is-vs-eq",
+       "code": "a = [1]\nb = [1]\nprint(a == b)\nprint(a is b)"
       },
       {
        "id": "m02c02l04q2",
@@ -567,7 +577,8 @@
         "hi": "None एक ही ऑब्जेक्ट है, इसलिए identity सही भी है और तेज़ भी। लिंटर की चेतावनी 'comparison to None should be is' यही कहती है।",
         "hinglish": "None ek hi object hai, isliye identity sahi bhi hai aur fast bhi. Linter ki warning 'comparison to None should be is' yahi kehti hai."
        },
-       "misconception": "is-vs-eq"
+       "misconception": "is-vs-eq",
+       "code": ""
       },
       {
        "id": "m02c02l04q3",
@@ -588,7 +599,8 @@
         "hi": "del नाम a हटाता है। लिस्ट को b दिखा रहा है, इसलिए वह ज़िंदा रहती है।",
         "hinglish": "del naam a hataata hai. List ko b point kar raha hai, isliye woh zinda rehti hai."
        },
-       "misconception": "del-vs-destroy"
+       "misconception": "del-vs-destroy",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -697,7 +709,8 @@
         "hi": "फ़्लोर डिवीज़न हमेशा नीचे राउंड करता है, और -3.5 नीचे -4 बनता है। शुरुआती अंकगणित में यह सबसे चौंकाने वाला परिणाम है।",
         "hinglish": "Floor division hamesha neeche round karta hai, aur -3.5 neeche -4 banta hai. Beginner arithmetic me ye sabse chaukaane wala result hai."
        },
-       "misconception": "floor-division-negative"
+       "misconception": "floor-division-negative",
+       "code": ""
       },
       {
        "id": "m02c03l05q2",
@@ -718,7 +731,8 @@
         "hi": "17 = 5*3 + 2, इसलिए शेष 2 है। % अक्सर सम/विषम जाँचने (n % 2 == 0) या रेंज में घुमाने के लिए इस्तेमाल होता है।",
         "hinglish": "17 = 5*3 + 2, isliye remainder 2 hai. % aksar even/odd check karne (n % 2 == 0) ya range me ghumane ke liye use hota hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m02c03l05q3",
@@ -739,7 +753,8 @@
         "hi": "कोई बग नहीं और कोई छिपा नंबर नहीं: 0.1 का ठीक बाइनरी रूप नहीं है, इसलिए जोड़ 0.3 से एक बिट दूर पड़ता है।",
         "hinglish": "Koi bug nahi aur koi chhupa number nahi: 0.1 ka exact binary roop nahi hai, isliye sum 0.3 se ek bit door padta hai."
        },
-       "misconception": "float-precision"
+       "misconception": "float-precision",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -771,7 +786,8 @@
     "hi": "इंडेक्स 1 'e', इंडेक्स 2 'l', और इंडेक्स 3 शामिल नहीं।",
     "hinglish": "Index 1 'e', index 2 'l', aur index 3 include nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02x02",
@@ -792,7 +808,8 @@
     "hi": "स्लाइस इंडेक्स 0 हटाता है, [2, 3] बचता है, जिसमें दो आइटम हैं।",
     "hinglish": "Slice index 0 hataata hai, [2, 3] bachta hai, jisme do items hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02x03",
@@ -813,7 +830,8 @@
     "hi": "strip() दोनों किनारों से व्हाइटस्पेस हटाता है, स्पेस और न्यूलाइन दोनों।",
     "hinglish": "strip() dono kinaaron se whitespace hataata hai, space aur newline dono."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02x04",
@@ -834,7 +852,8 @@
     "hi": "खाली लिस्ट falsy है। {}, '', 0 और None भी।",
     "hinglish": "Khaali list falsy hai. {}, '', 0 aur None bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02x05",
@@ -855,7 +874,8 @@
     "hi": "दो ट्यूपल लिटरल दो ऑब्जेक्ट हैं; बराबरी True पर पहचान False। छोटे int ख़ास केस हैं जहाँ कैशिंग से `is` True हो सकता है।",
     "hinglish": "Do tuple literals do objects hain; equality True par identity False. Chhote int special case hain jahan caching se `is` True ho sakta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02x06",
@@ -876,7 +896,8 @@
     "hi": "divmod (भागफल, शेष) ट्यूपल देता है: 9 // 4 = 2 और 9 % 4 = 1।",
     "hinglish": "divmod (quotient, remainder) tuple deta hai: 9 // 4 = 2 aur 9 % 4 = 1."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -899,7 +920,8 @@
     "hi": "इंडेक्स 1 ('y') से शुरू और 3 से पहले रुको, इसलिए सिर्फ़ 1 और 2 शामिल हैं।",
     "hinglish": "Index 1 ('y') se shuru aur 3 se pehle ruk, isliye sirf 1 aur 2 include hain."
    },
-   "misconception": "slice-exclusive-end"
+   "misconception": "slice-exclusive-end",
+   "code": ""
   },
   {
    "id": "m02s02",
@@ -920,7 +942,8 @@
     "hi": "नेगेटिव इंडेक्स अंत से गिनते हैं, इसलिए -1 आख़िरी आइटम है। IndexError तभी आता है जब नंबर दोनों दिशाओं में बहुत बड़ा हो।",
     "hinglish": "Negative index end se ginte hain, isliye -1 aakhri item hai. IndexError tabhi aata hai jab number dono directions me bahut bada ho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s03",
@@ -941,7 +964,8 @@
     "hi": "स्लाइस रेंज से बाहर के नंबर पर कभी फेल नहीं होता: वह अंत पर रुक जाता है। [10] से इंडेक्स करने पर IndexError आता।",
     "hinglish": "Slice range se bahar ke number par kabhi fail nahi hota: woh end par ruk jata hai. [10] se index karne par IndexError aata."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s04",
@@ -962,14 +986,15 @@
     "hi": "split सेपरेटर के बीच के टुकड़ों की लिस्ट देता है। join उल्टा काम करता है।",
     "hinglish": "split separator ke beech ke tukdon ki list deta hai. join ulta kaam karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s05",
    "question": {
-    "en": "s = '  hi  '; s.strip(); print(s). What prints?",
-    "hi": "s = '  hi  '; s.strip(); print(s)। क्या प्रिंट होगा?",
-    "hinglish": "s = '  hi  '; s.strip(); print(s). Kya print hoga?"
+    "en": "What does this program print?",
+    "hi": "यह प्रोग्राम क्या प्रिंट करेगा?",
+    "hinglish": "Ye program kya print karega?"
    },
    "options": [
     "hi",
@@ -983,7 +1008,8 @@
     "hi": "strip() ने नई स्ट्रिंग दी जो कहीं रखी नहीं गई। रखने के लिए s = s.strip() लिखें।",
     "hinglish": "strip() ne nayi string di jo kahin rakhi nahi gayi. Rakhne ke liye s = s.strip() likho."
    },
-   "misconception": "immutability"
+   "misconception": "immutability",
+   "code": "s = '  hi  '\ns.strip()\nprint(s)"
   },
   {
    "id": "m02s06",
@@ -1004,7 +1030,8 @@
     "hi": "f-string का परिणाम हमेशा स्ट्रिंग होता है, इसलिए जवाब में कोटेशन हैं। f के बिना वह 3 * 4 टेक्स्ट ही रहता।",
     "hinglish": "f-string ka result hamesha string hota hai, isliye answer me quotes hain. f ke bina woh 3 * 4 text hi rehta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s07",
@@ -1025,7 +1052,8 @@
     "hi": "इसका मतलब (1 < 5) and (5 < 3)। पहला सही, दूसरा गलत, इसलिए पूरी चेन False है।",
     "hinglish": "Iska matlab (1 < 5) and (5 < 3). Pehla true, doosra false, isliye poori chain False hai."
    },
-   "misconception": "chained-comparison"
+   "misconception": "chained-comparison",
+   "code": ""
   },
   {
    "id": "m02s08",
@@ -1046,7 +1074,8 @@
     "hi": "टेक्स्ट '0' और नंबर 0 अलग वैल्यू हैं, इसलिए == False है। पायथन str और int को अपने आप नहीं बदलता।",
     "hinglish": "Text '0' aur number 0 alag values hain, isliye == False hai. Python str aur int ko apne aap nahi badalta."
    },
-   "misconception": "str-vs-int"
+   "misconception": "str-vs-int",
+   "code": ""
   },
   {
    "id": "m02s09",
@@ -1067,7 +1096,8 @@
     "hi": "0 falsy है, इसलिए `or` आगे बढ़कर दूसरा ऑपरेंड देता है। `or` वैल्यू देता है, bool नहीं।",
     "hinglish": "0 falsy hai, isliye `or` aage badhkar doosra operand deta hai. `or` value deta hai, bool nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s10",
@@ -1088,7 +1118,8 @@
     "hi": "दो लिस्ट लिटरल दो ऑब्जेक्ट बनाते हैं। वे == हैं (बराबर) पर `is` नहीं (एक जैसे नहीं)।",
     "hinglish": "Do list literals do objects banate hain. Woh == hain (barabar) par `is` nahi (identical nahi)."
    },
-   "misconception": "is-vs-eq"
+   "misconception": "is-vs-eq",
+   "code": "a = [1]\nb = [1]\nprint(a == b)\nprint(a is b)"
   },
   {
    "id": "m02s11",
@@ -1109,7 +1140,8 @@
     "hi": "None एक ही ऑब्जेक्ट है, इसलिए identity सही भी है और तेज़ भी। लिंटर की चेतावनी 'comparison to None should be is' यही कहती है।",
     "hinglish": "None ek hi object hai, isliye identity sahi bhi hai aur fast bhi. Linter ki warning 'comparison to None should be is' yahi kehti hai."
    },
-   "misconception": "is-vs-eq"
+   "misconception": "is-vs-eq",
+   "code": ""
   },
   {
    "id": "m02s12",
@@ -1130,7 +1162,8 @@
     "hi": "del नाम a हटाता है। लिस्ट को b दिखा रहा है, इसलिए वह ज़िंदा रहती है।",
     "hinglish": "del naam a hataata hai. List ko b point kar raha hai, isliye woh zinda rehti hai."
    },
-   "misconception": "del-vs-destroy"
+   "misconception": "del-vs-destroy",
+   "code": ""
   },
   {
    "id": "m02s13",
@@ -1151,7 +1184,8 @@
     "hi": "फ़्लोर डिवीज़न हमेशा नीचे राउंड करता है, और -3.5 नीचे -4 बनता है। शुरुआती अंकगणित में यह सबसे चौंकाने वाला परिणाम है।",
     "hinglish": "Floor division hamesha neeche round karta hai, aur -3.5 neeche -4 banta hai. Beginner arithmetic me ye sabse chaukaane wala result hai."
    },
-   "misconception": "floor-division-negative"
+   "misconception": "floor-division-negative",
+   "code": ""
   },
   {
    "id": "m02s14",
@@ -1172,7 +1206,8 @@
     "hi": "17 = 5*3 + 2, इसलिए शेष 2 है। % अक्सर सम/विषम जाँचने (n % 2 == 0) या रेंज में घुमाने के लिए इस्तेमाल होता है।",
     "hinglish": "17 = 5*3 + 2, isliye remainder 2 hai. % aksar even/odd check karne (n % 2 == 0) ya range me ghumane ke liye use hota hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s15",
@@ -1193,7 +1228,8 @@
     "hi": "कोई बग नहीं और कोई छिपा नंबर नहीं: 0.1 का ठीक बाइनरी रूप नहीं है, इसलिए जोड़ 0.3 से एक बिट दूर पड़ता है।",
     "hinglish": "Koi bug nahi aur koi chhupa number nahi: 0.1 ka exact binary roop nahi hai, isliye sum 0.3 se ek bit door padta hai."
    },
-   "misconception": "float-precision"
+   "misconception": "float-precision",
+   "code": ""
   },
   {
    "id": "m02s16",
@@ -1214,7 +1250,8 @@
     "hi": "इंडेक्स 1 'e', इंडेक्स 2 'l', और इंडेक्स 3 शामिल नहीं।",
     "hinglish": "Index 1 'e', index 2 'l', aur index 3 include nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s17",
@@ -1235,7 +1272,8 @@
     "hi": "स्लाइस इंडेक्स 0 हटाता है, [2, 3] बचता है, जिसमें दो आइटम हैं।",
     "hinglish": "Slice index 0 hataata hai, [2, 3] bachta hai, jisme do items hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s18",
@@ -1256,7 +1294,8 @@
     "hi": "strip() दोनों किनारों से व्हाइटस्पेस हटाता है, स्पेस और न्यूलाइन दोनों।",
     "hinglish": "strip() dono kinaaron se whitespace hataata hai, space aur newline dono."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s19",
@@ -1277,7 +1316,8 @@
     "hi": "खाली लिस्ट falsy है। {}, '', 0 और None भी।",
     "hinglish": "Khaali list falsy hai. {}, '', 0 aur None bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s20",
@@ -1298,7 +1338,8 @@
     "hi": "दो ट्यूपल लिटरल दो ऑब्जेक्ट हैं; बराबरी True पर पहचान False। छोटे int ख़ास केस हैं जहाँ कैशिंग से `is` True हो सकता है।",
     "hinglish": "Do tuple literals do objects hain; equality True par identity False. Chhote int special case hain jahan caching se `is` True ho sakta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m02s21",
@@ -1319,7 +1360,8 @@
     "hi": "divmod (भागफल, शेष) ट्यूपल देता है: 9 // 4 = 2 और 9 % 4 = 1।",
     "hinglish": "divmod (quotient, remainder) tuple deta hai: 9 // 4 = 2 aur 9 % 4 = 1."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🧩"

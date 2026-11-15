@@ -72,12 +72,9 @@ l01 = lesson(
     quiz_items=[
         quiz(
             L(
-                "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: "
-                "print('small'). What prints?",
-                "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: "
-                "print('small')। क्या प्रिंट होगा?",
-                "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: "
-                "print('small'). Kya print hoga?",
+                "What does this program print?",
+                "यह प्रोग्राम क्या प्रिंट करेगा?",
+                "Ye program kya print karega?",
             ),
             ["big", "medium", "small", "nothing"],
             "b",
@@ -88,6 +85,15 @@ l01 = lesson(
                 "'medium' प्रिंट होता है और else छूट जाता है।",
                 "5 > 10 false hai, isliye Python elif try karta hai. 5 > 3 true hai, "
                 "isliye 'medium' print hota hai aur else chhoot jata hai.",
+            ),
+            code=(
+                "x = 5\n"
+                "if x > 10:\n"
+                "    print('big')\n"
+                "elif x > 3:\n"
+                "    print('medium')\n"
+                "else:\n"
+                "    print('small')"
             ),
         ),
         quiz(
@@ -505,9 +511,9 @@ l04 = lesson(
         ),
         quiz(
             L(
-                "What is wrong here? for i in range(5): print(i) print('done')",
-                "यहाँ क्या गलत है? for i in range(5): print(i) print('done')",
-                "Yahan kya galat hai? for i in range(5): print(i) print('done')",
+                "What is wrong here?",
+                "यहाँ क्या गलत है?",
+                "Yahan kya galat hai?",
             ),
             [
                 "nothing, it works",
@@ -527,6 +533,7 @@ l04 = lesson(
                 "ke andar hai ya nahi.",
             ),
             "indentation",
+            code="for i in range(5): print(i) print('done')",
         ),
     ],
     takeaway=L(
@@ -603,9 +610,9 @@ l05 = lesson(
     quiz_items=[
         quiz(
             L(
-                "How many times does the inner body run? for i in range(3): for j in range(4): ...",
-                "अंदरूनी बॉडी कितनी बार चलेगी? for i in range(3): for j in range(4): ...",
-                "Andaruni body kitni baar chalegi? for i in range(3): for j in range(4): ...",
+                "How many times does the inner body run?",
+                "अंदरूनी बॉडी कितनी बार चलेगी?",
+                "Andaruni body kitni baar chalegi?",
             ),
             ["4", "7", "12", "3"],
             "c",
@@ -615,6 +622,7 @@ l05 = lesson(
                 "3 बाहरी × 4 अंदरूनी = 12। नेस्टेड लूप गुणा करते हैं, जोड़ते नहीं।",
                 "3 bahari × 4 andaruni = 12. Nested loops multiply karte hain, add nahi.",
             ),
+            code="for i in range(3):\n    for j in range(4):\n        print(i, j)",
         ),
         quiz(
             L(
@@ -640,9 +648,9 @@ l05 = lesson(
         ),
         quiz(
             L(
-                "Why is this an infinite loop? while True: pass",
-                "यह अनंत लूप क्यों है? while True: pass",
-                "Ye infinite loop kyun hai? while True: pass",
+                "Why is this an infinite loop?",
+                "यह अनंत लूप क्यों है?",
+                "Ye infinite loop kyun hai?",
             ),
             [
                 "pass restarts the loop",
@@ -659,6 +667,7 @@ l05 = lesson(
                 "True hamesha True rehta hai aur andar kuch use nahi badalta. Bahar "
                 "nikalne ka ek hi rasta break hai.",
             ),
+            code="while True:\n    pass",
         ),
     ],
     takeaway=L(

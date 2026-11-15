@@ -97,9 +97,9 @@
       {
        "id": "m03c01l01q1",
        "question": {
-        "en": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). What prints?",
-        "hi": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small')। क्या प्रिंट होगा?",
-        "hinglish": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). Kya print hoga?"
+        "en": "What does this program print?",
+        "hi": "यह प्रोग्राम क्या प्रिंट करेगा?",
+        "hinglish": "Ye program kya print karega?"
        },
        "options": [
         "big",
@@ -113,7 +113,8 @@
         "hi": "5 > 10 गलत है, इसलिए पायथन elif आज़माता है। 5 > 3 सही है, इसलिए 'medium' प्रिंट होता है और else छूट जाता है।",
         "hinglish": "5 > 10 false hai, isliye Python elif try karta hai. 5 > 3 true hai, isliye 'medium' print hota hai aur else chhoot jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": "x = 5\nif x > 10:\n    print('big')\nelif x > 3:\n    print('medium')\nelse:\n    print('small')"
       },
       {
        "id": "m03c01l01q2",
@@ -134,7 +135,8 @@
         "hi": "if को True नहीं चाहिए: हर वैल्यू की सत्यता जाँची जाती है। 0, 0.0, '', [], {} और None सब falsy हैं।",
         "hinglish": "if ko True nahi chahiye: har value ki truthiness check hoti hai. 0, 0.0, '', [], {} aur None sab falsy hain."
        },
-       "misconception": "truthiness"
+       "misconception": "truthiness",
+       "code": ""
       },
       {
        "id": "m03c01l01q3",
@@ -155,7 +157,8 @@
         "hi": "अकेला = असाइन करता है, इसलिए शर्त के पास जाँचने को वैल्यू नहीं होती। पायथन SyntaxError देता है और = की ओर इशारा करता है।",
         "hinglish": "Akela = assign karta hai, isliye condition ke paas check karne ko value nahi hoti. Python SyntaxError deta hai aur = ki taraf ishara karta hai."
        },
-       "misconception": "assign-vs-compare"
+       "misconception": "assign-vs-compare",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -258,7 +261,8 @@
         "hi": "match/case 3.10 में आया। पुराने संस्करणों पर यह SyntaxError है, जो कोड साझा करते समय जानना ज़रूरी है।",
         "hinglish": "match/case 3.10 me aaya. Purane versions par ye SyntaxError hai, jo code share karte samay jaanna zaroori hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c01l02q2",
@@ -279,7 +283,8 @@
         "hi": "बिना मेल वाले case पर match कुछ नहीं करता — यह बिना else वाली if चेन जैसा नहीं है, और कोई एरर नहीं देता।",
         "hinglish": "Bina match wale case par match kuch nahi karta - ye bina else wali if chain jaisa nahi hai, aur koi error nahi deta."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c01l02q3",
@@ -300,7 +305,8 @@
         "hi": "पैटर्न में सादा नाम कैप्चर करता है। डॉट वाला नाम (जैसे Colour.RED) वैल्यू की तरह तुलना होता है।",
         "hinglish": "Pattern me saada naam capture karta hai. Dot wala naam (jaise Colour.RED) value ki tarah compare hota hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -414,7 +420,8 @@
         "hi": "अगर लूप के अंदर कुछ शर्त नहीं बदलता, तो वह हमेशा चलता है। तय सीक्वेंस वाला for लूप ऐसा नहीं कर सकता।",
         "hinglish": "Agar loop ke andar kuch condition nahi badalta, to woh hamesha chalta hai. Fixed sequence wala for loop aisa nahi kar sakta."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c02l03q2",
@@ -435,7 +442,8 @@
         "hi": "continue अगले चक्कर पर कूदता है। break लूप छोड़ देता है।",
         "hinglish": "continue agle iteration par koodta hai. break loop chhod deta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c02l03q3",
@@ -456,7 +464,8 @@
         "hi": "पायथन को हर ब्लॉक में कम से कम एक स्टेटमेंट चाहिए। जब आप कोड लिख रहे हों, pass वह शर्त पूरी करता है।",
         "hinglish": "Python ko har block me kam se kam ek statement chahiye. Jab aap code likh rahe ho, pass woh shart poori karta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -554,7 +563,8 @@
         "hi": "range डिफ़ॉल्ट 0 से शुरू होता है और दिए नंबर से पहले रुकता है। यह off-by-one सबसे आम लूप बग है।",
         "hinglish": "range default 0 se shuru hota hai aur diye number se pehle rukta hai. Ye off-by-one sabse aam loop bug hai."
        },
-       "misconception": "range-exclusive"
+       "misconception": "range-exclusive",
+       "code": ""
       },
       {
        "id": "m03c02l04q2",
@@ -575,14 +585,15 @@
         "hi": "zip आइटम को जगह-दर-जगह जोड़ता है और छोटी सीक्वेंस पर रुक जाता है।",
         "hinglish": "zip items ko position-dar-position jodta hai aur chhoti sequence par ruk jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c02l04q3",
        "question": {
-        "en": "What is wrong here? for i in range(5): print(i) print('done')",
-        "hi": "यहाँ क्या गलत है? for i in range(5): print(i) print('done')",
-        "hinglish": "Yahan kya galat hai? for i in range(5): print(i) print('done')"
+        "en": "What is wrong here?",
+        "hi": "यहाँ क्या गलत है?",
+        "hinglish": "Yahan kya galat hai?"
        },
        "options": [
         "nothing, it works",
@@ -596,7 +607,8 @@
         "hi": "कोलन के बाद एक ही लाइन में सिर्फ़ एक साधारण स्टेटमेंट आता है। दूसरे के लिए नई लाइन चाहिए, और इंडेंटेशन तय करता है कि वह लूप के अंदर है या नहीं।",
         "hinglish": "Colon ke baad ek hi line me sirf ek simple statement aata hai. Doosre ke liye nayi line chahiye, aur indentation tay karta hai ki woh loop ke andar hai ya nahi."
        },
-       "misconception": "indentation"
+       "misconception": "indentation",
+       "code": "for i in range(5): print(i) print('done')"
       }
      ],
      "takeaway": {
@@ -679,9 +691,9 @@
       {
        "id": "m03c02l05q1",
        "question": {
-        "en": "How many times does the inner body run? for i in range(3): for j in range(4): ...",
-        "hi": "अंदरूनी बॉडी कितनी बार चलेगी? for i in range(3): for j in range(4): ...",
-        "hinglish": "Andaruni body kitni baar chalegi? for i in range(3): for j in range(4): ..."
+        "en": "How many times does the inner body run?",
+        "hi": "अंदरूनी बॉडी कितनी बार चलेगी?",
+        "hinglish": "Andaruni body kitni baar chalegi?"
        },
        "options": [
         "4",
@@ -695,7 +707,8 @@
         "hi": "3 बाहरी × 4 अंदरूनी = 12। नेस्टेड लूप गुणा करते हैं, जोड़ते नहीं।",
         "hinglish": "3 bahari × 4 andaruni = 12. Nested loops multiply karte hain, add nahi."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": "for i in range(3):\n    for j in range(4):\n        print(i, j)"
       },
       {
        "id": "m03c02l05q2",
@@ -716,14 +729,15 @@
         "hi": "यह एक जगह है जहाँ else का मतलब 'वरना' नहीं है। इसका मतलब है 'लूप सामान्य रूप से पूरा हुआ'।",
         "hinglish": "Ye ek jagah hai jahan else ka matlab 'warna' nahi hai. Iska matlab hai 'loop normally poora hua'."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m03c02l05q3",
        "question": {
-        "en": "Why is this an infinite loop? while True: pass",
-        "hi": "यह अनंत लूप क्यों है? while True: pass",
-        "hinglish": "Ye infinite loop kyun hai? while True: pass"
+        "en": "Why is this an infinite loop?",
+        "hi": "यह अनंत लूप क्यों है?",
+        "hinglish": "Ye infinite loop kyun hai?"
        },
        "options": [
         "pass restarts the loop",
@@ -737,7 +751,8 @@
         "hi": "True हमेशा True रहता है और अंदर कुछ उसे नहीं बदलता। बाहर निकलने का एक ही रास्ता break है।",
         "hinglish": "True hamesha True rehta hai aur andar kuch use nahi badalta. Bahar nikalne ka ek hi rasta break hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": "while True:\n    pass"
       }
      ],
      "takeaway": {
@@ -769,7 +784,8 @@
     "hi": "शुरू 0, 5 से पहले रुको: पाँच वैल्यू, 0 से 4।",
     "hinglish": "Start 0, 5 se pehle ruko: paanch values, 0 se 4."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03x02",
@@ -790,7 +806,8 @@
     "hi": "किसी भी न्यूमेरिक टाइप का शून्य falsy है, 0.0 भी।",
     "hinglish": "Kisi bhi numeric type ka zero falsy hai, 0.0 bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03x03",
@@ -811,7 +828,8 @@
     "hi": "2 × 3 = 6।",
     "hinglish": "2 × 3 = 6."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03x04",
@@ -832,7 +850,8 @@
     "hi": "break लूप छोड़ता है। continue एक चक्कर छोड़ता है; pass कुछ नहीं करता।",
     "hinglish": "break loop chhodta hai. continue ek chakkar chhodta hai; pass kuch nahi karta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03x05",
@@ -853,7 +872,8 @@
     "hi": "else वह सब है जो if ने नहीं पकड़ा, यानी a <= b।",
     "hinglish": "else woh sab hai jo if ne nahi pakda, yani a <= b."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03x06",
@@ -874,16 +894,17 @@
     "hi": "elif सिर्फ़ if चेन के हिस्से के रूप में होता है; वह अकेला स्टेटमेंट नहीं बन सकता।",
     "hinglish": "elif sirf if chain ke hisse ke roop me hota hai; woh akela statement nahi ban sakta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
   {
    "id": "m03s01",
    "question": {
-    "en": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). What prints?",
-    "hi": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small')। क्या प्रिंट होगा?",
-    "hinglish": "x = 5; if x > 10: print('big') elif x > 3: print('medium') else: print('small'). Kya print hoga?"
+    "en": "What does this program print?",
+    "hi": "यह प्रोग्राम क्या प्रिंट करेगा?",
+    "hinglish": "Ye program kya print karega?"
    },
    "options": [
     "big",
@@ -897,7 +918,8 @@
     "hi": "5 > 10 गलत है, इसलिए पायथन elif आज़माता है। 5 > 3 सही है, इसलिए 'medium' प्रिंट होता है और else छूट जाता है।",
     "hinglish": "5 > 10 false hai, isliye Python elif try karta hai. 5 > 3 true hai, isliye 'medium' print hota hai aur else chhoot jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": "x = 5\nif x > 10:\n    print('big')\nelif x > 3:\n    print('medium')\nelse:\n    print('small')"
   },
   {
    "id": "m03s02",
@@ -918,7 +940,8 @@
     "hi": "if को True नहीं चाहिए: हर वैल्यू की सत्यता जाँची जाती है। 0, 0.0, '', [], {} और None सब falsy हैं।",
     "hinglish": "if ko True nahi chahiye: har value ki truthiness check hoti hai. 0, 0.0, '', [], {} aur None sab falsy hain."
    },
-   "misconception": "truthiness"
+   "misconception": "truthiness",
+   "code": ""
   },
   {
    "id": "m03s03",
@@ -939,7 +962,8 @@
     "hi": "अकेला = असाइन करता है, इसलिए शर्त के पास जाँचने को वैल्यू नहीं होती। पायथन SyntaxError देता है और = की ओर इशारा करता है।",
     "hinglish": "Akela = assign karta hai, isliye condition ke paas check karne ko value nahi hoti. Python SyntaxError deta hai aur = ki taraf ishara karta hai."
    },
-   "misconception": "assign-vs-compare"
+   "misconception": "assign-vs-compare",
+   "code": ""
   },
   {
    "id": "m03s04",
@@ -960,7 +984,8 @@
     "hi": "match/case 3.10 में आया। पुराने संस्करणों पर यह SyntaxError है, जो कोड साझा करते समय जानना ज़रूरी है।",
     "hinglish": "match/case 3.10 me aaya. Purane versions par ye SyntaxError hai, jo code share karte samay jaanna zaroori hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s05",
@@ -981,7 +1006,8 @@
     "hi": "बिना मेल वाले case पर match कुछ नहीं करता — यह बिना else वाली if चेन जैसा नहीं है, और कोई एरर नहीं देता।",
     "hinglish": "Bina match wale case par match kuch nahi karta - ye bina else wali if chain jaisa nahi hai, aur koi error nahi deta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s06",
@@ -1002,7 +1028,8 @@
     "hi": "पैटर्न में सादा नाम कैप्चर करता है। डॉट वाला नाम (जैसे Colour.RED) वैल्यू की तरह तुलना होता है।",
     "hinglish": "Pattern me saada naam capture karta hai. Dot wala naam (jaise Colour.RED) value ki tarah compare hota hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s07",
@@ -1023,7 +1050,8 @@
     "hi": "अगर लूप के अंदर कुछ शर्त नहीं बदलता, तो वह हमेशा चलता है। तय सीक्वेंस वाला for लूप ऐसा नहीं कर सकता।",
     "hinglish": "Agar loop ke andar kuch condition nahi badalta, to woh hamesha chalta hai. Fixed sequence wala for loop aisa nahi kar sakta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s08",
@@ -1044,7 +1072,8 @@
     "hi": "continue अगले चक्कर पर कूदता है। break लूप छोड़ देता है।",
     "hinglish": "continue agle iteration par koodta hai. break loop chhod deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s09",
@@ -1065,7 +1094,8 @@
     "hi": "पायथन को हर ब्लॉक में कम से कम एक स्टेटमेंट चाहिए। जब आप कोड लिख रहे हों, pass वह शर्त पूरी करता है।",
     "hinglish": "Python ko har block me kam se kam ek statement chahiye. Jab aap code likh rahe ho, pass woh shart poori karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s10",
@@ -1086,7 +1116,8 @@
     "hi": "range डिफ़ॉल्ट 0 से शुरू होता है और दिए नंबर से पहले रुकता है। यह off-by-one सबसे आम लूप बग है।",
     "hinglish": "range default 0 se shuru hota hai aur diye number se pehle rukta hai. Ye off-by-one sabse aam loop bug hai."
    },
-   "misconception": "range-exclusive"
+   "misconception": "range-exclusive",
+   "code": ""
   },
   {
    "id": "m03s11",
@@ -1107,14 +1138,15 @@
     "hi": "zip आइटम को जगह-दर-जगह जोड़ता है और छोटी सीक्वेंस पर रुक जाता है।",
     "hinglish": "zip items ko position-dar-position jodta hai aur chhoti sequence par ruk jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s12",
    "question": {
-    "en": "What is wrong here? for i in range(5): print(i) print('done')",
-    "hi": "यहाँ क्या गलत है? for i in range(5): print(i) print('done')",
-    "hinglish": "Yahan kya galat hai? for i in range(5): print(i) print('done')"
+    "en": "What is wrong here?",
+    "hi": "यहाँ क्या गलत है?",
+    "hinglish": "Yahan kya galat hai?"
    },
    "options": [
     "nothing, it works",
@@ -1128,14 +1160,15 @@
     "hi": "कोलन के बाद एक ही लाइन में सिर्फ़ एक साधारण स्टेटमेंट आता है। दूसरे के लिए नई लाइन चाहिए, और इंडेंटेशन तय करता है कि वह लूप के अंदर है या नहीं।",
     "hinglish": "Colon ke baad ek hi line me sirf ek simple statement aata hai. Doosre ke liye nayi line chahiye, aur indentation tay karta hai ki woh loop ke andar hai ya nahi."
    },
-   "misconception": "indentation"
+   "misconception": "indentation",
+   "code": "for i in range(5): print(i) print('done')"
   },
   {
    "id": "m03s13",
    "question": {
-    "en": "How many times does the inner body run? for i in range(3): for j in range(4): ...",
-    "hi": "अंदरूनी बॉडी कितनी बार चलेगी? for i in range(3): for j in range(4): ...",
-    "hinglish": "Andaruni body kitni baar chalegi? for i in range(3): for j in range(4): ..."
+    "en": "How many times does the inner body run?",
+    "hi": "अंदरूनी बॉडी कितनी बार चलेगी?",
+    "hinglish": "Andaruni body kitni baar chalegi?"
    },
    "options": [
     "4",
@@ -1149,7 +1182,8 @@
     "hi": "3 बाहरी × 4 अंदरूनी = 12। नेस्टेड लूप गुणा करते हैं, जोड़ते नहीं।",
     "hinglish": "3 bahari × 4 andaruni = 12. Nested loops multiply karte hain, add nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": "for i in range(3):\n    for j in range(4):\n        print(i, j)"
   },
   {
    "id": "m03s14",
@@ -1170,14 +1204,15 @@
     "hi": "यह एक जगह है जहाँ else का मतलब 'वरना' नहीं है। इसका मतलब है 'लूप सामान्य रूप से पूरा हुआ'।",
     "hinglish": "Ye ek jagah hai jahan else ka matlab 'warna' nahi hai. Iska matlab hai 'loop normally poora hua'."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s15",
    "question": {
-    "en": "Why is this an infinite loop? while True: pass",
-    "hi": "यह अनंत लूप क्यों है? while True: pass",
-    "hinglish": "Ye infinite loop kyun hai? while True: pass"
+    "en": "Why is this an infinite loop?",
+    "hi": "यह अनंत लूप क्यों है?",
+    "hinglish": "Ye infinite loop kyun hai?"
    },
    "options": [
     "pass restarts the loop",
@@ -1191,7 +1226,8 @@
     "hi": "True हमेशा True रहता है और अंदर कुछ उसे नहीं बदलता। बाहर निकलने का एक ही रास्ता break है।",
     "hinglish": "True hamesha True rehta hai aur andar kuch use nahi badalta. Bahar nikalne ka ek hi rasta break hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": "while True:\n    pass"
   },
   {
    "id": "m03s16",
@@ -1212,7 +1248,8 @@
     "hi": "शुरू 0, 5 से पहले रुको: पाँच वैल्यू, 0 से 4।",
     "hinglish": "Start 0, 5 se pehle ruko: paanch values, 0 se 4."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s17",
@@ -1233,7 +1270,8 @@
     "hi": "किसी भी न्यूमेरिक टाइप का शून्य falsy है, 0.0 भी।",
     "hinglish": "Kisi bhi numeric type ka zero falsy hai, 0.0 bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s18",
@@ -1254,7 +1292,8 @@
     "hi": "2 × 3 = 6।",
     "hinglish": "2 × 3 = 6."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s19",
@@ -1275,7 +1314,8 @@
     "hi": "break लूप छोड़ता है। continue एक चक्कर छोड़ता है; pass कुछ नहीं करता।",
     "hinglish": "break loop chhodta hai. continue ek chakkar chhodta hai; pass kuch nahi karta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s20",
@@ -1296,7 +1336,8 @@
     "hi": "else वह सब है जो if ने नहीं पकड़ा, यानी a <= b।",
     "hinglish": "else woh sab hai jo if ne nahi pakda, yani a <= b."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m03s21",
@@ -1317,7 +1358,8 @@
     "hi": "elif सिर्फ़ if चेन के हिस्से के रूप में होता है; वह अकेला स्टेटमेंट नहीं बन सकता।",
     "hinglish": "elif sirf if chain ke hisse ke roop me hota hai; woh akela statement nahi ban sakta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🔀"

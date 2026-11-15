@@ -125,7 +125,8 @@
         "hi": "पहले अभिव्यक्ति, फिर लूप, फिर वैकल्पिक फ़िल्टर।",
         "hinglish": "Pehle expression, phir loop, phir optional filter."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c01l01q2",
@@ -146,7 +147,8 @@
         "hi": "बिना कोलन के ब्रेसिज़ set बनाते हैं, और set दोहराव हटा देता है।",
         "hinglish": "Bina colon ke braces set banate hain, aur set duplicate hata deta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c01l01q3",
@@ -167,7 +169,8 @@
         "hi": "कॉम्प्रिहेंशन एक अभिव्यक्ति है। प्रिंट, append या शाखाएँ चाहिए तो लूप लिखें।",
         "hinglish": "Comprehension ek expression hai. Print, append ya branches chahiye to loop likho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -285,7 +288,8 @@
         "hi": "StopIteration वह संकेत है जिसे for लूप पकड़कर चुपचाप रुकता है।",
         "hinglish": "StopIteration woh signal hai jise for loop pakadkar chupchap rukta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c01l02q2",
@@ -306,7 +310,8 @@
         "hi": "इटरेटर एक बार चलते हैं। नई बारी के लिए मूल इटरेबल पर फिर iter() बुलाएँ।",
         "hinglish": "Iterators ek baar chalte hain. Nayi baari ke liye original iterable par phir iter() bulao."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c01l02q3",
@@ -327,7 +332,8 @@
         "hi": "इसीलिए for लूप में हर इटरेबल चलता है, फ़ाइलें और जनरेटर भी।",
         "hinglish": "Isliye for loop me har iterable chalta hai, files aur generators bhi."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -455,7 +461,8 @@
         "hi": "अभी शरीर का कोड नहीं चलता। आपको ऑब्जेक्ट मिलता है जिस पर लूप चला सकते हैं या next() दे सकते हैं।",
         "hinglish": "Abhi body ka code nahi chalta. Aapko object milta hai jis par loop chala sakte ho ya next() de sakte ho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c02l03q2",
@@ -476,7 +483,8 @@
         "hi": "मेमोरी स्थिर रहती है: एक बार में एक आइटम, श्रृंखला कितनी भी लंबी हो।",
         "hinglish": "Memory sthir rehti hai: ek baar me ek item, sequence kitni bhi lambi ho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m09c02l03q3",
@@ -497,7 +505,8 @@
         "hi": "फ़्रेम रखा जाता है, इसलिए लोकल वेरिएबल yield के बीच बचे रहते हैं।",
         "hinglish": "Frame rakha jata hai, isliye local variables yield ke beech bache rehte hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -529,7 +538,8 @@
     "hi": "range(3) यानी 0, 1, 2 और ब्रेसिज़ सूची बनाते हैं।",
     "hinglish": "range(3) yani 0, 1, 2 aur brackets list banate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09x02",
@@ -550,7 +560,8 @@
     "hi": "iter() बनाता है, next() आगे बढ़ाता है।",
     "hinglish": "iter() banata hai, next() aage badhata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09x03",
@@ -571,7 +582,8 @@
     "hi": "yield वाला कोई भी फ़ंक्शन बुलाने पर जनरेटर लौटाता है।",
     "hinglish": "yield wala koi bhi function bulane par generator return karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09x04",
@@ -592,7 +604,8 @@
     "hi": "StopIteration अंदर पकड़ा जाता है; break आपका अपना जल्दी निकलना है।",
     "hinglish": "StopIteration andar pakda jata hai; break aapka apna jaldi nikalna hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09x05",
@@ -613,7 +626,8 @@
     "hi": "for से पहले key: value, ब्रेसिज़ के अंदर।",
     "hinglish": "for se pehle key: value, braces ke andar."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09x06",
@@ -634,7 +648,8 @@
     "hi": "सिर्फ़ मौजूदा पंक्ति मेमोरी में होती है, इसलिए आकार मायने नहीं रखता।",
     "hinglish": "Sirf maujooda line memory me hoti hai, isliye size maayne nahi rakhta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -657,7 +672,8 @@
     "hi": "पहले अभिव्यक्ति, फिर लूप, फिर वैकल्पिक फ़िल्टर।",
     "hinglish": "Pehle expression, phir loop, phir optional filter."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s02",
@@ -678,7 +694,8 @@
     "hi": "बिना कोलन के ब्रेसिज़ set बनाते हैं, और set दोहराव हटा देता है।",
     "hinglish": "Bina colon ke braces set banate hain, aur set duplicate hata deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s03",
@@ -699,7 +716,8 @@
     "hi": "कॉम्प्रिहेंशन एक अभिव्यक्ति है। प्रिंट, append या शाखाएँ चाहिए तो लूप लिखें।",
     "hinglish": "Comprehension ek expression hai. Print, append ya branches chahiye to loop likho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s04",
@@ -720,7 +738,8 @@
     "hi": "StopIteration वह संकेत है जिसे for लूप पकड़कर चुपचाप रुकता है।",
     "hinglish": "StopIteration woh signal hai jise for loop pakadkar chupchap rukta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s05",
@@ -741,7 +760,8 @@
     "hi": "इटरेटर एक बार चलते हैं। नई बारी के लिए मूल इटरेबल पर फिर iter() बुलाएँ।",
     "hinglish": "Iterators ek baar chalte hain. Nayi baari ke liye original iterable par phir iter() bulao."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s06",
@@ -762,7 +782,8 @@
     "hi": "इसीलिए for लूप में हर इटरेबल चलता है, फ़ाइलें और जनरेटर भी।",
     "hinglish": "Isliye for loop me har iterable chalta hai, files aur generators bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s07",
@@ -783,7 +804,8 @@
     "hi": "अभी शरीर का कोड नहीं चलता। आपको ऑब्जेक्ट मिलता है जिस पर लूप चला सकते हैं या next() दे सकते हैं।",
     "hinglish": "Abhi body ka code nahi chalta. Aapko object milta hai jis par loop chala sakte ho ya next() de sakte ho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s08",
@@ -804,7 +826,8 @@
     "hi": "मेमोरी स्थिर रहती है: एक बार में एक आइटम, श्रृंखला कितनी भी लंबी हो।",
     "hinglish": "Memory sthir rehti hai: ek baar me ek item, sequence kitni bhi lambi ho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s09",
@@ -825,7 +848,8 @@
     "hi": "फ़्रेम रखा जाता है, इसलिए लोकल वेरिएबल yield के बीच बचे रहते हैं।",
     "hinglish": "Frame rakha jata hai, isliye local variables yield ke beech bache rehte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s10",
@@ -846,7 +870,8 @@
     "hi": "range(3) यानी 0, 1, 2 और ब्रेसिज़ सूची बनाते हैं।",
     "hinglish": "range(3) yani 0, 1, 2 aur brackets list banate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s11",
@@ -867,7 +892,8 @@
     "hi": "iter() बनाता है, next() आगे बढ़ाता है।",
     "hinglish": "iter() banata hai, next() aage badhata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s12",
@@ -888,7 +914,8 @@
     "hi": "yield वाला कोई भी फ़ंक्शन बुलाने पर जनरेटर लौटाता है।",
     "hinglish": "yield wala koi bhi function bulane par generator return karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s13",
@@ -909,7 +936,8 @@
     "hi": "StopIteration अंदर पकड़ा जाता है; break आपका अपना जल्दी निकलना है।",
     "hinglish": "StopIteration andar pakda jata hai; break aapka apna jaldi nikalna hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s14",
@@ -930,7 +958,8 @@
     "hi": "for से पहले key: value, ब्रेसिज़ के अंदर।",
     "hinglish": "for se pehle key: value, braces ke andar."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m09s15",
@@ -951,7 +980,8 @@
     "hi": "सिर्फ़ मौजूदा पंक्ति मेमोरी में होती है, इसलिए आकार मायने नहीं रखता।",
     "hinglish": "Sirf maujooda line memory me hoti hai, isliye size maayne nahi rakhta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🔁"

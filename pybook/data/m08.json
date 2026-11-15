@@ -113,7 +113,8 @@
         "hi": "self इंस्टेंस है। क्लास तक `type(self)` या क्लास के नाम से पहुँचते हैं।",
         "hinglish": "self instance hai. Class tak `type(self)` ya class ke naam se pahunchte hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c01l01q2",
@@ -134,7 +135,8 @@
         "hi": "ऑब्जेक्ट बनाने पर यह उन आर्ग्युमेंट के साथ चलता है जो आपने क्लास को दिए।",
         "hinglish": "Object banane par ye un arguments ke saath chalta hai jo aapne class ko diye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c01l01q3",
@@ -155,7 +157,8 @@
         "hi": "इंस्टेंस एट्रिब्यूट इंस्टेंस पर रहते हैं। सिर्फ़ क्लास-लेवल नाम साझा होते हैं, और इंस्टेंस पर असाइन करने से वे छिप जाते हैं।",
         "hinglish": "Instance attributes instance par rehte hain. Sirf class-level naam share hote hain, aur instance par assign karne se wo chhip jate hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -257,7 +260,8 @@
         "hi": "सिर्फ़ p1 को अपना एट्रिब्यूट मिला; p2 अभी भी क्लास वाला पढ़ता है।",
         "hinglish": "Sirf p1 ko apna attribute mila; p2 abhi bhi class wala padhta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c01l02q2",
@@ -278,7 +282,8 @@
         "hi": "एट्रिब्यूट खोज पहले इंस्टेंस देखती है, फिर क्लास।",
         "hinglish": "Attribute lookup pehle instance dekhti hai, phir class."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c01l02q3",
@@ -299,7 +304,8 @@
         "hi": "सभी ऑब्जेक्ट के लिए एक साझा सूची classic बग है। इसे __init__ में बनाएँ।",
         "hinglish": "Sab objects ke liye ek shared list classic bug hai. Ise __init__ me banao."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -414,7 +420,8 @@
         "hi": "इनहेरिटेंस अपने आप दोबारा इस्तेमाल है; override एक हिस्सा बदलता है।",
         "hinglish": "Inheritance apne aap dobara use hai; override ek hissa badalta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c02l03q2",
@@ -435,7 +442,8 @@
         "hi": "इसके बिना पैरेंट की तैयारी कभी नहीं चलती और वे एट्रिब्यूट गायब रहते हैं।",
         "hinglish": "Iske bina parent ki taiyari kabhi nahi chalti aur wo attributes ghayab rehte hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c02l03q3",
@@ -456,7 +464,8 @@
         "hi": "सबक्लास का ऑब्जेक्ट हर पैरेंट क्लास का भी ऑब्जेक्ट है।",
         "hinglish": "Subclass ka object har parent class ka bhi object hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -560,7 +569,8 @@
         "hi": "__str__ इंसानों के लिए; __repr__ डेवलपर के लिए और कंटेनर वही दिखाते हैं।",
         "hinglish": "__str__ insaanon ke liye; __repr__ developer ke liye aur containers wahi dikhate hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c02l04q2",
@@ -581,7 +591,8 @@
         "hi": "ये तीन डिफ़ॉल्ट हैं। frozen=True या order=True जैसे पैरामीटर से और मँगा सकते हैं।",
         "hinglish": "Ye teen default hain. frozen=True ya order=True jaise parameters se aur maang sakte ho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m08c02l04q3",
@@ -602,7 +613,8 @@
         "hi": "डिफ़ॉल्ट समानता पहचान है, इसलिए मान की समानता के लिए __eq__ चाहिए।",
         "hinglish": "Default equality identity hai, isliye value equality ke liye __eq__ chahiye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -634,7 +646,8 @@
     "hi": "पायथन में self परंपरा है; पहला पैरामीटर हमेशा इंस्टेंस पाता है।",
     "hinglish": "Python me self parampara hai; pehla parameter hamesha instance paata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08x02",
@@ -655,7 +668,8 @@
     "hi": "__init__ बनने के बाद ऑब्जेक्ट को तैयार करता है।",
     "hinglish": "__init__ banne ke baad object ko taiyar karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08x03",
@@ -676,7 +690,8 @@
     "hi": "कोष्ठक में नाम पैरेंट है।",
     "hinglish": "Koshtak me naam parent hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08x04",
@@ -697,7 +712,8 @@
     "hi": "यह पैरेंट के रूप तक पहुँचता है, इसी तरह बदलने की जगह बढ़ाते हैं।",
     "hinglish": "Ye parent ke roop tak pahunchta hai, isi tarah badalne ki jagah badhate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08x05",
@@ -718,7 +734,8 @@
     "hi": "dataclasses मॉड्यूल से @dataclass।",
     "hinglish": "dataclasses module se @dataclass."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08x06",
@@ -739,7 +756,8 @@
     "hi": "self पर असाइन करने से बदलाव उसी ऑब्जेक्ट पर रहता है।",
     "hinglish": "self par assign karne se badlav usi object par rehta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -762,7 +780,8 @@
     "hi": "self इंस्टेंस है। क्लास तक `type(self)` या क्लास के नाम से पहुँचते हैं।",
     "hinglish": "self instance hai. Class tak `type(self)` ya class ke naam se pahunchte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s02",
@@ -783,7 +802,8 @@
     "hi": "ऑब्जेक्ट बनाने पर यह उन आर्ग्युमेंट के साथ चलता है जो आपने क्लास को दिए।",
     "hinglish": "Object banane par ye un arguments ke saath chalta hai jo aapne class ko diye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s03",
@@ -804,7 +824,8 @@
     "hi": "इंस्टेंस एट्रिब्यूट इंस्टेंस पर रहते हैं। सिर्फ़ क्लास-लेवल नाम साझा होते हैं, और इंस्टेंस पर असाइन करने से वे छिप जाते हैं।",
     "hinglish": "Instance attributes instance par rehte hain. Sirf class-level naam share hote hain, aur instance par assign karne se wo chhip jate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s04",
@@ -825,7 +846,8 @@
     "hi": "सिर्फ़ p1 को अपना एट्रिब्यूट मिला; p2 अभी भी क्लास वाला पढ़ता है।",
     "hinglish": "Sirf p1 ko apna attribute mila; p2 abhi bhi class wala padhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s05",
@@ -846,7 +868,8 @@
     "hi": "एट्रिब्यूट खोज पहले इंस्टेंस देखती है, फिर क्लास।",
     "hinglish": "Attribute lookup pehle instance dekhti hai, phir class."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s06",
@@ -867,7 +890,8 @@
     "hi": "सभी ऑब्जेक्ट के लिए एक साझा सूची classic बग है। इसे __init__ में बनाएँ।",
     "hinglish": "Sab objects ke liye ek shared list classic bug hai. Ise __init__ me banao."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s07",
@@ -888,7 +912,8 @@
     "hi": "इनहेरिटेंस अपने आप दोबारा इस्तेमाल है; override एक हिस्सा बदलता है।",
     "hinglish": "Inheritance apne aap dobara use hai; override ek hissa badalta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s08",
@@ -909,7 +934,8 @@
     "hi": "इसके बिना पैरेंट की तैयारी कभी नहीं चलती और वे एट्रिब्यूट गायब रहते हैं।",
     "hinglish": "Iske bina parent ki taiyari kabhi nahi chalti aur wo attributes ghayab rehte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s09",
@@ -930,7 +956,8 @@
     "hi": "सबक्लास का ऑब्जेक्ट हर पैरेंट क्लास का भी ऑब्जेक्ट है।",
     "hinglish": "Subclass ka object har parent class ka bhi object hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s10",
@@ -951,7 +978,8 @@
     "hi": "__str__ इंसानों के लिए; __repr__ डेवलपर के लिए और कंटेनर वही दिखाते हैं।",
     "hinglish": "__str__ insaanon ke liye; __repr__ developer ke liye aur containers wahi dikhate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s11",
@@ -972,7 +1000,8 @@
     "hi": "ये तीन डिफ़ॉल्ट हैं। frozen=True या order=True जैसे पैरामीटर से और मँगा सकते हैं।",
     "hinglish": "Ye teen default hain. frozen=True ya order=True jaise parameters se aur maang sakte ho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s12",
@@ -993,7 +1022,8 @@
     "hi": "डिफ़ॉल्ट समानता पहचान है, इसलिए मान की समानता के लिए __eq__ चाहिए।",
     "hinglish": "Default equality identity hai, isliye value equality ke liye __eq__ chahiye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s13",
@@ -1014,7 +1044,8 @@
     "hi": "पायथन में self परंपरा है; पहला पैरामीटर हमेशा इंस्टेंस पाता है।",
     "hinglish": "Python me self parampara hai; pehla parameter hamesha instance paata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s14",
@@ -1035,7 +1066,8 @@
     "hi": "__init__ बनने के बाद ऑब्जेक्ट को तैयार करता है।",
     "hinglish": "__init__ banne ke baad object ko taiyar karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s15",
@@ -1056,7 +1088,8 @@
     "hi": "कोष्ठक में नाम पैरेंट है।",
     "hinglish": "Koshtak me naam parent hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s16",
@@ -1077,7 +1110,8 @@
     "hi": "यह पैरेंट के रूप तक पहुँचता है, इसी तरह बदलने की जगह बढ़ाते हैं।",
     "hinglish": "Ye parent ke roop tak pahunchta hai, isi tarah badalne ki jagah badhate hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s17",
@@ -1098,7 +1132,8 @@
     "hi": "dataclasses मॉड्यूल से @dataclass।",
     "hinglish": "dataclasses module se @dataclass."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m08s18",
@@ -1119,7 +1154,8 @@
     "hi": "self पर असाइन करने से बदलाव उसी ऑब्जेक्ट पर रहता है।",
     "hinglish": "self par assign karne se badlav usi object par rehta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🏗️"

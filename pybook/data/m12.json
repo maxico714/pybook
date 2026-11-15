@@ -128,7 +128,8 @@
         "hi": "शरीर चलाने के लिए इसे await करना (या शेड्यूल करना) होता है।",
         "hinglish": "Body chalane ke liye ise await karna (ya schedule karna) hota hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c01l01q2",
@@ -149,7 +150,8 @@
         "hi": "यही रुकना-फिर-चलना एक थ्रेड में समवर्ती काम संभव बनाता है।",
         "hinglish": "Yahi rukna-phir-chalna ek thread me concurrent kaam sambhav banata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c01l01q3",
@@ -170,7 +172,8 @@
         "hi": "gather स्वतंत्र काम एक साथ चलाता है और सारे परिणाम एक साथ देता है।",
         "hinglish": "gather independent kaam ek saath chalata hai aur saare results ek saath deta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -286,7 +289,8 @@
         "hi": "हेडर पंक्ति बाद की हर पंक्ति की कुंजियाँ बनती है।",
         "hinglish": "Header row baad ki har row ki keys banti hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c01l02q2",
@@ -307,7 +311,8 @@
         "hi": "कोटेशन के नियम ही csv मॉड्यूल होने की पूरी वजह हैं।",
         "hinglish": "Quoting ke niyam hi csv module hone ki poori wajah hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c01l02q3",
@@ -328,7 +333,8 @@
         "hi": "संख्याएँ चाहिए तो int() या float() से स्पष्ट रूप से बदलें।",
         "hinglish": "Numbers chahiye to int() ya float() se saaf roop se badlo."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -439,7 +445,8 @@
         "hi": "`test` उपसर्ग ही खोज का नियम है।",
         "hinglish": "`test` prefix hi khoj ka niyam hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c02l03q2",
@@ -460,7 +467,8 @@
         "hi": "assertRaises गलत इनपुट के समझौते को लिखता और तय करता है।",
         "hinglish": "assertRaises galat input ke contract ko likhta aur tay karta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c02l03q3",
@@ -481,7 +489,8 @@
         "hi": "लोडर क्लास से सूट बनाता है; रनर उसे चलाता है। यह नोटबुक और फ़ाइल दोनों में वैसे ही चलता है।",
         "hinglish": "Loader class se suite banata hai; runner use chalata hai. Ye notebook aur file dono me waise hi chalta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -583,7 +592,8 @@
         "hi": "asdict सादा dict देता है, json.dumps टेक्स्ट।",
         "hinglish": "asdict saada dict deta hai, json.dumps text."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c02l04q2",
@@ -604,7 +614,8 @@
         "hi": "संग्रह दो पंक्तियों से दो हज़ार तक बिना कोड बदले चलता है।",
         "hinglish": "Collection do rows se do hazaar tak bina code badle chalta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m12c02l04q3",
@@ -625,7 +636,8 @@
         "hi": "max आइटम लौटाता है, कुंजी का मान नहीं। सिर्फ़ नाम के लिए [\"title\"] जोड़ें।",
         "hinglish": "max item return karta hai, key ki value nahi. Sirf naam ke liye [\"title\"] jodo."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -657,7 +669,8 @@
     "hi": "बुलाने पर await करने लायक कोरूटीन ऑब्जेक्ट मिलता है।",
     "hinglish": "Bulane par await karne layak coroutine object milta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12x02",
@@ -678,7 +691,8 @@
     "hi": "DictReader हेडर पंक्ति को कुंजियाँ बनाता है।",
     "hinglish": "DictReader header row ko keys banata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12x03",
@@ -699,7 +713,8 @@
     "hi": "इसे विफल होने वाली कॉल के चारों ओर कॉन्टेक्स्ट मैनेजर की तरह इस्तेमाल करें।",
     "hinglish": "Ise fail hone wali call ke chaaron or context manager ki tarah use karo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12x04",
@@ -720,7 +735,8 @@
     "hi": "पहले लोडर फिर रनर: स्पष्ट और नोटबुक-सुरक्षित।",
     "hinglish": "Pehle loader phir runner: saaf aur notebook-safe."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12x05",
@@ -741,7 +757,8 @@
     "hi": "asdict नेस्टेड डेटाक्लास में भी जाता है।",
     "hinglish": "asdict nested dataclasses me bhi jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12x06",
@@ -762,7 +779,8 @@
     "hi": "स्वतंत्र काम साथ चलता है; निर्भर काम क्रम में await होता है।",
     "hinglish": "Independent kaam saath chalta hai; dependent kaam kram me await hota hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -785,7 +803,8 @@
     "hi": "शरीर चलाने के लिए इसे await करना (या शेड्यूल करना) होता है।",
     "hinglish": "Body chalane ke liye ise await karna (ya schedule karna) hota hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s02",
@@ -806,7 +825,8 @@
     "hi": "यही रुकना-फिर-चलना एक थ्रेड में समवर्ती काम संभव बनाता है।",
     "hinglish": "Yahi rukna-phir-chalna ek thread me concurrent kaam sambhav banata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s03",
@@ -827,7 +847,8 @@
     "hi": "gather स्वतंत्र काम एक साथ चलाता है और सारे परिणाम एक साथ देता है।",
     "hinglish": "gather independent kaam ek saath chalata hai aur saare results ek saath deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s04",
@@ -848,7 +869,8 @@
     "hi": "हेडर पंक्ति बाद की हर पंक्ति की कुंजियाँ बनती है।",
     "hinglish": "Header row baad ki har row ki keys banti hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s05",
@@ -869,7 +891,8 @@
     "hi": "कोटेशन के नियम ही csv मॉड्यूल होने की पूरी वजह हैं।",
     "hinglish": "Quoting ke niyam hi csv module hone ki poori wajah hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s06",
@@ -890,7 +913,8 @@
     "hi": "संख्याएँ चाहिए तो int() या float() से स्पष्ट रूप से बदलें।",
     "hinglish": "Numbers chahiye to int() ya float() se saaf roop se badlo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s07",
@@ -911,7 +935,8 @@
     "hi": "`test` उपसर्ग ही खोज का नियम है।",
     "hinglish": "`test` prefix hi khoj ka niyam hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s08",
@@ -932,7 +957,8 @@
     "hi": "assertRaises गलत इनपुट के समझौते को लिखता और तय करता है।",
     "hinglish": "assertRaises galat input ke contract ko likhta aur tay karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s09",
@@ -953,7 +979,8 @@
     "hi": "लोडर क्लास से सूट बनाता है; रनर उसे चलाता है। यह नोटबुक और फ़ाइल दोनों में वैसे ही चलता है।",
     "hinglish": "Loader class se suite banata hai; runner use chalata hai. Ye notebook aur file dono me waise hi chalta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s10",
@@ -974,7 +1001,8 @@
     "hi": "asdict सादा dict देता है, json.dumps टेक्स्ट।",
     "hinglish": "asdict saada dict deta hai, json.dumps text."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s11",
@@ -995,7 +1023,8 @@
     "hi": "संग्रह दो पंक्तियों से दो हज़ार तक बिना कोड बदले चलता है।",
     "hinglish": "Collection do rows se do hazaar tak bina code badle chalta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s12",
@@ -1016,7 +1045,8 @@
     "hi": "max आइटम लौटाता है, कुंजी का मान नहीं। सिर्फ़ नाम के लिए [\"title\"] जोड़ें।",
     "hinglish": "max item return karta hai, key ki value nahi. Sirf naam ke liye [\"title\"] jodo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s13",
@@ -1037,7 +1067,8 @@
     "hi": "बुलाने पर await करने लायक कोरूटीन ऑब्जेक्ट मिलता है।",
     "hinglish": "Bulane par await karne layak coroutine object milta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s14",
@@ -1058,7 +1089,8 @@
     "hi": "DictReader हेडर पंक्ति को कुंजियाँ बनाता है।",
     "hinglish": "DictReader header row ko keys banata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s15",
@@ -1079,7 +1111,8 @@
     "hi": "इसे विफल होने वाली कॉल के चारों ओर कॉन्टेक्स्ट मैनेजर की तरह इस्तेमाल करें।",
     "hinglish": "Ise fail hone wali call ke chaaron or context manager ki tarah use karo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s16",
@@ -1100,7 +1133,8 @@
     "hi": "पहले लोडर फिर रनर: स्पष्ट और नोटबुक-सुरक्षित।",
     "hinglish": "Pehle loader phir runner: saaf aur notebook-safe."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s17",
@@ -1121,7 +1155,8 @@
     "hi": "asdict नेस्टेड डेटाक्लास में भी जाता है।",
     "hinglish": "asdict nested dataclasses me bhi jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m12s18",
@@ -1142,7 +1177,8 @@
     "hi": "स्वतंत्र काम साथ चलता है; निर्भर काम क्रम में await होता है।",
     "hinglish": "Independent kaam saath chalta hai; dependent kaam kram me await hota hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🚀"

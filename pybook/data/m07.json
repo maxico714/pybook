@@ -129,7 +129,8 @@
         "hi": "सादा `import` मॉड्यूल को नेमस्पेस बनाए रखता है, इसलिए उपसर्ग चाहिए।",
         "hinglish": "Saada `import` module ko namespace banaye rakhta hai, isliye prefix chahiye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c01l01q2",
@@ -150,7 +151,8 @@
         "hi": "`as` सिर्फ़ स्थानीय नाम बदलता है जिससे आप आयातित चीज़ को बुलाते हैं।",
         "hinglish": "`as` sirf local naam badalta hai jisse aap imported cheez ko bulate ho."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c01l01q3",
@@ -171,7 +173,8 @@
         "hi": "लोकल import महँगा मॉड्यूल उन रास्तों पर लोड नहीं करता जहाँ वह चाहिए ही नहीं। यह निर्भरता छिपा भी देता है, इसलिए सोच-समझकर करें।",
         "hinglish": "Local import mehnga module un raaston par load nahi karta jahan woh chahiye hi nahi. Ye dependency chhipa bhi deta hai, isliye soch-samajh kar karo."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -274,7 +277,8 @@
         "hi": "यही पूरा मक़सद है: निकास कदम (आमतौर पर close()) सफलता और विफलता दोनों पर चलता है।",
         "hinglish": "Yahi poora maksad hai: exit step (aam taur par close()) safalta aur vifalta dono par chalta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c01l02q2",
@@ -295,7 +299,8 @@
         "hi": "\"w\" काट देता है। \"a\" जोड़ता है, \"r\" पढ़ता है।",
         "hinglish": "\"w\" kaat deta hai. \"a\" jodta hai, \"r\" padhta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c01l02q3",
@@ -316,7 +321,8 @@
         "hi": "Windows और Linux का डिफ़ॉल्ट एक जैसा नहीं है। एनकोडिंग लिखने से हिंदी, इमोजी और एक्सेंट वाला टेक्स्ट हर जगह सही रहता है।",
         "hinglish": "Windows aur Linux ka default ek jaisa nahi hai. Encoding likhne se Hindi, emoji aur accented text har jagah sahi rehta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -427,7 +433,8 @@
         "hi": "आपको सूची मिलती है, हर पंक्ति एक आइटम, और अंत का \\n हट जाता है।",
         "hinglish": "Aapko list milti hai, har line ek item, aur end ka \\n hat jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c02l03q2",
@@ -448,7 +455,8 @@
         "hi": "\"w\" का मतलब शुरू से लिखना। पुरानी सामग्री रखनी हो तो \"a\" इस्तेमाल करें।",
         "hinglish": "\"w\" ka matlab shuru se likhna. Purani content rakhni ho to \"a\" use karo."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c02l03q3",
@@ -469,7 +477,8 @@
         "hi": "UTF-8 सुरक्षित साझा विकल्प है; छोड़ने पर Windows पर अक्षर बिगड़ सकते हैं।",
         "hinglish": "UTF-8 safe common choice hai; chhodne par Windows par characters bigad sakte hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -584,7 +593,8 @@
         "hi": "`dumps` = dump string, `loads` = load string. फ़ाइल वाले रूप में s हट जाता है।",
         "hinglish": "`dumps` = dump string, `loads` = load string. File wale roop me s hat jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c02l04q2",
@@ -605,7 +615,8 @@
         "hi": "null None बनता है; true/false True/False बनते हैं।",
         "hinglish": "null None banta hai; true/false True/False bante hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m07c02l04q3",
@@ -626,7 +637,8 @@
         "hi": "pathlib Windows के बैकस्लैश और POSIX के स्लैश संभालता है, और .name, .parent, .suffix मुफ़्त देता है।",
         "hinglish": "pathlib Windows ke backslash aur POSIX ke slash sambhalta hai, aur .name, .parent, .suffix muft deta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -658,7 +670,8 @@
     "hi": "सिर्फ़ सादा `import math` हर नाम के आगे `math.` रखता है।",
     "hinglish": "Sirf saada `import math` har naam ke aage `math.` rakhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07x02",
@@ -679,7 +692,8 @@
     "hi": "\"a\" जोड़ता है और ज़रूरत हो तो फ़ाइल बनाता है।",
     "hinglish": "\"a\" jodta hai aur zaroorat ho to file banata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07x03",
@@ -700,7 +714,8 @@
     "hi": "dumps = string में dump। load/loads उलटी दिशा हैं।",
     "hinglish": "dumps = string me dump. load/loads ulti disha hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07x04",
@@ -721,7 +736,8 @@
     "hi": "कॉन्टेक्स्ट मैनेजर निकास पर उसे बंद करता है, एरर पर भी।",
     "hinglish": "Context manager nikaas par use band karta hai, error par bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07x05",
@@ -742,7 +758,8 @@
     "hi": "Path पर `/` ऑपरेटर प्लेटफ़ॉर्म विभाजक से हिस्से जोड़ता है।",
     "hinglish": "Path par `/` operator platform separator se hisse jodta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07x06",
@@ -763,7 +780,8 @@
     "hi": "read_text एनकोडिंग लिखता है और फ़ाइल बंद कर देता है।",
     "hinglish": "read_text encoding likhta hai aur file band kar deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -786,7 +804,8 @@
     "hi": "सादा `import` मॉड्यूल को नेमस्पेस बनाए रखता है, इसलिए उपसर्ग चाहिए।",
     "hinglish": "Saada `import` module ko namespace banaye rakhta hai, isliye prefix chahiye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s02",
@@ -807,7 +826,8 @@
     "hi": "`as` सिर्फ़ स्थानीय नाम बदलता है जिससे आप आयातित चीज़ को बुलाते हैं।",
     "hinglish": "`as` sirf local naam badalta hai jisse aap imported cheez ko bulate ho."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s03",
@@ -828,7 +848,8 @@
     "hi": "लोकल import महँगा मॉड्यूल उन रास्तों पर लोड नहीं करता जहाँ वह चाहिए ही नहीं। यह निर्भरता छिपा भी देता है, इसलिए सोच-समझकर करें।",
     "hinglish": "Local import mehnga module un raaston par load nahi karta jahan woh chahiye hi nahi. Ye dependency chhipa bhi deta hai, isliye soch-samajh kar karo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s04",
@@ -849,7 +870,8 @@
     "hi": "यही पूरा मक़सद है: निकास कदम (आमतौर पर close()) सफलता और विफलता दोनों पर चलता है।",
     "hinglish": "Yahi poora maksad hai: exit step (aam taur par close()) safalta aur vifalta dono par chalta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s05",
@@ -870,7 +892,8 @@
     "hi": "\"w\" काट देता है। \"a\" जोड़ता है, \"r\" पढ़ता है।",
     "hinglish": "\"w\" kaat deta hai. \"a\" jodta hai, \"r\" padhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s06",
@@ -891,7 +914,8 @@
     "hi": "Windows और Linux का डिफ़ॉल्ट एक जैसा नहीं है। एनकोडिंग लिखने से हिंदी, इमोजी और एक्सेंट वाला टेक्स्ट हर जगह सही रहता है।",
     "hinglish": "Windows aur Linux ka default ek jaisa nahi hai. Encoding likhne se Hindi, emoji aur accented text har jagah sahi rehta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s07",
@@ -912,7 +936,8 @@
     "hi": "आपको सूची मिलती है, हर पंक्ति एक आइटम, और अंत का \\n हट जाता है।",
     "hinglish": "Aapko list milti hai, har line ek item, aur end ka \\n hat jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s08",
@@ -933,7 +958,8 @@
     "hi": "\"w\" का मतलब शुरू से लिखना। पुरानी सामग्री रखनी हो तो \"a\" इस्तेमाल करें।",
     "hinglish": "\"w\" ka matlab shuru se likhna. Purani content rakhni ho to \"a\" use karo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s09",
@@ -954,7 +980,8 @@
     "hi": "UTF-8 सुरक्षित साझा विकल्प है; छोड़ने पर Windows पर अक्षर बिगड़ सकते हैं।",
     "hinglish": "UTF-8 safe common choice hai; chhodne par Windows par characters bigad sakte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s10",
@@ -975,7 +1002,8 @@
     "hi": "`dumps` = dump string, `loads` = load string. फ़ाइल वाले रूप में s हट जाता है।",
     "hinglish": "`dumps` = dump string, `loads` = load string. File wale roop me s hat jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s11",
@@ -996,7 +1024,8 @@
     "hi": "null None बनता है; true/false True/False बनते हैं।",
     "hinglish": "null None banta hai; true/false True/False bante hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s12",
@@ -1017,7 +1046,8 @@
     "hi": "pathlib Windows के बैकस्लैश और POSIX के स्लैश संभालता है, और .name, .parent, .suffix मुफ़्त देता है।",
     "hinglish": "pathlib Windows ke backslash aur POSIX ke slash sambhalta hai, aur .name, .parent, .suffix muft deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s13",
@@ -1038,7 +1068,8 @@
     "hi": "सिर्फ़ सादा `import math` हर नाम के आगे `math.` रखता है।",
     "hinglish": "Sirf saada `import math` har naam ke aage `math.` rakhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s14",
@@ -1059,7 +1090,8 @@
     "hi": "\"a\" जोड़ता है और ज़रूरत हो तो फ़ाइल बनाता है।",
     "hinglish": "\"a\" jodta hai aur zaroorat ho to file banata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s15",
@@ -1080,7 +1112,8 @@
     "hi": "dumps = string में dump। load/loads उलटी दिशा हैं।",
     "hinglish": "dumps = string me dump. load/loads ulti disha hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s16",
@@ -1101,7 +1134,8 @@
     "hi": "कॉन्टेक्स्ट मैनेजर निकास पर उसे बंद करता है, एरर पर भी।",
     "hinglish": "Context manager nikaas par use band karta hai, error par bhi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s17",
@@ -1122,7 +1156,8 @@
     "hi": "Path पर `/` ऑपरेटर प्लेटफ़ॉर्म विभाजक से हिस्से जोड़ता है।",
     "hinglish": "Path par `/` operator platform separator se hisse jodta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m07s18",
@@ -1143,7 +1178,8 @@
     "hi": "read_text एनकोडिंग लिखता है और फ़ाइल बंद कर देता है।",
     "hinglish": "read_text encoding likhta hai aur file band kar deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "📦"

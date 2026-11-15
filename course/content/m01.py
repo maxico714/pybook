@@ -96,19 +96,29 @@ l01 = lesson(
                 "print karne ke liye quotes chahiye hote.",
             ),
             "quotes",
+            code="print(3 + 4)",
         ),
         quiz(
-            L("Which line is a comment?", "कौन सी लाइन कमेंट है?", "Kaun si line comment hai?"),
-            ["print('hi')", "# print('hi')", "print('#hi')", "'# print hi'"],
+            L(
+                "Which line is a comment?",
+                "कौन सी लाइन कमेंट है?",
+                "Kaun si line comment hai?",
+            ),
+            ["Line 1", "Line 2", "Line 3", "Lines 2 and 3"],
             "b",
             L(
-                "A comment starts with #. Inside quotes the # is just text, which is "
-                "why option c prints it.",
-                "# से कमेंट शुरू होता है। कोटेशन के अंदर # सिर्फ़ टेक्स्ट है, इसलिए "
-                "विकल्प c उसे प्रिंट करता है।",
-                "# se comment shuru hota hai. Quotes ke andar # sirf text hai, isliye "
-                "option c use print karta hai.",
+                "A comment starts with #, and Python skips the whole line. Line 2 is "
+                "the only comment. On line 3 the # sits inside quotes, so it is just "
+                "text and print('#hi') really prints #hi.",
+                "# से कमेंट शुरू होता है और पायथन पूरी लाइन छोड़ देता है। सिर्फ़ लाइन 2 "
+                "कमेंट है। लाइन 3 में # कोटेशन के अंदर है, इसलिए वह सिर्फ़ टेक्स्ट है और "
+                "print('#hi') सचमुच #hi प्रिंट करता है।",
+                "# se comment shuru hota hai aur Python poori line skip karta hai. "
+                "Sirf line 2 comment hai. Line 3 me # quotes ke andar hai, isliye wo "
+                "sirf text hai aur print('#hi') sach me #hi print karta hai.",
             ),
+            "string-hash",
+            code="print('hi')\n# print('hi')\nprint('#hi')",
         ),
         quiz(
             L(
@@ -347,6 +357,7 @@ l03 = lesson(
                 "rakhta hai. Right side hamesha pehle solve hoti hai.",
             ),
             "assignment-vs-equals",
+            code="x = 3\nx = x + 5",
         ),
         quiz(
             L(

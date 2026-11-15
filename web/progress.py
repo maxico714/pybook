@@ -216,6 +216,7 @@ class Progress:
                     "given": picked,
                     "answer": expected,
                     "why": self.catalog.t(item.get("why"), self.language),
+                    "code": item.get("code", ""),
                 }
             )
         return _ratio(correct, len(items)), correct, detail

@@ -67,7 +67,12 @@ class Exercise(_Record):
 
 @dataclass
 class QuizItem(_Record):
-    """One multiple-choice question.  ``answer`` is a letter a/b/c/d."""
+    """One multiple-choice question.  ``answer`` is a letter a/b/c/d.
+
+    ``code`` holds a snippet the question talks about.  A question must never
+    say "this program" unless the learner can see that program, so any item
+    that refers to code carries it here and every renderer shows it verbatim.
+    """
 
     id: str
     question: dict[str, str]
@@ -75,6 +80,7 @@ class QuizItem(_Record):
     answer: str
     why: dict[str, str]
     misconception: str = ""
+    code: str = ""
 
 
 @dataclass

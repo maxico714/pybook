@@ -79,6 +79,63 @@ def test_every_example_has_a_title_and_exercises_have_checks():
             assert exercise.prompt.get("en") and exercise.prompt.get("hinglish"), exercise.id
 
 
+#: a question that talks about code the learner cannot see is unanswerable
+UNSEEN_CODE = (
+    "this program",
+    "these lines",
+    "this line",
+    "which line",
+    "this loop",
+    "this code",
+    "this function",
+    "what is wrong here",
+)
+
+#: these ask "which line ..." and their *options* are the lines themselves
+SELF_CONTAINED = {"m01x05", "m07c01l02q2"}
+
+
+def _all_quiz_items():
+    for module in COURSE.modules:
+        for chapter in module.chapters:
+            for lesson in chapter.lessons:
+                for quiz_item in lesson.quiz:
+                    yield quiz_item
+        for quiz_item in module.exam:
+            yield quiz_item
+
+
+def test_questions_that_talk_about_code_show_it():
+    """No question may say "this program" while the program is invisible."""
+    offenders = [
+        item.id
+        for item in _all_quiz_items()
+        if not item.code
+        and item.id not in SELF_CONTAINED
+        and any(phrase in item.question.get("en", "").lower() for phrase in UNSEEN_CODE)
+    ]
+    assert not offenders, "questions without their code: %s" % ", ".join(offenders)
+
+
+def test_quiz_code_is_plain_and_readable():
+    for item in _all_quiz_items():
+        if not item.code:
+            continue
+        assert "\t" not in item.code, f"{item.id}: tab in code"
+        assert item.code == item.code.strip("\n"), f"{item.id}: stray blank lines"
+        assert item.code.strip(), f"{item.id}: empty code"
+        for line in item.code.splitlines():
+            assert len(line) <= 80, f"{item.id}: line too long: {line!r}"
+
+
+def test_quiz_code_reaches_the_data_files():
+    """The builder must serialise ``code`` or the browser never sees it."""
+    module = json.loads((ROOT / "pybook" / "data" / "m01.json").read_text(encoding="utf-8"))
+    first = module["chapters"][0]["lessons"][0]["quiz"][0]
+    assert first["code"] == "print(3 + 4)", first
+    assert "code" in module["exam"][0], "exam items must carry the field too"
+
+
 # --------------------------------------------------------------- truthfulness
 
 

@@ -60,13 +60,16 @@
         {% set letters = "abcdef" %}
         {% for item in items %}
           <fieldset class="q" id="q{{ item.number }}">
-            <legend><span class="qnum">{{ item.number }}</span> {{ item.question }}</legend>
+            <legend><span class="qnum">{{ item.number }}</span> {{ item.question|inline|safe }}</legend>
+            {% if item.code %}
+              <pre class="q-code" aria-label="Code for question {{ item.number }}"><code>{{ item.code }}</code></pre>
+            {% endif %}
             {% for option in item.options %}
               <label class="opt" :class="optionClass('q{{ item.number }}', '{{ letters[loop.index0] }}')">
                 <input type="radio" name="q{{ item.number }}" value="{{ letters[loop.index0] }}"
                        x-model="answers.q{{ item.number }}">
                 <span class="letter">{{ letters[loop.index0]|upper }}</span>
-                <span class="opt-text">{{ option }}</span>
+                <span class="opt-text">{{ option|inline|safe }}</span>
               </label>
             {% endfor %}
           </fieldset>

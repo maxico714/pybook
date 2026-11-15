@@ -521,6 +521,12 @@ body.no-rail .page { max-width: 1080px; }
 .cm-s-material-darker.CodeMirror { background: var(--code); }
 
 /* -------------------------------------------------------------------- quiz */
+.quiz-head { display: flex; align-items: center; gap: 12px; margin: 2px 0 14px; }
+.quiz-bar { flex: 1; min-width: 80px; height: 6px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.quiz-bar span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: inherit; transition: width .25s var(--ease); }
+.quiz-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.q-code { margin: 8px 0 10px; padding: 11px 13px; border-radius: 10px; background: var(--code); border: 1px solid rgba(255, 255, 255, .08); overflow-x: auto; }
+.q-code code { font-family: var(--mono); font-size: .84rem; line-height: 1.55; color: #e6e6f0; white-space: pre; }
 .q { border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px; margin: 0 0 12px; background: var(--surface-2); }
 .q legend { display: flex; gap: 10px; align-items: baseline; font-weight: 650; padding: 0 4px; }
 .qnum { display: grid; place-items: center; width: 23px; height: 23px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); font-size: .74rem; font-weight: 800; flex: none; color: var(--muted); }

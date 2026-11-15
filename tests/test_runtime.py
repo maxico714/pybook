@@ -285,6 +285,26 @@ def test_a_lesson_shows_its_code_and_expected_output(course):
     assert ">1<" in html or "1</div>" in html
 
 
+def test_the_notebook_quiz_shows_the_code_it_asks_about(tmp_path):
+    """Same promise as the web app: no invisible 'this program'."""
+    data = _curriculum()
+    lesson = data["modules"][0]["chapters"][0]["lessons"][0]
+    lesson["quiz"][0]["code"] = "print(3 + 4)"
+    html = Course(data, progress_path=tmp_path / "p.json").render_lesson("m01c01l01")
+    assert "print(3 + 4)" in html
+    assert 'class="pc-code"' in html
+
+
+def test_a_quiz_code_block_is_html_escaped(tmp_path):
+    data = _curriculum()
+    lesson = data["modules"][0]["chapters"][0]["lessons"][0]
+    lesson["quiz"][0]["code"] = "<script>alert(1)</script>"
+    runtime = Course(data, progress_path=tmp_path / "p.json")
+    html = runtime.render_lesson("m01c01l01")
+    assert "<script>alert(1)</script>" not in html
+    assert "&lt;script&gt;" in html
+
+
 def test_lesson_text_is_html_escaped(tmp_path):
     data = _curriculum()
     lesson = data["modules"][0]["chapters"][0]["lessons"][0]

@@ -128,7 +128,8 @@
         "hi": "हिंट लागू नहीं होते। उसके लिए mypy या pyright जैसा चेकर इस्तेमाल करें।",
         "hinglish": "Hints laagu nahi hote. Uske liye mypy ya pyright jaisa checker use karo."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c01l01q2",
@@ -149,7 +150,8 @@
         "hi": "यह कोई काम करता है (प्रिंट, सेव) और कोई मान नहीं लौटाता।",
         "hinglish": "Ye koi kaam karta hai (print, save) aur koi value nahi return karta."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c01l01q3",
@@ -170,7 +172,8 @@
         "hi": "`int | None` 3.10 से चलता है। Union और Optional भी चलते हैं और पुराने कोड में आम हैं।",
         "hinglish": "`int | None` 3.10 se chalta hai. Union aur Optional bhi chalte hain aur purane code me aam hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -271,7 +274,8 @@
         "hi": "याद रखे वेरिएबल फ़ंक्शन की __closure__ कोशिकाओं में रहते हैं।",
         "hinglish": "Yaad rakhe variables function ki __closure__ cells me rehte hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c01l02q2",
@@ -292,7 +296,8 @@
         "hi": "असाइनमेंट लोकल नाम बना देता है जब तक आप न बताएँ कि वह कहाँ रहता है।",
         "hinglish": "Assignment local naam bana deta hai jab tak aap na batayein ki woh kahan rehta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c01l02q3",
@@ -313,7 +318,8 @@
         "hi": "फ़ंक्शन ऑब्जेक्ट हैं: कॉलबैक की सूची सामान्य पायथन पैटर्न है।",
         "hinglish": "Functions objects hain: callbacks ki list normal Python pattern hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -424,7 +430,8 @@
         "hi": "नाम उस चीज़ से जुड़ जाता है जो डेकोरेटर लौटाता है।",
         "hinglish": "Naam us cheez se jud jata hai jo decorator return karta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c02l03q2",
@@ -445,7 +452,8 @@
         "hi": "इसके बिना हर लिपटा फ़ंक्शन 'wrapper' नाम का हो जाता है, जिससे लॉग और टेस्ट में असली फ़ंक्शन छिप जाता है।",
         "hinglish": "Iske bina har wrapped function 'wrapper' naam ka ho jata hai, jisse log aur test me asli function chhip jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c02l03q3",
@@ -466,7 +474,8 @@
         "hi": "सामान्य wrapper को वही आर्ग्युमेंट आगे भेजने होते हैं जो बुलाने वाले ने दिए।",
         "hinglish": "Saamanya wrapper ko wahi arguments aage bhejne hote hain jo caller ne diye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -572,7 +581,8 @@
         "hi": "यह डिफ़ॉल्ट शाखा है, और काम का होने के लिए अंत में होनी चाहिए।",
         "hinglish": "Ye default branch hai, aur kaam ka hone ke liye end me honi chahiye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c02l04q2",
@@ -593,7 +603,8 @@
         "hi": "पैटर्न में सादा नाम कैप्चर करता है; शाब्दिक मान बिल्कुल मिलना चाहिए।",
         "hinglish": "Pattern me saada naam capture karta hai; literal value bilkul milna chahiye."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m10c02l04q3",
@@ -614,7 +625,8 @@
         "hi": "पैटर्न मिलना चाहिए और गार्ड सच होना चाहिए; वरना अगला case देखा जाता है।",
         "hinglish": "Pattern milna chahiye aur guard sach hona chahiye; warna agla case dekha jata hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -646,7 +658,8 @@
     "hi": "वे बाहरी टूल जाँचते हैं, इंटरप्रेटर नहीं।",
     "hinglish": "Wo baahari tools jaanchte hain, interpreter nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10x02",
@@ -667,7 +680,8 @@
     "hi": "आमतौर पर मूल के चारों ओर wrapper।",
     "hinglish": "Aam taur par mool ke chaaron or wrapper."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10x03",
@@ -688,7 +702,8 @@
     "hi": "type स्टेटमेंट, 3.12 में नया।",
     "hinglish": "type statement, 3.12 me naya."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10x04",
@@ -709,7 +724,8 @@
     "hi": "वे वेरिएबल __closure__ कोशिकाओं में रहते हैं।",
     "hinglish": "Wo variables __closure__ cells me rehte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10x05",
@@ -730,7 +746,8 @@
     "hi": "वाइल्डकार्ड सब पकड़ता है, इसलिए उसके बाद कुछ नहीं पहुँचता।",
     "hinglish": "Wildcard sab pakadta hai, isliye uske baad kuch nahi pahunchta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10x06",
@@ -751,7 +768,8 @@
     "hi": "यह लिपटे फ़ंक्शन को लॉग और ट्रेसबैक में पहचानने लायक रखता है।",
     "hinglish": "Ye wrapped function ko log aur traceback me pehchanne layak rakhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -774,7 +792,8 @@
     "hi": "हिंट लागू नहीं होते। उसके लिए mypy या pyright जैसा चेकर इस्तेमाल करें।",
     "hinglish": "Hints laagu nahi hote. Uske liye mypy ya pyright jaisa checker use karo."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s02",
@@ -795,7 +814,8 @@
     "hi": "यह कोई काम करता है (प्रिंट, सेव) और कोई मान नहीं लौटाता।",
     "hinglish": "Ye koi kaam karta hai (print, save) aur koi value nahi return karta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s03",
@@ -816,7 +836,8 @@
     "hi": "`int | None` 3.10 से चलता है। Union और Optional भी चलते हैं और पुराने कोड में आम हैं।",
     "hinglish": "`int | None` 3.10 se chalta hai. Union aur Optional bhi chalte hain aur purane code me aam hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s04",
@@ -837,7 +858,8 @@
     "hi": "याद रखे वेरिएबल फ़ंक्शन की __closure__ कोशिकाओं में रहते हैं।",
     "hinglish": "Yaad rakhe variables function ki __closure__ cells me rehte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s05",
@@ -858,7 +880,8 @@
     "hi": "असाइनमेंट लोकल नाम बना देता है जब तक आप न बताएँ कि वह कहाँ रहता है।",
     "hinglish": "Assignment local naam bana deta hai jab tak aap na batayein ki woh kahan rehta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s06",
@@ -879,7 +902,8 @@
     "hi": "फ़ंक्शन ऑब्जेक्ट हैं: कॉलबैक की सूची सामान्य पायथन पैटर्न है।",
     "hinglish": "Functions objects hain: callbacks ki list normal Python pattern hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s07",
@@ -900,7 +924,8 @@
     "hi": "नाम उस चीज़ से जुड़ जाता है जो डेकोरेटर लौटाता है।",
     "hinglish": "Naam us cheez se jud jata hai jo decorator return karta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s08",
@@ -921,7 +946,8 @@
     "hi": "इसके बिना हर लिपटा फ़ंक्शन 'wrapper' नाम का हो जाता है, जिससे लॉग और टेस्ट में असली फ़ंक्शन छिप जाता है।",
     "hinglish": "Iske bina har wrapped function 'wrapper' naam ka ho jata hai, jisse log aur test me asli function chhip jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s09",
@@ -942,7 +968,8 @@
     "hi": "सामान्य wrapper को वही आर्ग्युमेंट आगे भेजने होते हैं जो बुलाने वाले ने दिए।",
     "hinglish": "Saamanya wrapper ko wahi arguments aage bhejne hote hain jo caller ne diye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s10",
@@ -963,7 +990,8 @@
     "hi": "यह डिफ़ॉल्ट शाखा है, और काम का होने के लिए अंत में होनी चाहिए।",
     "hinglish": "Ye default branch hai, aur kaam ka hone ke liye end me honi chahiye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s11",
@@ -984,7 +1012,8 @@
     "hi": "पैटर्न में सादा नाम कैप्चर करता है; शाब्दिक मान बिल्कुल मिलना चाहिए।",
     "hinglish": "Pattern me saada naam capture karta hai; literal value bilkul milna chahiye."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s12",
@@ -1005,7 +1034,8 @@
     "hi": "पैटर्न मिलना चाहिए और गार्ड सच होना चाहिए; वरना अगला case देखा जाता है।",
     "hinglish": "Pattern milna chahiye aur guard sach hona chahiye; warna agla case dekha jata hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s13",
@@ -1026,7 +1056,8 @@
     "hi": "वे बाहरी टूल जाँचते हैं, इंटरप्रेटर नहीं।",
     "hinglish": "Wo baahari tools jaanchte hain, interpreter nahi."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s14",
@@ -1047,7 +1078,8 @@
     "hi": "आमतौर पर मूल के चारों ओर wrapper।",
     "hinglish": "Aam taur par mool ke chaaron or wrapper."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s15",
@@ -1068,7 +1100,8 @@
     "hi": "type स्टेटमेंट, 3.12 में नया।",
     "hinglish": "type statement, 3.12 me naya."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s16",
@@ -1089,7 +1122,8 @@
     "hi": "वे वेरिएबल __closure__ कोशिकाओं में रहते हैं।",
     "hinglish": "Wo variables __closure__ cells me rehte hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s17",
@@ -1110,7 +1144,8 @@
     "hi": "वाइल्डकार्ड सब पकड़ता है, इसलिए उसके बाद कुछ नहीं पहुँचता।",
     "hinglish": "Wildcard sab pakadta hai, isliye uske baad kuch nahi pahunchta."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m10s18",
@@ -1131,7 +1166,8 @@
     "hi": "यह लिपटे फ़ंक्शन को लॉग और ट्रेसबैक में पहचानने लायक रखता है।",
     "hinglish": "Ye wrapped function ko log aur traceback me pehchanne layak rakhta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "✨"

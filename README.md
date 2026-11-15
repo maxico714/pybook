@@ -32,6 +32,8 @@ passed.
 3. **Code** — two or three runnable examples, each with the output it really
    produces printed underneath.
 4. **Practice** — at least one exercise with an automated checker, plus a quiz.
+   Every question that talks about a program shows that program above the
+   options, so "what does this print?" always has something to read.
 
 Then the gate: **80% on the quiz unlocks the next lesson.** A module exam
 (**80%**) unlocks the next module. If you already know a module, its **skip exam**
@@ -192,6 +194,9 @@ exercise solution fails its own checks. That is why the lesson pages can promise
 
 * The **practice task gates the quiz**: the quiz stays locked until the lesson's
   practice exercise passes its checks in the sandbox.
+* A question that refers to code carries that code in a monospace block above its
+  options, and the same block is repeated in the "what you missed" review — the
+  question text never points at a program the learner cannot see.
 * **Optional drills** never gate anything; they only add XP.
 * Lessons unlock **in order**, per course. Module exams need every lesson in the
   module passed first (the API refuses, not just the page).
@@ -263,7 +268,7 @@ Run these yourself; the numbers below are from a real run on Python 3.12.10.
 
 ```bash
 python -m course.selfcheck          # executes every example and exercise
-python -m pytest tests -q           # 175 tests
+python -m pytest tests -q           # 186 tests
 python build_notebook.py            # regenerates PyBook.ipynb
 python -m pybook.build_ai_course    # regenerates the AI course data
 python run.py --check               # data, database, admin account

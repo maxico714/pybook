@@ -107,7 +107,8 @@
         "hi": "पायथन पहले 3 + 4 जोड़ता है और परिणाम 7 प्रिंट करता है। टेक्स्ट प्रिंट करने के लिए कोटेशन चाहिए होते।",
         "hinglish": "Python pehle 3 + 4 jodta hai aur result 7 print karta hai. Text print karne ke liye quotes chahiye hote."
        },
-       "misconception": "quotes"
+       "misconception": "quotes",
+       "code": "print(3 + 4)"
       },
       {
        "id": "m01c01l01q2",
@@ -117,18 +118,19 @@
         "hinglish": "Kaun si line comment hai?"
        },
        "options": [
-        "print('hi')",
-        "# print('hi')",
-        "print('#hi')",
-        "'# print hi'"
+        "Line 1",
+        "Line 2",
+        "Line 3",
+        "Lines 2 and 3"
        ],
        "answer": "b",
        "why": {
-        "en": "A comment starts with #. Inside quotes the # is just text, which is why option c prints it.",
-        "hi": "# से कमेंट शुरू होता है। कोटेशन के अंदर # सिर्फ़ टेक्स्ट है, इसलिए विकल्प c उसे प्रिंट करता है।",
-        "hinglish": "# se comment shuru hota hai. Quotes ke andar # sirf text hai, isliye option c use print karta hai."
+        "en": "A comment starts with #, and Python skips the whole line. Line 2 is the only comment. On line 3 the # sits inside quotes, so it is just text and print('#hi') really prints #hi.",
+        "hi": "# से कमेंट शुरू होता है और पायथन पूरी लाइन छोड़ देता है। सिर्फ़ लाइन 2 कमेंट है। लाइन 3 में # कोटेशन के अंदर है, इसलिए वह सिर्फ़ टेक्स्ट है और print('#hi') सचमुच #hi प्रिंट करता है।",
+        "hinglish": "# se comment shuru hota hai aur Python poori line skip karta hai. Sirf line 2 comment hai. Line 3 me # quotes ke andar hai, isliye wo sirf text hai aur print('#hi') sach me #hi print karta hai."
        },
-       "misconception": ""
+       "misconception": "string-hash",
+       "code": "print('hi')\n# print('hi')\nprint('#hi')"
       },
       {
        "id": "m01c01l01q3",
@@ -149,7 +151,8 @@
         "hi": "निष्पादन ऊपर से नीचे होता है, जब तक कोई लूप या फ़ंक्शन कॉल उसे कहीं और न भेज दे।",
         "hinglish": "Execution upar se neeche hota hai, jab tak koi loop ya function call use kahin aur na bhej de."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -244,7 +247,8 @@
         "hi": "अकेला / हमेशा float देता है, चाहे भाग पूरा बंट जाए। 10 // 2 int 5 देता।",
         "hinglish": "Akela / hamesha float deta hai, chahe division poora bat jaaye. 10 // 2 int 5 deta."
        },
-       "misconception": "division-type"
+       "misconception": "division-type",
+       "code": ""
       },
       {
        "id": "m01c01l02q2",
@@ -265,7 +269,8 @@
         "hi": "एक्सेप्शन का नाम ही विवरण है। पहले नाम पढ़ना, फिर लाइन नंबर — इससे ज़्यादातर शुरुआती एरर हल हो जाती हैं।",
         "hinglish": "Exception ka naam hi description hai. Pehle naam padhna, phir line number - isse zyadatar beginner errors hal ho jati hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m01c01l02q3",
@@ -286,7 +291,8 @@
         "hi": "स्ट्रिंग को int से गुणा करने पर वह दोहराई जाती है। उसकी जगह नंबर जोड़ने (a + 3) पर TypeError आता।",
         "hinglish": "String ko int se multiply karne par woh repeat hoti hai. Uski jagah number add karne (a + 3) par TypeError aata."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -394,7 +400,8 @@
         "hi": "x = 3 फिर x = x + 5 पुरानी वैल्यू (3) पढ़ता है, 5 जोड़ता है और 8 रखता है। दाईं ओर हमेशा पहले हल होती है।",
         "hinglish": "x = 3 phir x = x + 5 purani value (3) padhta hai, 5 jodta hai aur 8 rakhta hai. Right side hamesha pehle solve hoti hai."
        },
-       "misconception": "assignment-vs-equals"
+       "misconception": "assignment-vs-equals",
+       "code": "x = 3\nx = x + 5"
       },
       {
        "id": "m01c02l03q2",
@@ -415,7 +422,8 @@
         "hi": "नाम अंक से शुरू नहीं हो सकता। total_2 ठीक है क्योंकि अंक पहले नहीं है।",
         "hinglish": "Naam digit se shuru nahi ho sakta. total_2 theek hai kyunki digit pehle nahi hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       },
       {
        "id": "m01c02l03q3",
@@ -436,7 +444,8 @@
         "hi": "type() एक टाइप ऑब्जेक्ट देता है, और उसे प्रिंट करने पर उसका repr दिखता है। इसीलिए जवाब में कोणीय ब्रैकेट हैं।",
         "hinglish": "type() ek type object deta hai, aur use print karne par uska repr dikhta hai. Isliye answer me angle brackets hain."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -532,7 +541,8 @@
         "hi": "सच्चा भाग हमेशा float देता है, इसलिए 7 / 2 = 3.5। पूरा भाग चाहिए तो // इस्तेमाल करें।",
         "hinglish": "True division hamesha float deta hai, isliye 7 / 2 = 3.5. Poora bhaag chahiye to // use karo."
        },
-       "misconception": "division-type"
+       "misconception": "division-type",
+       "code": ""
       },
       {
        "id": "m01c02l04q2",
@@ -553,7 +563,8 @@
         "hi": "टेक्स्ट पर int() सिर्फ़ पूरा नंबर स्वीकार करता है। पहले float(\"3.9\") करें, फिर चाहें तो int() करें।",
         "hinglish": "Text par int() sirf poora number accept karta hai. Pehle float(\"3.9\") karo, phir chaho to int() karo."
        },
-       "misconception": "int-of-float-string"
+       "misconception": "int-of-float-string",
+       "code": ""
       },
       {
        "id": "m01c02l04q3",
@@ -574,7 +585,8 @@
         "hi": "बाइनरी फ़्लोटिंग पॉइंट 0.1 को ठीक-ठीक नहीं रख सकता, इसलिए छोटी गलतियाँ जुड़ जाती हैं। round() या math.isclose() से तुलना करें।",
         "hinglish": "Binary floating point 0.1 ko exactly nahi rakh sakta, isliye chhoti galtiyan jud jati hain. round() ya math.isclose() se compare karo."
        },
-       "misconception": "float-precision"
+       "misconception": "float-precision",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -674,7 +686,8 @@
         "hi": "len अक्षर गिनता है: P-y-t-h-o-n = 6. स्पेस और कोटेशन नहीं गिने जाते क्योंकि वे वैल्यू का हिस्सा नहीं हैं।",
         "hinglish": "len characters ginta hai: P-y-t-h-o-n = 6. Space aur quotes nahi gine jaate kyunki woh value ka hissa nahi hain."
        },
-       "misconception": "off-by-one"
+       "misconception": "off-by-one",
+       "code": ""
       },
       {
        "id": "m01c02l05q2",
@@ -695,7 +708,8 @@
         "hi": "स्ट्रिंग immutable हैं: upper() 'ABC' देता है पर s नहीं बदलता। बदलाव रखने के लिए s = s.upper() लिखना होगा।",
         "hinglish": "Strings immutable hain: upper() 'ABC' deta hai par s nahi badalta. Change rakhne ke liye s = s.upper() likhna hoga."
        },
-       "misconception": "immutability"
+       "misconception": "immutability",
+       "code": ""
       },
       {
        "id": "m01c02l05q3",
@@ -716,7 +730,8 @@
         "hi": "f-string के ब्रेसेस में एक्सप्रेशन रख सकते हैं, सिर्फ़ नाम नहीं। अंदर कोई भी वैध पायथन एक्सप्रेशन चलता है।",
         "hinglish": "f-string ke braces me expression rakh sakte ho, sirf naam nahi. Andar koi bhi valid Python expression chalta hai."
        },
-       "misconception": ""
+       "misconception": "",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -815,7 +830,8 @@
         "hi": "शून्य falsy है। 0.0, \"\", [], {} और None भी। बाकी सब truthy है, स्ट्रिंग \"0\" भी।",
         "hinglish": "Zero falsy hai. 0.0, \"\", [], {} aur None bhi. Baaki sab truthy hai, string \"0\" bhi."
        },
-       "misconception": "truthiness"
+       "misconception": "truthiness",
+       "code": ""
       },
       {
        "id": "m01c02l06q2",
@@ -836,7 +852,8 @@
         "hi": "`is` पहचान तुलना करता है और None एक ही ऑब्जेक्ट है। `x == None` आम तौर पर चलता है पर custom __eq__ वाले ऑब्जेक्ट पर फेल होता है, और `not x` 0 और \"\" के लिए भी सही है।",
         "hinglish": "`is` identity compare karta hai aur None ek hi object hai. `x == None` aam taur par chalta hai par custom __eq__ wale object par fail hota hai, aur `not x` 0 aur \"\" ke liye bhi true hai."
        },
-       "misconception": "is-vs-eq"
+       "misconception": "is-vs-eq",
+       "code": ""
       },
       {
        "id": "m01c02l06q3",
@@ -857,7 +874,8 @@
         "hi": "bool अपना टाइप है, पर int का सबक्लास है: True + True = 2। इसीलिए isinstance(True, int) भी True है।",
         "hinglish": "bool apna type hai, par int ka subclass hai: True + True = 2. Isliye isinstance(True, int) bhi True hai."
        },
-       "misconception": "bool-is-int"
+       "misconception": "bool-is-int",
+       "code": ""
       }
      ],
      "takeaway": {
@@ -889,7 +907,8 @@
     "hi": "दोनों तरफ़ स्ट्रिंग हैं, इसलिए + जोड़ देता है। print(2 + 3) 5 दिखाता।",
     "hinglish": "Dono taraf string hain, isliye + jod deta hai. print(2 + 3) 5 dikhata."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01x02",
@@ -910,7 +929,8 @@
     "hi": "0.0 शून्य है। \"False\" और \" \" खाली नहीं हैं (truthy), और [0] खाली नहीं लिस्ट है (truthy)।",
     "hinglish": "0.0 zero hai. \"False\" aur \" \" khaali nahi hain (truthy), aur [0] khaali nahi list hai (truthy)."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01x03",
@@ -931,7 +951,8 @@
     "hi": "4 → 8 → 5. हर लाइन पिछली लाइन की वैल्यू इस्तेमाल करती है।",
     "hinglish": "4 → 8 → 5. Har line pichli line ki value use karti hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01x04",
@@ -952,7 +973,8 @@
     "hi": "// फ़्लोर डिवीज़न है: धनात्मक नंबरों में दशमलव हटा देता है। 7 % 2 शेष देता है, 1।",
     "hinglish": "// floor division hai: positive numbers me decimal hata deta hai. 7 % 2 remainder deta hai, 1."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01x05",
@@ -973,7 +995,8 @@
     "hi": "विकल्प a स्पेस डालता है और कॉमा नहीं। विकल्प c शब्दों को वेरिएबल मानता है। विकल्प d सिंटैक्स एरर है क्योंकि # कॉल के अंदर कमेंट शुरू कर देता है।",
     "hinglish": "Option a space daalta hai aur comma nahi. Option c words ko variable maanta hai. Option d syntax error hai kyunki # call ke andar comment shuru kar deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01x06",
@@ -994,7 +1017,8 @@
     "hi": "lower() का परिणाम फेंक दिया गया क्योंकि उसे सेव नहीं किया। स्ट्रिंग जगह पर नहीं बदलती।",
     "hinglish": "lower() ka result phenk diya gaya kyunki use save nahi kiya. String jagah par nahi badalti."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "skip_exam": [
@@ -1017,7 +1041,8 @@
     "hi": "पायथन पहले 3 + 4 जोड़ता है और परिणाम 7 प्रिंट करता है। टेक्स्ट प्रिंट करने के लिए कोटेशन चाहिए होते।",
     "hinglish": "Python pehle 3 + 4 jodta hai aur result 7 print karta hai. Text print karne ke liye quotes chahiye hote."
    },
-   "misconception": "quotes"
+   "misconception": "quotes",
+   "code": "print(3 + 4)"
   },
   {
    "id": "m01s02",
@@ -1027,18 +1052,19 @@
     "hinglish": "Kaun si line comment hai?"
    },
    "options": [
-    "print('hi')",
-    "# print('hi')",
-    "print('#hi')",
-    "'# print hi'"
+    "Line 1",
+    "Line 2",
+    "Line 3",
+    "Lines 2 and 3"
    ],
    "answer": "b",
    "why": {
-    "en": "A comment starts with #. Inside quotes the # is just text, which is why option c prints it.",
-    "hi": "# से कमेंट शुरू होता है। कोटेशन के अंदर # सिर्फ़ टेक्स्ट है, इसलिए विकल्प c उसे प्रिंट करता है।",
-    "hinglish": "# se comment shuru hota hai. Quotes ke andar # sirf text hai, isliye option c use print karta hai."
+    "en": "A comment starts with #, and Python skips the whole line. Line 2 is the only comment. On line 3 the # sits inside quotes, so it is just text and print('#hi') really prints #hi.",
+    "hi": "# से कमेंट शुरू होता है और पायथन पूरी लाइन छोड़ देता है। सिर्फ़ लाइन 2 कमेंट है। लाइन 3 में # कोटेशन के अंदर है, इसलिए वह सिर्फ़ टेक्स्ट है और print('#hi') सचमुच #hi प्रिंट करता है।",
+    "hinglish": "# se comment shuru hota hai aur Python poori line skip karta hai. Sirf line 2 comment hai. Line 3 me # quotes ke andar hai, isliye wo sirf text hai aur print('#hi') sach me #hi print karta hai."
    },
-   "misconception": ""
+   "misconception": "string-hash",
+   "code": "print('hi')\n# print('hi')\nprint('#hi')"
   },
   {
    "id": "m01s03",
@@ -1059,7 +1085,8 @@
     "hi": "निष्पादन ऊपर से नीचे होता है, जब तक कोई लूप या फ़ंक्शन कॉल उसे कहीं और न भेज दे।",
     "hinglish": "Execution upar se neeche hota hai, jab tak koi loop ya function call use kahin aur na bhej de."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s04",
@@ -1080,7 +1107,8 @@
     "hi": "अकेला / हमेशा float देता है, चाहे भाग पूरा बंट जाए। 10 // 2 int 5 देता।",
     "hinglish": "Akela / hamesha float deta hai, chahe division poora bat jaaye. 10 // 2 int 5 deta."
    },
-   "misconception": "division-type"
+   "misconception": "division-type",
+   "code": ""
   },
   {
    "id": "m01s05",
@@ -1101,7 +1129,8 @@
     "hi": "एक्सेप्शन का नाम ही विवरण है। पहले नाम पढ़ना, फिर लाइन नंबर — इससे ज़्यादातर शुरुआती एरर हल हो जाती हैं।",
     "hinglish": "Exception ka naam hi description hai. Pehle naam padhna, phir line number - isse zyadatar beginner errors hal ho jati hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s06",
@@ -1122,7 +1151,8 @@
     "hi": "स्ट्रिंग को int से गुणा करने पर वह दोहराई जाती है। उसकी जगह नंबर जोड़ने (a + 3) पर TypeError आता।",
     "hinglish": "String ko int se multiply karne par woh repeat hoti hai. Uski jagah number add karne (a + 3) par TypeError aata."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s07",
@@ -1143,7 +1173,8 @@
     "hi": "x = 3 फिर x = x + 5 पुरानी वैल्यू (3) पढ़ता है, 5 जोड़ता है और 8 रखता है। दाईं ओर हमेशा पहले हल होती है।",
     "hinglish": "x = 3 phir x = x + 5 purani value (3) padhta hai, 5 jodta hai aur 8 rakhta hai. Right side hamesha pehle solve hoti hai."
    },
-   "misconception": "assignment-vs-equals"
+   "misconception": "assignment-vs-equals",
+   "code": "x = 3\nx = x + 5"
   },
   {
    "id": "m01s08",
@@ -1164,7 +1195,8 @@
     "hi": "नाम अंक से शुरू नहीं हो सकता। total_2 ठीक है क्योंकि अंक पहले नहीं है।",
     "hinglish": "Naam digit se shuru nahi ho sakta. total_2 theek hai kyunki digit pehle nahi hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s09",
@@ -1185,7 +1217,8 @@
     "hi": "type() एक टाइप ऑब्जेक्ट देता है, और उसे प्रिंट करने पर उसका repr दिखता है। इसीलिए जवाब में कोणीय ब्रैकेट हैं।",
     "hinglish": "type() ek type object deta hai, aur use print karne par uska repr dikhta hai. Isliye answer me angle brackets hain."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s10",
@@ -1206,7 +1239,8 @@
     "hi": "सच्चा भाग हमेशा float देता है, इसलिए 7 / 2 = 3.5। पूरा भाग चाहिए तो // इस्तेमाल करें।",
     "hinglish": "True division hamesha float deta hai, isliye 7 / 2 = 3.5. Poora bhaag chahiye to // use karo."
    },
-   "misconception": "division-type"
+   "misconception": "division-type",
+   "code": ""
   },
   {
    "id": "m01s11",
@@ -1227,7 +1261,8 @@
     "hi": "टेक्स्ट पर int() सिर्फ़ पूरा नंबर स्वीकार करता है। पहले float(\"3.9\") करें, फिर चाहें तो int() करें।",
     "hinglish": "Text par int() sirf poora number accept karta hai. Pehle float(\"3.9\") karo, phir chaho to int() karo."
    },
-   "misconception": "int-of-float-string"
+   "misconception": "int-of-float-string",
+   "code": ""
   },
   {
    "id": "m01s12",
@@ -1248,7 +1283,8 @@
     "hi": "बाइनरी फ़्लोटिंग पॉइंट 0.1 को ठीक-ठीक नहीं रख सकता, इसलिए छोटी गलतियाँ जुड़ जाती हैं। round() या math.isclose() से तुलना करें।",
     "hinglish": "Binary floating point 0.1 ko exactly nahi rakh sakta, isliye chhoti galtiyan jud jati hain. round() ya math.isclose() se compare karo."
    },
-   "misconception": "float-precision"
+   "misconception": "float-precision",
+   "code": ""
   },
   {
    "id": "m01s13",
@@ -1269,7 +1305,8 @@
     "hi": "len अक्षर गिनता है: P-y-t-h-o-n = 6. स्पेस और कोटेशन नहीं गिने जाते क्योंकि वे वैल्यू का हिस्सा नहीं हैं।",
     "hinglish": "len characters ginta hai: P-y-t-h-o-n = 6. Space aur quotes nahi gine jaate kyunki woh value ka hissa nahi hain."
    },
-   "misconception": "off-by-one"
+   "misconception": "off-by-one",
+   "code": ""
   },
   {
    "id": "m01s14",
@@ -1290,7 +1327,8 @@
     "hi": "स्ट्रिंग immutable हैं: upper() 'ABC' देता है पर s नहीं बदलता। बदलाव रखने के लिए s = s.upper() लिखना होगा।",
     "hinglish": "Strings immutable hain: upper() 'ABC' deta hai par s nahi badalta. Change rakhne ke liye s = s.upper() likhna hoga."
    },
-   "misconception": "immutability"
+   "misconception": "immutability",
+   "code": ""
   },
   {
    "id": "m01s15",
@@ -1311,7 +1349,8 @@
     "hi": "f-string के ब्रेसेस में एक्सप्रेशन रख सकते हैं, सिर्फ़ नाम नहीं। अंदर कोई भी वैध पायथन एक्सप्रेशन चलता है।",
     "hinglish": "f-string ke braces me expression rakh sakte ho, sirf naam nahi. Andar koi bhi valid Python expression chalta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s16",
@@ -1332,7 +1371,8 @@
     "hi": "शून्य falsy है। 0.0, \"\", [], {} और None भी। बाकी सब truthy है, स्ट्रिंग \"0\" भी।",
     "hinglish": "Zero falsy hai. 0.0, \"\", [], {} aur None bhi. Baaki sab truthy hai, string \"0\" bhi."
    },
-   "misconception": "truthiness"
+   "misconception": "truthiness",
+   "code": ""
   },
   {
    "id": "m01s17",
@@ -1353,7 +1393,8 @@
     "hi": "`is` पहचान तुलना करता है और None एक ही ऑब्जेक्ट है। `x == None` आम तौर पर चलता है पर custom __eq__ वाले ऑब्जेक्ट पर फेल होता है, और `not x` 0 और \"\" के लिए भी सही है।",
     "hinglish": "`is` identity compare karta hai aur None ek hi object hai. `x == None` aam taur par chalta hai par custom __eq__ wale object par fail hota hai, aur `not x` 0 aur \"\" ke liye bhi true hai."
    },
-   "misconception": "is-vs-eq"
+   "misconception": "is-vs-eq",
+   "code": ""
   },
   {
    "id": "m01s18",
@@ -1374,7 +1415,8 @@
     "hi": "bool अपना टाइप है, पर int का सबक्लास है: True + True = 2। इसीलिए isinstance(True, int) भी True है।",
     "hinglish": "bool apna type hai, par int ka subclass hai: True + True = 2. Isliye isinstance(True, int) bhi True hai."
    },
-   "misconception": "bool-is-int"
+   "misconception": "bool-is-int",
+   "code": ""
   },
   {
    "id": "m01s19",
@@ -1395,7 +1437,8 @@
     "hi": "दोनों तरफ़ स्ट्रिंग हैं, इसलिए + जोड़ देता है। print(2 + 3) 5 दिखाता।",
     "hinglish": "Dono taraf string hain, isliye + jod deta hai. print(2 + 3) 5 dikhata."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s20",
@@ -1416,7 +1459,8 @@
     "hi": "0.0 शून्य है। \"False\" और \" \" खाली नहीं हैं (truthy), और [0] खाली नहीं लिस्ट है (truthy)।",
     "hinglish": "0.0 zero hai. \"False\" aur \" \" khaali nahi hain (truthy), aur [0] khaali nahi list hai (truthy)."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s21",
@@ -1437,7 +1481,8 @@
     "hi": "4 → 8 → 5. हर लाइन पिछली लाइन की वैल्यू इस्तेमाल करती है।",
     "hinglish": "4 → 8 → 5. Har line pichli line ki value use karti hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s22",
@@ -1458,7 +1503,8 @@
     "hi": "// फ़्लोर डिवीज़न है: धनात्मक नंबरों में दशमलव हटा देता है। 7 % 2 शेष देता है, 1।",
     "hinglish": "// floor division hai: positive numbers me decimal hata deta hai. 7 % 2 remainder deta hai, 1."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s23",
@@ -1479,7 +1525,8 @@
     "hi": "विकल्प a स्पेस डालता है और कॉमा नहीं। विकल्प c शब्दों को वेरिएबल मानता है। विकल्प d सिंटैक्स एरर है क्योंकि # कॉल के अंदर कमेंट शुरू कर देता है।",
     "hinglish": "Option a space daalta hai aur comma nahi. Option c words ko variable maanta hai. Option d syntax error hai kyunki # call ke andar comment shuru kar deta hai."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   },
   {
    "id": "m01s24",
@@ -1500,7 +1547,8 @@
     "hi": "lower() का परिणाम फेंक दिया गया क्योंकि उसे सेव नहीं किया। स्ट्रिंग जगह पर नहीं बदलती।",
     "hinglish": "lower() ka result phenk diya gaya kyunki use save nahi kiya. String jagah par nahi badalti."
    },
-   "misconception": ""
+   "misconception": "",
+   "code": ""
   }
  ],
  "icon": "🚀"

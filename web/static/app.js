@@ -807,11 +807,27 @@
       result: null,
       busy: false,
       ready: !!(config && config.ready),
+      total: (config && config.total) || 0,
 
       init() {
         window.addEventListener("pybook:practice", () => {
+          const wasLocked = !this.ready;
           this.ready = true;
+          // The learner just finished practice above; bring the quiz to them.
+          if (wasLocked) {
+            this.$nextTick(() => this.$el.scrollIntoView({ behavior: "smooth", block: "start" }));
+          }
         });
+      },
+
+      retry() {
+        this.result = null;
+        this.$nextTick(() => this.$el.scrollIntoView({ behavior: "smooth", block: "start" }));
+      },
+
+      clearMisses() {
+        this.answers = {};
+        this.result = null;
       },
 
       get answered() {
@@ -844,6 +860,10 @@
         const data = await post(url, body);
         this.busy = false;
         this.result = data;
+        this.$nextTick(() => {
+          const box = this.$el.querySelector(".result");
+          if (box) box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
         if (!data.ok) {
           toast(data.message || data.error || "Could not submit", "bad");
           return;

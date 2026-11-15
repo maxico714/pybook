@@ -202,9 +202,9 @@ l02 = lesson(
         ),
         quiz(
             L(
-                "s = '  hi  '; s.strip(); print(s). What prints?",
-                "s = '  hi  '; s.strip(); print(s)। क्या प्रिंट होगा?",
-                "s = '  hi  '; s.strip(); print(s). Kya print hoga?",
+                "What does this program print?",
+                "यह प्रोग्राम क्या प्रिंट करेगा?",
+                "Ye program kya print karega?",
             ),
             ["hi", "'  hi  '", "an error", "None"],
             "b",
@@ -217,6 +217,7 @@ l02 = lesson(
                 "s = s.strip() likho.",
             ),
             "immutability",
+            code="s = '  hi  '\ns.strip()\nprint(s)",
         ),
         quiz(
             L(
@@ -436,6 +437,7 @@ l04 = lesson(
                 "`is` nahi (identical nahi).",
             ),
             "is-vs-eq",
+            code="a = [1]\nb = [1]\nprint(a == b)\nprint(a is b)",
         ),
         quiz(
             L(
